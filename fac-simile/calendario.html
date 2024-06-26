@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<HTML>
+
+<head>
+    <title>Calendario</title>
+    <link rel="stylesheet" href="static/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="static/calendario.css">
+</head>
+
+<body>
+
+
+
+    <hr>
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Login</a></li>
+                <li class="breadcrumb-item"><a href="admin.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="questionari.html">Questionari</a></li>
+                <li class="breadcrumb-item"><a href="studenti.html">Studenti</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <hr>
+
+
+
+    <div class="container">
+        <h1 align="center">MyAgenda</h1>
+        <h2 align="center" id="mese"></h2>
+        <table id="pippo">
+            <tr>
+                <th>Lunedì</th>
+                <th>Martedì</th>
+                <th>Mercoledì</th>
+                <th>Giovedì</th>
+                <th>Venerdì</th>
+                <th>Sabato</th>
+                <th>Domenica</th>
+            </tr>
+        </table>
+        <div style="margin-left: 15%; margin-right: 15%;margin: auto;padding: 5px;left: 0;">
+            <button class="changePage" onclick="previousMonth()">&#60;&#60;</button>
+            <button class="changePage" onclick="nextMonth()">&#62;&#62;</button>
+        </div>
+
+
+        <div id="modal" class="modal">
+            <div id="details">
+                <p id="detailsDay"></p>
+                <br>
+                <textarea id="detailsArea" cols="60" rows="10" placeholder="vuoto"></textarea>
+                <br>
+                <button onclick="document.getElementById('modal').style.display = 'none'">Chiudi</button>
+                <button onclick="aggiungiEvento()">Aggiungi</button>
+                <button onclick="eliminaEvento()">Elimina</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="static/calendario.js"></script>
+</body>
+
+</HTML>
