@@ -12,6 +12,7 @@ import com.gol.ants_quests.services.ErrorService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Controller
 public class AppController {
 
     private final ErrorService errServ;

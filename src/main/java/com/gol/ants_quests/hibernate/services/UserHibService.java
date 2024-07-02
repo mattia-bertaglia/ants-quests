@@ -28,7 +28,7 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         return userRepository.findById(id);
     }
 
-    public User getUserByUsernameEmail(String usernameEmail) {
+    public Optional<User> getUserByUsernameEmail(String usernameEmail) {
         return userRepository.findByUsernameEmail(usernameEmail);
     }
 
