@@ -11,22 +11,18 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "answers_qsts")
+@Table(name = "quests_categories")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class  RisposteQuest extends GenericEntity {
+public class  CategorieQuest extends GenericEntity {
       
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idAns;
-    private Integer questDetailId;
-    private String risposta;
-    private String corretta;
+    private String idCat;
+    private String nome;
 
 
-
-
-    
+ 
 }
