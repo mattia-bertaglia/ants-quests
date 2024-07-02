@@ -9,6 +9,10 @@ import com.gol.ants_quests.hibernate.entities.Quest;
 @Repository
 public interface QuestsRepository extends JpaRepository<Quest, Integer> {
 
-    List<Quest> findByCategoriaList(String categoria);
+    List<Quest> findByCategoriaId(String categoriaId);
     
+
+
+
+
 }

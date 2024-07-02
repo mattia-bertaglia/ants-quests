@@ -1,5 +1,6 @@
 package com.gol.ants_quests.hibernate.services;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.repositories.QuestsRepository;
@@ -14,8 +15,9 @@ public class QuestHibService extends GenericHibService<Quest, Integer, QuestsRep
         super(repository);
     }
 
-
-
+    public List<Quest> findByCategoriaId(String categoriaId) {
+        return getRepository().findByCategoriaId(categoriaId);
+    }
 
 
 }
