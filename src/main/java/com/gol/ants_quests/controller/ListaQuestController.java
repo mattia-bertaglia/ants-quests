@@ -18,5 +18,5 @@ public class ListaQuestController {
         showHibSrv.findAll(model);
        // model.addAttribute("listaQuestionari", lista);
         return "esitiQuestionari.html";
-    }
+   }
 }
