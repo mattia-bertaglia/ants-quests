@@ -30,17 +30,7 @@ public class EditQuestServices {
         return questService.save(quest);
     }
 
-    public Optional<Quest> updateQuest(Integer id, Quest questDetails) {
-        Optional<Quest> quest = questService.findByID(id);
-        if (quest.isPresent()) {
-            Quest questToUpdate = quest.get();
-            questToUpdate.setCategoriaId(questDetails.getCategoriaId());
-            questToUpdate.setTitolo(questDetails.getTitolo());
-            return Optional.of(questService.save(questToUpdate));
-        } else {
-            return Optional.empty();
-        }
-    }
+
 
     public void deleteQuest(Integer id) {
         questService.delete(id);
