@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generazione PDF</title>
+    <!-- Includi i tuoi stili CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container" id="questionario">
+        <!-- Contenuto del questionario -->
+        <h1>Questionario <span> Mario Rossi</span></h1>
+        <div class="question">
+            <p><strong>Domanda 1:</strong> Qual è la capitale dell'Italia?</p>
+            <div class="answers">
+                <label><input type="checkbox" name="q1" value="roma"> Roma</label>
+                <label><input type="checkbox" name="q1" value="parigi"> Parigi</label>
+                <label><input type="checkbox" name="q1" value="londra"> Londra</label>
+                <label><input type="checkbox" name="q1" value="berlino"> Berlino</label>
+            </div>
+        </div>
+        <div class="question">
+            <p><strong>Domanda 2:</strong> Quale di queste è una città italiana?</p>
+            <div class="answers">
+                <label><input type="checkbox" name="q2" value="roma"> Roma</label>
+                <label><input type="checkbox" name="q2" value="parigi"> Parigi</label>
+                <label><input type="checkbox" name="q2" value="londra"> Londra</label>
+                <label><input type="checkbox" name="q2" value="berlino"> Berlino</label>
+            </div>
+        </div>
+        <div class="question">
+            <p><strong>Domanda 3:</strong> Qual è la capitale del Giappone?</p>
+            <div class="answers">
+                <label><input type="checkbox" name="q3" value="tokyo"> Tokyo</label>
+                <label><input type="checkbox" name="q3" value="pechino"> Pechino</label>
+                <label><input type="checkbox" name="q3" value="mosca"> Mosca</label>
+                <label><input type="checkbox" name="q3" value="seoul"> Seoul</label>
+            </div>
+        </div>
+        <button id="generatePdfButton">Genera PDF</button>
+    </div>
+
+    <!-- Includi jQuery per AJAX -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="gestionepdf.js"></script>
+</body>
+
+</html>
