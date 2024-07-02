@@ -2,6 +2,8 @@ package com.gol.ants_quests.hibernate.entities;
 
 import java.sql.Date;
 
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,7 +38,9 @@ public class  EsitiQuest extends GenericEntity {
     @JoinColumn(name = "quest_id")
     private Quest quest;
     
-
+    @ManyToOne
+    @JoinColumn(name = "studente_id")
+    private Studente studente;
  
 
     
