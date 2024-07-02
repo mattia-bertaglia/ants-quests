@@ -1,9 +1,12 @@
 package com.gol.ants_quests.hibernate.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +26,6 @@ public class  CategorieQuest extends GenericEntity {
     private String idCat;
     private String nome;
 
-
- 
-}
+@OneToMany(mappedBy = "categoriequest") 
+private List<Quest> questionari;
+} 
