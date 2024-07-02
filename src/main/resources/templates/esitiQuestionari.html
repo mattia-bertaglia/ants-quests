@@ -10,10 +10,26 @@
 
 
 
-Ciao
+    <select name="type" class="custom-select">
+        <option disabled selected> -Selezione un elemento- </option>
+        <option value="I"> Ingresso </option>
+        <option value="C"> Corso </option>
+    </select>
+
+    <div class="form-group">
+        <label for="">Data</label>
+        <input type="date" class="form-control">
+    </div>
+
+    <input type="text" class="form-control" placeholder="Nome e Cognome">
 
 
+    <h1>Lista</h1>
 
+    <ul th:each="questionari : ${listaQuestionari}">
+        <li th:text="${listaQuestionari}"></li>
+        <hr>
+    </ul>
 
 
 </body>
