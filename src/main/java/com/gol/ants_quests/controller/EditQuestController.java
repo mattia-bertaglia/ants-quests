@@ -39,24 +39,6 @@ public class EditQuestController {
         return editQuestServices.getQuestsByCategoriaId(categoriaId);
     }
 
-    @PostMapping
-    public Quest createQuest(@RequestBody Quest quest) {
-        return editQuestServices.createQuest(quest);
-    }
 
-    @PutMapping("")
-    public ResponseEntity<Quest> updateQuest(@PathVariable Integer id, @RequestBody Quest questDetails) {
-        Optional<Quest> updatedQuest = editQuestServices.updateQuest(id, questDetails);
-        if (updatedQuest.isPresent()) {
-            return ResponseEntity.ok(updatedQuest.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
-    @DeleteMapping("")
-    public ResponseEntity<Void> deleteQuest(@PathVariable Integer id) {
-        editQuestServices.deleteQuest(id);
-        return ResponseEntity.noContent().build();
-    }
 }
