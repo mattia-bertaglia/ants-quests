@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
+</head>
+
+<body>
+
+    <hr>
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Login</a></li>
+                <li class="breadcrumb-item"><a href="admin.html">Home</a></li>
+                <li class="breadcrumb-item dropdown">
+                    <a class="dropdown-toggle" id="nb-quest" role="button" data-toggle="dropdown">Questionari</a>
+                    <div class="dropdown-menu p-2" aria-labelledby="nb-quest" aria-haspopup="true"
+                        aria-expanded="false">
+                        <a class="dropdown-item" href="ges-questionari.html">Gestione</a>
+                        <a class="dropdown-item" href="esi-questionari.html">Esito Questionari</a>
+                    </div>
+                </li>
+                <li class="breadcrumb-item dropdown">
+                    <a class="dropdown-toggle" id="nb-cand" role="button" data-toggle="dropdown">Studenti</a>
+                    <div class="dropdown-menu p-2" aria-labelledby="nb-quest" aria-haspopup="true"
+                        aria-expanded="false">
+                        <a class="dropdown-item" href="studenti.html">Elenco Studenti</a>
+                        <a class="dropdown-item" href="classi.html">Elenco Classi</a>
+                        <a class="dropdown-item" href="calendario.html">Calendario</a>
+                    </div>
+                </li>
+                <li class="breadcrumb-item active"><a>Esecuzione TEST</a></li>
+            </ol>
+        </nav>
+    </div>
+    <hr>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h5>Domanda</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+
+                        <button class="btn btn-outline-primary">1</button>
+                        <button class="btn btn-outline-primary">2</button>
+                        <button class="btn btn-primary">3</button>
+                        <button class="btn btn-outline-primary">4</button>
+                        <button class="btn btn-outline-primary">5</button>
+                        <button class="btn btn-outline-primary">6</button>
+
+                        <hr>
+
+                        <div class="container carousel slide d-flex justify-content-center" id="carouselExampleControls"
+                            data-bs-ride="carousel">
+
+                            <div>
+                                Domanda ....
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Risposta 1
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Risposta 2
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Risposta 3
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button class="carousel-control-prev" style="background-color: blue !important;"
+                                type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                style="background-color: blue !important;" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a target="_blank" href="/generate-pdf" class="btn btn-primary btn-lg">Concludi Test</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script src="/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/bootstrap/popper.min.js"></script>
+    <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="/bootstrap/bootstrap-table.min.js"></script>
+    <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
+
+
+
+</body>
+
+</html>
