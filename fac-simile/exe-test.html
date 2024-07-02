@@ -35,6 +35,7 @@
                         <a class="dropdown-item" href="calendario.html">Calendario</a>
                     </div>
                 </li>
+                <li class="breadcrumb-item active"><a>Esecuzione TEST</a></li>
             </ol>
         </nav>
     </div>
@@ -46,97 +47,66 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Filtri Ricerca</h5>
-
-                    </div>
-                    <div class="card-body">
-                        <!-- TODO filtri studente -->
-                        <div class="form-group">
-                            <label for="">Utente</label>
-                            <input type="text" class="form-control" placeholder="Nome e Cognome">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Data inserimento</label>
-                            <input type="date" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="">Stato</label>
-                                    <select name="type" class="custom-select">
-                                        <option disabled selected> -Selezione un elemento- </option>
-                                        <option value="I"> Studente </option>
-                                        <option value="C"> Guest </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="">Classe</label>
-                                    <select name="type" class="custom-select">
-                                        <option disabled selected> -Selezione un elemento- </option>
-                                        <option> -Nessuna- </option>
-                                        <option value="I"> Gol Aprile 2024 </option>
-                                        <option value="C"> Gol Ottobre 2023 </option>
-                                        <option value="C"> Fondo Impresa 2023 </option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header">
 
                         <div class="row">
                             <div class="col-md-2">
-                                <h5>Elenco Questionari</h5>
+                                <h5>Domanda</h5>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="tab-last-quest" class="table table-striped table-bordered table-sm"
-                            style="width: 100%;" data-toggle="table" data-locale="it-IT">
-                            <thead>
-                                <tr>
-                                    <th>Stato</th>
-                                    <th>Nominativo</th>
-                                    <th>Email</th>
-                                    <th>Classe</th>
-                                    <th class="text-center">Dettaglio</th>
-                                    <th class="text-center">Questionari</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Studente</td>
-                                    <td>Mario Rossi</td>
-                                    <td>mrossi@gmail.com</td>
-                                    <td>Gol Aprile 2024</td>
-                                    <td><button class="btn btn-primary w-75" data-bs-toggle="modal"
-                                            data-bs-target="#mod-dett-stud">Dettaglio</button></td>
-                                    <td><button class="btn btn-primary w-75" data-bs-toggle="modal"
-                                            data-bs-target="#mod-quests">Vedi</button></td>
-                                </tr>
-                                <tr>
-                                    <td>Guest</td>
-                                    <td>Luigi Verdi</td>
-                                    <td>lverdi@gmail.com</td>
-                                    <td>-</td>
-                                    <td><button class="btn btn-primary w-75" data-bs-toggle="modal"
-                                            data-bs-target="#mod-dett-stud">Dettaglio</button></td>
-                                    <td><button class="btn btn-primary w-75" data-bs-toggle="modal"
-                                            data-bs-target="#mod-quests">Vedi</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                        <button class="btn btn-outline-primary">1</button>
+                        <button class="btn btn-outline-primary">2</button>
+                        <button class="btn btn-primary">3</button>
+                        <button class="btn btn-outline-primary">4</button>
+                        <button class="btn btn-outline-primary">5</button>
+                        <button class="btn btn-outline-primary">6</button>
+
+                        <hr>
+
+                        <div class="container carousel slide d-flex justify-content-center" id="carouselExampleControls"
+                            data-bs-ride="carousel">
+
+                            <div>
+                                Domanda ....
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Risposta 1
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Risposta 2
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Risposta 3
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button class="carousel-control-prev" style="background-color: blue !important;"
+                                type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                style="background-color: blue !important;" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+
+                        </div>
+
+
+
+
                     </div>
                 </div>
             </div>
