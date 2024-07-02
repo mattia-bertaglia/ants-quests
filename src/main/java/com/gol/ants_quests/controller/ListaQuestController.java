@@ -9,5 +9,5 @@ public class ListaQuestController {
     @GetMapping("/")
     public String homePage() {
         return "esitiQuestionari.html";
-    }
+   }
 }
