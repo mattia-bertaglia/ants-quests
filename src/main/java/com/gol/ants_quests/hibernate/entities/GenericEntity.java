@@ -1,4 +1,6 @@
-package com.gol.hibernato.hibernate.entities;
+package com.gol.ants_quests.hibernate.entities;
+
+
 
 public abstract class GenericEntity {
 
