@@ -1,7 +1,22 @@
 package com.gol.ants_quests.hibernateStudentiCorsi.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.sql.Date;
+import java.util.List;
 
-public interface StudentiRepository extends JpaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.gol.ants_quests.hibernateStudentiCorsi.entities.Studente;
+
+@Repository
+public interface StudentiRepository extends JpaRepository<Studente, Integer> {
+
+    List<Studente> findByNomeAndCognome(String nome, String cognome);
+
+    List<Studente> findByNome(String nome);
+
+    List<Studente> findByCognome(String cognome);
+
+    Studente findByDataNascita(Date dataNascita);
 
 }
