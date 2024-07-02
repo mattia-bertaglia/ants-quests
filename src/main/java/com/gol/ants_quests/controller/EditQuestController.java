@@ -1,40 +1,32 @@
+package com.gol.ants_quests.controller;
 
 
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.*;
 import com.gol.ants_quests.hibernate.entities.Quest;
-import com.gol.ants_quests.hibernate.services.QuestHibService;
-
+import com.gol.ants_quests.services.EditQuestServices;
 import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class EditQuestController {
-  @Autowired
-    private QuestHibService questService;
+
+    @Autowired
+    private EditQuestServices editQuestServices;
 
     @GetMapping
     public List<Quest> getAllQuests() {
-        return questService.findAll();
+        return editQuestServices.getAllQuests();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("")
     public ResponseEntity<Quest> getQuestById(@PathVariable Integer id) {
-        Optional<Quest> quest = questService.findById(id);
+        Optional<Quest> quest = editQuestServices.getQuestById(id);
         if (quest.isPresent()) {
             return ResponseEntity.ok(quest.get());
         } else {
@@ -42,32 +34,29 @@ public class EditQuestController {
         }
     }
 
-    @GetMapping("/categoria/{categoriaId}")
+    @GetMapping("/categoria")
     public List<Quest> getQuestsByCategoriaId(@PathVariable String categoriaId) {
-        return questService.findByCategoriaId(categoriaId);
+        return editQuestServices.getQuestsByCategoriaId(categoriaId);
     }
 
     @PostMapping
     public Quest createQuest(@RequestBody Quest quest) {
-        return questService.save(quest);
+        return editQuestServices.createQuest(quest);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("")
     public ResponseEntity<Quest> updateQuest(@PathVariable Integer id, @RequestBody Quest questDetails) {
-        Optional<Quest> quest = questService.findById(id);
-        if (quest.isPresent()) {
-            Quest questToUpdate = quest.get();
-            questToUpdate.setCategoriaId(questDetails.getCategoriaId());
-            questToUpdate.setTitolo(questDetails.getTitolo());
-            return ResponseEntity.ok(questService.save(questToUpdate));
+        Optional<Quest> updatedQuest = editQuestServices.updateQuest(id, questDetails);
+        if (updatedQuest.isPresent()) {
+            return ResponseEntity.ok(updatedQuest.get());
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("")
     public ResponseEntity<Void> deleteQuest(@PathVariable Integer id) {
-        questService.deleteById(id);
+        editQuestServices.deleteQuest(id);
         return ResponseEntity.noContent().build();
     }
 }
