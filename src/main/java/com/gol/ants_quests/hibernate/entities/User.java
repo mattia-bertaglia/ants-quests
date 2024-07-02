@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class User {
+public class User extends GenericEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

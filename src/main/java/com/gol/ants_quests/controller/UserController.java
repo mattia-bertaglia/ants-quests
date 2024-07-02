@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.gol.ants_quests.hibernate.entities.User;
-import com.gol.ants_quests.hibernate.services.UserService;
+import com.gol.ants_quests.hibernate.services.UserHibService;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserHibService userService;
 
     @PostMapping
     public User createUser(@RequestBody User user) {

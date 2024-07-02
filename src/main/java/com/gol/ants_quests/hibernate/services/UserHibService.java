@@ -11,7 +11,11 @@ import java.util.Optional;
 
 
 @Service
-public class UserService {
+public class UserHibService extends GenericHibService<User, Integer, UserRepository> {
+
+    public UserHibService(UserRepository repository){
+        super(repository);
+    }
 
     @Autowired
     private UserRepository userRepository;
