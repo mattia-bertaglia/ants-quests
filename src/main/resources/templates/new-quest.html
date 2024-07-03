@@ -3,46 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Quest</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
-    </style>
+    <title>Inserisci Nuova Quest</title>
 </head>
 <body>
-    <h1>Crea Nuovo Questionario</h1>
-    <form id="formNuovaQuest" action="" method="post">
-        <label for="titolo">Titolo</label>
-        <input type="text" id="titolo" name="titolo" required>
-
-        <label for="ccategoria_id">Categoria</label>
-        <select id="categoria_id" name="categoria_id" required>
-         
-        </select>
-
-        <button type="submit">Create Quest</button>
-    </form>
-
-    <script>
+    <h2>Inserisci Nuova Quest</h2>
+    <form action="/NuovaQuest" method="post">
+        <label for="titolo">Titolo della Quest:</label><br>
+        <input type="text" id="titolo" name="titolo" required><br><br>
         
-      
-    </script>
+        <label for="categoriaId">Categoria:</label><br>
+        <select id="categoriaId" name="categoriaId" required>
+    
+        </select><br><br>
+        
+        <button type="submit">Invia</button>
+    </form>
 </body>
 </html>

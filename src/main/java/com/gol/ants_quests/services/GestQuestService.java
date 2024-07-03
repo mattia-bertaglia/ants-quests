@@ -1,21 +1,19 @@
 package com.gol.ants_quests.services;
 
 import org.springframework.stereotype.Service;
-import com.gol.ants_quests.hibernate.services.QuestsHibService;
-import ch.qos.logback.core.model.Model;
+import org.springframework.ui.Model;
+import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class GestQuestService {
 
-    private final QuestsHibService QuestHibSrv;
+   private final CategorieHibService questSrv;
 
-    public void homePage(Model model) {
+    public void findAll(Model model) {
 
-        
-        
-        
+        model.addAttribute("listaCategorie", questSrv.getAllCategories());
     }
 
 
