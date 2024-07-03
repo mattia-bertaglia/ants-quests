@@ -2,15 +2,12 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <!-- Rende la pagina reattiva, adattando il layout alla larghezza del dispositivo -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Titolo della pagina visualizzato nella scheda del browser -->
   <title>Registrazione ANT</title>
-  <!-- Collegamento al file CSS esterno per la stilizzazione della pagina -->
   <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
 </head>
 <body>
-  <!-- Inizio del corpo del documento HTML -->
   <div class="container">
     <div class="orangeBG">
       <div class="box signin">
@@ -24,60 +21,57 @@
     </div>
     <div class="form-box">
       <div class="form signinform">
-        <form>
+        <form action="/auth/login" method="get">
           <h3>Accedi</h3>
-          <input type="text" placeholder="E-mail">
-          <input type="password" placeholder="Password">
+          <input type="text" name="usernameEmail" placeholder="E-mail">
+          <input type="password" name="passkey" placeholder="Password">
           <input type="submit" value="Accedi">
           <a href="#">Password dimenticata?</a>
         </form>
       </div>
       <div class="form signupform">
-        <form>
+        <form action="/auth/signin" method="get">
           <h3>Registrati</h3>
-          <input type="text" placeholder="Nome">
-          <input type="text" placeholder="Cognome">
-          <input type="email" placeholder="Indirizzo email">
-          <input type="password" placeholder="Password">
-          <input type="password" placeholder="Conferma Password">
+          <input type="text" name="nome" placeholder="Nome">
+          <input type="text" name="cognome" placeholder="Cognome">
+          <input type="email" name="usernameEmail" placeholder="Indirizzo email">
+          <input type="password" name="passkey" placeholder="Password">
+          <input type="password" name="confirmPasskey" placeholder="Conferma Password">
           <input type="submit" value="Registrati">
         </form>
       </div>
     </div>
   </div>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div id="toast-header" class="toast-header">
-            <strong id="title-toast" class="me-auto"></strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div id="message-toast" class="toast-body">
-
-        </div>
+  <!-- Toast per mostrare gli errori -->
+  <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+    <div class="toast" id="errorToast" style="position: absolute; top: 0; right: 0;">
+      <div class="toast-header" id="toastHeader">
+        <strong class="mr-auto" id="toastTitle"></strong>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+      </div>
+      <div class="toast-body" id="toastMessage"></div>
     </div>
-</div>
-  <!-- Collegamento al file JavaScript esterno script.js -->  
-<script src="js/index.js"></script>
-<script src="jquery/jquery-3.7.1.min.js"></script>
-<script src="bootstrap/popper.min.js"></script>
-<script src="bootstrap/bootstrap.min.js"></script>
-<script>
+  </div>
 
-    const title = "[[${toastTitle}]]";
-    const message = "[[${toastMessage}]]";
-    const toastColor = "[[${toastColor}]]";
+  <script src="jquery/jquery-3.7.1.min.js"></script>
+  <script src="bootstrap/popper.min.js"></script>
+  <script src="bootstrap/bootstrap.min.js"></script>
+  <script src="js/index.js"></script>
 
-    const toast = document.getElementById('toast');
-    document.getElementById("title-toast").innerHTML = title;
-    document.getElementById("message-toast").innerHTML = message;
-    document.getElementById("toast-header").classList.add(toastColor);
+  <script>
+    $(document).ready(function() {
+      const toastTitle = /*[[${toastTitle}]]*/ "";
+      const toastMessage = /*[[${toastMessage}]]*/ "";
+      const toastColor = /*[[${toastColor}]]*/ "";
 
-    bootstrap.Toast.getOrCreateInstance(toast).show();
-
-
-
-</script>
-  <!-- Fine del corpo del documento HTML -->
+      if (toastTitle && toastMessage) {
+        $('#toastHeader').addClass(toastColor);
+        $('#toastTitle').text(toastTitle);
+        $('#toastMessage').text(toastMessage);
+        $('#errorToast').toast('show');
+      }
+    });
+  </script>
 </body>
 </html>

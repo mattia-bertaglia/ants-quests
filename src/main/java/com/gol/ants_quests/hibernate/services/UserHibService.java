@@ -9,11 +9,10 @@ import com.gol.ants_quests.hibernate.repositories.UserRepository;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class UserHibService extends GenericHibService<User, Integer, UserRepository> {
 
-    public UserHibService(UserRepository repository){
+    public UserHibService(UserRepository repository) {
         super(repository);
     }
 
@@ -32,8 +31,8 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         return userRepository.findByUsernameEmail(usernameEmail);
     }
 
-    public List<User> getUsersByRole(User.Role role) {
-        return userRepository.findByRole(role);
+    public List<User> getUsersByRuolo(User.Ruolo ruolo) {
+        return userRepository.findByRuolo(ruolo);
     }
 
     public List<User> getEnabledUsers() {
@@ -49,5 +48,5 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         } else {
             return false;
         }
-    }    
+    }
 }

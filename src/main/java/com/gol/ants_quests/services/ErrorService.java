@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ErrorService {
 
-    public final ErrorsToasts errorList;
+    private final ErrorsToasts errorList;
 
     public void getToast(Model model, HashMap<String, String> params) {
         if (params.containsKey("status")) {
@@ -23,5 +23,4 @@ public class ErrorService {
             model.addAttribute("toastColor", errorList.get(code).getColor());
         }
     }
-
 }
