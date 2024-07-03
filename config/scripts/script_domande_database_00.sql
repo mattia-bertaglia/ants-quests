@@ -36,7 +36,7 @@ CREATE TABLE `quests_details`(
 
 drop TABLE `studenti`;
 CREATE TABLE `studenti`(
-    `id_stud` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_stud` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_id` BIGINT NOT NULL,
     `nome`VARCHAR(100),
     `cognome` VARCHAR(100),

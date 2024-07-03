@@ -27,7 +27,7 @@ public class Studente extends GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_studente")
+    @Column(name = "id_stud")
     private Integer idStudente;
     @Column(name = "user_id")
     private Integer userId;
@@ -35,9 +35,10 @@ public class Studente extends GenericEntity {
     private String cognome;
     @Column(name = "data_nascita")
     private Date dataNascita;
-    @Column(name = "corso_id")
+    @Column(name = "course_id")
     private Integer corsoId;
 
+    
     @OneToMany(mappedBy = "studente") 
     private List<EsitiQuest> esquestionari;
 
