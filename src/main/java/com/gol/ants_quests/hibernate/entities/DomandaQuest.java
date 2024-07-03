@@ -26,14 +26,14 @@ public class  DomandaQuest extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idQstDet;
-    private Integer questId;
+   //private Integer questId;
     private String domanda;
 
-/* 
+
      @ManyToOne
      @JoinColumn(name = "quest_id")
-     private DomandaQuest dom ;
- */
+     private Quest dom ;
+
     @OneToMany(mappedBy = "domandaQuest") 
     private List<RispostaQuest> risp;
 
