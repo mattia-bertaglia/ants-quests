@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Table(name = "quests_categories")
@@ -27,7 +26,6 @@ public class  CategoriaQuest extends GenericEntity {
     private String idCat;
     private String nome;
 
-    @ToString.Exclude
     @OneToMany(mappedBy = "categoriequest")
     private List<Quest> questionari;
 }

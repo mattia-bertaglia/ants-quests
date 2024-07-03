@@ -33,11 +33,9 @@ public class  Quest extends GenericEntity {
     @JoinColumn(name = "categoria_id")
     private CategoriaQuest categoriequest;
 
-    @ToString.Exclude
     @OneToMany(mappedBy = "quest") 
     private List<EsitoQuest> esquestionari;
- 
-    @ToString.Exclude
+
     @OneToMany(mappedBy = "dom") 
     private List<DomandaQuest> domanda; 
 
