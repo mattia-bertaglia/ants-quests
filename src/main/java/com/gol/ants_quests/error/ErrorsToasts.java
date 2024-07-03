@@ -22,5 +22,4 @@ public class ErrorsToasts {
         }
         return new Toast("generico", "Errore Generico", "E successo qualcosa", "bg-warning");
     }
-
 }
