@@ -37,7 +37,7 @@ public class  Quest extends GenericEntity {
     @OneToMany(mappedBy = "quest") 
     private List<EsitoQuest> esquestionari;
 
-    @OneToMany(mappedBy = "dom") 
-    private List<DomandaQuest> domanda;
+   /*  @OneToMany(mappedBy = "dom") 
+    private List<DomandaQuest> domanda; */
 
 }
