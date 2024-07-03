@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.repositories.UserRepository;
 import com.gol.ants_quests.services.ErrorService;
+import com.gol.ants_quests.util.Ruolo;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,7 @@ public class AuthController {
             User user = new User();
             user.setUsernameEmail(usernameEmail);
             user.setPasskey(passkey);
+            user.setRuolo(Ruolo.guest); // Assicurati che il ruolo GUEST sia impostato per i nuovi utenti
             userRepository.save(user);
 
             return "redirect:/?status=signOK";
@@ -65,13 +67,13 @@ public class AuthController {
             String usernameEmail = params.get("usernameEmail");
             String passkey = params.get("passkey");
 
-            Optional<User> user = userRepository.findByUsernameEmail(usernameEmail);
-
-            if (user.isPresent() && user.get().getPasskey().equals(passkey)) {
+            Optional<User> userOptional = userRepository.findByUsernameEmail(usernameEmail);
+            if (userOptional.isPresent() && userOptional.get().getPasskey().equals(passkey)) {
+                User user = userOptional.get();
                 session.setAttribute("usrlog", true);
-                session.setAttribute("usernameEmail", user.get().getUsernameEmail());
+                session.setAttribute("usernameEmail", user.getUsernameEmail());
 
-                String ruolo = user.get().getRuolo().toString();
+                String ruolo = user.getRuolo().toString();
                 switch (ruolo) {
                     case "studente":
                         return "redirect:/homeStudente";

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.repositories.UserRepository;
+import com.gol.ants_quests.util.Ruolo;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +32,7 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         return userRepository.findByUsernameEmail(usernameEmail);
     }
 
-    public List<User> getUsersByRuolo(User.Ruolo ruolo) {
+    public List<User> getUsersByRuolo(Ruolo ruolo) {
         return userRepository.findByRuolo(ruolo);
     }
 

@@ -1,5 +1,7 @@
 package com.gol.ants_quests.hibernate.entities;
 
+import com.gol.ants_quests.util.Ruolo;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -33,30 +35,9 @@ public class User extends GenericEntity {
     private String passkey;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "ruolo", columnDefinition = "enum('guest', 'studente', 'admin') default 'guest'")
-    private Ruolo ruolo;
+    private Ruolo ruolo = Ruolo.guest;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default true")
-    private boolean enabled = true;
+    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default false")
+    private boolean enabled;
 
-    public enum Ruolo {
-        GUEST("guest"),
-        STUDENTE("studente"),
-        ADMIN("admin");
-
-        private String value;
-
-        Ruolo(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return this.value;
-        }
-    }
 }
