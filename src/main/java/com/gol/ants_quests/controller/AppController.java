@@ -26,6 +26,11 @@ public class AppController {
          * 
          * se è presente richiamo errorService
          */
+        if(code == null || code.length()>0 ){
+            code = "";
+        }
+
+
         errorServ.getToast(session, code);
         return "index.html";
     }
