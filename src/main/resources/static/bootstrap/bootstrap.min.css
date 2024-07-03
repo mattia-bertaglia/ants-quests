@@ -500,6 +500,12 @@ textarea {
     line-height: inherit
 }
 
+input[type=search],
+input[type=text].upper-text,
+textarea {
+    text-transform: uppercase;
+}
+
 button,
 select {
     text-transform: none
@@ -3836,12 +3842,8 @@ fieldset:disabled .btn {
     opacity: 0
 }
 
-.collapse {
-    display: none;
-}
-
-.collapse.show {
-    display: block;
+.collapse:not(.show) {
+    display: none
 }
 
 .collapsing {
