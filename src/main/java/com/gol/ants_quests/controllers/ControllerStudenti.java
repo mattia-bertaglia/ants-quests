@@ -14,7 +14,7 @@ public class ControllerStudenti {
     @GetMapping("/")
     public String homepageStudente(HttpSession session) {
 
-        session.setAttribute("studente", stuService.findByUserNameAndPassword);
+       // session.setAttribute("studente", stuService.findByUserNameAndPassword());
         return "studenti-home.html";
     }
 

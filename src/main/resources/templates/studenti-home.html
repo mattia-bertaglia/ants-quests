@@ -16,7 +16,26 @@
             <h1>Questionari svolti : </h1>
             <div class="row mb-3 w-50">
 
-                <!-- WIP LISTA QUESTIONARI DELL'UTENTE -->
+                <table id="tab-last-quest" class="table table-striped table-bordered table-sm" style="width: 100%;"
+                    data-toggle="table" data-locale="it-IT">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Data</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="record : ${session.studente.questionari}">
+                            <td th:text="${record.nome}"></td>
+                            <td th:text="${record.data}"></td>
+                            <td><button class="btn btn-primary w-75">Vedi</button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
             </div>
         </div>
     </div>
