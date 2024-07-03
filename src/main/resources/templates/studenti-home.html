@@ -12,7 +12,7 @@
             <div class="row mb-3 w-50">
                 <a href="doQuestionario" class="btn btn-primary btn-lg">Inizia Questionario</a>
                 <h2> Scegliere questionario</h2>
-                <select th:each="record : ${session.questionari}">
+                <select th:each="record : ${session.questionari}" id="selectQuestionario">
                     <option selected disabled>---</option>
                     <option th:value="${record.idQst}" th:text="${record.titolo}"></option>
                 </select>
