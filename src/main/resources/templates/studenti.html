@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studenti</title>
+    <!-- Bootstrap CSS - manca 1 file(link) da scaricare -->
+    <!-- css3 - manca 1 file(link da scaricare) -->
+    <!-- google fonts - mancano 3 link da collegare -->
+    <!-- oogle material icon, manca 1  link da collegare -->
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="body-overlay"> </div>
+        <div id="sidebar">
+            <div class="sidebar-header">
+                <h3><img src="img/LogoRAD.webp" class="img-fluid" /><span>Rete Artigianato Digiale</span></h3>
+            </div>
+            <ul class="list-unstyled component m-0">
+                <li class="active">
+                    <a href="#" class="dashboard"><i class="material-icon">dashboard</i>dashboard</a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toogle">
+                        <i class="material-icon">aspect_ratio</i>Layouts
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubMenu1">
+                        <li><a href="#">Layout 1</a></li>
+                        <li><a href="#">Layout 2</a></li>
+                        <li><a href="#">Layout 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toogle">
+                        <i class="material-icon">apps</i>widgets
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubMenu1">
+                        <li><a href="#">Apps 1</a></li>
+                        <li><a href="#">Apps 2</a></li>
+                        <li><a href="#">Apps 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toogle">
+                        <i class="material-icon">equalizer</i>charts
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubMenu1">
+                        <li><a href="#">Pagina 1</a></li>
+                        <li><a href="#">Pagina 2</a></li>
+                        <li><a href="#">Pagina 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toogle">
+                        <i class="material-icon">extension</i>UI Element
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubMenu1">
+                        <li><a href="#">Pagina 1</a></li>
+                        <li><a href="#">Pagina 2</a></li>
+                        <li><a href="#">Pagina 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toogle">
+                        <i class="material-icon">border_color</i>forms
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubMenu1">
+                        <li><a href="#">Pagina 1</a></li>
+                        <li><a href="#">Pagina 2</a></li>
+                        <li><a href="#">Pagina 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toogle">
+                        <i class="material-icon">grid_on</i>tabelle
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubMenu1">
+                        <li><a href="#">Tabella 1</a></li>
+                        <li><a href="#">Tabella 2</a></li>
+                        <li><a href="#">Tabella 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toogle">
+                        <i class="material-icon">content_copy</i>Pagine
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubMenu1">
+                        <li><a href="#">Pagina 1</a></li>
+                        <li><a href="#">Pagina 2</a></li>
+                        <li><a href="#">Pagina 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toogle">
+                        <i class="material-icon">data_range</i>Copy
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubMenu1">
+                        <li><a href="#">Copy 1</a></li>
+                        <li><a href="#">Copy 2</a></li>
+                        <li><a href="#">Copy 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toogle">
+                        <i class="material-icon">content_copy</i>Pagine
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubMenu1">
+                        <li><a href="#">Pagina 1</a></li>
+                        <li><a href="#">Pagina 2</a></li>
+                        <li><a href="#">Pagina 3</a></li>
+                    </ul>
+                </li>
+
+                <li class="">
+                    <a href="#" class=""><i class="material-icon">data_range</i>copy</a>
+                </li>
+                <li class="">
+                    <a href="#" class=""><i class="material-icon">library_books</i>calender</a>
+                </li>
+
+            </ul>
+        </div>
+        <!--  -->
+
+        <!-- inizio contenuto pagina -->
+        <div id="content">
+            <!-- inizio navbar -->
+            <div class="tpp-navbar">
+                <div class="xd_topbar">
+                    <div class="row">
+                        <div class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+                            <div class="xp-menubar">
+                                <span class="material-icon text-white">signal_cellular_alt</span>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-lg-3 order-3 order-md-2">
+                            <div class="xp-searchbar">
+                                <form>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="Search">
+                                        <div class="input-group-append">
+                                            <button class="btn" type="submit" id="button-addon2"> Vai
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+                            <div class="xp-profilebar text-right">
+                                <nav class="navbar p-0">
+                                    <ul class="nav navbar-nav flex-row ml-auto">
+                                        <li class="dropdown nav-item active">
+                                            <a class="nav-link" href="#" data-toggle="dropdown">
+                                                <span class="material-icon"> notifications</span>
+                                                <span class="notifications">4</span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#"> Tu ha 4 nuovi messaggi</a></li>
+                                                <li><a href="#"> Tu ha 4 nuovi messaggi</a></li>
+                                                <li><a href="#"> Tu ha 4 nuovi messaggi</a></li>
+                                                <li><a href="#"> Tu ha 4 nuovi messaggi</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                <span class="material-icon">question_answer</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="dropdown nav-item">
+                                            <a class="nav-link" href="#" data-toggle="dropdown">
+                                                <img src="img/user.jpg" style="width: 40px; border: radius 50% ;" />
+
+                                                <!-- caricare img user -->
+                                                <span class="xp-user-live"></span>
+                                            </a>
+                                            <ul class="dropdown-menu small menu">
+                                                <li><a href="#">
+                                                        <span class="material-icon">person_outline</span>
+                                                        Profile
+                                                    </a></li>
+                                                <li><a href="#">
+                                                        <span class="material-icon">settings</span>
+                                                        Settings
+                                                    </a></li>
+                                                <li><a href="#">
+                                                        <span class="material-icon">logout</span>
+                                                        Logout
+                                                    </a></li>
+                                            </ul>
+                                        </li>
+
+
+
+
+                                    </ul>
+                                </nav>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="xp-breadcrumbbar taxt-center">
+                        <h4 class="page-title">DashBoard</h4>
+                        <ol class="breadcrumb-item">
+                            <li class="breadcrumb-item"><a href="#">Vishweb</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">DashBoard</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <!-- fine navbar -->
+
+            <!-- inizio main -->
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-wapper">
+
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                                        <h2 class="ml-lg-2">Manage Employees</h2>
+                                    </div>
+                                    <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                                        <a href="#" class="btn btn-success" data-toggle="modal">
+                                            <i class="material-icon">&#xE147;</i>
+                                            <span>Add New Employees</span>
+                                        </a>
+                                        <a href="#" class="btn btn-danger" data-toggle="modal">
+                                            <i class="material-icon">&#xE15C;</i>
+                                            <span>Delete</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><span class="custom-checkbox">
+                                                <input type="checkbox" id="selectAll">
+                                                <label for="selectAll"></label></th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Indirizzo</th>
+                                        <th>Telefono</th>
+                                        <th>Azioni</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th><span class="custom-checkbox">
+                                                <input type="checkbox" id="checkbox1" name="option[]" value="1">
+                                                <label for="checkbox1"></label></th>
+                                        <th>Thomas Hardy</th>
+                                        <th>thomashardy@gmail.com</th>
+                                        <th>via lapponia 30</th>
+                                        <th>00000000</th>
+                                        <th>
+                                            <a href="#" class="edit" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Edit">
+                                                    &#xE254;</i>
+                                            </a>
+                                            <a href="#" class="dlete" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Delete">
+                                                    &#xE872;</i>
+                                            </a>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th><span class="custom-checkbox">
+                                                <input type="checkbox" id="checkbox2" name="option[]" value="1">
+                                                <label for="checkbox2"></label></th>
+                                        <th>bla bla</th>
+                                        <th>la@gmail.com</th>
+                                        <th>via lapponia 30</th>
+                                        <th>00000000</th>
+                                        <th>
+                                            <a href="#" class="edit" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Edit">
+                                                    &#xE254;</i>
+                                            </a>
+                                            <a href="#" class="dlete" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Delete">
+                                                    &#xE872;</i>
+                                            </a>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th><span class="custom-checkbox">
+                                                <input type="checkbox" id="checkbox3" name="option[]" value="1">
+                                                <label for="checkbox3"></label></th>
+                                        <th>tizio2</th>
+                                        <th>tizio@gmail.com</th>
+                                        <th>via lapponia 30</th>
+                                        <th>00000000</th>
+                                        <th>
+                                            <a href="#" class="edit" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Edit">
+                                                    &#xE254;</i>
+                                            </a>
+                                            <a href="#" class="dlete" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Delete">
+                                                    &#xE872;</i>
+                                            </a>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th><span class="custom-checkbox">
+                                                <input type="checkbox" id="checkbox4" name="option[]" value="1">
+                                                <label for="checkbox4"></label></th>
+                                        <th>Tizio1</th>
+                                        <th>tizio1@gmail.com</th>
+                                        <th>via lapponia 30</th>
+                                        <th>00000000</th>
+                                        <th>
+                                            <a href="#" class="edit" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Edit">
+                                                    &#xE254;</i>
+                                            </a>
+                                            <a href="#" class="dlete" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Delete">
+                                                    &#xE872;</i>
+                                            </a>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th><span class="custom-checkbox">
+                                                <input type="checkbox" id="checkbox5" name="option[]" value="1">
+                                                <label for="checkbox5"></label></th>
+                                        <th>Thomas Hardy</th>
+                                        <th>thomashardy@gmail.com</th>
+                                        <th>via lapponia 30</th>
+                                        <th>00000000</th>
+                                        <th>
+                                            <a href="#" class="edit" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Edit">
+                                                    &#xE254;</i>
+                                            </a>
+                                            <a href="#" class="dlete" data-toggle="modal">
+                                                <i class="material-icons" data-toggle="tooltip" title="Delete">
+                                                    &#xE872;</i>
+                                            </a>
+                                        </th>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                                <div class="hint-text">showing <b>5</b>out of <b>25</b></div>
+                                <ul class="pagination">
+                                    <li class="page-item disabled"><a href="#">Previous</a></li>
+                                    <li class="page-item "><a href="#" class="page-link">1</a></li>
+                                    <li class="page-item "><a href="#" class="page-link">2</a></li>
+                                    <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                    <li class="page-item "><a href="#" class="page-link">4</a></li>
+                                    <li class="page-item "><a href="#" class="page-link">5</a></li>
+                                    <li class="page-item "><a href="#" class="page-link">Next</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- inizio modale aggiungi  -->
+                            <div class="modal fade" tabindex="-1" id="addEmployeeModal" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Modal Title</h5>
+                                            <button type="button" class="close" data-dimission="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label> Name</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Email</label>
+                                                <input type="email" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Indirizzo</label>
+                                                <textarea class="form-control" required></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Telefono</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dimission="modal">Cancella</button>
+                                            <button type="button" class="btn btn-success"> Aggiungi</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- fine modale aggiungi  -->
+
+                            <!-- inizio modale modifica -->
+                            <div class="modal fade" tabindex="-1" id="editEmployeeModal" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Modifica</h5>
+                                            <button type="button" class="close" data-dimission="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label> Name</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Email</label>
+                                                <input type="email" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Indirizzo</label>
+                                                <textarea class="form-control" required></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label> Telefono</label>
+                                                <input type="text" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dimission="modal">Cancella</button>
+                                            <button type="button" class="btn btn-success"> Salva</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- fine modale modifica -->
+
+                            <!-- inizio modale cancella -->
+                            <div class="modal fade" tabindex="-1" id="deleteEmployeeModal" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Cancella</h5>
+                                            <button type="button" class="close" data-dimission="modal"
+                                                aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <p>Sei sicuro di voler cancellare questo record?</p>
+                                        <p class="text-warning"><small>Questa azione non può essere revocata</small></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                            data-dimission="modal">Cancella</button>
+                                        <button type="button" class="btn btn-success"> Cancella</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- fine modale cancella -->
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- fine main -->
+
+        <!-- footer  design -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="footer-in">
+                    <p class="mb-0">&copy 2024 Rete Artigianato Digitale. Tutti i diritti riservati</p>
+                </div>
+            </div>
+        </footer>
+
+
+    </div>
+
+    </div>
+
+
+
+</body>
+
+</html>
