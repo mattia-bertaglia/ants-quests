@@ -37,10 +37,17 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
     }
 
     public List<User> getEnabledUsers() {
-        return userRepository.findByEnable(true);
+        return userRepository.findByEnabled(true);
     }
 
-    public int updateUserEnableStatus(String usernameEmail, boolean enable) {
-        return userRepository.updateUserEnableStatus(usernameEmail, enable);
-    }
+    public boolean updateUserEnabledStatus(String usernameEmail, boolean enabled) {
+        Optional<User> user = userRepository.findByUsernameEmail(usernameEmail);
+        if (user.isPresent()) {
+            user.get().setEnabled(enabled);
+            userRepository.save(user.get());
+            return true;
+        } else {
+            return false;
+        }
+    }    
 }
