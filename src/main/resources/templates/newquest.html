@@ -12,10 +12,9 @@
         <input type="text" id="titolo" name="titolo" required><br><br>
         
 
-         <select>
-        <option th:each="categoria : ${listaCategorie}" th:value="${categoria.}" th:text="${categoria}">
-        </option>    
-        </select><br><br>
+        <select>
+            <option th:each="categoria : ${listaCategorie}" th:value="${categoria.nome}" th:text="${categoria.nome}"></option>
+        </select>
         
         <button type="submit">Invia</button>
     </form>
