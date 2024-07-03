@@ -13,7 +13,9 @@ public class ControllerStudenti {
 
     @GetMapping("/")
     public String homepageStudente(HttpSession session) {
-
+        // inserire una lista di questionari per lo studente nella session
+        // lista questionari uguale per ogni studente
+        // se assegnato ad una classe vede anche quelli del corso altrimenti no
        // session.setAttribute("studente", stuService.findByUserNameAndPassword());
         return "studenti-home.html";
     }
