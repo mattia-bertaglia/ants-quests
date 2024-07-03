@@ -13,4 +13,5 @@ public class Toast {
     private String title;
     private String message;
     private String color;
+
 }
