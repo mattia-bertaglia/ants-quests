@@ -24,17 +24,14 @@ public class  EsitoQuest extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEstQst;
-   // private Integer questId;
     private Date dataEsecuzione;
     private String punteggio;
     private String tempo;
-    //private Integer studenteId; // foreign key
-
 
     @ManyToOne
     @JoinColumn(name = "quest_id")
     private Quest quest;
-    
+
     @ManyToOne
     @JoinColumn(name = "studente_id")
     private Studente studente;

@@ -1,4 +1,4 @@
-package com.gol.ants_quests.services;
+package com.gol.ants_quests.hibernate.services;
 
 import java.util.List;
 import java.util.Optional;

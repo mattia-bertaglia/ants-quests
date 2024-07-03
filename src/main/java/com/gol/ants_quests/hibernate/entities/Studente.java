@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "studenti")
@@ -35,6 +36,7 @@ public class Studente extends GenericEntity {
     private Date dataInserimento;
     private Integer corsoId; // da eliminare una volta creata la relazione
 
-    @OneToMany(mappedBy = "studente") 
+    @ToString.Exclude
+    @OneToMany(mappedBy = "studente")
     private List<EsitoQuest> esquestionari;
 }
