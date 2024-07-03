@@ -24,8 +24,9 @@ public class AuthController {
     private final UserRepository userRepository;
     private final ErrorService errorService;
 
-    @GetMapping("/signin")
-    public String signin(@RequestParam HashMap<String, String> params, Model model) {
+
+    @GetMapping("/signup")
+    public String signup(@RequestParam HashMap<String, String> params, Model model) {
         if (params.containsKey("usernameEmail") && params.containsKey("passkey")
                 && params.containsKey("confirmPasskey")) {
             String usernameEmail = params.get("usernameEmail");
@@ -35,14 +36,14 @@ public class AuthController {
             if (!passkey.equals(confirmPasskey)) {
                 params.put("status", "passwordMismatch");
                 errorService.getToast(model, params);
-                return "index";
+                return "index.html";
             }
 
             Optional<User> existingUser = userRepository.findByUsernameEmail(usernameEmail);
             if (existingUser.isPresent()) {
                 params.put("status", "userExists");
                 errorService.getToast(model, params);
-                return "index";
+                return "index.html";
             }
 
             User user = new User();
@@ -55,7 +56,7 @@ public class AuthController {
 
         params.put("status", "erroreLog");
         errorService.getToast(model, params);
-        return "index";
+        return "index.html";
     }
 
     @GetMapping("/login")
@@ -73,25 +74,27 @@ public class AuthController {
                 String ruolo = user.get().getRuolo().toString();
                 switch (ruolo) {
                     case "studente":
-                        return "redirect:homeStud.html";
+                        return "redirect:/homeStudente";
                     case "guest":
-                        return "redirect:homeStud.html";
+                        return "redirect:/homeStudente";
                     case "admin":
-                        return "redirect:homeAdmin.html";
+                        return "redirect:/homeAdmin";
                     default:
                         params.put("status", "unknownRuolo");
                         errorService.getToast(model, params);
-                        return "index";
+                        return "redirect:/";
                 }
             } else {
-                params.put("status", "erroreLog");
-                errorService.getToast(model, params);
+                /*
+                 * codice di errore interessato nella sessione
+                 */
+                errorService.getToast(session, "erroreLog");
             }
         } else {
             params.put("status", "erroreLog");
             errorService.getToast(model, params);
         }
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/logout")

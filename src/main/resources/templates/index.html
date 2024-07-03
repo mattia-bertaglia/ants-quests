@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrazione ANT</title>
-  <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
 </head>
 <body>
   <div class="container">
@@ -26,11 +26,11 @@
           <input type="text" name="usernameEmail" placeholder="E-mail">
           <input type="password" name="passkey" placeholder="Password">
           <input type="submit" value="Accedi">
-          <a href="#">Password dimenticata?</a>
+          <a class="btn btn-primary" href="#">Password dimenticata?</a>
         </form>
       </div>
       <div class="form signupform">
-        <form action="/auth/signin" method="get">
+        <form action="/auth/signup" method="get">
           <h3>Registrati</h3>
           <input type="text" name="nome" placeholder="Nome">
           <input type="text" name="cognome" placeholder="Cognome">
@@ -44,13 +44,15 @@
   </div>
 
   <!-- Toast per mostrare gli errori -->
-  <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-    <div class="toast" id="errorToast" style="position: absolute; top: 0; right: 0;">
-      <div class="toast-header" id="toastHeader">
-        <strong class="mr-auto" id="toastTitle"></strong>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div aria-live="assertive" aria-atomic="true" >
+      <div class="toast" id="errorToast" >
+        <div class="toastHeader" id="toastHeader">
+          <strong class="me-auto" id="toastTitle"></strong>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body" id="messageToast"></div>
       </div>
-      <div class="toast-body" id="toastMessage"></div>
     </div>
   </div>
 
@@ -60,18 +62,30 @@
   <script src="js/index.js"></script>
 
   <script>
-    $(document).ready(function() {
-      const toastTitle = /*[[${toastTitle}]]*/ "";
-      const toastMessage = /*[[${toastMessage}]]*/ "";
-      const toastColor = /*[[${toastColor}]]*/ "";
 
+        const title = "[[${toastTitle}]]";
+        const message = "[[${toastMessage}]]";
+        const toastColor = "[[${toastColor}]]";
+
+        const toast = document.getElementById('errorToast');
+        document.getElementById("toastTitle").innerHTML = title;
+        document.getElementById("messageToast").innerHTML = message;
+        document.getElementById("toastHeader").classList.add(toastColor);
+
+        bootstrap.Toast.getOrCreateInstance(toast).show();
+      
+
+    /* $(document).ready(function() {
+      const toastTitle = "[[${session.toastTitle}]]";
+      const toastMessage = "[[${session.toastMessage}]]";
+      const toastColor = "[[${session.toastColor}]]";
       if (toastTitle && toastMessage) {
         $('#toastHeader').addClass(toastColor);
         $('#toastTitle').text(toastTitle);
         $('#toastMessage').text(toastMessage);
         $('#errorToast').toast('show');
       }
-    });
+    }); */
   </script>
 </body>
 </html>
