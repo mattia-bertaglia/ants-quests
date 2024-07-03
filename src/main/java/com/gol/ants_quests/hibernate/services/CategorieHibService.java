@@ -5,7 +5,6 @@ import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
 import com.gol.ants_quests.hibernate.repositories.CategorieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +24,8 @@ public class CategorieHibService extends GenericHibService<CategoriaQuest, Strin
         return categoriaRepository.findAll();
     }
 
-    public Optional<CategoriaQuest> getCategoryById(String id) {
-        return categoriaRepository.findById(id);
+    public Optional<CategoriaQuest> getCategoryById(String categoriaId) {
+        return categoriaRepository.findById(categoriaId);
     }
 
     public CategoriaQuest createCategory(CategoriaQuest categoriaQuest) {

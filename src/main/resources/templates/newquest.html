@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,15 +7,19 @@
 </head>
 <body>
     <h2>Inserisci Nuova Quest</h2>
-    <form action="/categorie" method="post">
+    <form action="/inserisciTitolo" method="post">
         <label for="titolo">Titolo della Quest:</label><br>
         <input type="text" id="titolo" name="titolo" required><br><br>
         
+        <label for="categoria">Categoria:</label><br>
+        <select id="categoria" name="categoriaId" required>
+            <option value="">Seleziona una categoria</option>
+            <option th:each="categoria : ${listaCategorie}" 
+                    th:value="${categoria.nome}" 
+                    th:text="${categoria.nome}">
+            </option>
+        </select><br><br>
 
-        <select>
-            <option th:each="categoria : ${listaCategorie}" th:value="${categoria.nome}" th:text="${categoria.nome}"></option>
-        </select>
-        
         <button type="submit">Invia</button>
     </form>
 </body>
