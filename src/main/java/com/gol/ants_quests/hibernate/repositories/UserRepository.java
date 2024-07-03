@@ -30,5 +30,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("UPDATE User u SET u.enable = :enable WHERE u.usernameEmail = :usernameEmail")
     int updateUserEnableStatus(@Param("usernameEmail") String usernameEmail, @Param("enable") boolean enable);
 
-    
 }
