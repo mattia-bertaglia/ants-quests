@@ -1,4 +1,3 @@
-
 create database antsquests;
 use antsquests;
 
@@ -15,13 +14,19 @@ CREATE TABLE `quests`(
 );
 
 CREATE TABLE `studenti`(
-    `id_stud` BIGINT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `id_studente` BIGINT  NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `user_id` BIGINT NOT NULL,
     `nome`VARCHAR(100),
     `cognome` VARCHAR(100),
     `data_nascita` date NOT NULL,
-    `course_id` BIGINT NOT NULL
+     cap VARCHAR(5) NOT NULL,
+     provincia VARCHAR(100) NOT NULL,
+     telefono VARCHAR(15) NOT NULL,
+     note VARCHAR(5000) NOT NULL,
+     data_inserimento DATE NOT NULL,
+    `corso_id` BIGINT NOT NULL
 );
+
 
 CREATE TABLE `esiti_quests`(
     `id_est_qst` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -31,7 +36,7 @@ CREATE TABLE `esiti_quests`(
     `tempo` VARCHAR(50) NOT NULL,
     `studente_id` BIGINT NOT NULL,
     FOREIGN KEY(`quest_id`) REFERENCES `quests`(`id_qst`),
-     FOREIGN KEY(`studente_id`) REFERENCES `studenti`(`id_stud`)
+     FOREIGN KEY(`studente_id`) REFERENCES `studenti`(`id_studente`)
 );
 
 CREATE TABLE `quests_details`(
@@ -48,3 +53,5 @@ CREATE TABLE `answers_qsts`(
     `corretta` TINYINT NOT NULL ,
      FOREIGN KEY(`quest_detail_id`) REFERENCES `quests_details`(`id_qst_det`)
 );
+
+
