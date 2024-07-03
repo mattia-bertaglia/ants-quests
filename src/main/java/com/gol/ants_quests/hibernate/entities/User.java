@@ -36,8 +36,8 @@ public class User extends GenericEntity {
     @Column(name = "role", columnDefinition = "ENUM('guest', 'studente', 'admin') default 'guest'")
     private Role role = Role.GUEST;
 
-    @Column(name = "enable", nullable = false, columnDefinition = "BOOLEAN default false")
-    private boolean enable = false;
+    @Column(name = "enabled", nullable = false, columnDefinition = "BOOLEAN default true")
+    private boolean enabled = true;
 
     public enum Role {
         GUEST("guest"),
