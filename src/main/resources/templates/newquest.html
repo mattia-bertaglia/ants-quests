@@ -7,13 +7,14 @@
 </head>
 <body>
     <h2>Inserisci Nuova Quest</h2>
-    <form action="/NuovaQuest" method="post">
+    <form action="/categorie" method="post">
         <label for="titolo">Titolo della Quest:</label><br>
         <input type="text" id="titolo" name="titolo" required><br><br>
         
-        <label for="categoriaId">Categoria:</label><br>
-        <select id="categoriaId" name="categoriaId" required>
-    
+
+         <select>
+        <option th:each="categoria : ${listaCategorie}" th:value="${categoria.}" th:text="${categoria}">
+        </option>    
         </select><br><br>
         
         <button type="submit">Invia</button>
