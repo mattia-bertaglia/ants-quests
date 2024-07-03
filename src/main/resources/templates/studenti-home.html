@@ -12,9 +12,15 @@
             <div class="row mb-3 w-50">
                 <a href="doQuestionario" class="btn btn-primary btn-lg">Inizia Questionario</a>
                 <h2> Scegliere questionario</h2>
-                <select th:each="record : ${session.questionari}" id="selectQuestionario">
-                    <option selected disabled>---</option>
-                    <option th:value="${record.idQst}" th:text="${record.titolo}"></option>
+                <select>
+                    <th:block th:each="categoria : ${categorie}">
+                        <optgroup th:label="${categoria.nome}">
+                            <option th:each="questionario : ${categoria.questionari}" 
+                                    th:value="${questionario.idQst}" 
+                                    th:text="${questionario.titolo}">
+                            </option>
+                        </optgroup>
+                    </th:block>
                 </select>
                 <!-- <a href="studenti/" class="btn btn-primary btn-lg">Accedi Studente</a> -->
             </div>

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gol.ants_quests.hibernate.entities.Quest;
+import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
+import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
 import com.gol.ants_quests.hibernate.services.StudentsHibService;
 
@@ -22,12 +23,15 @@ public class ControllerStudenti {
 
     private final QuestsHibService QHS;
     private final StudentsHibService SHS;
+    private final CategorieHibService CHS;
 
     @PostMapping("/")
     public String homepageStudente(HttpSession session, @RequestParam String nome, @RequestParam String cognome) {
         // inserire una lista di questionari per lo studente nella session
-        List<Quest> ciao = QHS.findAll();
-        session.setAttribute("questionari", QHS.findAll());
+
+        List<CategoriaQuest> categorie = CHS.findAll();
+        
+        session.setAttribute("categorie", CHS.findAll());
         // lista questionari uguale per ogni studente
         // se assegnato ad una classe vede anche quelli del corso altrimenti no
         session.setAttribute("studente", SHS.findByNomeAndCognome(nome, cognome));
