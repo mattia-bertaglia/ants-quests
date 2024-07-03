@@ -19,4 +19,14 @@ public interface StudentiRepository extends JpaRepository<Studente, Integer> {
 
     Studente findByDataNascita(Date dataNascita);
 
+    List<Studente> findByCap(String cap);
+
+    List<Studente> findByProvincia(String provincia);
+
+    List<Studente> findByTelefono(String telefono);
+
+    List<Studente> findByNote(String note);
+
+    List<Studente> findByDataInserimento(Date dataInserimento);
+
 }

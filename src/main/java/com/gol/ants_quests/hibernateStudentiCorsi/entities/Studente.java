@@ -40,12 +40,20 @@ public class Studente extends GenericEntity {
     private String cognome;
     @Column(name = "data_nascita")
     private Date dataNascita;
+    private String cap;
+    private String provincia;
+    private String telefono;
+    private String note;
+    private Date dataInserimento;
     @Column(name = "corso_id")
     private Integer corsoId;
 
     /*
+     * @ToString.Exclude
+     * 
      * @OneToMany(mappedBy = "studente")
-     * private List<Esito> esiti;
+     * private List<EsitoQuest> esquestionari;
+     * 
      * 
      * @ManyToOne(fetch = FetchType.EAGER)
      * 

@@ -35,4 +35,28 @@ public class StudentiHibService extends GenericHibService<Studente, Integer, Stu
         return getRepository().findByDataNascita(dataNascita);
     }
 
+    List<Studente> findByCap(String cap) {
+        return getRepository().findByCap(cap);
+
+    }
+
+    List<Studente> findByProvincia(String provincia) {
+        return getRepository().findByProvincia(provincia);
+
+    }
+
+    List<Studente> findByTelefono(String telefono) {
+        return getRepository().findByTelefono(telefono);
+
+    }
+
+    List<Studente> findByNote(String note) {
+        return getRepository().findByNote(note);
+
+    }
+
+    List<Studente> findByDataInserimento(Date dataInserimento) {
+        return getRepository().findByDataInserimento(dataInserimento);
+
+    }
 }
