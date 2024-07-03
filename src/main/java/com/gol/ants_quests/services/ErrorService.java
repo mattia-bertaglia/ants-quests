@@ -23,5 +23,4 @@ public class ErrorService {
             model.addAttribute("toastColor", errorList.get(code).getColor());
         }
     }
-
 }
