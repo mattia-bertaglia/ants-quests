@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "answers_qsts")
@@ -26,6 +27,7 @@ public class  RispostaQuest extends GenericEntity {
     // private Integer questDetailId;
     private String risposta;
     private String corretta;
+
 
 
     @ManyToOne

@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "quests")
@@ -29,14 +30,15 @@ public class  Quest extends GenericEntity {
    // private String categoriaId;
     private String titolo;
 
-
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private CategoriaQuest categoriequest;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "quest") 
     private List<EsitoQuest> esquestionari;
-    
+ 
+    @ToString.Exclude
     @OneToMany(mappedBy = "dom") 
     private List<DomandaQuest> domanda; 
 

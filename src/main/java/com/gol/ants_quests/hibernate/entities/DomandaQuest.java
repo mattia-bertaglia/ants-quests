@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "quests_details")
@@ -37,7 +38,7 @@ public class  DomandaQuest extends GenericEntity {
     @OneToMany(mappedBy = "domandaQuest") 
     private List<RispostaQuest> risp;
 
-
+    
 
     
 }

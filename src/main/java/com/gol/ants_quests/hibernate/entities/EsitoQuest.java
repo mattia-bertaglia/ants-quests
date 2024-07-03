@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "esiti_quests")
@@ -30,11 +31,10 @@ public class  EsitoQuest extends GenericEntity {
     private String tempo;
     //private Integer studenteId; // foreign key
 
-
     @ManyToOne
     @JoinColumn(name = "quest_id")
     private Quest quest;
-    
+
     @ManyToOne
     @JoinColumn(name = "studente_id")
     private Studente studente;
