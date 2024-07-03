@@ -19,14 +19,14 @@ public class AppController {
     private ErrorService errorServ;
 
     @GetMapping("/")
-    public String openIndex(Model model, @RequestParam HashMap<String, String> param) {
+    public String openIndex(Model model, HttpSession session, String code) {
         
         /*
          * controllo se nella sessione è presente un codice di errore
          * 
          * se è presente richiamo errorService
          */
-        errorServ.getToast(model, session.getAttribute("status"));
+        errorServ.getToast(session, code);
         return "index.html";
     }
 
