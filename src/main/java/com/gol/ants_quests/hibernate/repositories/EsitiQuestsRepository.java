@@ -12,4 +12,6 @@ import java.time.LocalDate;
 public interface EsitiQuestsRepository extends JpaRepository<EsitoQuest, Integer> {
 
     List<EsitoQuest> findByDataEsecuzioneBetween(LocalDate data_inizio,LocalDate data_fine);
+
+
 }
