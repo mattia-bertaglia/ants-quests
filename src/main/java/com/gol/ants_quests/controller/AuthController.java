@@ -48,13 +48,13 @@ public class AuthController {
                 session.setAttribute("usernameEmail", user.get().getUsernameEmail());
                 
                 if(ruolo.getRole().equals("studente"))
-                    return "";
+                    return "redirect:homeStud.html";
 
                 if(ruolo.getRole().equals("guest"))
                     return "";
                 
                 if(ruolo.getRole().equals("admin"))
-                    return "";
+                    return "redirect:homeAdmin.html";
             }
         }
         return "redirect:/?status=erroreLog";
