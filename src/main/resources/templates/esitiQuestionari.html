@@ -10,24 +10,39 @@
 
 
 
-    <select name="type" class="custom-select">
-        <option disabled selected> -Selezione un elemento- </option>
-        <option value="I"> Ingresso </option>
-        <option value="C"> Corso </option>
-    </select>
+    <form action="/prova.html" method="get" id="form1">
 
-    <div class="form-group">
-        <label for="">Data</label>
-        <input type="date" class="form-control">
-    </div>
+        <select name="type">
+            <option disabled selected> -Selezione un elemento- </option>
+            <option value="I"> Ingresso </option>
+            <option value="C"> Corso </option>
+        </select>
 
-    <input type="text" class="form-control" placeholder="Nome e Cognome">
+        <label for="data_inizio">Data Inizio</label>
+        <input type="date" id="data_inizio" name="data_inizio">
+
+        <label for="data_fine">Data Fine</label>
+        <input type="date" id="data_fine" name="data_fine">
+
+        <label for="area">Nome-Cognome</label>
+        <input type="text" id="stringa" name="area">
+
+    </form>  
+    <button type="submit" form="form1" value="Submit">Submit</button>
+
 
 
     <h1>Lista</h1>
 
     <ul th:each="questionari : ${listaQuestionari}">
-        <li th:text="${questionari}"></li>
+        <li th:text="${questionari.dataEsecuzione}"></li>
+        <li th:text="${questionari.punteggio}"></li>
+        <li th:text="${questionari.tempo}"></li>
+        <li th:text="${questionari.Quest.titolo}"></li>
+        <li th:text="${questionari.Quest.categoriequest.nome}"></li>
+        <li th:text="${questionari.studente.nome}"></li>
+        <li th:text="${questionari.studente.cognome}"></li>
+        <button type="button">Vedi</button>
         <hr>
     </ul>
 

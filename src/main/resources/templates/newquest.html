@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inserisci Nuova Quest</title>
+</head>
+<body>
+    <h2>Inserisci Nuova Quest</h2>
+    <form action="/categorie" method="post">
+        <label for="titolo">Titolo della Quest:</label><br>
+        <input type="text" id="titolo" name="titolo" required><br><br>
+        
+
+        <select>
+            <option th:each="categoria : ${listaCategorie}" th:value="${categoria.nome}" th:text="${categoria.nome}"></option>
+        </select>
+        
+        <button type="submit">Invia</button>
+    </form>
+</body>
+</html>

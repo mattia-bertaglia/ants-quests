@@ -1,21 +1,22 @@
 package com.gol.ants_quests.services;
 
-
-
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import com.gol.ants_quests.hibernate.services.EsitiHibService;
+import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ShowService {
+public class GestQuestService {
 
-    private final EsitiHibService esitiSrv;
+   private final CategorieHibService questSrv;
 
     public void findAll(Model model) {
 
-        model.addAttribute("listaQuestionari", esitiSrv.findAll());
+        model.addAttribute("listaCategorie", questSrv.getAllCategories());
     }
+
+
+
 
 }

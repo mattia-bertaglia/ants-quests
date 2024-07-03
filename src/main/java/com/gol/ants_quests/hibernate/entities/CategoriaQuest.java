@@ -27,7 +27,6 @@ public class  CategoriaQuest extends GenericEntity {
     private String idCat;
     private String nome;
 
-    
     @OneToMany(mappedBy = "categoriequest")
     private List<Quest> questionari;
 }
