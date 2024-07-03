@@ -66,14 +66,20 @@ public class AuthController {
             String passkey = params.get("passkey");
 
             Optional<User> user = userRepository.findByUsernameEmail(usernameEmail);
+            User ruolo = new User();
 
             if (user.isPresent() && user.get().getPasskey().equals(passkey)) {
                 session.setAttribute("usrlog", true);
                 session.setAttribute("usernameEmail", user.get().getUsernameEmail());
-                return "redirect:/home";
-            } else {
-                params.put("status", "erroreLog");
-                errorService.getToast(model, params);
+                
+                if(ruolo.getRole().equals("studente"))
+                    return "";
+
+                if(ruolo.getRole().equals("guest"))
+                    return "";
+                
+                if(ruolo.getRole().equals("admin"))
+                    return "";
             }
         } else {
             params.put("status", "erroreLog");

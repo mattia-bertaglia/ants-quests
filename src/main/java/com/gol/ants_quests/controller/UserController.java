@@ -42,8 +42,8 @@ public class UserController {
     }
 
     @PutMapping("/enable")
-    public int updateUserEnableStatus(@RequestParam String usernameEmail, @RequestParam boolean enable) {
-        return userService.updateUserEnableStatus(usernameEmail, enable);
+    public boolean updateUserEnabledStatus(@RequestParam String usernameEmail, @RequestParam boolean enabled) {
+        return userService.updateUserEnabledStatus(usernameEmail, enabled);
     }
 }
 
