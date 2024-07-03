@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,7 +24,7 @@ public class AuthController {
     private final UserRepository userRepository;
     private final ErrorService errorService;
 
-    @PostMapping("/signin")
+    @GetMapping("/signin")
     public String signin(@RequestParam HashMap<String, String> params, Model model) {
         if (params.containsKey("usernameEmail") && params.containsKey("passkey")
                 && params.containsKey("confirmPasskey")) {
@@ -59,27 +58,34 @@ public class AuthController {
         return "index";
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public String login(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
         if (params.containsKey("usernameEmail") && params.containsKey("passkey")) {
             String usernameEmail = params.get("usernameEmail");
             String passkey = params.get("passkey");
 
             Optional<User> user = userRepository.findByUsernameEmail(usernameEmail);
-            User ruolo = new User();
 
             if (user.isPresent() && user.get().getPasskey().equals(passkey)) {
                 session.setAttribute("usrlog", true);
                 session.setAttribute("usernameEmail", user.get().getUsernameEmail());
-                
-                if(ruolo.getRole().equals("studente"))
-                    return "";
 
-                if(ruolo.getRole().equals("guest"))
-                    return "";
-                
-                if(ruolo.getRole().equals("admin"))
-                    return "";
+                String ruolo = user.get().getRuolo().toString();
+                switch (ruolo) {
+                    case "studente":
+                        return "redirect:homeStud.html";
+                    case "guest":
+                        return "redirect:homeStud.html";
+                    case "admin":
+                        return "redirect:homeAdmin.html";
+                    default:
+                        params.put("status", "unknownRuolo");
+                        errorService.getToast(model, params);
+                        return "index";
+                }
+            } else {
+                params.put("status", "erroreLog");
+                errorService.getToast(model, params);
             }
         } else {
             params.put("status", "erroreLog");
