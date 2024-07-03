@@ -22,14 +22,9 @@ public class EditQuestServices {
         return questService.findByID(id);
     }
 
-    public List<Quest> getQuestsByCategoriaId(String categoriaId) {
-        return questService.findByCategoriaId(categoriaId);
-    }
-
     public Quest createQuest(Quest quest) {
         return questService.save(quest);
     }
-
 
 
     public void deleteQuest(Integer id) {

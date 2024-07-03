@@ -15,9 +15,4 @@ public class QuestHibService extends GenericHibService<Quest, Integer, QuestsRep
         super(repository);
     }
 
-    public List<Quest> findByCategoriaId(String categoriaId) {
-        return getRepository().findByCategoriaId(categoriaId);
-    }
-
-
 }
