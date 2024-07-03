@@ -20,15 +20,17 @@
                     data-toggle="table" data-locale="it-IT">
                     <thead>
                         <tr>
-                            <th>Nome</th>
+                            <th>Titolo</th>
+                            <th>Punteggio</th>
                             <th>Data</th>
-                            <th></th>
+                            <th></th>                            
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="record : ${session.studente.questionari}">
-                            <td th:text="${record.nome}"></td>
-                            <td th:text="${record.data}"></td>
+                        <tr th:each="record : ${session.studente.esquestionari}">
+                            <td th:text="${record.quest.titolo}"></td>
+                            <td th:text="${record.punteggio}"></td>
+                            <td th:text="${record.dataEsecuzione}"></td>
                             <td><button class="btn btn-primary w-75">Vedi</button></td>
                         </tr>
 
