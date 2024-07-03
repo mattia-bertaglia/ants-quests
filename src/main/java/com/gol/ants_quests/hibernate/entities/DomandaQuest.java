@@ -27,7 +27,6 @@ public class  DomandaQuest extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idQstDet;
-   //private Integer questId;
     private String domanda;
 
 

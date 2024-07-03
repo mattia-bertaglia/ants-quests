@@ -27,7 +27,6 @@ public class  Quest extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idQst;
-   // private String categoriaId;
     private String titolo;
 
     @ManyToOne

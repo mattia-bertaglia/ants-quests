@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Table(name = "esiti_quests")
@@ -25,11 +24,9 @@ public class  EsitoQuest extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEstQst;
-   // private Integer questId;
     private Date dataEsecuzione;
     private String punteggio;
     private String tempo;
-    //private Integer studenteId; // foreign key
 
     @ManyToOne
     @JoinColumn(name = "quest_id")
