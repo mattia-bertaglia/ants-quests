@@ -5,10 +5,7 @@ import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
 import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
-
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,26 +15,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GestQuestController {
 
-    @Autowired
-    private QuestsHibService questService;
-
-    @Autowired
-    private CategorieHibService categoriaQuestService;
-
-    @GetMapping
-    public List<Quest> getAllQuests() {
-        return questService.getAllQuests();
-    }
+    CategorieHibService categoriaQuestService;
+    QuestsHibService questService;
 
     @GetMapping
     public List<CategoriaQuest> getAllCategories() {
+      
         return categoriaQuestService.getAllCategories();
     }
 
-
-
     @GetMapping("/questID")
     public Quest getQuestById(@PathVariable Integer id) {
+       
         return questService.getQuestById(id).orElse(null);
     }
 
