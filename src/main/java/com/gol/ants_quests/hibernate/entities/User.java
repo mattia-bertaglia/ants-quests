@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class User extends GenericEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usr")
@@ -33,20 +33,20 @@ public class User extends GenericEntity {
     private String passkey;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", columnDefinition = "ENUM('guest', 'studente', 'admin') default 'guest'")
-    private Role role = Role.GUEST;
+    @Column(name = "ruolo", columnDefinition = "enum('guest', 'studente', 'admin') default 'guest'")
+    private Ruolo ruolo;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "BOOLEAN default true")
+    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default true")
     private boolean enabled = true;
 
-    public enum Role {
+    public enum Ruolo {
         GUEST("guest"),
         STUDENTE("studente"),
         ADMIN("admin");
 
         private String value;
 
-        Role(String value) {
+        Ruolo(String value) {
             this.value = value;
         }
 
