@@ -109,20 +109,20 @@
         <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
         <script>
             $(document).ready(function() {
-                // Handle button clicks to move to the corresponding question
+                
                 $('button[data-target]').on('click', function() {
                     var targetIndex = $(this).data('target');
                     $('#carouselExampleControls').carousel(targetIndex);
                 });
         
-                // Update active button when carousel slides
+               
                 $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
                     var activeIndex = $(e.relatedTarget).index();
                     $('button[data-target]').removeClass('active');
                     $('#btn-' + activeIndex).addClass('active');
                 });
         
-                // Set the first button as active initially
+                
                 $('#btn-0').addClass('active');
             });
         </script>
