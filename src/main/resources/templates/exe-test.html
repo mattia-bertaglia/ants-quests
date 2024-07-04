@@ -49,7 +49,8 @@
 
                         <div th:if="${session.quest != null}">
                             <th:block th:each="domanda, index : ${session.quest.domanda}">
-                                <button class="btn btn-outline-primary" th:text="${index.index+1}"></button>
+                                <button class="btn btn-outline-primary" th:id="'btn-' + ${index.index}"
+                                    th:text="${index.index + 1}" th:data-target="${index.index}"></button>
                             </th:block>
                         </div>
                         <div th:if="${session.quest == null}">
@@ -58,7 +59,8 @@
 
                         <hr>
 
-                        <div class="container carousel slide d-flex justify-content-center" id="carouselExampleControls">
+                        <div class="container carousel slide d-flex justify-content-center"
+                            id="carouselExampleControls">
                             <div class="carousel-inner">
                                 <th:block th:each="domanda, index : ${session.quest.domanda}">
                                     <div th:id="${domanda.idQstDet}"
@@ -69,10 +71,8 @@
                                             <th:block th:each="risposta : ${domanda.risp}">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox"
-                                                        th:value="${risposta.risposta}"
-                                                        th:id="${risposta.idAns}">
-                                                    <label class="form-check-label"
-                                                        th:for="${risposta.idAns}">
+                                                        th:value="${risposta.risposta}" th:id="${risposta.idAns}">
+                                                    <label class="form-check-label" th:for="${risposta.idAns}">
                                                         <span th:text="${risposta.risposta}"></span>
                                                     </label>
                                                 </div>
@@ -102,20 +102,30 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
         <script src="/jquery/jquery-3.7.1.min.js"></script>
         <script src="/bootstrap/popper.min.js"></script>
         <script src="/bootstrap/bootstrap.min.js"></script>
         <script src="/bootstrap/bootstrap-table.min.js"></script>
         <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
-
-
+        <script>
+            $(document).ready(function() {
+                // Handle button clicks to move to the corresponding question
+                $('button[data-target]').on('click', function() {
+                    var targetIndex = $(this).data('target');
+                    $('#carouselExampleControls').carousel(targetIndex);
+                });
+        
+                // Update active button when carousel slides
+                $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
+                    var activeIndex = $(e.relatedTarget).index();
+                    $('button[data-target]').removeClass('active');
+                    $('#btn-' + activeIndex).addClass('active');
+                });
+        
+                // Set the first button as active initially
+                $('#btn-0').addClass('active');
+            });
+        </script>
 
 </body>
 
