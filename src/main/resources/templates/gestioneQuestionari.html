@@ -8,19 +8,23 @@
     <link rel="icon" type="image/x-icon" href="img/RAD_Favicon.webp">
 </head>
 <body>
-    <button type="button">Nuovo Questionario</button>
+    <form action="/gestione">
+
+        <button type="submit" name="ID">Nuovo Questionario</button>       
     
-    <table>
 
-        <tr>
-            <th th:each="catQuestionari : ${listaQuestionari}" th:text="${catQuestionari.categoriequest.nome}"></th>
-        </tr>
-        <tr>
-            <td th:each="catQuestionari : ${listaQuestionari}" th:text="${catQuestionari.titolo}"></td>
-        </tr>
+    
+        <table>
 
-
-    </table>
+            <tr>
+                <th th:each="catQuestionari : ${listaQuestionari}" th:text="${catQuestionari.categoriequest.nome}"></th>
+            </tr>
+            <tr>
+                <td th:each="catQuestionari : ${listaQuestionari}" th:text="${catQuestionari.titolo}"></td>
+                <button  name="ID" th:each="catQuestionari : ${listaQuestionari}" th:value="${catQuestionari.idQst}">Submit</button> 
+            </tr>
+        </table>
+    </form>
 
 
     <script src="jquery/jquery-3.7.1.min.js"></script>
