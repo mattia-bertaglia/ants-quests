@@ -17,59 +17,117 @@ signinbtn.onclick = function() {
 };
 
 // REGISTRAZIONE
-document.getElementById('registrationForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Impedisce il submit del form
+document.addEventListener('DOMContentLoaded', function() {
+  var signupForm = document.getElementById('signupForm');
+  var emailInput = document.getElementById('mail');
+  var passwordInput = document.getElementById('pass');
+  var confirmPasswordInput = document.getElementById('checkpass');
 
-  var nome = document.getElementById('nome').value;
-  var cognome = document.getElementById('cognome').value;
-  var email = document.getElementById('email').value;
-  var password = document.getElementById('password').value;
-  var confirmPassword = document.getElementById('confirmPassword').value;
-  var errorMessage = document.getElementById('errorMessage');
+  var emailError = document.getElementById('error-mail');
+  var emailCorrect = document.getElementById('correct-mail');
+  var passwordError = document.getElementById('error-pass');
+  var passwordCorrect = document.getElementById('correct-pass');
+  var confirmPasswordError = document.getElementById('error-checkpass');
+  var confirmPasswordCorrect = document.getElementById('correct-checkpass');
 
-  // Reset del messaggio di errore
-  errorMessage.textContent = '';
+  emailInput.addEventListener('input', function() {
+      var email = emailInput.value;
+      var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(email)) {
+          emailError.classList.remove('hidden');
+          emailCorrect.classList.add('hidden');
+      } else {
+          emailError.classList.add('hidden');
+          emailCorrect.classList.remove('hidden');
+      }
+  });
 
-  // Controllo se tutti i campi sono completati
-  if (!nome || !cognome || !email || !password || !confirmPassword) {
-      errorMessage.textContent = 'Devi completare tutti i campi per registrarti.';
-      return;
+  passwordInput.addEventListener('input', function() {
+      var password = passwordInput.value;
+      var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+      if (!passwordPattern.test(password)) {
+          passwordError.classList.remove('hidden');
+          passwordCorrect.classList.add('hidden');
+      } else {
+          passwordError.classList.add('hidden');
+          passwordCorrect.classList.remove('hidden');
+      }
+      checkPasswordMatch();
+  });
+
+  confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+
+  function checkPasswordMatch() {
+      var password = passwordInput.value;
+      var confirmPassword = confirmPasswordInput.value;
+      if (password !== confirmPassword) {
+          confirmPasswordError.classList.remove('hidden');
+          confirmPasswordCorrect.classList.add('hidden');
+      } else {
+          confirmPasswordError.classList.add('hidden');
+          confirmPasswordCorrect.classList.remove('hidden');
+      }
   }
 
-  // Controllo validità email
-  var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  if (!emailPattern.test(email)) {
-      errorMessage.textContent = 'Inserisci un indirizzo email valido.';
-      return;
-  }
+  signupForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // Impedisce il submit del form
 
-  // Controllo complessità password
-  var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
-  if (!passwordPattern.test(password)) {
-      errorMessage.textContent = 'La password deve contenere almeno un carattere minuscolo, un carattere maiuscolo, un carattere numerico e deve essere lunga almeno 6 caratteri.';
-      return;
-  }
+      var nome = document.querySelector('input[name="nome"]').value;
+      var cognome = document.querySelector('input[name="cognome"]').value;
+      var email = emailInput.value;
+      var password = passwordInput.value;
+      var confirmPassword = confirmPasswordInput.value;
 
-  // Controllo corrispondenza password
-  if (password !== confirmPassword) {
-      errorMessage.textContent = 'Le password non corrispondono.';
-      return;
-  }
+      // Controllo se tutti i campi sono completati
+      if (!nome || !cognome || !email || !password || !confirmPassword) {
+          alert('Devi completare tutti i campi per registrarti.');
+          return;
+      }
 
-  // Se tutti i controlli sono superati, procedere con la registrazione
-  alert('Registrazione avvenuta con successo!');
-  // A questo punto puoi inviare i dati al server per completare la registrazione
+      // Controllo validità email
+      var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(email)) {
+          emailError.classList.remove('hidden');
+          return;
+      } else {
+          emailError.classList.add('hidden');
+          emailCorrect.classList.remove('hidden');
+      }
+
+      // Controllo complessità password
+      var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+      if (!passwordPattern.test(password)) {
+          passwordError.classList.remove('hidden');
+          return;
+      } else {
+          passwordError.classList.add('hidden');
+          passwordCorrect.classList.remove('hidden');
+      }
+
+      // Controllo corrispondenza password
+      if (password !== confirmPassword) {
+          confirmPasswordError.classList.remove('hidden');
+          return;
+      } else {
+          confirmPasswordError.classList.add('hidden');
+          confirmPasswordCorrect.classList.remove('hidden');
+      }
+
+      // Se tutti i controlli sono superati, procedere con la registrazione
+      alert('Registrazione avvenuta con successo!');
+      signupForm.submit(); // Invia il form
+  });
 });
 
 
+
 // logica per controllare che l'email non sia già esistente all'interno del database
+
+
+
+
 // logica controllo se l'utente è abilitato
 
-
-
-// controllo password
-// pass e checkpass
-// error-pass e error-checkpass
 
 
 

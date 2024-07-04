@@ -181,3 +181,11 @@ a {
 .hidden {
   display: none;
 }
+
+.correct {
+  color: green;
+}
+
+.error {
+  color: red;
+}

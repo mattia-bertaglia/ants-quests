@@ -59,7 +59,7 @@ public class AuthController {
                     case "guest": // Reindirizza sia studenti che guest alla stessa pagina
                         return "redirect:/auth/homeStud";
                     case "admin":
-                        return "redirect:/auth/homeAdmin";
+                        return "redirect:/homeAdmin";
                     default:
                         params.put("status", "unknownRuolo");
                         errorService.getToast(model, params);
