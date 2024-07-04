@@ -4,34 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Esiti</title>
+    <link rel="icon" type="image/x-icon" href="img/RAD_Favicon.webp">
 </head>
 <body>
 
 
+    <div>
+        <form action="/esiti" method="get" id="form1">
 
-    <form action="/esiti" method="get" id="form1">
+            <select name="type">
+                <option disabled selected> -Selezione un elemento- </option>
+                <option value="I"> Ingresso </option>
+                <option value="C"> Corso </option>
+            </select>
 
-        <select name="type">
-            <option disabled selected> -Selezione un elemento- </option>
-            <option value="I"> Ingresso </option>
-            <option value="C"> Corso </option>
-        </select>
+            <label for="data_inizio">Data Inizio</label>
+            <input type="date" id="data_inizio" name="data_inizio">
 
-        <label for="data_inizio">Data Inizio</label>
-        <input type="date" id="data_inizio" name="data_inizio">
+            <label for="data_fine">Data Fine</label>
+            <input type="date" id="data_fine" name="data_fine">
 
-        <label for="data_fine">Data Fine</label>
-        <input type="date" id="data_fine" name="data_fine">
+            <label for="area">Nome-Cognome</label>
+            <input type="text" id="stringa" name="area">
 
-        <label for="area">Nome-Cognome</label>
-        <input type="text" id="stringa" name="area">
+        </form>  
+        <button type="submit" form="form1" value="Submit">Submit</button>
+    </div>
+    <br>
 
-    </form>  
-    <button type="submit" form="form1" value="Submit">Submit</button>
-
-
-
+    <div>
     <h1>Lista</h1>
 
     <ul th:each="questionari : ${listaQuestionari}">
@@ -45,7 +47,11 @@
         <button type="button">Vedi</button>
         <hr>
     </ul>
+    </div>
 
-
+    <script src="jquery/jquery-3.7.1.min.js"></script>
+    <script src="bootstrap/popper.min.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
