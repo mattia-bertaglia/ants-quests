@@ -5,10 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>home studente</title>
+    <style>
+        #logoutBtn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
-<h1>HOME ADMIN</h1>
+    <h1>Benvenuto nella tua Home admin</h1>
+ <!-- Bottone di logout -->
+ <form action="/auth/logout" method="get">
+    <button type="submit" id="logoutBtn">Logout</button>
+  </form>
 </body>
 
 </html>
