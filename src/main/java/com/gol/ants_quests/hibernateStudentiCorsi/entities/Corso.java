@@ -1,8 +1,10 @@
 package com.gol.ants_quests.hibernateStudentiCorsi.entities;
 
-import org.hibernate.mapping.List;
 
-import jakarta.persistence.Column;
+
+
+import java.sql.Date;
+import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 
 @Entity
 @Table(name = "corsi")
@@ -21,20 +25,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Corso extends GenericEntity {
-    /*id_corso INT,
-    nome varchar(100),
-	data_inizio DATE,
-	data_fine DATE */
+   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_corso")
+    
     private Integer idCorso;
     private String nome;
+    private Date dataInizio;
+    private Date dataFine;
 
-    @Column(name ="data_inizio")
-    private Data dataInizio;
-    @Column(name = "data_fine")
-    private Data dataFine;
-   /*  @OneToMany(mappedBy = "corso")
-    private List<Studente> studenti;*/
+/* @ToString.Exclude
+     @OneToMany(mappedBy = ("corso"))
+     private List<Studente> stud; */
+     
 }

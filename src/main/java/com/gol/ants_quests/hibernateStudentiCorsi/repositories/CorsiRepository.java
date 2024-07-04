@@ -16,5 +16,6 @@ public interface CorsiRepository extends JpaRepository<Corso, Integer> {
     List<Corso> findByDataInzio(Date dataInizio);
 
     List<Corso> findByDataFine(Date dataFine);
+    List<Corso> findAll();
 
 }

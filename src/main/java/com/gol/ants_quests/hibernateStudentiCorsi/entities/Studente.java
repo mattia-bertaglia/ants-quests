@@ -1,21 +1,12 @@
 package com.gol.ants_quests.hibernateStudentiCorsi.entities;
 
 import java.sql.Date;
-import java.util.List;
-
-import org.springframework.context.annotation.Profile;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,21 +23,23 @@ public class Studente extends GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_studente")
+
     private Integer idStudente;
-    @Column(name = "user_id")
     private Integer userId;
     private String nome;
     private String cognome;
-    @Column(name = "data_nascita")
     private Date dataNascita;
     private String cap;
     private String provincia;
     private String telefono;
     private String note;
     private Date dataInserimento;
-    @Column(name = "corso_id")
-    private Integer corsoId;
+    // private Integer corsoId;
+
+
+    @ManyToOne
+    @JoinColumn(name="corso_id")
+    private Corso corso;
 
     /*
      * @ToString.Exclude

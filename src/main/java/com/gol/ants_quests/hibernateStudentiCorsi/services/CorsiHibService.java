@@ -3,6 +3,7 @@ package com.gol.ants_quests.hibernateStudentiCorsi.services;
 import java.sql.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernateStudentiCorsi.entities.Corso;
@@ -26,5 +27,11 @@ public class CorsiHibService extends GenericHibService<Corso, Integer, CorsiRepo
         return getRepository().findByDataFine(dataFine);
 
     }
+         public List<Corso> findAll(){
+            return getRepository().findAll();
+         }
 
+    /*    public Corso saveCorso(Corso corso) {
+        return corsoRepository.save(corso);
+    } */
 }
