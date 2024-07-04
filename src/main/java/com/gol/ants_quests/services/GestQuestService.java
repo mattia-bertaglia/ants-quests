@@ -1,8 +1,8 @@
 package com.gol.ants_quests.services;
 
 import java.util.List;
+import java.util.Map;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
 import com.gol.ants_quests.hibernate.entities.DomandaQuest;
 import com.gol.ants_quests.hibernate.entities.Quest;
@@ -12,8 +12,9 @@ import com.gol.ants_quests.hibernate.services.DomandeHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
 import com.gol.ants_quests.hibernate.services.RisposteHibService;
 
-
 import lombok.RequiredArgsConstructor;
+
+
 
 @Service
 @RequiredArgsConstructor
@@ -30,12 +31,7 @@ public class GestQuestService {
     }
 
 
-
-
-
-
-    @Transactional
-    public Quest createQuestWithDomandeERisposte(String titolo, String categoriaId, List<DomandaQuest> domande) {
+    public Quest createQuestWithDomandeERisposte(String titolo, String categoriaId, List<Map<String, Object>> domandeData) {
         CategoriaQuest categoriaQuest = questSrv.getCategoryById(categoriaId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
 
@@ -44,11 +40,17 @@ public class GestQuestService {
         quest.setCategoriequest(categoriaQuest);
         quest = queSrv.createQuest(quest);
 
-        for (DomandaQuest domanda : domande) {
+        for (Map<String, Object> domandaData : domandeData) {
+            DomandaQuest domanda = new DomandaQuest();
+            domanda.setDomanda((String) domandaData.get("domanda"));
             domanda.setDom(quest);
             domanda = dom.createDomanda(domanda);
 
-            for (RispostaQuest risposta : domanda.getRisp()) {
+            List<Map<String, String>> risposteData = (List<Map<String, String>>) domandaData.get("risp");
+            for (Map<String, String> rispostaData : risposteData) {
+                RispostaQuest risposta = new RispostaQuest();
+                risposta.setRisposta(rispostaData.get("risposta"));
+                risposta.setCorretta(rispostaData.getOrDefault("corretta", "false"));
                 risposta.setDomandaQuest(domanda);
                 risp.createRisposta(risposta);
             }
