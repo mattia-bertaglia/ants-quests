@@ -1,4 +1,5 @@
-
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -6,7 +7,7 @@
 </head>
 <body>
     <h2>Inserisci Nuova Quest</h2>
-    <form action="/inserisciTitolo" method="get">
+    <form action="/inserisciQuest">
         <label for="titolo">Titolo della Quest:</label><br>
         <input type="text" id="titolo" name="titolo" required><br><br>
         
@@ -19,7 +20,68 @@
             </option>
         </select><br><br>
 
+        <div id="domande-container">
+            <div class="domanda">
+                <label for="domanda1">Domanda 1:</label><br>
+                <input type="text" id="domanda1" name="domande[0].domanda" required><br><br>
+                
+                <div class="risposta">
+                    <label for="risposta1-1">Risposta 1:</label><br>
+                    <input type="text" id="risposta1-1" name="domande[0].risp[0].risposta" required><br><br>
+
+                    <label for="corretta1-1">Corretta:</label>
+                    <input type="checkbox" id="corretta1-1" name="domande[0].risp[0].corretta"><br><br>
+                </div>
+                <button type="button" onclick="aggiungiRisposta(0)">Aggiungi Risposta</button><br><br>
+            </div>
+        </div>
+        
+        <button type="button" onclick="aggiungiDomanda()">Aggiungi Domanda</button><br><br>
+
+        
+
+
+
         <button type="submit">Invia</button>
     </form>
+
+
+    <script>
+        function aggiungiDomanda() {
+            const container = document.getElementById('domande-container');
+            const domandaCount = container.getElementsByClassName('domanda').length;
+            const nuovaDomanda = document.createElement('div');
+            nuovaDomanda.className = 'domanda';
+            nuovaDomanda.innerHTML = `
+                <label for="domanda${domandaCount + 1}">Domanda ${domandaCount + 1}:</label><br>
+                <input type="text" id="domanda${domandaCount + 1}" name="domande[${domandaCount}].domanda" required><br><br>
+                
+                <div class="risposta">
+                    <label for="risposta${domandaCount + 1}-1">Risposta 1:</label><br>
+                    <input type="text" id="risposta${domandaCount + 1}-1" name="domande[${domandaCount}].risp[0].risposta" required><br><br>
+
+                    <label for="corretta${domandaCount + 1}-1">Corretta:</label>
+                    <input type="checkbox" id="corretta${domandaCount + 1}-1" name="domande[${domandaCount}].risp[0].corretta"><br><br>
+                </div>
+                <button type="button" onclick="aggiungiRisposta(${domandaCount})">Aggiungi Risposta</button><br><br>
+            `;
+            container.appendChild(nuovaDomanda);
+        }
+
+        function aggiungiRisposta(domandaIndex) {
+            const domandaDiv = document.getElementsByClassName('domanda')[domandaIndex];
+            const rispostaCount = domandaDiv.getElementsByClassName('risposta').length;
+            const nuovaRisposta = document.createElement('div');
+            nuovaRisposta.className = 'risposta';
+            nuovaRisposta.innerHTML = `
+                <label for="risposta${domandaIndex + 1}-${rispostaCount + 1}">Risposta ${rispostaCount + 1}:</label><br>
+                <input type="text" id="risposta${domandaIndex + 1}-${rispostaCount + 1}" name="domande[${domandaIndex}].risp[${rispostaCount}].risposta" required><br><br>
+
+                <label for="corretta${domandaIndex + 1}-${rispostaCount + 1}">Corretta:</label>
+                <input type="checkbox" id="corretta${domandaIndex + 1}-${rispostaCount + 1}" name="domande[${domandaIndex}].risp[${rispostaCount}].corretta"><br><br>
+            `;
+            domandaDiv.appendChild(nuovaRisposta);
+        }
+    </script>
 </body>
 </html>

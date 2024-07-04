@@ -36,6 +36,8 @@ public class  DomandaQuest extends GenericEntity {
     @OneToMany(mappedBy = "domandaQuest") 
     private List<RispostaQuest> risp;
 
+ 
+
     
 
     

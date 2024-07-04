@@ -9,3 +9,4 @@ import com.gol.ants_quests.hibernate.entities.DomandaQuest;
 public interface DomandeRepository extends JpaRepository<DomandaQuest, Integer> {
 
 }
+

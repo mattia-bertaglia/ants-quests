@@ -31,6 +31,7 @@ public class QuestsHibService extends GenericHibService<Quest, Integer, QuestsRe
         return questRepository.save(quest);
     }
 
+
     public Quest updateQuest(Quest quest) {
         return questRepository.save(quest);
     }
@@ -45,4 +46,11 @@ public class QuestsHibService extends GenericHibService<Quest, Integer, QuestsRe
         quest.setCategoriequest(categoriaQuest);
         return questRepository.save(quest);
     }
+
+    
+
+
+
+
+
 }
