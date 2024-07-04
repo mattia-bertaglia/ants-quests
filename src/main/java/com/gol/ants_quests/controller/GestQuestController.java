@@ -1,12 +1,12 @@
 package com.gol.ants_quests.controller;
 
-import com.gol.ants_quests.hibernate.services.CategorieHibService;
-import com.gol.ants_quests.services.GestQuestService;
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.gol.ants_quests.services.GestQuestService;
+
+import lombok.RequiredArgsConstructor;
 
 
 

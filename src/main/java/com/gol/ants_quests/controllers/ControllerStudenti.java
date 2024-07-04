@@ -6,10 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
 import com.gol.ants_quests.hibernate.entities.Quest;
@@ -19,7 +17,8 @@ import com.gol.ants_quests.hibernate.services.StudentsHibService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequestMapping("/studenti")
 @RequiredArgsConstructor
@@ -29,12 +28,13 @@ public class ControllerStudenti {
     private final CategorieHibService CHS;
     private final StudentsHibService SHS;
 
-    @PostMapping("/")
+    @GetMapping("/")
     public String homepageStudente(HttpSession session, @RequestParam String nome, @RequestParam String cognome) {
         // inserire una lista di questionari per lo studente nella session
 
         List<CategoriaQuest> categorie = CHS.findAll();
         session.setAttribute("categorie", categorie);
+        log.info("Aggiungo lista di categorie alla sessione");
         // lista questionari uguale per ogni studente
         // se assegnato ad una classe vede anche quelli del corso altrimenti no
         session.setAttribute("studente", SHS.findByNomeAndCognome(nome, cognome));
@@ -42,12 +42,15 @@ public class ControllerStudenti {
     }
 
     @GetMapping("/doQuestionario")
-    @ResponseBody
-    public Optional<Quest> doQuestionario(@RequestParam("mySelect") Integer selectedValue,Model model) {
+    public String doQuestionario(HttpSession session,@RequestParam("mySelect") Integer selectedValue) {
 
-       model.addAttribute("quest", QHS.findByID(selectedValue));
-       
-        return QHS.findByID(selectedValue);
+
+       Optional<Quest> quest = QHS.findByID(selectedValue);
+        
+
+       session.setAttribute("quest", quest.get());
+
+        return "exe-test.html";
 
     }
 
