@@ -177,3 +177,7 @@ a {
   color: #333;
   font-size: 14px;
 }
+
+.hidden {
+  display: none;
+}
