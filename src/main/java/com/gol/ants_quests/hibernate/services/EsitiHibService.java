@@ -15,8 +15,7 @@ public class EsitiHibService extends GenericHibService<EsitoQuest, Integer, Esit
     }
 
     public List<EsitoQuest> findData(LocalDate data_inizio,LocalDate data_fine) {
-        return getRepository().findByDataEsecuzioneBetween(data_inizio, data_fine);
+        return getRepository().findByDataEsecuzioneBetween(data_inizio,data_fine);
         
     }
-
 }
