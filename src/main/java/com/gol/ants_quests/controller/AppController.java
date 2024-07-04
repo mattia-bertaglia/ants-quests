@@ -20,16 +20,18 @@ public class AppController {
 
     @GetMapping("/")
     public String openIndex(Model model, HttpSession session, String code) {
+         
         
         /*
          * controllo se nella sessione è presente un codice di errore
          * 
          * se è presente richiamo errorService
          */
-        if(code == null || code.length()>0 ){
+        if(code == null){
+            code = "";
+        } else if (!code.isEmpty()) {
             code = "";
         }
-
 
         errorServ.getToast(session, code);
         return "index.html";
