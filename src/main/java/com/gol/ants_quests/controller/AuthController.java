@@ -14,6 +14,7 @@ import com.gol.ants_quests.hibernate.repositories.UserRepository;
 import com.gol.ants_quests.services.ErrorService;
 import com.gol.ants_quests.util.Ruolo;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -75,11 +76,10 @@ public class AuthController {
                 String ruolo = user.getRuolo().toString();
                 switch (ruolo) {
                     case "studente":
-                        return "redirect:/homeStudente";
-                    case "guest":
-                        return "redirect:/homeStudente";
+                    case "guest": // Reindirizza sia studenti che guest alla stessa pagina
+                        return "redirect:/auth/homeStud";
                     case "admin":
-                        return "redirect:/homeAdmin";
+                        return "redirect:/auth/homeAdmin";
                     default:
                         params.put("status", "unknownRuolo");
                         errorService.getToast(model, params);
@@ -87,7 +87,7 @@ public class AuthController {
                 }
             } else {
                 /*
-                 * codice di errore interessato nella sessione
+                 * Gestione dell'errore di login
                  */
                 errorService.getToast(session, "erroreLog");
             }
@@ -99,8 +99,26 @@ public class AuthController {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/?status=logoutOK";
+    public String logout(HttpSession session, HttpServletRequest request) {
+        session.invalidate(); // Invalida la sessione completamente
+        return "redirect:/";
+    }
+
+    @GetMapping("/homeStud")
+    public String homeStud(HttpSession session, Model model) {
+        String ciao = "ciao";
+        session.setAttribute("ciao", ciao);
+        Boolean isLoggedIn = isUserLoggedIn(session);
+        if (isLoggedIn) {
+            return "homeStud.html"; // Accesso consentito solo se l'utente è loggato
+        } else {
+            return "redirect:/auth/login"; // Se l'utente non è loggato, reindirizzalo alla pagina di login
+        }
+    }
+
+    // Metodo per verificare se l'utente è loggato
+    private boolean isUserLoggedIn(HttpSession session) {
+        Boolean isLoggedIn = (Boolean) session.getAttribute("usrlog");
+        return isLoggedIn != null && isLoggedIn;
     }
 }
