@@ -1,15 +1,20 @@
 package com.gol.ants_quests.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
+import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
+import com.gol.ants_quests.hibernate.services.QuestsHibService;
 import com.gol.ants_quests.hibernate.services.StudentsHibService;
 
 import jakarta.servlet.http.HttpSession;
@@ -20,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ControllerStudenti {
 
+    private final QuestsHibService QHS;
     private final CategorieHibService CHS;
     private final StudentsHibService SHS;
-    
 
     @PostMapping("/")
     public String homepageStudente(HttpSession session, @RequestParam String nome, @RequestParam String cognome) {
@@ -37,8 +42,13 @@ public class ControllerStudenti {
     }
 
     @GetMapping("/doQuestionario")
-    public String doQuestionario() {
-        return "exe-test.html";
+    @ResponseBody
+    public Optional<Quest> doQuestionario(@RequestParam("mySelect") Integer selectedValue,Model model) {
+
+       model.addAttribute("quest", QHS.findByID(selectedValue));
+       
+        return QHS.findByID(selectedValue);
+
     }
 
 }

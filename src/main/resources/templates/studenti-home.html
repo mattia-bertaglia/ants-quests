@@ -10,9 +10,10 @@
     <div class="container">
         <div class="card-body form-group d-flex flex-column align-items-center my-4">
             <div class="row mb-3 w-50">
-                <a href="doQuestionario" class="btn btn-primary btn-lg">Inizia Questionario</a>
+                <form action="doQuestionario" method="get">
+                <input class="btn btn-primary" type="submit" value="Inizia il questionario">
                 <h2> Scegliere questionario</h2>
-                <select>
+                <select name="mySelect" id="mySelect">
                     <th:block th:each="categoria : ${session.categorie}">
                         <optgroup th:label="${categoria.nome}">
                             <option th:each="questionario : ${categoria.questionari}" 
@@ -22,6 +23,7 @@
                         </optgroup>
                     </th:block>
                 </select>
+            </form>
                 <!-- <a href="studenti/" class="btn btn-primary btn-lg">Accedi Studente</a> -->
             </div>
             <h1>Questionari svolti : </h1>
