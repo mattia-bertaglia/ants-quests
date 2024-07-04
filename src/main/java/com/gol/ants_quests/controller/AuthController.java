@@ -27,14 +27,19 @@ public class AuthController {
     private final UserHibService userService;
     private final UserRepository userRepository;
     private final ErrorService errorService;
+    private final AuthService authService; // Inject AuthService
 
     @GetMapping("/signup")
-    public String signup(@RequestParam HashMap<String, String> params, Model model) {
-        return userService.signUpUser(params, model);
+    public String signup(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
+        String signupResult = userService.signUpUser(params, model);
+        if (signupResult.equals("redirect:/?status=signOK")) {
+            // Imposta gli attributi della sessione per l'autenticazione
+            session.setAttribute("usrlog", true);
+            session.setAttribute("usernameEmail", params.get("usernameEmail"));
+            return "redirect:/auth/homeStud"; // Reindirizza alla home studente
+        }
+        return signupResult;
     }
-
-        
-    
 
     @GetMapping("/login")
     public String login(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
@@ -61,9 +66,6 @@ public class AuthController {
                         return "redirect:/";
                 }
             } else {
-                /*
-                 * Gestione dell'errore di login
-                 */
                 errorService.getToast(session, "erroreLog");
             }
         } else {
@@ -81,11 +83,7 @@ public class AuthController {
 
     @GetMapping("/homeStud")
     public String homeStud(HttpSession session, Model model) {
-        String ciao = "ciao";
-        session.setAttribute("ciao", ciao);
-        AuthService isLoggedIn = new AuthService();
-        isLoggedIn.isUserLoggedIn(session);
-        if (isLoggedIn.isUserLoggedIn(session)) {
+        if (authService.isUserLoggedIn(session)) {
             return "homeStud.html"; // Accesso consentito solo se l'utente è loggato
         } else {
             return "redirect:/auth/login"; // Se l'utente non è loggato, reindirizzalo alla pagina di login
