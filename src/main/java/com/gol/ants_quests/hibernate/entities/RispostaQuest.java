@@ -1,5 +1,7 @@
 package com.gol.ants_quests.hibernate.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +31,7 @@ public class  RispostaQuest extends GenericEntity {
 
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "quest_detail_id")
     private DomandaQuest domandaQuest;
 

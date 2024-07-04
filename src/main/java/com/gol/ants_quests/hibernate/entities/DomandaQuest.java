@@ -3,6 +3,7 @@ package com.gol.ants_quests.hibernate.entities;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,6 +36,7 @@ public class DomandaQuest extends GenericEntity {
     @JoinColumn(name = "quest_id")
     private Quest dom;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "domandaQuest")
     private List<RispostaQuest> risp;
 

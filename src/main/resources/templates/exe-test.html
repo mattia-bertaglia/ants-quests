@@ -16,7 +16,7 @@
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                
+
                 <li class="breadcrumb-item dropdown">
                     <a class="dropdown-toggle" id="nb-quest" role="button" data-toggle="dropdown">Questionari</a>
                     <div class="dropdown-menu p-2" aria-lab elledby="nb-quest" aria-haspopup="true"
@@ -25,7 +25,7 @@
                         <a class="dropdown-item" href="/esi-questionari">Esito Questionari</a>
                     </div>
                 </li>
-                
+
                 <li class="breadcrumb-item active"><a>Esecuzione TEST</a></li>
             </ol>
         </nav>
@@ -41,7 +41,7 @@
 
                         <div class="row">
                             <div class="col-md-2">
-                                <h5>Domanda</h5>
+                                <h5 th:text="${session.quest.titolo}"></h5>
                             </div>
                         </div>
                     </div>
@@ -58,31 +58,29 @@
 
                         <hr>
 
-                        <div class="container carousel slide d-flex justify-content-center" id="carouselExampleControls"
-                            data-bs-ride="carousel">
-
-                            <div id="1">
-                                Domanda ....
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Risposta 1
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Risposta 2
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Risposta 3
-                                    </label>
-                                </div>
+                        <div class="container carousel slide d-flex justify-content-center" id="carouselExampleControls">
+                            <div class="carousel-inner">
+                                <th:block th:each="domanda, index : ${session.quest.domanda}">
+                                    <div th:id="${domanda.idQstDet}"
+                                        th:class="'carousel-item' + (${index.index == 0} ? ' active' : '')">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <h3>Domanda:</h3>
+                                            <h2 th:text="${domanda.domanda}"></h2>
+                                            <th:block th:each="risposta : ${domanda.risp}">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox"
+                                                        th:value="${risposta.risposta}"
+                                                        th:id="${risposta.idAns}">
+                                                    <label class="form-check-label"
+                                                        th:for="${risposta.idAns}">
+                                                        <span th:text="${risposta.risposta}"></span>
+                                                    </label>
+                                                </div>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </th:block>
                             </div>
-
                             <button class="carousel-control-prev" style="background-color: blue !important;"
                                 type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -94,16 +92,15 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                             </button>
-
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <a target="_blank" href="/generate-pdf" class="btn btn-primary btn-lg">Concludi Test</a>
+
+                        <div class="card-footer">
+                            <a target="_blank" href="/generate-pdf" class="btn btn-primary btn-lg">Concludi Test</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
 
@@ -112,11 +109,11 @@
 
 
 
-    <script src="/jquery/jquery-3.7.1.min.js"></script>
-    <script src="/bootstrap/popper.min.js"></script>
-    <script src="/bootstrap/bootstrap.min.js"></script>
-    <script src="/bootstrap/bootstrap-table.min.js"></script>
-    <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
+        <script src="/jquery/jquery-3.7.1.min.js"></script>
+        <script src="/bootstrap/popper.min.js"></script>
+        <script src="/bootstrap/bootstrap.min.js"></script>
+        <script src="/bootstrap/bootstrap-table.min.js"></script>
+        <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
 
 
 
