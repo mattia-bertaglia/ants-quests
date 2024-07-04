@@ -1,6 +1,7 @@
 package com.gol.ants_quests.controller;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.gol.ants_quests.hibernate.entities.User;
+import com.gol.ants_quests.hibernate.repositories.UserRepository;
 import com.gol.ants_quests.hibernate.services.UserHibService;
-
+import com.gol.ants_quests.services.AuthService;
+import com.gol.ants_quests.services.ErrorService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +25,8 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final UserHibService userService;
+    private final UserRepository userRepository;
+    private final ErrorService errorService;
 
     @GetMapping("/signup")
     public String signup(@RequestParam HashMap<String, String> params, Model model) {
@@ -78,17 +83,13 @@ public class AuthController {
     public String homeStud(HttpSession session, Model model) {
         String ciao = "ciao";
         session.setAttribute("ciao", ciao);
-        Boolean isLoggedIn = isUserLoggedIn(session);
-        if (isLoggedIn) {
+        AuthService isLoggedIn = new AuthService();
+        isLoggedIn.isUserLoggedIn(session);
+        if (isLoggedIn.isUserLoggedIn(session)) {
             return "homeStud.html"; // Accesso consentito solo se l'utente è loggato
         } else {
             return "redirect:/auth/login"; // Se l'utente non è loggato, reindirizzalo alla pagina di login
         }
     }
 
-    // Metodo per verificare se l'utente è loggato
-    private boolean isUserLoggedIn(HttpSession session) {
-        Boolean isLoggedIn = (Boolean) session.getAttribute("usrlog");
-        return isLoggedIn != null && isLoggedIn;
-    }
 }

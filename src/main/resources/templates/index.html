@@ -49,10 +49,34 @@
     </div>
   </div>
 
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="toast-header" class="toast-header">
+            <strong id="title-toast" class="me-auto"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div id="message-toast" class="toast-body">
+
+        </div>
+    </div>
+  </div>
+
   <script src="jquery/jquery-3.7.1.min.js"></script>
   <script src="bootstrap/popper.min.js"></script>
   <script src="bootstrap/bootstrap.min.js"></script>
   <script src="js/index.js"></script>
+  
+  <script>
+        const title = "[[${toastTitle}]]";
+        const message = "[[${toastMessage}]]";
+        const toastColor = "[[${toastColor}]]";
 
+        const toast = document.getElementById('toast');
+        document.getElementById("title-toast").innerHTML = title;
+        document.getElementById("message-toast").innerHTML = message;
+        document.getElementById("toast-header").classList.add(toastColor);
+
+        bootstrap.Toast.getOrCreateInstance(toast).show();
+  </script>
 </body>
 </html>

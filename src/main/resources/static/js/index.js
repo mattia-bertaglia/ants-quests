@@ -17,84 +17,50 @@ signinbtn.onclick = function() {
 };
 
 // REGISTRAZIONE
-const email = document.getElementById("mail");
-const errormail = document.getElementById("error-mail");
-const correctmail = document.getElementById("correct-mail");
-let emailok = false;
-const pass = document.getElementById("pass");
-const checkpass = document.getElementById("checkpass");
-const errorpass = document.getElementById("error-pass");
-const correctpass = document.getElementById("correct-pass");
-const errorcheckpass = document.getElementById("error-checkpass");
-const correctcheckpass = document.getElementById("correct-checkpass");
-let passok = false;
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Impedisce il submit del form
 
-email.addEventListener("input", function(){
-    checkEmail();
+  var nome = document.getElementById('nome').value;
+  var cognome = document.getElementById('cognome').value;
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  var confirmPassword = document.getElementById('confirmPassword').value;
+  var errorMessage = document.getElementById('errorMessage');
+
+  // Reset del messaggio di errore
+  errorMessage.textContent = '';
+
+  // Controllo se tutti i campi sono completati
+  if (!nome || !cognome || !email || !password || !confirmPassword) {
+      errorMessage.textContent = 'Devi completare tutti i campi per registrarti.';
+      return;
+  }
+
+  // Controllo validità email
+  var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailPattern.test(email)) {
+      errorMessage.textContent = 'Inserisci un indirizzo email valido.';
+      return;
+  }
+
+  // Controllo complessità password
+  var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+  if (!passwordPattern.test(password)) {
+      errorMessage.textContent = 'La password deve contenere almeno un carattere minuscolo, un carattere maiuscolo, un carattere numerico e deve essere lunga almeno 6 caratteri.';
+      return;
+  }
+
+  // Controllo corrispondenza password
+  if (password !== confirmPassword) {
+      errorMessage.textContent = 'Le password non corrispondono.';
+      return;
+  }
+
+  // Se tutti i controlli sono superati, procedere con la registrazione
+  alert('Registrazione avvenuta con successo!');
+  // A questo punto puoi inviare i dati al server per completare la registrazione
 });
 
-pass.addEventListener("input", function(){
-    checkPass();
-});
-
-checkpass.addEventListener("input", function(){
-    checkPass();
-});
-
-function signup() {
-    checkEmail();
-    checkPass();
-    
-    if (!emailok || !passok) {
-        alert("NON PUOI REGISTRARTI");
-        return false;
-    } else {
-        alert("PUOI REGISTRARTI");
-        return true;
-    }
-}
-
-function checkEmail() {
-    if (isValidEmail(email.value)) {
-        errormail.classList.add("hidden");
-        correctmail.classList.remove("hidden");
-        emailok = true;
-    } else {
-        correctmail.classList.add("hidden");
-        errormail.classList.remove("hidden");
-        emailok = false;
-    }
-}
-
-function isValidEmail(email) {
-    const regex = /^[\w-+.]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return regex.test(email);
-}
-
-function checkPass() {
-    if (isValidPass(pass.value) && pass.value.length > 5) {
-        errorpass.classList.add("hidden");
-        correctpass.classList.remove("hidden");
-    } else {
-        correctpass.classList.add("hidden");
-        errorpass.classList.remove("hidden");
-    }
-
-    if (pass.value === checkpass.value && pass.value != "" && pass.value.length > 5) {
-        errorcheckpass.classList.add("hidden");
-        correctcheckpass.classList.remove("hidden");
-        passok = (isValidPass(pass.value) && (pass.value.length > 5));
-    } else {
-        correctcheckpass.classList.add("hidden");
-        errorcheckpass.classList.remove("hidden");
-        passok = false;
-    }
-}
-
-function isValidPass(pass) {
-    const regex = /^[a-zA-Z0-9]+$/;
-    return regex.test(pass);
-}
 
 // logica per controllare che l'email non sia già esistente all'interno del database
 // logica controllo se l'utente è abilitato
