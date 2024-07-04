@@ -27,6 +27,8 @@ public interface StudentiRepository extends JpaRepository<Studente, Integer> {
 
     List<Studente> findByNote(String note);
 
+    List<Studente> findAll();
+
     List<Studente> findByDataInserimento(Date dataInserimento);
 
 }

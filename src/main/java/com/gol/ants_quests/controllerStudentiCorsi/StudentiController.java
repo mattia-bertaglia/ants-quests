@@ -1,11 +1,19 @@
 package com.gol.ants_quests.controllerStudentiCorsi;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gol.ants_quests.hibernateStudentiCorsi.services.CorsiHibService;
+import com.gol.ants_quests.hibernateStudentiCorsi.entities.Studente;
+
 import com.gol.ants_quests.hibernateStudentiCorsi.services.StudentiHibService;
+import com.gol.ants_quests.service.StudentiService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,19 +21,32 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class StudentiController {
 
-    private final StudentiHibService studentiHibService;
-    private final CorsiHibService corsiHibService;
+    /* richiamare logiche su studentiService */
 
-    @PostMapping("/studenti")
-    public String studenti(Model model) {
-        model.addAttribute("listaStudenti", studentiHibService.findAll());
+    private final StudentiService studentiService;
+
+    /*
+     * private final CorsiHibService corsiHibService;
+     */
+    @GetMapping("/studenti")
+    public String paginaStudenti(Model model) {
+        studentiService.paginaStudenti(model);
         return "studenti.html";
     }
 
-    @PostMapping("/corsi")
-    public String corsi(Model model) {
-        model.addAttribute("listaCorsi", corsiHibService.findAll());
-        return "corsi.html";
+    /*
+     * @GetMapping("/studenti")
+     * public String getStudenti(Model model) {
+     * // Aggiungi le variabili necessarie al modello
+     * model.addAttribute("studenti", getStudentiList());
+     * return "studenti";
+     * }
+     */
+
+    @PostMapping("/new-stud")
+    public String paginaStudenti(@RequestParam HashMap<String, String> params) {
+        studentiService.save(params);
+        return "redirect:/studenti";
     }
 
 }

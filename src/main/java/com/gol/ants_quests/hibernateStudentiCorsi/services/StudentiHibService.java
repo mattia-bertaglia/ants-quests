@@ -59,4 +59,9 @@ public class StudentiHibService extends GenericHibService<Studente, Integer, Stu
         return getRepository().findByDataInserimento(dataInserimento);
 
     }
+
+    public List<Studente> findAll() {
+        return getRepository().findAll();
+    }
+
 }
