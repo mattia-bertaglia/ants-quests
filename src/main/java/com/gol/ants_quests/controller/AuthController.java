@@ -25,7 +25,6 @@ public class AuthController {
     private final UserRepository userRepository;
     private final ErrorService errorService;
 
-
     @GetMapping("/signup")
     public String signup(@RequestParam HashMap<String, String> params, Model model) {
         if (params.containsKey("usernameEmail") && params.containsKey("passkey")
