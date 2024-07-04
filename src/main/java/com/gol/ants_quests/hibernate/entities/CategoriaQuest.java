@@ -2,6 +2,8 @@ package com.gol.ants_quests.hibernate.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +30,7 @@ public class  CategoriaQuest extends GenericEntity {
     private String idCat;
     private String nome;
 
-    
-    @OneToMany(mappedBy = "categoriequest", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    @OneToMany(mappedBy = "categoriequest")
     private List<Quest> questionari;
 }
