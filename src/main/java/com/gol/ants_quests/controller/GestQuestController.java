@@ -1,13 +1,12 @@
 package com.gol.ants_quests.controller;
 
-import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
+
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.services.GestQuestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -26,14 +25,10 @@ public class GestQuestController {
             return "newquest.html";
         }
 
-        @PostMapping("/inserisciTitolo")
+        @GetMapping("/inserisciTitolo")
         public String inserisciTitolo(@RequestParam String titolo, @RequestParam String categoriaId) {
-            CategoriaQuest categoriaQuest = categoriaQuestService.getCategoryById(categoriaId).orElse(null);
-            if (categoriaQuest == null) {
-            throw new IllegalArgumentException("Invalid category ID");
-        }
-            gestQuestService.createQuestWithTitolo(titolo);
-            return "newquest.html"; 
+            gestQuestService.createQuestWithTitolo(titolo, categoriaId);
+            return "redirect:/nuovaQuest";
         }
 
 	    @GetMapping("/categorie")
