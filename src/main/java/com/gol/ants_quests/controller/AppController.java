@@ -32,7 +32,8 @@ public class AppController {
             model.addAttribute("toastMessage", toastMessage);
             model.addAttribute("toastColor", toastColor);
 
-            // Rimuovi gli attributi del toast dalla sessione dopo averli aggiunti al modello
+            // Rimuovi gli attributi del toast dalla sessione dopo averli aggiunti al
+            // modello
             session.removeAttribute("toastTitle");
             session.removeAttribute("toastMessage");
             session.removeAttribute("toastColor");
@@ -40,7 +41,7 @@ public class AppController {
         return "index.html";
     }
 
-    @GetMapping("/homeStudente")
+    @GetMapping("/homeStud")
     public String homeStud(Model model) {
         return "homeStud.html";
     }
