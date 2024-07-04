@@ -15,9 +15,15 @@ public class ShowController {
     @GetMapping("/esiti")
     public String esiti(Model model) {
 
-        showSrv.findAll(model);
+        showSrv.findAllQuest(model);
         return "esitiQuestionari.html";
     }
 
+    @GetMapping("/gestione")
+    public String gestione(Model model){
+
+        showSrv.findAllQuestByCategoria(model);
+        return "gestioneQuestionari.html";
+    }
 
 }

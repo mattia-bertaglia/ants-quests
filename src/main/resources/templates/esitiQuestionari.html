@@ -36,7 +36,7 @@
     <div>
     <h1>Lista</h1>
 
-    <ul th:each="questionari : ${listaQuestionari}">
+    <ul th:each="questionari : ${listaEsitiQuestionari}">
         <li th:text="${questionari.dataEsecuzione}"></li>
         <li th:text="${questionari.punteggio}"></li>
         <li th:text="${questionari.tempo}"></li>
