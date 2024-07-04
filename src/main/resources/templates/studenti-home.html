@@ -13,7 +13,7 @@
                 <a href="doQuestionario" class="btn btn-primary btn-lg">Inizia Questionario</a>
                 <h2> Scegliere questionario</h2>
                 <select>
-                    <th:block th:each="categoria : ${categorie}">
+                    <th:block th:each="categoria : ${session.categorie}">
                         <optgroup th:label="${categoria.nome}">
                             <option th:each="questionario : ${categoria.questionari}" 
                                     th:value="${questionario.idQst}" 

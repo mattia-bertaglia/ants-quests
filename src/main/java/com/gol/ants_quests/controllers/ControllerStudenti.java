@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
-import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
-import com.gol.ants_quests.hibernate.services.QuestsHibService;
 import com.gol.ants_quests.hibernate.services.StudentsHibService;
 
 import jakarta.servlet.http.HttpSession;

@@ -3,6 +3,7 @@ package com.gol.ants_quests.hibernate.entities;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,11 +30,11 @@ public class  Quest extends GenericEntity {
     private Integer idQst;
     private String titolo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     private CategoriaQuest categoriequest;
 
-    @ToString.Exclude
+    
     @OneToMany(mappedBy = "quest") 
     private List<EsitoQuest> esquestionari;
 
