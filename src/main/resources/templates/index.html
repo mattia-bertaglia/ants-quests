@@ -19,18 +19,19 @@
             <div class="card-header">
                 <h2>Login</h2>
             </div>
+            <button class="btn btn-primary" id="modProfilo">Modifica</button>
             <form action="studenti/" method="get">
                 <div class="card-body form-group d-flex flex-column align-items-center my-4">
                     <div class="row mb-3 w-50">
                         <div class="col">
-                            <input type="text" name="nome" class="form-control form-control-lg "
-                                placeholder="Username/Email">
+                            <input type="text" readonly name="nome" class="form-control-plaintext form-control-lg "
+                                placeholder="Username/Email" >
                         </div>
                     </div>
 
                     <div class="row mb-3  w-50">
                         <div class="col">
-                            <input type="text" name="cognome" class="form-control form-control-lg "
+                            <input type="text" readonly name="cognome" class="form-control-plaintext form-control-lg"
                                 placeholder="Password">
                         </div>
                     </div>
@@ -60,7 +61,19 @@
 
     </div>
 
-
+<script src="/jquery/jquery-3.7.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#modProfilo").on("click", function() {
+            document.querySelectorAll("input.form-control-plaintext").forEach(function(input) {
+                console.log(input);
+                input.readOnly = false;
+                input.classList.remove("form-control-plaintext");
+                input.classList.add("form-control");
+            });
+        })
+    });
+</script>
 
 
 </body>
