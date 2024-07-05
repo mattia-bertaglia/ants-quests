@@ -16,6 +16,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // Metodo per trovare tutti gli utenti con un determinato ruolo
     List<User> findByRuolo(Ruolo ruolo);
 
+    Ruolo findRuoloById(Integer userId);
+
+    Ruolo findRuoloByUsernameEmail(String usernameEmail);
+
     // Metodo per trovare tutti gli utenti abilitati
     List<User> findByEnabled(boolean enabled);
 
