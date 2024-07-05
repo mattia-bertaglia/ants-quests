@@ -1,9 +1,11 @@
 package com.gol.ants_quests.controller;
+
 import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,9 +16,6 @@ import com.gol.ants_quests.services.ErrorService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-
 
 @Controller
 @RequestMapping("/auth")
@@ -39,8 +38,8 @@ public class AuthController {
     }
 
     @PostMapping("/completeSignup")
-    public String completedSignup(Model model) {
-        return "redirect:/auth/completeSignIn.html";
+    public String firstTime(Model model) {
+        return "redirect:/auth/firstTime";
     }
 
     @PostMapping("/login")
@@ -62,11 +61,9 @@ public class AuthController {
         }
     }
 
-
     @GetMapping("/logout")
     public String logout(HttpSession session, HttpServletRequest request) {
         session.invalidate();
         return "redirect:/";
     }
 }
-
