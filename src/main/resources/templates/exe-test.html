@@ -66,7 +66,7 @@
                                     <div th:id="${domanda.idQstDet}"
                                         th:class="'carousel-item' + (${index.index == 0} ? ' active' : '')">
                                         <div class="d-flex flex-column align-items-center">
-                                            <h3>Domanda:</h3>
+                                            <h3 th:text="'Domanda ' + ${domanda.idQstDet} + ' :'"></h3>
                                             <h2 th:text="${domanda.domanda}"></h2>
                                             <th:block th:each="risposta : ${domanda.risp}">
                                                 <div class="form-check">
