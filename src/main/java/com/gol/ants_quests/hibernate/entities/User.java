@@ -37,7 +37,7 @@ public class User extends GenericEntity {
     @Enumerated(EnumType.STRING)
     private Ruolo ruolo = Ruolo.guest;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default false")
+    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default true")
     private boolean enabled;
 
 }

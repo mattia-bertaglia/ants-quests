@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.services.AuthService;
 import com.gol.ants_quests.services.ErrorService;
-import com.gol.ants_quests.util.UserUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -27,18 +26,16 @@ public class AuthController {
     private final ErrorService errorService;
 
     @PostMapping("/signup")
-public String signup(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
-    User newUser = authService.registerUser(params, model);
-    boolean firstTime = UserUtil.checkFirstTimeVisit(session);
-
-    if (firstTime) {
-        authService.setupSession(session, newUser);
-        return "redirect:/firstTime"; // Redirect to first-time user page
-    } else {
-        // Handle existing user redirection
-        return "redirect:/homeStud";
+    public String signup(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
+        User newUser = authService.registerUser(params, model);
+        if (newUser != null) {
+            authService.setupSession(session, newUser);
+            return "redirect:/?status=signOK";
+        } else {
+            // Rimani sulla pagina di registrazione se ci sono errori
+            return "/firstTime";
+        }
     }
-}
 
     @PostMapping("/firstTime")
     public String firstTime(Model model) {
