@@ -37,7 +37,7 @@ public class AuthService {
             switch (user.getRuolo()) {
                 case studente:
                 case guest:
-                    return "redirect:/auth/homeStud";
+                    return "redirect:/homeStud";
                 case admin:
                     return "redirect:/homeAdmin";
                 default:
