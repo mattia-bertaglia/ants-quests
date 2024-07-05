@@ -59,7 +59,6 @@ public class AuthService {
                     put("status", "registrationError");
                 }
             });
-            return null;
         }
 
         User user = new User();
