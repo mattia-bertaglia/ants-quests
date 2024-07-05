@@ -21,7 +21,7 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
 
     @Autowired
     private UserRepository userRepository;
-    
+
     @Autowired
     private ErrorService errorService;
 
@@ -97,9 +97,9 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
                 String ruolo = user.getRuolo().toString();
                 switch (ruolo) {
                     case "studente":
-                        return "redirect:/homeStudente";
+                        return "redirect:/homeStud";
                     case "guest":
-                        return "redirect:/homeStudente";
+                        return "redirect:/homeStud";
                     case "admin":
                         return "redirect:/homeAdmin";
                     default:
