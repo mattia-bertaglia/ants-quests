@@ -2,14 +2,12 @@
 package com.gol.ants_quests.hibernateStudentiCorsi.entities;
 
 import java.sql.Date;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Corso extends GenericEntity {
+public class OnlyCorso extends GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +34,4 @@ public class Corso extends GenericEntity {
     @Column(name = "data_fine")
     private Date dataFine;
 
-    @OneToMany(mappedBy = "corso_id")
-    private List<OnlyStudente> studenti;
 }
