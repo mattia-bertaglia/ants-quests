@@ -33,13 +33,13 @@ public class AuthController {
             return "redirect:/?status=signOK";
         } else {
             // Rimani sulla pagina di registrazione se ci sono errori
-            return "redirect:/firstTime";
+            return "/firstTime";
         }
     }
 
     @PostMapping("/firstTime")
     public String firstTime(Model model) {
-        return "redirect:/auth/firstTime";
+        return "/auth/firstTime";
     }
 
     @PostMapping("/login")
