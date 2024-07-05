@@ -31,8 +31,6 @@
         </nav>
     </div>
     <hr>
-
-
     <div class="container">
         <div class="row">
             <div class="col">
@@ -46,7 +44,6 @@
                         </div>
                     </div>
                     <div class="card-body">
-
                         <div th:if="${session.quest != null}">
                             <th:block th:each="domanda, index : ${session.quest.domanda}">
                                 <button class="btn btn-outline-primary" th:id="'btn-' + ${index.index}"
@@ -56,9 +53,7 @@
                         <div th:if="${session.quest == null}">
                             <p>Nessun questionario disponibile</p>
                         </div>
-
                         <hr>
-
                         <div class="container carousel slide d-flex justify-content-center"
                             id="carouselExampleControls">
                             <div class="carousel-inner">
