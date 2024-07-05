@@ -40,9 +40,9 @@ public String signup(@RequestParam HashMap<String, String> params, HttpSession s
     }
 }
 
-    @PostMapping("/completeSignup")
+    @PostMapping("/firstTime")
     public String firstTime(Model model) {
-        return "redirect:/auth/firstTime";
+        return "/auth/firstTime";
     }
 
     @PostMapping("/login")

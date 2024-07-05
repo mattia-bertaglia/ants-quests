@@ -64,14 +64,14 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         return userRepository.findByUsernameEmail(email) != null;
     }
 
-    public String completeSignUpUser(HashMap<String, String> userData, Model model) {
+    public String firstTimeUser(HashMap<String, String> userData, Model model) {
         // Logica per salvare l'utente nel database
         String email = userData.get("email");
         String password = userData.get("password");
 
         if (email == null || password == null) {
             model.addAttribute("error", "Tutti i campi sono obbligatori.");
-            return "/completeSignUp";
+            return "/firstTime";
         }
 
         User user = new User();
