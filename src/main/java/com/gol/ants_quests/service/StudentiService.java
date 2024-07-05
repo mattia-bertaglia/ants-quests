@@ -56,12 +56,12 @@ public class StudentiService {
     public Corso saveCorso(HashMap<String, String> params) {
         Corso corso = new Corso();
 
-        if (params.get("idcorso") != null)
+        if (params.get("idcorso") != null && !"".equals(params.get("idcorso")))
             corso.setIdCorso(Integer.parseInt(params.get("corso")));
         corso.setNome(params.get("nome"));
-        if (params.get("datainizio") != null)
+        if (params.get("datainizio") != null  && !"".equals(params.get("datainizio")))
             corso.setDataInizio(Date.valueOf(params.get("datainizio")));
-        if (params.get("datafine") != null)
+        if (params.get("datafine") != null  && !"".equals(params.get("datafine")))
             corso.setDataFine(Date.valueOf(params.get("datafine")));
 
         return corsiHibSrv.save(corso);

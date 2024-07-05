@@ -29,7 +29,7 @@ public class StudentiController {
     @PostMapping("/savestud")
     public String saveStud(@RequestParam HashMap<String, String> params) {
         studSrv.saveStudente(params);
-        return "redirect:/stud";
+        return "redirect:/studenti/";
     }
 
     @GetMapping("/corsi")
@@ -41,7 +41,7 @@ public class StudentiController {
     @PostMapping("/savecorso")
     public String saveCorso(@RequestParam HashMap<String, String> params) {
         studSrv.saveCorso(params);
-        return "redirect:/corsi";
+        return "redirect:/studenti/corsi";
     }
 
 }
