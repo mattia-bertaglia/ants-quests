@@ -10,44 +10,45 @@
 <body>
   <div class="container">
     <div class="orangeBG">
-      <div class="box signin">
-        <h2>Hai già un account?</h2>
-        <button class="signinbtn">Accedi</button>
-      </div>
-      <div class="box signup">
-        <h2>Vuoi creare un account?</h2>
-        <button class="signupbtn">Registrati</button>
-      </div>
+        <div class="box signin">
+            <h2>Hai già un account?</h2>
+            <button class="signinbtn">Accedi</button>
+        </div>
+        <div class="box signup">
+            <h2>Vuoi creare un account?</h2>
+            <button class="signupbtn">Registrati</button>
+        </div>
     </div>
     <div class="form-box">
-      <div class="form signinform">
-        <form action="/auth/login" method="post">
-          <h3>Accedi</h3>
-          <input type="text" name="usernameEmail" placeholder="E-mail">
-          <input type="password" name="passkey" placeholder="Password">
-          <input type="submit" value="Accedi">
-          <a class="btn btn-primary" href="#">Password dimenticata?</a>
-        </form>
-      </div>
-      <div class="form signupform">
-        <form action="/auth/signup" method="post">
-          <h3>Registrati</h3>
-          <input type="text" name="nome" placeholder="Nome">
-          <input type="text" name="cognome" placeholder="Cognome">
-          <input id="mail" type="email" name="usernameEmail" placeholder="Indirizzo email">
-          <i id="error-mail" class="hidden" style="color: red;">Non accettabile</i>
-          <i id="correct-mail" class="hidden" style="color: green;">Accettabile</i>
-          <input id="pass" type="password" name="passkey" placeholder="Password">
-          <i id="error-pass" class="hidden" style="color: red;">Non accettabile</i>
-          <i id="correct-pass" class="hidden" style="color: green;">Accettabile</i>
-          <input id="checkpass" type="password" name="confirmPasskey" placeholder="Conferma Password">
-          <i id="error-checkpass" class="hidden" style="color: red;">Le password non corrispondono</i>
-          <i id="correct-checkpass" class="hidden" style="color: green;">Le password corrispondono</i>
-          <input type="submit" value="Registrati">
-        </form>
-      </div>
+        <div class="form signinform">
+            <form action="/auth/login" method="get">
+                <h3>Accedi</h3>
+                <input type="text" name="usernameEmail" placeholder="E-mail">
+                <input type="password" name="passkey" placeholder="Password">
+                <input type="submit" value="Accedi">
+                <p id="login-error" class="error hidden">Credenziali errate</p>
+                <a class="btn btn-primary" href="#">Password dimenticata?</a>
+            </form>
+        </div>
+        <div class="form signupform">
+            <form id="signupForm" action="/auth/signup" method="get">
+                <h3>Registrati</h3>
+                <input type="text" name="nome" placeholder="Nome">
+                <input type="text" name="cognome" placeholder="Cognome">
+                <input id="mail" type="email" name="usernameEmail" placeholder="Indirizzo email">
+                <i id="error-mail" class="hidden error">Non accettabile</i>
+                <i id="correct-mail" class="hidden correct">Accettabile</i>
+                <input id="pass" type="password" name="passkey" placeholder="Password">
+                <i id="error-pass" class="hidden error">Non accettabile</i>
+                <i id="correct-pass" class="hidden correct">Accettabile</i>
+                <input id="checkpass" type="password" name="confirmPasskey" placeholder="Conferma Password">
+                <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
+                <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
+                <input type="submit" value="Registrati">
+            </form>
+        </div>
     </div>
-  </div>
+</div>
 
   <div class="toast-container position-fixed bottom-0 end-0 p-3">
     <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
