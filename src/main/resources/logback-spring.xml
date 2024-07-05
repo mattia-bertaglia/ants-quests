@@ -2,7 +2,7 @@
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>./logs/antsquests.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>10KB</maxFileSize>
+            <maxFileSize>10MB</maxFileSize>
             <maxHistory>5</maxHistory>
             <totalSizeCap>1024MB</totalSizeCap>
         </rollingPolicy>
