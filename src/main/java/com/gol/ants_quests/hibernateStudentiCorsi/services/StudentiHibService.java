@@ -1,6 +1,5 @@
 package com.gol.ants_quests.hibernateStudentiCorsi.services;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,42 +20,45 @@ public class StudentiHibService extends GenericHibService<Studente, Integer, Stu
 
     }
 
-    List<Studente> findByNome(String nome) {
-        return getRepository().findByNome(nome);
+    /*
+     * List<Studente> findByNome(String nome) {
+     * return getRepository().findByNome(nome);
+     * 
+     * }
+     * 
+     * List<Studente> findByCognome(String cognome) {
+     * return getRepository().findByCognome(cognome);
+     * 
+     * }
+     * 
+     * Studente findByDataNascita(Date dataNascita) {
+     * return getRepository().findByDataNascita(dataNascita);
+     * }
+     * 
+     * List<Studente> findByCap(String cap) {
+     * return getRepository().findByCap(cap);
+     * 
+     * }
+     * 
+     * List<Studente> findByProvincia(String provincia) {
+     * return getRepository().findByProvincia(provincia);
+     * 
+     * }
+     * 
+     * List<Studente> findByTelefono(String telefono) {
+     * return getRepository().findByTelefono(telefono);
+     * 
+     * }
+     * 
+     * List<Studente> findByNote(String note) {
+     * return getRepository().findByNote(note);
+     * 
+     * }
+     * 
+     * List<Studente> findByDataInserimento(Date dataInserimento) {
+     * return getRepository().findByDataInserimento(dataInserimento);
+     * 
+     * }
+     */
 
-    }
-
-    List<Studente> findByCognome(String cognome) {
-        return getRepository().findByCognome(cognome);
-
-    }
-
-    Studente findByDataNascita(Date dataNascita) {
-        return getRepository().findByDataNascita(dataNascita);
-    }
-
-    List<Studente> findByCap(String cap) {
-        return getRepository().findByCap(cap);
-
-    }
-
-    List<Studente> findByProvincia(String provincia) {
-        return getRepository().findByProvincia(provincia);
-
-    }
-
-    List<Studente> findByTelefono(String telefono) {
-        return getRepository().findByTelefono(telefono);
-
-    }
-
-    List<Studente> findByNote(String note) {
-        return getRepository().findByNote(note);
-
-    }
-
-    List<Studente> findByDataInserimento(Date dataInserimento) {
-        return getRepository().findByDataInserimento(dataInserimento);
-
-    }
 }

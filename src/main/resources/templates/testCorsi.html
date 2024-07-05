@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form action="/newcorso" method="post">
+
+        <input type="text" name="idcorso" placeholder="idcorso">
+        <input type="text" name="nome" placeholder="nome">
+        <input type="date" name="daatainizio">
+        <input type="date" name="datafine">
+
+        <button type="submit">New</button>
+    </form>
+
+    <hr>
+
+    <table>
+        <thead>
+            <th>idCorso</th>
+            <th>nome</th>
+            <th>dataInizio</th>
+            <th>dataFine</th>
+            <th>Studenti</th>
+        </thead>
+        <tbody>
+            <tr th:each="cor : ${corsi}">
+                <td th:text="${cor.idCorso}"></td>
+                <td th:text="${cor.nome}"></td>
+                <td th:text="${cor.dataInizio}"></td>
+                <td th:text="${cor.dataFine}"></td>
+                <td th:text="${cor.studenti.toString}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>

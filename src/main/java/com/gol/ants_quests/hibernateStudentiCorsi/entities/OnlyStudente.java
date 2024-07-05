@@ -7,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class Studente extends GenericEntity {
+public class OnlyStudente extends GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +36,7 @@ public class Studente extends GenericEntity {
     private String telefono;
     private String note;
     private Date dataInserimento;
-
-    @ManyToOne
-    @JoinColumn(name = "corso_id")
-    private OnlyCorso corso;
+    private int corso_id;
 
     /*
      * @OneToMany(mappedBy = "studente")

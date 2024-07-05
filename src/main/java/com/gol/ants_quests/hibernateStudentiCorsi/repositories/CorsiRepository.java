@@ -1,3 +1,4 @@
+
 package com.gol.ants_quests.hibernateStudentiCorsi.repositories;
 
 import java.sql.Date;
@@ -9,13 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.gol.ants_quests.hibernateStudentiCorsi.entities.Corso;
 
 @Repository
+
 public interface CorsiRepository extends JpaRepository<Corso, Integer> {
 
     List<Corso> findByNome(String name);
 
-    List<Corso> findByDataInzio(Date dataInizio);
-
-    List<Corso> findByDataFine(Date dataFine);
-    List<Corso> findAll();
+    List<Corso> findByDataInizioOrDataFine(Date dataInizio, Date daatFine);
 
 }

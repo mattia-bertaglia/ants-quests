@@ -9018,7 +9018,9 @@ fieldset:disabled .btn {
 }
 
 .mb-0 {
-    margin-bottom: 0 !important
+    margin-bottom: 0 !important;
+    justify-content: center;
+    align-self: center
 }
 
 .mb-1 {
