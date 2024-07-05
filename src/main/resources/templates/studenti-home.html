@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionari</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
 
 </head>
@@ -11,22 +14,20 @@
         <div class="card-body form-group d-flex flex-column align-items-center my-4">
             <div class="row mb-3 w-50">
                 <form action="doQuestionario" method="get">
-                <input class="btn btn-primary" type="submit" value="Inizia il questionario">
-                <h2> Scegliere questionario</h2>
-                <select name="mySelect" id="mySelect">
-                    <th:block th:each="categoria : ${session.categorie}">
-                        <optgroup th:label="${categoria.nome}">
-                            <option th:each="questionario : ${categoria.questionari}" 
-                                    th:value="${questionario.idQst}" 
-                                    th:text="${questionario.titolo}">
-                            </option>
-                        </optgroup>
-                    </th:block>
-                </select>
-            </form>
-                <!-- <a href="studenti/" class="btn btn-primary btn-lg">Accedi Studente</a> -->
+                    <input class="btn btn-primary" type="submit" value="Inizia il questionario">
+                    <h2>Scegliere questionario</h2>
+                    <select name="mySelect" id="mySelect" class="form-control">
+                        <th:block th:each="categoria : ${session.categorie}">
+                            <optgroup th:label="${categoria.nome}">
+                                <option th:each="questionario : ${categoria.questionari}"
+                                    th:value="${questionario.idQst}" th:text="${questionario.titolo}">
+                                </option>
+                            </optgroup>
+                        </th:block>
+                    </select>
+                </form>
             </div>
-            <h1>Questionari svolti : </h1>
+            <h1>Questionari svolti:</h1>
             <div class="row mb-3 w-50">
                 <table id="tab-last-quest" class="table table-striped table-bordered table-sm" style="width: 100%;">
                     <thead>
@@ -34,7 +35,7 @@
                             <th>Titolo</th>
                             <th>Punteggio</th>
                             <th>Data</th>
-                            <th></th>
+                            <th>Azioni</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,20 +43,59 @@
                             <td th:text="${record.quest.titolo}"></td>
                             <td th:text="${record.punteggio}"></td>
                             <td th:text="${record.dataEsecuzione}"></td>
-                            <td><button class="btn btn-primary w-75">Vedi</button></td>
+                            <td><button class="btn btn-primary view-pdf-btn" data-toggle="modal" data-target="#pdfModal"
+                                    data-pdf-url="https://www.learningcontainer.com/wp-content/uploads/2019/09/sample-pdf-file.pdf">Vedi</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pdfModalLabel">PDF del Questionario Svolto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Chiudi">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="" id="pdfIframe" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/jquery/jquery-3.7.1.min.js" defer></script>
+
+    <script src="/bootstrap/popper.min.js" defer></script>
+
+    <script src="/bootstrap/bootstrap.min.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.view-pdf-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    var pdfUrl = this.getAttribute('data-pdf-url');
+                    var iframe = document.getElementById('pdfIframe');
+                    iframe.src = pdfUrl;
+
+                    $('#pdfModal').modal('show'); 
+                });
+            });
+
+        });
+    </script>
+
+
 </body>
-
-
-<script src="/jquery/jquery-3.7.1.min.js"></script>
-<script src="/bootstrap/popper.min.js"></script>
-<script src="/bootstrap/bootstrap.min.js"></script>
-<script src="/bootstrap/bootstrap-table.min.js"></script>
-<script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
 
 </html>
