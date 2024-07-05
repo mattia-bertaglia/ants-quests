@@ -1,19 +1,89 @@
 package com.gol.ants_quests.services;
+import java.util.HashMap;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import com.gol.ants_quests.hibernate.entities.User;
+import com.gol.ants_quests.hibernate.repositories.UserRepository;
+import com.gol.ants_quests.util.Ruolo;
 
 import jakarta.servlet.http.HttpSession;
-import lombok.RequiredArgsConstructor;
+import jakarta.transaction.Transactional;
 
 @Service
-@RequiredArgsConstructor
 public class AuthService {
 
-    
-    // Metodo per verificare se l'utente è loggato
-    public boolean isUserLoggedIn(HttpSession session) {
-        Boolean isLoggedIn = (Boolean) session.getAttribute("usrlog");
-        return isLoggedIn != null && isLoggedIn;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ErrorService errorService;
+
+
+    public Optional<User> findByUsernameEmail(String usernameEmail) {
+        return userRepository.findByUsernameEmail(usernameEmail);
     }
 
+    public boolean validateCredentials(String usernameEmail, String passkey) {
+        Optional<User> userOptional = findByUsernameEmail(usernameEmail);
+        return userOptional.isPresent() && userOptional.get().getPasskey().equals(passkey);
+    }
+
+    public String checkRole(String usernameEmail, HttpSession session) {
+
+        User user = userRepository.findByUsernameEmail(usernameEmail);
+        if (user != null) {
+            switch (user.getRuolo().toString();) {
+                case "studente":
+                case "guest":
+                    return "redirect:/auth/homeStud";
+                case "admin":
+                    return "redirect:/homeAdmin";
+                default:
+                    errorService.getToast(session, "unknownRuolo");
+                    return "redirect:/";
+            }
+        } else {
+            return null;
+        }
+    }
+
+        
+    }
+
+    public User registerUser(HashMap<String, String> userData, Model model) {
+        String email = userData.get("usernameEmail");
+        String password = userData.get("passkey");
+
+        if (email == null || password == null || userExists(email)) {
+            errorService.getToast(model, new HashMap<String, String>() {{
+                put("status", "registrationError");
+            }});
+            return null;
+        }
+
+        User user = new User();
+        user.setUsernameEmail(email);
+        user.setPasskey(password);
+        user.setRuolo(Ruolo.guest);
+        user.setEnabled(false);
+
+        return userRepository.save(user);
+    }
+
+    public boolean userExists(String usernameEmail) {
+        return userRepository.findByUsernameEmail(usernameEmail).isPresent();
+    }
+
+    public void setupSession(HttpSession session, User user) {
+        session.setAttribute("usrlog", true);
+        session.setAttribute("usernameEmail", user.getUsernameEmail());
+    }
+
+    public void handleError(Model model, String errorMessage) {
+        model.addAttribute("error", errorMessage);
+    }
 }

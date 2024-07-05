@@ -6,9 +6,15 @@
   <title>Registrazione ANT</title>
   <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+  <style>
+    .error-message {
+      color: red;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
+    <!-- Rimuovi questa parte se non è necessaria -->
     <div class="orangeBG">
         <div class="box signin">
             <h2>Hai già un account?</h2>
@@ -19,14 +25,17 @@
             <button class="signupbtn">Registrati</button>
         </div>
     </div>
+    <!-- Fino a qui -->
     <div class="form-box">
         <div class="form signinform">
-            <form action="/auth/login" method="post">
+            <form id="loginForm" action="/auth/login" method="post">
                 <h3>Accedi</h3>
                 <input type="text" name="usernameEmail" placeholder="E-mail">
                 <input type="password" name="passkey" placeholder="Password">
                 <input type="submit" value="Accedi">
-                <p id="login-error" class="error hidden">Credenziali errate</p>
+                <!-- Mostra il messaggio di errore -->
+                <p class="error-message" th:text="${toastMessage}"></p>
+                <!-- Fine messaggio di errore -->
                 <a class="btn btn-primary" href="#">Password dimenticata?</a>
             </form>
         </div>
@@ -38,12 +47,6 @@
                 <input id="mail" type="email" name="usernameEmail" placeholder="Indirizzo email">
                 <i id="error-mail" class="hidden error">Non accettabile</i>
                 <i id="correct-mail" class="hidden correct">Accettabile</i>
-                <input id="pass" type="password" name="passkey" placeholder="Password">
-                <i id="error-pass" class="hidden error">Non accettabile</i>
-                <i id="correct-pass" class="hidden correct">Accettabile</i>
-                <input id="checkpass" type="password" name="confirmPasskey" placeholder="Conferma Password">
-                <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
-                <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
                 <input type="submit" value="Registrati">
             </form>
         </div>
@@ -68,16 +71,18 @@
   <script src="js/index.js"></script>
   
   <script>
-        const title = "[[${toastTitle}]]";
-        const message = "[[${toastMessage}]]";
-        const toastColor = "[[${toastColor}]]";
+    // Rimuovi questa parte, non è necessaria
+    const title = "[[${toastTitle}]]";
+    const message = "[[${toastMessage}]]";
+    const toastColor = "[[${toastColor}]]";
 
-        const toast = document.getElementById('toast');
-        document.getElementById("title-toast").innerHTML = title;
-        document.getElementById("message-toast").innerHTML = message;
-        document.getElementById("toast-header").classList.add(toastColor);
+    const toast = document.getElementById('toast');
+    document.getElementById("title-toast").innerHTML = title;
+    document.getElementById("message-toast").innerHTML = message;
+    document.getElementById("toast-header").classList.add(toastColor);
 
-        bootstrap.Toast.getOrCreateInstance(toast).show();
+    bootstrap.Toast.getOrCreateInstance(toast).show();
+    // Fine rimozione
   </script>
 </body>
 </html>

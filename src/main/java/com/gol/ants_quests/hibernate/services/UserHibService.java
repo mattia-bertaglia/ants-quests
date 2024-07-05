@@ -19,13 +19,15 @@ import java.util.Optional;
 @Service
 public class UserHibService extends GenericHibService<User, Integer, UserRepository> {
 
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private ErrorService errorService;
+
     public UserHibService(UserRepository repository) {
         super(repository);
     }
-
-    @Autowired
-    private UserRepository userRepository;
-    private ErrorService errorService;
 
     public User saveUser(User user) {
         return userRepository.save(user);
@@ -58,33 +60,27 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         }
     }
 
-    public String signUpUser(@RequestParam HashMap<String, String> params, Model model) {
-        if (params.containsKey("usernameEmail") && params.containsKey("passkey")
-                && params.containsKey("confirmPasskey")) {
-            String usernameEmail = params.get("usernameEmail");
-            String passkey = params.get("passkey");
-            String confirmPasskey = params.get("confirmPasskey");
+    public boolean userExists(String email) {
+        return userRepository.findByUsernameEmail(email) != null;
+    }
 
-            if (!passkey.equals(confirmPasskey)) {
-                return "redirect:/";
-            }
+    public String completeSignUpUser(HashMap<String, String> userData, Model model) {
+        // Logica per salvare l'utente nel database
+        String email = userData.get("email");
+        String password = userData.get("password");
 
-            Optional<User> existingUser = userRepository.findByUsernameEmail(usernameEmail);
-            if (existingUser.isPresent()) {
-                return "redirect:/";
-            }
-
-            User user = new User();
-            user.setUsernameEmail(usernameEmail);
-            user.setPasskey(passkey);
-            user.setRuolo(Ruolo.guest); // Assicurati che il ruolo GUEST sia impostato per i nuovi utenti
-            userRepository.save(user);
-
-            return "redirect:/?status=signOK";
+        if (email == null || password == null) {
+            model.addAttribute("error", "Tutti i campi sono obbligatori.");
+            return "/completeSignUp";
         }
-            return "redirect:/?status=erroreLog";
 
-        
+        User user = new User();
+        user.setUsernameEmail(email);
+        user.setPasskey(password);
+
+        userRepository.save(user);
+
+        return "redirect:/?status=signOK";
     }
 
     public String logInUser(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
@@ -111,13 +107,12 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
                         errorService.getToast(model, params);
                         return "redirect:/";
                 }
-
+            } else {
+                model.addAttribute("error", "Username o password non validi.");
+                return "login"; // pagina di login con errore
             }
-
-            return "redirect:/";
         }
-        
+
         return "redirect:/";
-    
     }
 }

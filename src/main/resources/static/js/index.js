@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
           emailCorrect.classList.remove('hidden');
       }
 
+
       // Se tutti i controlli sono superati, procedere con la registrazione
       alert('Registrazione avvenuta con successo!');
       signupForm.submit(); // Invia il form
