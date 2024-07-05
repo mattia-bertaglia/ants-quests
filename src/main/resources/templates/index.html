@@ -30,8 +30,8 @@
         <div class="form signinform">
             <form id="loginForm" action="/auth/login" method="post">
                 <h3>Accedi</h3>
-                <input type="text" name="usernameEmail" placeholder="E-mail">
-                <input type="password" name="passkey" placeholder="Password">
+                <input type="text" name="usernameEmail" placeholder="E-mail" required>
+                <input type="password" name="passkey" placeholder="Password" required>
                 <input type="submit" value="Accedi">
                 <!-- Mostra il messaggio di errore -->
                 <p class="error-message" th:text="${toastMessage}"></p>
