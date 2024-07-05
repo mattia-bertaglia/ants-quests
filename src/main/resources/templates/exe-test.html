@@ -68,15 +68,16 @@
                                         <div class="d-flex flex-column align-items-center">
                                             <h3 th:text="'Domanda ' + ${domanda.idQstDet} + ' :'"></h3>
                                             <h2 th:text="${domanda.domanda}"></h2>
-                                            <th:block th:each="risposta : ${domanda.risp}">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        th:value="${risposta.risposta}" th:id="${risposta.idAns}">
-                                                    <label class="form-check-label" th:for="${risposta.idAns}">
-                                                        <span th:text="${risposta.risposta}"></span>
-                                                    </label>
-                                                </div>
-                                            </th:block>
+                                            <ul class="list-unstyled">
+                                                <th:block th:each="risposta : ${domanda.risp}">
+                                                    <li>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" th:value="${risposta.risposta}" th:id="${risposta.idAns}">
+                                                            <label class="form-check-label" th:for="${risposta.idAns}" th:text="${risposta.risposta}"></label>
+                                                        </div>
+                                                    </li>
+                                                </th:block>
+                                            </ul>
                                         </div>
                                     </div>
                                 </th:block>
