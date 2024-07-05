@@ -1,8 +1,8 @@
 package com.gol.ants_quests.services;
+
 import java.util.HashMap;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -11,17 +11,15 @@ import com.gol.ants_quests.hibernate.repositories.UserRepository;
 import com.gol.ants_quests.util.Ruolo;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private ErrorService errorService;
-
+    private final UserRepository userRepository;
+    private final ErrorService errorService;
 
     public Optional<User> findByUsernameEmail(String usernameEmail) {
         return userRepository.findByUsernameEmail(usernameEmail);
@@ -33,14 +31,14 @@ public class AuthService {
     }
 
     public String checkRole(String usernameEmail, HttpSession session) {
-
-        User user = userRepository.findByUsernameEmail(usernameEmail);
-        if (user != null) {
-            switch (user.getRuolo().toString();) {
-                case "studente":
-                case "guest":
+        Optional<User> userOptional = userRepository.findByUsernameEmail(usernameEmail);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            switch (user.getRuolo()) {
+                case studente:
+                case guest:
                     return "redirect:/auth/homeStud";
-                case "admin":
+                case admin:
                     return "redirect:/homeAdmin";
                 default:
                     errorService.getToast(session, "unknownRuolo");
@@ -51,17 +49,16 @@ public class AuthService {
         }
     }
 
-        
-    }
-
     public User registerUser(HashMap<String, String> userData, Model model) {
         String email = userData.get("usernameEmail");
         String password = userData.get("passkey");
 
         if (email == null || password == null || userExists(email)) {
-            errorService.getToast(model, new HashMap<String, String>() {{
-                put("status", "registrationError");
-            }});
+            errorService.getToast(model, new HashMap<String, String>() {
+                {
+                    put("status", "registrationError");
+                }
+            });
             return null;
         }
 
