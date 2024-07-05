@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,6 +17,10 @@ import com.gol.ants_quests.services.ErrorService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+
 
 @Controller
 @RequestMapping("/auth")
@@ -29,7 +32,7 @@ public class AuthController {
     private final ErrorService errorService;
     private final AuthService authService; // Inject AuthService
 
-    @GetMapping("/signup")
+    @PostMapping("/signin")
     public String signup(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
         String signupResult = userService.signUpUser(params, model);
         if (signupResult.equals("redirect:/?status=signOK")) {
@@ -41,7 +44,15 @@ public class AuthController {
         return signupResult;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/completeSignin")
+    public String postMethodName(@RequestBody String entity) {
+        //TODO: process POST request
+        
+        return entity;
+    }
+    
+
+    @PostMapping("/login")
     public String login(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
         if (params.containsKey("usernameEmail") && params.containsKey("passkey")) {
             String usernameEmail = params.get("usernameEmail");
@@ -75,19 +86,10 @@ public class AuthController {
         return "redirect:/";
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletRequest request) {
         session.invalidate(); // Invalida la sessione completamente
         return "redirect:/";
-    }
-
-    @GetMapping("/homeStud")
-    public String homeStud(HttpSession session, Model model) {
-        if (authService.isUserLoggedIn(session)) {
-            return "homeStud.html"; // Accesso consentito solo se l'utente è loggato
-        } else {
-            return "redirect:/auth/login"; // Se l'utente non è loggato, reindirizzalo alla pagina di login
-        }
     }
 
 }

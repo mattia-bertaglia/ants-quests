@@ -1,6 +1,5 @@
 package com.gol.ants_quests.hibernate.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +22,7 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         super(repository);
     }
 
-    @Autowired
+
     private UserRepository userRepository;
     private ErrorService errorService;
 
