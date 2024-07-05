@@ -3,6 +3,7 @@ package com.gol.ants_quests.controller;
 import java.util.HashMap;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ public class AuthController {
     private final UserHibService userService;
     private final UserRepository userRepository;
     private final ErrorService errorService;
+    @Autowired
     private final AuthService authService; // Inject AuthService
 
     @PostMapping("/signin")
