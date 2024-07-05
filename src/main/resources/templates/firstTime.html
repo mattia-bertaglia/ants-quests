@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrazione Utente</title>
-  <link rel="stylesheet" href="/css/firstTime.css">
+  <link rel="stylesheet" href="static/css/firstTime.css">
 </head>
 <body>
   <div class="container">
@@ -15,8 +15,16 @@
       <input type="text" name="provincia" placeholder="Provincia" required>
       <input type="text" name="telefono" placeholder="Telefono" required>
       <textarea name="note" placeholder="Note" rows="4"></textarea>
-      <input type="password" name="passkey" placeholder="Password" required>
-      <input type="password" name="confirmPasskey" placeholder="Conferma Password" required>
+      <input id="pass" type="password" name="passkey" placeholder="Password" required>
+      <i id="error-pass" class="hidden error">Non accettabile, la password deve contenere:
+        - almeno un carattere minuscolo (abc)
+        - almeno un carattere maiuscolo (ABC)
+        - almeno un carattere numerico (123)
+      </i>
+      <i id="correct-pass" class="hidden correct">Accettabile</i>
+      <input id="checkpass" type="password" name="confirmPasskey" placeholder="Conferma Password" required>
+      <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
+      <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
       <input type="submit" value="Registrati">
     </form>
   </div>
