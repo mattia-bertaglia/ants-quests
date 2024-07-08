@@ -9,12 +9,15 @@
 <body>
   <div class="container">
     <h3>Completa Registrazione</h3>
-    <form id="registration-form" action="/auth/signup" method="POST">
+    <form id="registration-form" action="/auth/registrazione" method="POST">
+      <input type="text" name="nome" th:value="${nome}">
+      <input type="text" name="cognome" th:value="${cognome}">
       <input type="date" name="dataNascita" placeholder="Data di nascita" required>
       <input type="text" name="cap" placeholder="CAP" required>
       <input type="text" name="provincia" placeholder="Provincia" required>
       <input type="text" name="telefono" placeholder="Telefono" required>
       <textarea name="note" placeholder="Note" rows="4"></textarea>
+      <input type="email" name="usernameEmail" th:value="${usernameEmail}">
       <input id="pass" type="password" name="passkey" placeholder="Password" required>
       <i id="error-pass" class="hidden error">Non accettabile, la password deve contenere:
         - almeno un carattere minuscolo (abc)
