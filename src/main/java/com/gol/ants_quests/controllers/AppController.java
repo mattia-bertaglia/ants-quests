@@ -5,7 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gol.ants_quests.services.ErrorService;
+import com.gol.ants_quests.business.ErrorService;
 
 import jakarta.servlet.http.HttpSession;
 

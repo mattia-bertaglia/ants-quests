@@ -1,13 +1,13 @@
 
-package com.gol.ants_quests.hibernateStudentiCorsi.services;
+package com.gol.ants_quests.hibernate.services;
 
 import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.gol.ants_quests.hibernateStudentiCorsi.entities.Corso;
-import com.gol.ants_quests.hibernateStudentiCorsi.repositories.CorsiRepository;
+import com.gol.ants_quests.hibernate.entities.Corso;
+import com.gol.ants_quests.hibernate.repositories.CorsiRepository;
 
 @Service
 public class CorsiHibService extends GenericHibService<Corso, Integer, CorsiRepository> {

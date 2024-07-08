@@ -1,4 +1,4 @@
-package com.gol.ants_quests.services;
+package com.gol.ants_quests.business;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;

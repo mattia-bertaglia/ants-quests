@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.gol.ants_quests.business.ErrorService;
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.repositories.UserRepository;
-import com.gol.ants_quests.services.ErrorService;
 import com.gol.ants_quests.util.Ruolo;
 
 import jakarta.servlet.http.HttpSession;

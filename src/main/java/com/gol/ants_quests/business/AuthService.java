@@ -1,4 +1,4 @@
-package com.gol.ants_quests.services;
+package com.gol.ants_quests.business;
 
 import java.util.HashMap;
 import java.util.Optional;

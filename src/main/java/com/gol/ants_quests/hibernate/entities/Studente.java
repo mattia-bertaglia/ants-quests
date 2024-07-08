@@ -1,4 +1,4 @@
-package com.gol.ants_quests.hibernateStudentiCorsi.entities;
+package com.gol.ants_quests.hibernate.entities;
 
 import java.sql.Date;
 
@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +28,11 @@ public class Studente extends GenericEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_studente")
     private Integer idStudente;
-    @Column(name = "user_id")
-    private Integer userId;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id_usr", nullable = true)
+    private OnlyUser user;
+
     private String nome;
     private String cognome;
     @Column(name = "data_nascita")
@@ -47,10 +51,6 @@ public class Studente extends GenericEntity {
      * @OneToMany(mappedBy = "studente")
      * private List<EsitoQuest> esquestionari;
      * 
-     * @OneToOne(cascade = CascadeType.ALL)
-     * 
-     * @JoinColumn(name = "user_id", referencedColumnName = "id")
-     * private User user;
      * 
      */
 

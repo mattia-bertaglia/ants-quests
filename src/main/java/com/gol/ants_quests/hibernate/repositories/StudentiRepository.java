@@ -1,11 +1,11 @@
-package com.gol.ants_quests.hibernateStudentiCorsi.repositories;
+package com.gol.ants_quests.hibernate.repositories;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.gol.ants_quests.hibernateStudentiCorsi.entities.Studente;
+import com.gol.ants_quests.hibernate.entities.Studente;
 
 @Repository
 public interface StudentiRepository extends JpaRepository<Studente, Integer> {

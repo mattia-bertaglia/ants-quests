@@ -1,4 +1,4 @@
-package com.gol.ants_quests.hibernateStudentiCorsi.services;
+package com.gol.ants_quests.business;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -9,9 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.gol.ants_quests.hibernateStudentiCorsi.entities.Corso;
-import com.gol.ants_quests.hibernateStudentiCorsi.entities.OnlyCorso;
-import com.gol.ants_quests.hibernateStudentiCorsi.entities.Studente;
+import com.gol.ants_quests.hibernate.entities.OnlyCorso;
+import com.gol.ants_quests.hibernate.entities.Studente;
+import com.gol.ants_quests.hibernate.services.StudentiHibService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,10 +19,13 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class StudentiService {
+public class GesStudentiService {
 
     private final StudentiHibService studHibSrv;
-    private final CorsiHibService corsiHibSrv;
+
+    public List<Studente> findAllStudenti() {
+        return studHibSrv.findAll(Sort.by(Direction.DESC, "dataInserimento"));
+    }
 
     public Studente saveStudente(HashMap<String, String> params) {
         Studente stud = new Studente();
@@ -49,28 +52,6 @@ public class StudentiService {
          */
         return studHibSrv.save(stud);
 
-    }
-
-    public Corso saveCorso(HashMap<String, String> params) {
-        Corso corso = new Corso();
-
-        if (params.get("idcorso") != null && !"".equals(params.get("idcorso")))
-            corso.setIdCorso(Integer.parseInt(params.get("corso")));
-        corso.setNome(params.get("nome"));
-        if (params.get("datainizio") != null && !"".equals(params.get("datainizio")))
-            corso.setDataInizio(Date.valueOf(params.get("datainizio")));
-        if (params.get("datafine") != null && !"".equals(params.get("datafine")))
-            corso.setDataFine(Date.valueOf(params.get("datafine")));
-
-        return corsiHibSrv.save(corso);
-    }
-
-    public List<Studente> findAllStudenti() {
-        return studHibSrv.findAll(Sort.by(Direction.DESC, "dataInserimento"));
-    }
-
-    public List<Corso> findAllCorsi() {
-        return corsiHibSrv.findAll(Sort.by(Direction.DESC, "dataInizio"));
     }
 
 }

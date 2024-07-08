@@ -1,4 +1,4 @@
-package com.gol.ants_quests.hibernateStudentiCorsi.entities;
+package com.gol.ants_quests.hibernate.entities;
 
 import java.sql.Date;
 

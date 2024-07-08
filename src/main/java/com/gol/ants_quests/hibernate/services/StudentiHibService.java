@@ -1,12 +1,12 @@
 //Mattia
-package com.gol.ants_quests.hibernateStudentiCorsi.services;
+package com.gol.ants_quests.hibernate.services;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.gol.ants_quests.hibernateStudentiCorsi.entities.Studente;
-import com.gol.ants_quests.hibernateStudentiCorsi.repositories.StudentiRepository;
+import com.gol.ants_quests.hibernate.entities.Studente;
+import com.gol.ants_quests.hibernate.repositories.StudentiRepository;
 
 @Service
 public class StudentiHibService extends GenericHibService<Studente, Integer, StudentiRepository> {
