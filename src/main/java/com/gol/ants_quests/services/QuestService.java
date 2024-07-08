@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ShowService {
+public class QuestService {
 
     private final EsitiHibService esitiSrv;
     private final QuestsHibService questSrv;
@@ -32,7 +32,6 @@ public class ShowService {
     public void findByData(Model model,String data_inizio, String data_fine){
         model.addAttribute("listaEsitiQuestionari",esitiSrv.findData(LocalDate.parse(data_inizio),LocalDate.parse(data_fine)));
     }
-
 
 
 }
