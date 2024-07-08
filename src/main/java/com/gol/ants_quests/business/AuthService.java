@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.gol.ants_quests.hibernate.entities.OnlyStudente;
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.repositories.UserRepository;
 import com.gol.ants_quests.util.Ruolo;
@@ -27,37 +28,13 @@ public class AuthService {
         return userRepository.findByUsernameEmail(usernameEmail);
     }
 
-    public boolean validateCredentials(String usernameEmail, String passkey) {
-        Optional<User> userOptional = findByUsernameEmail(usernameEmail);
-        return userOptional.isPresent() && userOptional.get().getPasskey().equals(passkey);
-    }
-
-    public String checkRole(String usernameEmail, HttpSession session) {
-        Optional<User> userOptional = userRepository.findByUsernameEmail(usernameEmail);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            switch (user.getRuolo()) {
-                case studente:
-                case guest:
-                    return "redirect:/homeStud";
-                case admin:
-                    return "redirect:/homeAdmin";
-                default:
-                    errorService.getToast(session, "unknownRuolo");
-                    return "redirect:/";
-            }
-        } else {
-            return null;
-        }
-    }
-
-    public User registerUser(HashMap<String, String> userData, Model model) {
-        String email = userData.get("usernameEmail");
-        String password = userData.get("passkey");
+    public void registerUser(HttpSession session, HashMap<String, String> params, Model model) {
+        String email = params.get("usernameEmail");
+        String password = params.get("passkey");
 
         if (email == null || password == null || userExists(email)) {
             errorService.getToast(model, "registrationError");
-            return null;
+            return;
         }
 
         User user = new User();
@@ -66,7 +43,10 @@ public class AuthService {
         user.setRuolo(Ruolo.guest);
         user.setFirstTime(false);
 
-        return userRepository.save(user);
+        // popolare dati studente da form di firstTime.html
+        user.setStudente(new OnlyStudente(null, null, null, null, null, null, null, null, null, null, 0));
+
+        setupSession(session, userRepository.save(user));
     }
 
     public boolean userExists(String usernameEmail) {
@@ -75,11 +55,7 @@ public class AuthService {
 
     public void setupSession(HttpSession session, User user) {
         session.setAttribute("usrlog", true);
-        session.setAttribute("usernameEmail", user.getUsernameEmail());
-    }
-
-    public void handleError(Model model, String errorMessage) {
-        model.addAttribute("error", errorMessage);
+        session.setAttribute("user", user);
     }
 
     public String logInUser(HashMap<String, String> params, HttpSession session, Model model) {
@@ -89,17 +65,15 @@ public class AuthService {
 
             Optional<User> userOptional = userRepository.findByUsernameEmail(usernameEmail);
             if (userOptional.isPresent() && bcrypt.matches(passkey, userOptional.get().getPasskey())) {
-                User user = userOptional.get();
-                session.setAttribute("usrlog", true);
-                session.setAttribute("usernameEmail", user.getUsernameEmail());
+                setupSession(session, userOptional.get());
 
-                String ruolo = user.getRuolo().toString();
+                Ruolo ruolo = userOptional.get().getRuolo();
                 switch (ruolo) {
-                    case "studente":
-                    case "guest":
-                        return "redirect:/homeStud";
-                    case "admin":
-                        return "redirect:/homeAdmin";
+                    case studente:
+                    case guest:
+                        return "redirect:/studenti/";
+                    case admin:
+                        return "redirect:/admin/";
                     default:
                         params.put("status", "unknownRuolo");
                         errorService.getToast(model, "unknownRuolo");
@@ -107,7 +81,7 @@ public class AuthService {
                 }
             } else {
                 model.addAttribute("error", "Username o password non validi.");
-                return "login"; // pagina di login con errore
+                return "redirect:/"; // pagina di login con errore
             }
         }
 
