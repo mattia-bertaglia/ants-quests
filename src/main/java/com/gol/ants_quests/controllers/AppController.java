@@ -1,8 +1,7 @@
-package com.gol.ants_quests.controller;
+package com.gol.ants_quests.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -42,11 +41,7 @@ public class AppController {
 
     @GetMapping("/homeStud")
     public String homeStud(Model model) {
+        // Check Autenticazione
         return "homeStud.html";
-    }
-
-    @GetMapping("/homeAdmin")
-    public String homeAdmin(Model model) {
-        return "homeAdmin.html";
     }
 }

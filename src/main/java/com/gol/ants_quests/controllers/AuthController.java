@@ -1,4 +1,4 @@
-package com.gol.ants_quests.controller;
+package com.gol.ants_quests.controllers;
 
 import java.util.HashMap;
 
@@ -25,6 +25,22 @@ public class AuthController {
     private final AuthService authService;
     private final ErrorService errorService;
 
+    @PostMapping("/login")
+    public String login(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
+        String loginResult = authService.logInUser(params, session, model);
+        if (loginResult.equals("redirect:/homeStud") || loginResult.equals("redirect:/homeAdmin")) {
+            return loginResult;
+        } else {
+            // Gestione dell'errore
+            if (authService.findByUsernameEmail(params.get("usernameEmail")).isEmpty()) {
+                errorService.getToast(session, "erroreLog"); // Utente non trovato
+            } else {
+                errorService.getToast(session, "passwordMismatch"); // Password non valida
+            }
+            return "redirect:/"; // Rimani sulla pagina di login con messaggio di errore
+        }
+    }
+
     @PostMapping("/signup")
     public String signup(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
         User newUser = authService.registerUser(params, model);
@@ -40,22 +56,6 @@ public class AuthController {
     @PostMapping("/firstTime")
     public String firstTime(Model model) {
         return "/auth/firstTime";
-    }
-
-    @PostMapping("/login")
-    public String login(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
-        String loginResult = authService.logInUser(params, session, model);
-        if (loginResult.equals("redirect:/homeStud") || loginResult.equals("redirect:/homeAdmin")) {
-            return loginResult;
-        } else {
-            // Gestione dell'errore
-            if (authService.findByUsernameEmail(params.get("usernameEmail")).isEmpty()) {
-                errorService.getToast(session, "erroreLog"); // Utente non trovato
-            } else {
-                errorService.getToast(session, "passwordMismatch"); // Password non valida
-            }
-            return "redirect:/"; // Rimani sulla pagina di login con messaggio di errore
-        }
     }
 
     @GetMapping("/logout")
