@@ -12,4 +12,5 @@ public class QuestsHibService extends GenericHibService<Quest, Integer, QuestsRe
         super(repository);
     }
 
+    // completato
 }
