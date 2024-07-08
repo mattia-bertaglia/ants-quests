@@ -34,7 +34,7 @@ public class GestQuestController {
             @RequestParam String titolo,
             @RequestParam String categoriaId,
             @RequestBody List<Map<String, Object>> domande) throws Exception {
-        gestQuestService.createQuestWithDomandeERisposte(titolo, categoriaId, domande);
+        gestQuestService.createQuestWithDomandeERisposte(titolo, categoriaId);
         return "redirect:/nuovaQuest";
     }
 
