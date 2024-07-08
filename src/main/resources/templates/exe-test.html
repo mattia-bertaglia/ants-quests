@@ -67,7 +67,7 @@
                                                 <th:block th:each="risposta : ${domanda.risp}">
                                                     <li>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="radio" name="risposta${domanda.idQstDet}" th:value="${risposta.risposta}" th:id="${risposta.idAns}">
+                                                            <input class="form-check-input" type="checkbox" name="risposta${domanda.idQstDet}" th:value="${risposta.risposta}" th:id="${risposta.idAns}">
                                                             <label class="form-check-label" th:for="${risposta.idAns}" th:text="${risposta.risposta}"></label>
                                                         </div>
                                                     </li>
