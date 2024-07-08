@@ -1,9 +1,7 @@
 package com.gol.ants_quests.hibernate.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.repositories.UserRepository;
@@ -13,106 +11,84 @@ import com.gol.ants_quests.util.Ruolo;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserHibService extends GenericHibService<User, Integer, UserRepository> {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final ErrorService errorService;
 
-    @Autowired
-    private ErrorService errorService;
-
-    public UserHibService(UserRepository repository) {
-        super(repository);
+    public UserHibService(UserRepository userRepository, ErrorService errorService) {
+        super(userRepository);
+        this.userRepository = userRepository;
+        this.errorService = errorService;
     }
 
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public User findByUsernameEmail(String usernameEmail) {
+        Optional<User> userOptional = userRepository.findByUsernameEmail(usernameEmail);
+        return userOptional.orElse(null);
     }
 
-    public Optional<User> getUserById(int id) {
-        return userRepository.findById(id);
+    public boolean validateCredentials(String usernameEmail, String passkey) {
+        User user = findByUsernameEmail(usernameEmail);
+        return user != null && user.getPasskey().equals(passkey);
     }
 
-    public Optional<User> getUserByUsernameEmail(String usernameEmail) {
-        return userRepository.findByUsernameEmail(usernameEmail);
-    }
-
-    public List<User> getUsersByRuolo(Ruolo ruolo) {
-        return userRepository.findByRuolo(ruolo);
-    }
-
-    public List<User> getEnabledUsers() {
-        return userRepository.findByEnabled(true);
-    }
-
-    public boolean updateUserEnabledStatus(String usernameEmail, boolean enabled) {
-        Optional<User> user = userRepository.findByUsernameEmail(usernameEmail);
-        if (user.isPresent()) {
-            user.get().setEnabled(enabled);
-            userRepository.save(user.get());
-            return true;
-        } else {
-            return false;
+    public String checkRole(String usernameEmail, HttpSession session) {
+        User user = findByUsernameEmail(usernameEmail);
+        if (user != null) {
+            Ruolo ruolo = user.getRuolo();
+            if (ruolo == Ruolo.studente || ruolo == Ruolo.guest) {
+                return "redirect:/homeStud";
+            } else if (ruolo == Ruolo.admin) {
+                return "redirect:/homeAdmin";
+            } else {
+                errorService.getToast(session, "unknownRuolo");
+                return "redirect:/";
+            }
         }
+        return null;
     }
 
-    public boolean userExists(String email) {
-        return userRepository.findByUsernameEmail(email) != null;
-    }
+    public User registerUser(HashMap<String, String> params, Model model) {
+        String email = params.get("usernameEmail");
+        String password = params.get("passkey");
 
-    public String firstTimeUser(HashMap<String, String> userData, Model model) {
-        // Logica per salvare l'utente nel database
-        String email = userData.get("email");
-        String password = userData.get("password");
-
-        if (email == null || password == null) {
-            model.addAttribute("error", "Tutti i campi sono obbligatori.");
-            return "/firstTime";
+        if (email == null || password == null || findByUsernameEmail(email) != null) {
+            errorService.getToast(model, "registrationError");
+            return null;
         }
 
         User user = new User();
         user.setUsernameEmail(email);
         user.setPasskey(password);
+        user.setRuolo(Ruolo.guest);
+        user.setEnabled(false);
 
-        userRepository.save(user);
-
-        return "redirect:/?status=signOK";
+        return userRepository.save(user);
     }
 
-    public String logInUser(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
-        if (params.containsKey("usernameEmail") && params.containsKey("passkey")) {
-            String usernameEmail = params.get("usernameEmail");
-            String passkey = params.get("passkey");
+    public void setupSession(HttpSession session, User user) {
+        session.setAttribute("usrlog", true);
+        session.setAttribute("usernameEmail", user.getUsernameEmail());
+    }
 
-            Optional<User> userOptional = userRepository.findByUsernameEmail(usernameEmail);
-            if (userOptional.isPresent() && userOptional.get().getPasskey().equals(passkey)) {
-                User user = userOptional.get();
-                session.setAttribute("usrlog", true);
-                session.setAttribute("usernameEmail", user.getUsernameEmail());
+    public String logInUser(HashMap<String, String> params, HttpSession session, Model model) {
+        String usernameEmail = params.get("usernameEmail");
+        String passkey = params.get("passkey");
 
-                String ruolo = user.getRuolo().toString();
-                switch (ruolo) {
-                    case "studente":
-                        return "redirect:/homeStud";
-                    case "guest":
-                        return "redirect:/homeStud";
-                    case "admin":
-                        return "redirect:/homeAdmin";
-                    default:
-                        params.put("status", "unknownRuolo");
-                        errorService.getToast(model, params);
-                        return "redirect:/";
-                }
+        if (validateCredentials(usernameEmail, passkey)) {
+            User user = findByUsernameEmail(usernameEmail);
+            setupSession(session, user);
+            return checkRole(usernameEmail, session);
+        } else {
+            if (findByUsernameEmail(usernameEmail) == null) {
+                errorService.getToast(session, "erroreLog");
             } else {
-                model.addAttribute("error", "Username o password non validi.");
-                return "login"; // pagina di login con errore
+                errorService.getToast(session, "passwordMismatch");
             }
+            return "redirect:/";
         }
-
-        return "redirect:/";
     }
 }
