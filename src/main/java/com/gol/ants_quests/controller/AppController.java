@@ -1,6 +1,5 @@
 package com.gol.ants_quests.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -14,7 +13,6 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AppController {
 
-    @Autowired
     ErrorService errorServ;
 
     @GetMapping("/")
