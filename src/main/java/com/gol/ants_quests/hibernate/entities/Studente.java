@@ -21,9 +21,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = false)
 public class Studente extends GenericEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  
-    // private Integer idStudente;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)  
+    private Integer idStudente;
     private Integer userId; // da eliminare una volta fatta la relazione
     private String nome;
     private String cognome;
@@ -36,5 +36,5 @@ public class Studente extends GenericEntity {
     private Integer corsoId; // da eliminare una volta creata la relazione
 
     @OneToMany(mappedBy = "studente")
-    private List<EsitoQuest> esquestionari;
+   private List<EsitoQuest> esquestionari;
 }
