@@ -47,7 +47,7 @@ public class QuestController {
         showSrv.findAllQuestByCategoria(model);
 
 
-        return "gestioneQuestionari.html";
+        return "listaQuestionari.html";
     }
 
 
