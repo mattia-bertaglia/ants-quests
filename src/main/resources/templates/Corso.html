@@ -1,111 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inserisci Corso</title>
+    <title>Corsi</title>
+    <!-- bootstrap link -->
+    <link rel="stylesheet" href="css/StyleRoss.css">
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- bootstrap link -->
 </head>
+
 <body>
-
-    <!-- inizio main -->
+    <!-- Inizio Nav -->
     <div class="main-content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Elenco Questionari</h2>
-                            </div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item "><a href="#">Questionari</a></li>
+                <li class="breadcrumb-item"><a href="studenti.html">Studenti</a></li>
+                <a class="breadcrumb-item" href="#">Calendario</a>
+            </ol>
+        </nav>
+    </div>
+    <!-- Fine Nav -->
 
-                            <!-- Pulsante per attivare il modale -->
-                            <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <button type="button" class="btn btn-aggiungi" data-toggle="modal"
-                                    data-target="#addEmployeeModal">
-                                    <i class="material-icon">&#xE147;</i>
-                                    <span>Aggiungi nuovo studente</span> </button>
-                            </div>
+    <!-- Inizio filtro ricerca -->
 
+    <div class="main-content">
+        <div class="custom-margin">
+            <div class="table-wrapper">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Filtri Ricerca</h5>
 
-                        </div>
                     </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="">Nome Corso</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Data Inizio</label>
+                                    <input type="date" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Data Fine</label>
+                                    <input type="date" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Cerca</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fine filtro ricerca -->
 
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Stato</th>
-                                <th>Nominativo</th>
-                                <th>Email</th>
-                                <th>Corso</th>
-                                <th>Azioni</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="corso : ${corsi}">
-                                <td></td>
-                              
-                                <td th:text="${corso.nome}"></td>
-                                <td></td>
-                               
-                                <td></td>
-                                
-                                <td>
-                                    <a href="#" class="edit" data-toggle="modal">
-                                        <i class="material-icons" data-toggle="tooltip" title="Modifica">&#xE254;</i>
-                                    </a>
-                                    <a href="#" class="delete" data-toggle="modal">
-                                        <i class="material-icons" data-toggle="tooltip" title="Cancella">&#xE872;</i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-    <h1>Inserisci un nuovo Corso</h1>
-    <form id="corsoForm">
-        <label for="nome">Nome del Corso:</label><br>
-        <input type="text" id="nome" name="nome" required><br><br>
-        
-        <label for="dataInizio">Data Inizio:</label><br>
-        <input type="date" id="dataInizio" name="dataInizio" required><br><br>
-        
-        <label for="dataFine">Data Fine:</label><br>
-        <input type="date" id="dataFine" name="dataFine" required><br><br>
-        
-        <button type="submit">Inserisci Corso</button>
-    </form>
+        <!-- inizio main -->
+        <br><br>
+        <div class="main-content">
+            <div class="custom-margin">
+                <div class="col-md-12">
+                    <div class="table-wrapper">
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                                    <h2 class="ml-lg-2">Elenco Corsi</h2>
+                                </div>
 
-    <script>
-        document.getElementById('corsoForm').addEventListener('submit', function(event) {
-            event.preventDefault();
+                                <!-- Pulsante per attivare il modale -->
+                                <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                                    <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                        data-target="#addEmployeeModal">
+                                        <i class="material-icon">&#xE147;</i>
+                                        <span>Aggiungi nuovo corso</span> </button>
+                                </div>
 
-            const nome = document.getElementById('nome').value;
-            const dataInizio = document.getElementById('dataInizio').value;
-            const dataFine = document.getElementById('dataFine').value;
 
-            const corso = {
-                nome: nome,
-                dataInizio: dataInizio,
-                dataFine: dataFine
-            };
+                            </div>
+                        </div>
 
-            fetch('/api/corsi/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(corso)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                alert('Corso inserito con successo!');
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-                alert('Si è verificato un errore durante l\'inserimento del corso.');
-            });
-        });
-    </script>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Corso</th>
+                                    <th>Inizio</th>
+                                    <th>Fine</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="corso : ${corsi}">
+                                    <td></td>
+
+                                    <td th:text="${corso.nome}"></td>
+                                    <td th:text="${corso.dataInizio}"> </td>
+
+                                    <td th:text="${corso.dataFine}"></td>
+
+                                    <td>
+                                        <a href="#" class="edit" data-toggle="modal">
+                                            <i class="material-icons" data-toggle="tooltip"
+                                                title="Modifica">&#xE254;</i>
+                                        </a>
+                                        <a href="#" class="delete" data-toggle="modal">
+                                            <i class="material-icons" data-toggle="tooltip"
+                                                title="Cancella">&#xE872;</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Inizio footer   -->
+                        <div class="clearfix">
+                            <div class="hint-text text-center">Pagina <b>3</b> di <b>25</b></div>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled"><a href="#" class="page-link">Precedente</a></li>
+                                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                <li class="page-item"><a href="#" class="page-link">Successiva</a></li>
+                            </ul>
+                        </div>
+
+                        <footer class="footer">
+                            <div class="container-fluid">
+                                <div class="footer-in pagination justify-content-center">
+                                    <p class="mb-0">&copy 2024 Rete Artigianato Digitale.</p>
+                                </div>
+                            </div>
+                        </footer>
+                        <!-- Fine footer   -->
+
+                        <!-- VERIFICARE SE AGGIUNGE CAMPI, VEDERE APPUNTI MATTIA -->
+                        <!-- Inizio modale aggiungi -->
+                        <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog"
+                            aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form action="/new_std" method="post">
+
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="addEmployeeModalLabel">Aggiungi Corso</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="nome">Nome del Corso</label>
+                                                <input type="text" class="form-control" id="nome" name="nome" required>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="dataInizio">Data Inizio</label>
+                                                    <input type="date" class="form-control" id="date" name="dataInizio"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="dataFine">Data Fine</label>
+                                                    <input type="date" class="form-control" id="date" name="dataFine"
+                                                        required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="reset" class="btn btn-secondary"
+                                                        data-dismiss="modal">Cancella</button>
+                                                    <button type="submit" class="btn btn-success">Aggiungi</button>
+                                                </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Fine modale aggiungi -->
+
+                        <!-- INIZIO DA RIVEDERE -->
+
+                        <div id="card-container"></div>
+
+                        <script>
+
+
+                            const container = document.getElementById('card-container');
+
+                            users.forEach(user => {
+                                const card = document.createElement('div');
+                                card.className = 'card-body';
+
+                                card.innerHTML = `
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label>Nome Utente</label>
+                                                <input type="text" class="form-control" placeholder="Nome e Cognome" value="${studenti.nome}">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Stato</label>
+                                                <select name="type" class="custom-select">
+                                                    <option disabled> -Selezione un elemento- </option>
+                                                    <option value="I" ${user.stato === 'I' ? 'selected' : ''}> Studente </option>
+                                                    <option value="C" ${user.stato === 'C' ? 'selected' : ''}> Guest </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Classe</label>
+                                                <select name="type" class="custom-select">
+                                                    <option disabled> -Selezione un elemento- </option>
+                                                    <option ${user.classe === '' ? 'selected' : ''}> -Nessuna- </option>
+                                                    <option value="Gol Aprile 2024" ${corso.nome === 'Gol Aprile 2024' ? 'selected' : ''}> Gol Aprile 2024 </option>
+                                                    <option value="Gol Ottobre 2023" ${corso.nome === 'Gol Ottobre 2023' ? 'selected' : ''}> Gol Ottobre 2023 </option>
+                                                    <option value="Fondo Impresa 2023" ${corso.nome === 'Fondo Impresa 2023' ? 'selected' : ''}> Fondo Impresa 2023 </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-secondary">Cerca</button>
+                                `;
+
+                                container.appendChild(card);
+                            });
+                        </script>
+                        <!-- FINE DA RIVEDERE -->
+
+
+                        <script src="jquery/jquery-3.7.1.min.js"></script>
+                        <script src="bootstrap/popper.min.js"></script>
+                        <script src="bootstrap/bootstrap.min.js"></script>
+                        <!-- Bootstrap JS e jQuery -->
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

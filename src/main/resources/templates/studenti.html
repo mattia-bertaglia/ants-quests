@@ -13,15 +13,76 @@
 </head>
 
 <body>
+    <!-- Inizio Nav -->
+    <div class="main-content">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item "><a href="#">Questionari</a></li>
+                <li class="breadcrumb-item"><a href="Corso.html">Corsi</a></li>
+                <a class="breadcrumb-item" href="#">Calendario</a>
+            </ol>
+        </nav>
+    </div>
+    <!-- Fine Nav -->
+
+    <!-- Inizio filtro ricerca -->
+
+    <div class="main-content">
+        <div class="custom-margin">
+            <div class="table-wrapper">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Filtri Ricerca</h5>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="">Nome Utente</label>
+                                    <input type="text" class="form-control" placeholder="Nome e Cognome">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Stato</label>
+                                    <select name="type" class="custom-select">
+                                        <option disabled selected> -Selezione un elemento- </option>
+                                        <option value="I"> Studente </option>
+                                        <option value="C"> Guest </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="">Classe</label>
+                                    <select name="type" class="custom-select">
+                                        <option disabled selected> -Selezione un elemento- </option>
+                                        <option> -Nessuna- </option>
+                                        <option value="I"> Gol Aprile 2024 </option>
+                                        <option value="C"> Gol Ottobre 2023 </option>
+                                        <option value="C"> Fondo Impresa 2023 </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Cerca</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Fine filtro ricerca -->
+
     <!-- inizio main -->
     <div class="main-content">
-        <div class="row">
+        <div class="custom-margin">
             <div class="col-md-12">
                 <div class="table-wrapper">
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Elenco Questionari</h2>
+                                <h2 class="ml-lg-2">Elenco Studenti</h2>
                             </div>
 
                             <!-- Pulsante per attivare il modale -->
@@ -67,6 +128,8 @@
                         </tbody>
                     </table>
 
+
+                    <!-- Inizio footer   -->
                     <div class="clearfix">
                         <div class="hint-text text-center">Pagina <b>3</b> di <b>25</b></div>
                         <ul class="pagination justify-content-center">
@@ -79,6 +142,16 @@
                             <li class="page-item"><a href="#" class="page-link">Successiva</a></li>
                         </ul>
                     </div>
+
+
+                    <footer class="footer">
+                        <div class="container-fluid">
+                            <div class="footer-in pagination justify-content-center">
+                                <p class="mb-0">&copy 2024 Rete Artigianato Digitale.</p>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- Fine footer   -->
 
 
                     <!-- VERIFICARE SE AGGIUNGE CAMPI, VEDERE APPUNTI MATTIA -->
@@ -139,16 +212,6 @@
                     <!-- Fine modale aggiungi -->
 
 
-                    <!-- footer  design -->
-                    <!-- MODIFICARE PALETTE SUL FONDO -->
-
-                    <footer class="footer">
-                        <div class="container-fluid">
-                            <div class="footer-in pagination justify-content-center">
-                                <p class="mb-0">&copy 2024 Rete Artigianato Digitale.</p>
-                            </div>
-                        </div>
-                    </footer>
                 </div>
             </div>
         </div>
