@@ -54,11 +54,7 @@ public class AuthService {
         String password = userData.get("passkey");
 
         if (email == null || password == null || userExists(email)) {
-            errorService.getToast(model, new HashMap<String, String>() {
-                {
-                    put("status", "registrationError");
-                }
-            });
+            errorService.getToast(model, "registrationError");
             return null;
         }
 
@@ -82,5 +78,37 @@ public class AuthService {
 
     public void handleError(Model model, String errorMessage) {
         model.addAttribute("error", errorMessage);
+    }
+
+    public String logInUser(HashMap<String, String> params, HttpSession session, Model model) {
+        if (params.containsKey("usernameEmail") && params.containsKey("passkey")) {
+            String usernameEmail = params.get("usernameEmail");
+            String passkey = params.get("passkey");
+
+            Optional<User> userOptional = userRepository.findByUsernameEmail(usernameEmail);
+            if (userOptional.isPresent() && userOptional.get().getPasskey().equals(passkey)) {
+                User user = userOptional.get();
+                session.setAttribute("usrlog", true);
+                session.setAttribute("usernameEmail", user.getUsernameEmail());
+
+                String ruolo = user.getRuolo().toString();
+                switch (ruolo) {
+                    case "studente":
+                    case "guest":
+                        return "redirect:/homeStud";
+                    case "admin":
+                        return "redirect:/homeAdmin";
+                    default:
+                        params.put("status", "unknownRuolo");
+                        errorService.getToast(model, "unknownRuolo");
+                        return "redirect:/";
+                }
+            } else {
+                model.addAttribute("error", "Username o password non validi.");
+                return "login"; // pagina di login con errore
+            }
+        }
+
+        return "redirect:/";
     }
 }
