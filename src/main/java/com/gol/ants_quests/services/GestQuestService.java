@@ -31,6 +31,9 @@ public class GestQuestService {
     }
 
 
+    
+    
+    /*    WIP
     public Quest createQuestWithDomandeERisposte(String titolo, String categoriaId, List<Map<String, Object>> domandeData) {
         CategoriaQuest categoriaQuest = questSrv.getCategoryById(categoriaId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid category ID"));
@@ -46,7 +49,7 @@ public class GestQuestService {
             domanda.setDom(quest);
             domanda = dom.createDomanda(domanda);
 
-            List<Map<String, String>> risposteData = (List<Map<String, String>>) domandaData.get("risp");
+            List<Map<String, String>> risposteData = (List<Map<String, String>>) dom.get("risp");
             for (Map<String, String> rispostaData : risposteData) {
                 RispostaQuest risposta = new RispostaQuest();
                 risposta.setRisposta(rispostaData.get("risposta"));
@@ -59,7 +62,7 @@ public class GestQuestService {
         return quest;
     }
 
-
+*/
 
 
 
