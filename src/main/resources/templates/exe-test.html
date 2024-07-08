@@ -67,7 +67,8 @@
                                                 <th:block th:each="risposta : ${domanda.risp}">
                                                     <li>
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" th:value="${risposta.risposta}" th:id="${risposta.idAns}">
+                                                            <input class="form-check-input" type="checkbox" th:value="${risposta.risposta}" th:id="${risposta.idAns}" th:data-correct="${risposta.corretta}"
+                                                            onclick="updateCounter(this)">
                                                             <label class="form-check-label" th:for="${risposta.idAns}" th:text="${risposta.risposta}"></label>
                                                         </div>
                                                     </li>
@@ -76,6 +77,9 @@
                                         </div>
                                     </div>
                                 </th:block>
+                            </div>
+                            <div>
+                                <h4>Risposte corrette selezionate: <span id="correctCounter">0</span></h4>
                             </div>
                             <button class="carousel-control-prev" style="background-color: blue !important;"
                                 type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -121,6 +125,22 @@
                 
                 $('#btn-0').addClass('active');
             });
+        </script>
+        <script>
+            function updateCounter(checkbox) {
+                const correctCounter = document.getElementById('correctCounter');
+                let count = parseInt(correctCounter.innerText);
+                if (checkbox.checked) {
+                    if (checkbox.getAttribute('data-correct') === 'true') {
+                        count++;
+                    }
+                } else {
+                    if (checkbox.getAttribute('data-correct') === 'true') {
+                        count--;
+                    }
+                }
+                correctCounter.innerText = count;
+            }
         </script>
 
 </body>

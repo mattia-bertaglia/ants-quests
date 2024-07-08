@@ -37,7 +37,7 @@ public class ControllerStudenti {
         // lista questionari uguale per ogni studente
         // se assegnato ad una classe vede anche quelli del corso altrimenti no
         session.setAttribute("studente", SHS.findByNomeAndCognome(nome, cognome));
-        return "studenti-home.html";
+        return "studenti-home";
     }
 
     @GetMapping("/doQuestionario")
