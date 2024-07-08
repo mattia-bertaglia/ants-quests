@@ -1,10 +1,4 @@
-package com.gol.ants_quests.services;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-
-import org.springframework.stereotype.Service;
-import org.xhtmlrenderer.pdf.ITextRenderer;
+package com.gol.ants_quests.business;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,6 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Paths;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Service;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 @Service
 public class PdfService {

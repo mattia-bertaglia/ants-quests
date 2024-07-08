@@ -1,14 +1,16 @@
 package com.gol.ants_quests.controllers;
 
-import com.gol.ants_quests.services.PdfService;
-import lombok.RequiredArgsConstructor;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.gol.ants_quests.business.PdfService;
+
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
