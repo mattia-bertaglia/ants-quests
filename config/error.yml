@@ -1,0 +1,23 @@
+custom:
+  error:
+    toasts:
+      - code: "passwordMismatch"
+        title: "Password Mismatch"
+        message: "Passwords do not match."
+        color: "bg-danger"
+      - code: "userExists"
+        title: "User Exists"
+        message: "A user with this email already exists."
+        color: "bg-warning"
+      - code: "erroreLog"
+        title: "Login Error"
+        message: "Invalid username or password."
+        color: "bg-danger"
+      - code: "unknownRuolo"
+        title: "Unknown Ruolo"
+        message: "The user ruolo is unknown."
+        color: "bg-warning"
+      - code: "genericError"
+        title: "Generic Error"
+        message: "An unexpected error occurred."
+        color: "bg-warning"
