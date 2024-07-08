@@ -3,6 +3,7 @@ package com.gol.ants_quests.services;
 import java.util.HashMap;
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -11,12 +12,13 @@ import com.gol.ants_quests.hibernate.repositories.UserRepository;
 import com.gol.ants_quests.util.Ruolo;
 
 import jakarta.servlet.http.HttpSession;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class AuthService {
+
+    private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 
     private final UserRepository userRepository;
     private final ErrorService errorService;
@@ -60,7 +62,7 @@ public class AuthService {
 
         User user = new User();
         user.setUsernameEmail(email);
-        user.setPasskey(password);
+        user.setPasskey(bcrypt.encode(password));
         user.setRuolo(Ruolo.guest);
         user.setEnabled(false);
 
@@ -86,7 +88,7 @@ public class AuthService {
             String passkey = params.get("passkey");
 
             Optional<User> userOptional = userRepository.findByUsernameEmail(usernameEmail);
-            if (userOptional.isPresent() && userOptional.get().getPasskey().equals(passkey)) {
+            if (userOptional.isPresent() && bcrypt.matches(passkey, userOptional.get().getPasskey())) {
                 User user = userOptional.get();
                 session.setAttribute("usrlog", true);
                 session.setAttribute("usernameEmail", user.getUsernameEmail());
