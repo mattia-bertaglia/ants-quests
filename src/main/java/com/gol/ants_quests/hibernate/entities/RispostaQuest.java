@@ -18,19 +18,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class  RispostaQuest extends GenericEntity {
-      
+public class RispostaQuest extends GenericEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idAns;
     private String risposta;
     private String corretta;
 
-
-
     @ManyToOne
     @JoinColumn(name = "quest_detail_id")
     private DomandaQuest domandaQuest;
 
-    
 }

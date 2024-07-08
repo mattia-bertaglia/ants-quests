@@ -21,24 +21,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class  DomandaQuest extends GenericEntity {
-      
+public class DomandaQuest extends GenericEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idQstDet;
     private String domanda;
 
+    @ManyToOne
+    @JoinColumn(name = "quest_id")
+    private Quest dom;
 
-     @ManyToOne
-     @JoinColumn(name = "quest_id")
-     private Quest dom ;
-
-    @OneToMany(mappedBy = "domandaQuest") 
+    @OneToMany(mappedBy = "domandaQuest")
     private List<RispostaQuest> risp;
 
- 
-
-    
-
-    
 }

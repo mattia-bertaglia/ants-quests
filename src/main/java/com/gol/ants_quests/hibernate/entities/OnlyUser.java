@@ -37,7 +37,7 @@ public class OnlyUser extends GenericEntity {
     @Enumerated(EnumType.STRING)
     private Ruolo ruolo = Ruolo.guest;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default true")
-    private boolean enabled;
+    @Column(name = "first_time", nullable = false, columnDefinition = "boolean default true")
+    private boolean firstTime;
 
 }

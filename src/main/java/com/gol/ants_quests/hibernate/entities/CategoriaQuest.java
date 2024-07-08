@@ -1,6 +1,7 @@
 package com.gol.ants_quests.hibernate.entities;
 
 import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,9 +19,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class  CategoriaQuest extends GenericEntity {
-    
-      
+public class CategoriaQuest extends GenericEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String idCat;

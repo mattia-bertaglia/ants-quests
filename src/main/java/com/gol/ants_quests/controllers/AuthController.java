@@ -43,6 +43,17 @@ public class AuthController {
 
     @PostMapping("/signup")
     public String signup(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
+
+        /*
+         * params = nome, cognome e email
+         * check email gia presente, se si = errore, rimani in index.html
+         * se email nuova, vai a firstTime.html
+         * compilazione dati User/Studente, invio dati, save a DB,
+         * con user che torna da save lo metti in sessione
+         * redirect:/homeStud
+         * 
+         */
+
         User newUser = authService.registerUser(params, model);
         if (newUser != null) {
             authService.setupSession(session, newUser);

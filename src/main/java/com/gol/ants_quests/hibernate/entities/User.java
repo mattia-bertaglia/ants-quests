@@ -27,7 +27,7 @@ public class User extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usr")
-    private int id;
+    private Long id;
 
     @Column(name = "username_email", nullable = false, unique = true)
     private String usernameEmail;
@@ -38,8 +38,8 @@ public class User extends GenericEntity {
     @Enumerated(EnumType.STRING)
     private Ruolo ruolo = Ruolo.guest;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "boolean default true")
-    private boolean enabled;
+    @Column(name = "first_time", nullable = false, columnDefinition = "boolean default true")
+    private boolean firstTime;
 
     @OneToOne(mappedBy = "user_id")
     private OnlyStudente studente;

@@ -1,6 +1,7 @@
 package com.gol.ants_quests.hibernate.entities;
 
 import java.sql.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class  EsitoQuest extends GenericEntity {
+public class EsitoQuest extends GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,8 +35,6 @@ public class  EsitoQuest extends GenericEntity {
 
     @ManyToOne
     @JoinColumn(name = "studente_id")
-    private Studente studente;
- 
-    
-    
+    private OnlyStudente studente;
+
 }

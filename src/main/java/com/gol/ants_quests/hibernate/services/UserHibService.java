@@ -69,7 +69,7 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         user.setUsernameEmail(email);
         user.setPasskey(password);
         user.setRuolo(Ruolo.guest);
-        user.setEnabled(false);
+        /* user.setEnabled(false); */
 
         return userRepository.save(user);
     }

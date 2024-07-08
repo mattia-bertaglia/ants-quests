@@ -25,35 +25,21 @@ public class OnlyStudente extends GenericEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_studente")
     private Integer idStudente;
+
     @Column(name = "user_id")
     private Integer userId;
+
     private String nome;
     private String cognome;
+
     @Column(name = "data_nascita")
     private Date dataNascita;
+
     private String cap;
     private String provincia;
     private String telefono;
     private String note;
     private Date dataInserimento;
     private int corso_id;
-
-    /*
-     * @OneToMany(mappedBy = "studente")
-     * private List<EsitoQuest> esquestionari;
-     * 
-     * @OneToOne(cascade = CascadeType.ALL)
-     * 
-     * @JoinColumn(name = "user_id", referencedColumnName = "id")
-     * private User user;
-     * 
-     */
-
-    /*
-     * @ManyToOne(fetch = FetchType.EAGER)
-     * 
-     * @JoinColumn(name = "cors_id")
-     * private Studente studente;
-     */
 
 }

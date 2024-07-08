@@ -64,7 +64,7 @@ public class AuthService {
         user.setUsernameEmail(email);
         user.setPasskey(bcrypt.encode(password));
         user.setRuolo(Ruolo.guest);
-        user.setEnabled(false);
+        user.setFirstTime(false);
 
         return userRepository.save(user);
     }
