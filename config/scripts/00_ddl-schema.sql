@@ -1,5 +1,6 @@
-create database ants_quests;
-
+drop database antsquests;
+create database antsquests;
+use antsquests;
 create table users (
     id_usr bigint primary key auto_increment,
     username_email varchar(100) not null unique,
@@ -14,8 +15,8 @@ create table quests_categories (
     id_cat varchar(1) primary key,
     nome varchar(50) not null
 );
-insert into quests_categories values('I' 'Ingresso');
-insert into quests_categories values('C' 'Corso');
+insert into quests_categories values('I','Ingresso');
+insert into quests_categories values('C','Corso');
 
 create table quests (
     id_qst bigint primary key auto_increment,
@@ -56,7 +57,7 @@ create table studenti (
     provincia varchar(2),
     telefono varchar(15),
     note varchar(5000),
-    data_inserimento date default current_date(),
+    data_inserimento date default (CURRENT_DATE()),
     corso_id bigint,
     foreign key (corso_id) references corsi (id_corso)
 );
