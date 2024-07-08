@@ -8,6 +8,8 @@ BOOTSTRAP :
 -btn btn-success
         
              */
+
+
 .navbar button span {
     color: #fff;
 }
@@ -23,6 +25,24 @@ BOOTSTRAP :
     margin-top: 2px;
 }
 
+button:focus {
+    box-shadow: none;
+    outline: none;
+    border: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+.navbar button {
+    background-color: transparent;
+    border: none;
+}
+
+.navbar button span {
+    color: #fff;
+}
 
 .main-content {
     padding: 30px 30px 0px 30px;
@@ -47,6 +67,7 @@ BOOTSTRAP :
     left: 0;
     padding: 10px 30px;
     border-radius: 0px 0px 0 0;
+
 }
 
 .table-title h2 {
@@ -79,6 +100,26 @@ BOOTSTRAP :
 .table-title .btn span {
     float: left;
     margin-top: 2px;
+
+}
+
+.pagination li.active a,
+.pagination li.active a.page-link {
+    background: #03A9F4;
+}
+
+.modal .modal-dialog {
+    max-width: 400px;
+}
+
+.modal .modal-header,
+.modal .modal-body,
+.modal .modal-footer {
+    padding: 20px 30px;
+}
+
+.modal .modal-title {
+    display: inline-block;
 }
 
 /*==========================================================
@@ -245,6 +286,7 @@ h6,
     flex-wrap: wrap;
 
 }
+
 
 .container .content-2 {
     min-height: 50vh;

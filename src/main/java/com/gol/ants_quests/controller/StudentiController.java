@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gol.ants_quests.service.StudentiService;
+import com.gol.ants_quests.hibernateStudentiCorsi.services.StudentiService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,7 +35,7 @@ public class StudentiController {
     @GetMapping("/corsi")
     public String getCorsi(Model model) {
         model.addAttribute("corsi", studSrv.findAllCorsi());
-        return "testCorsi.html";
+        return "classi.html";
     }
 
     @PostMapping("/savecorso")
@@ -44,4 +44,9 @@ public class StudentiController {
         return "redirect:/studenti/corsi";
     }
 
+    @GetMapping("/st")
+    public String getst(Model model) {
+        model.addAttribute("sudenti", studSrv.findAllCorsi());
+        return "studenti.html";
+    }
 }

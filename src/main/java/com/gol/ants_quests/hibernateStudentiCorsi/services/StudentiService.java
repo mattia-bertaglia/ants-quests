@@ -1,4 +1,4 @@
-package com.gol.ants_quests.service;
+package com.gol.ants_quests.hibernateStudentiCorsi.services;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import com.gol.ants_quests.hibernateStudentiCorsi.entities.Corso;
 import com.gol.ants_quests.hibernateStudentiCorsi.entities.OnlyCorso;
 import com.gol.ants_quests.hibernateStudentiCorsi.entities.Studente;
-import com.gol.ants_quests.hibernateStudentiCorsi.services.CorsiHibService;
-import com.gol.ants_quests.hibernateStudentiCorsi.services.StudentiHibService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -59,9 +57,9 @@ public class StudentiService {
         if (params.get("idcorso") != null && !"".equals(params.get("idcorso")))
             corso.setIdCorso(Integer.parseInt(params.get("corso")));
         corso.setNome(params.get("nome"));
-        if (params.get("datainizio") != null  && !"".equals(params.get("datainizio")))
+        if (params.get("datainizio") != null && !"".equals(params.get("datainizio")))
             corso.setDataInizio(Date.valueOf(params.get("datainizio")));
-        if (params.get("datafine") != null  && !"".equals(params.get("datafine")))
+        if (params.get("datafine") != null && !"".equals(params.get("datafine")))
             corso.setDataFine(Date.valueOf(params.get("datafine")));
 
         return corsiHibSrv.save(corso);
