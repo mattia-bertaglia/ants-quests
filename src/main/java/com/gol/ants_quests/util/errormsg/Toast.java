@@ -1,4 +1,4 @@
-package com.gol.ants_quests.error;
+package com.gol.ants_quests.util.errormsg;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

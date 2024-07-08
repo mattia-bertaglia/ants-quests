@@ -1,9 +1,8 @@
-package com.gol.ants_quests.error;
+package com.gol.ants_quests.util.errormsg;
 
 import java.util.List;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import org.springframework.stereotype.Component;
 
 import lombok.Data;
