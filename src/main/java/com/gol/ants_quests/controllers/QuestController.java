@@ -63,7 +63,8 @@ public class QuestController {
             @RequestParam String titolo,
             @RequestParam String categoriaId,
             @RequestBody List<Map<String, Object>> domande) {
-        gestQuestService.createQuestWithDomandeERisposte(titolo, categoriaId, domande);
+        // gestQuestService.createQuestWithDomandeERisposte(titolo, categoriaId,
+        // domande);
         return "redirect:/nuovaQuest";
     }
 
