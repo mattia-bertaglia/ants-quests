@@ -44,15 +44,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
-        String usernameEmail = params.get("usernameEmail");
-        String passkey = params.get("passkey");
-
-        if (authService.validateCredentials(usernameEmail, passkey)) {
-            // Login successo
-            return authService.checkRole(usernameEmail, session);
+        String loginResult = authService.logInUser(params, session, model);
+        if (loginResult.equals("redirect:/homeStud") || loginResult.equals("redirect:/homeAdmin")) {
+            return loginResult;
         } else {
             // Gestione dell'errore
-            if (authService.findByUsernameEmail(usernameEmail).isEmpty()) {
+            if (authService.findByUsernameEmail(params.get("usernameEmail")).isEmpty()) {
                 errorService.getToast(session, "erroreLog"); // Utente non trovato
             } else {
                 errorService.getToast(session, "passwordMismatch"); // Password non valida
