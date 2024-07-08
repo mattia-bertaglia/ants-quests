@@ -80,6 +80,21 @@
    </dependency>
  </dependencies>
 
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.17.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.xhtmlrenderer</groupId>
+			<artifactId>flying-saucer-pdf</artifactId>
+			<version>9.8.0</version>
+		</dependency>
+
+
+	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>

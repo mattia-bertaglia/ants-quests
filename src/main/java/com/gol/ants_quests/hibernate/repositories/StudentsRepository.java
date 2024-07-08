@@ -7,4 +7,6 @@ import com.gol.ants_quests.hibernate.entities.Studente;
 @Repository
 public interface StudentsRepository extends JpaRepository<Studente, Integer>{
 
+    public Studente findByNomeAndCognome(String nome,String cognome);
+
 }

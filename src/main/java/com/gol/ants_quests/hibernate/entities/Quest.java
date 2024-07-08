@@ -2,7 +2,11 @@ package com.gol.ants_quests.hibernate.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,14 +32,17 @@ public class Quest extends GenericEntity {
     private Integer idQst;
     private String titolo;
 
-    @ManyToOne
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id")
     private CategoriaQuest categoriequest;
 
-    @OneToMany(mappedBy = "quest")
+    
+    @OneToMany(mappedBy = "quest") 
     private List<EsitoQuest> esquestionari;
 
-    @OneToMany(mappedBy = "dom")
-    private List<DomandaQuest> domanda;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "dom") 
+    private List<DomandaQuest> domanda; 
 
 }

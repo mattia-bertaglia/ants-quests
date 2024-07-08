@@ -1,0 +1,27 @@
+.custom-select {
+    padding: 10px;
+    width: 100%;
+}
+
+.badge-flash {
+    animation: flash 3s infinite;
+}
+
+@keyframes flash {
+
+    0%,
+    50%,
+    100% {
+        opacity: 1;
+    }
+
+    25%,
+    75% {
+        opacity: 0;
+    }
+}
+
+.breadcrumb-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
