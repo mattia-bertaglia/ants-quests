@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrazione ANT</title>
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+  <style>
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Rimuovi questa parte se non è necessaria -->
+    <div class="orangeBG">
+        <div class="box signin">
+            <h2>Hai già un account?</h2>
+            <button class="signinbtn">Accedi</button>
+        </div>
+        <div class="box signup">
+            <h2>Vuoi creare un account?</h2>
+            <button class="signupbtn">Registrati</button>
+        </div>
+    </div>
+    <!-- Fino a qui -->
+    <div class="form-box">
+        <div class="form signinform">
+            <form id="loginForm" action="/auth/login" method="post">
+                <h3>Accedi</h3>
+                <input type="text" name="usernameEmail" placeholder="E-mail" required>
+                <input type="password" name="passkey" placeholder="Password" required>
+                <input type="submit" value="Accedi">
+                <!-- Mostra il messaggio di errore -->
+                <p class="error-message" th:text="${toastMessage}"></p>
+                <!-- Fine messaggio di errore -->
+                <a class="btn btn-primary" href="#">Password dimenticata?</a>
+            </form>
+        </div>
+        <div class="form signupform">
+            <form id="signupForm" action="/auth/signup" method="post">
+                <h3>Registrati</h3>
+                <input type="text" name="nome" placeholder="Nome">
+                <input type="text" name="cognome" placeholder="Cognome">
+                <input id="mail" type="email" name="usernameEmail" placeholder="Indirizzo email">
+                <i id="error-mail" class="hidden error">Non accettabile</i>
+                <i id="correct-mail" class="hidden correct">Accettabile</i>
+                <input type="submit" value="Registrati">
+            </form>
+        </div>
+    </div>
+</div>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div id="toast-header" class="toast-header">
+            <strong id="title-toast" class="me-auto"></strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div id="message-toast" class="toast-body">
+
+        </div>
+    </div>
+  </div>
+
+  <script src="jquery/jquery-3.7.1.min.js"></script>
+  <script src="bootstrap/popper.min.js"></script>
+  <script src="bootstrap/bootstrap.min.js"></script>
+  <script src="js/index.js"></script>
+  
+  <script>
+    // Rimuovi questa parte, non è necessaria
+    const title = "[[${toastTitle}]]";
+    const message = "[[${toastMessage}]]";
+    const toastColor = "[[${toastColor}]]";
+
+    const toast = document.getElementById('toast');
+    document.getElementById("title-toast").innerHTML = title;
+    document.getElementById("message-toast").innerHTML = message;
+    document.getElementById("toast-header").classList.add(toastColor);
+
+    bootstrap.Toast.getOrCreateInstance(toast).show();
+    // Fine rimozione
+  </script>
+</body>
+</html>

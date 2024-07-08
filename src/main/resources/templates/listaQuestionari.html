@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione</title>
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="img/RAD_Favicon.webp">
+</head>
+<body>
+    <form action="/lista">
+
+        <button type="submit" name="ID">Nuovo Questionario</button>       
+    
+
+    
+        <table class="table table-striped table-hover">
+
+            <tr>
+                <th th:each="catQuestionari : ${listaQuestionari}" th:text="${catQuestionari.categoriequest.nome}"></th>
+            </tr>
+            <tr>
+                <td th:each="catQuestionari : ${listaQuestionari}" th:text="${catQuestionari.titolo}"></td>
+                <button  name="ID" th:each="catQuestionari : ${listaQuestionari}" th:value="${catQuestionari.idQst}">Submit</button> 
+            </tr>
+        </table>
+    </form>
+
+
+    <script src="jquery/jquery-3.7.1.min.js"></script>
+    <script src="bootstrap/popper.min.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

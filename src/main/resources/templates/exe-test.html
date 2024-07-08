@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
+</head>
+
+<body>
+
+    <hr>
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+
+                <li class="breadcrumb-item dropdown">
+                    <a class="dropdown-toggle" id="nb-quest" role="button" data-toggle="dropdown">Questionari</a>
+                    <div class="dropdown-menu p-2" aria-lab elledby="nb-quest" aria-haspopup="true"
+                        aria-expanded="false">
+                        <a class="dropdown-item" href="/ges-questionari">Gestione</a>
+                        <a class="dropdown-item" href="/esi-questionari">Esito Questionari</a>
+                    </div>
+                </li>
+
+                <li class="breadcrumb-item active"><a>Esecuzione TEST</a></li>
+            </ol>
+        </nav>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h5 th:text="${session.quest.titolo}"></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div th:if="${session.quest != null}">
+                            <th:block th:each="domanda, index : ${session.quest.domanda}">
+                                <button class="btn btn-outline-primary" th:id="'btn-' + ${index.index}"
+                                    th:text="${index.index + 1}" th:data-target="${index.index}"></button>
+                            </th:block>
+                        </div>
+                        <div th:if="${session.quest == null}">
+                            <p>Nessun questionario disponibile</p>
+                        </div>
+                        <hr>
+                        <div class="container carousel slide d-flex justify-content-center"
+                            id="carouselExampleControls">
+                            <div class="carousel-inner">
+                                <th:block th:each="domanda, index : ${session.quest.domanda}">
+                                    <div th:id="${domanda.idQstDet}"
+                                        th:class="'carousel-item' + (${index.index == 0} ? ' active' : '')">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <h3 th:text="'Domanda ' + ${domanda.idQstDet} + ' :'"></h3>
+                                            <h2 th:text="${domanda.domanda}"></h2>
+                                            <ul class="list-unstyled">
+                                                <th:block th:each="risposta : ${domanda.risp}">
+                                                    <li>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" th:value="${risposta.risposta}" th:id="${risposta.idAns}" th:data-correct="${risposta.corretta}"
+                                                            onclick="updateCounter(this)">
+                                                            <label class="form-check-label" th:for="${risposta.idAns}" th:text="${risposta.risposta}"></label>
+                                                        </div>
+                                                    </li>
+                                                </th:block>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <div>
+                                <h4>Risposte corrette selezionate: <span id="correctCounter">0</span></h4>
+                            </div>
+                            <button class="carousel-control-prev" style="background-color: blue !important;"
+                                type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                style="background-color: blue !important;" data-bs-target="#carouselExampleControls"
+                                data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+
+                        <div class="card-footer">
+                            <a target="_blank" href="/generate-pdf" class="btn btn-primary btn-lg">Concludi Test</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="/jquery/jquery-3.7.1.min.js"></script>
+        <script src="/bootstrap/popper.min.js"></script>
+        <script src="/bootstrap/bootstrap.min.js"></script>
+        <script src="/bootstrap/bootstrap-table.min.js"></script>
+        <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                
+                $('button[data-target]').on('click', function() {
+                    var targetIndex = $(this).data('target');
+                    $('#carouselExampleControls').carousel(targetIndex);
+                });
+        
+               
+                $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
+                    var activeIndex = $(e.relatedTarget).index();
+                    $('button[data-target]').removeClass('active');
+                    $('#btn-' + activeIndex).addClass('active');
+                });
+        
+                
+                $('#btn-0').addClass('active');
+            });
+        </script>
+        <script>
+            function updateCounter(checkbox) {
+                const correctCounter = document.getElementById('correctCounter');
+                let count = parseInt(correctCounter.innerText);
+                if (checkbox.checked) {
+                    if (checkbox.getAttribute('data-correct') === 'true') {
+                        count++;
+                    }
+                } else {
+                    if (checkbox.getAttribute('data-correct') === 'true') {
+                        count--;
+                    }
+                }
+                correctCounter.innerText = count;
+            }
+        </script>
+
+</body>
+
+</html>

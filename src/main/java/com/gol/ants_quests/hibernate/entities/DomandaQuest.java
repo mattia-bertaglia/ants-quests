@@ -1,0 +1,43 @@
+package com.gol.ants_quests.hibernate.entities;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "quests_details")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = false)
+public class DomandaQuest extends GenericEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idQstDet;
+    private String domanda;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "quest_id")
+    private Quest dom;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "domandaQuest")
+    private List<RispostaQuest> risp;
+
+}
