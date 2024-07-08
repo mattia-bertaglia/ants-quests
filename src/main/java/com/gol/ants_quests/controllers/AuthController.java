@@ -54,19 +54,20 @@ public class AuthController {
          * 
          */
 
-        User newUser = authService.registerUser(params, model);
-        if (newUser != null) {
-            authService.setupSession(session, newUser);
-            return "redirect:/?status=signOK";
+        if (authService.userExists(params.get("usernameEmail"))) {
+            return "redirect:/"; // con errore username esistente
         } else {
-            // Rimani sulla pagina di registrazione se ci sono errori
-            return "/firstTime";
+            model.addAttribute("nome", params.get("nome"));
+            model.addAttribute("cognome", params.get("cognome"));
+            model.addAttribute("usernameEmail", params.get("usernameEmail"));
+            return "firstTime.html";
         }
     }
 
-    @PostMapping("/firstTime")
-    public String firstTime(Model model) {
-        return "/auth/firstTime";
+    @PostMapping("/registrazione")
+    public String registrazione(HttpSession session, @RequestParam HashMap<String, String> params, Model model) {
+        authService.registerUser(session, params, model);
+        return "/studenti/";
     }
 
     @GetMapping("/logout")
