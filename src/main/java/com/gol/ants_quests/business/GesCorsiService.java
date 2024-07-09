@@ -27,7 +27,7 @@ public class GesCorsiService {
         Corso corso = new Corso();
 
         if (params.get("idcorso") != null && !"".equals(params.get("idcorso")))
-            corso.setIdCorso(Integer.parseInt(params.get("corso")));
+            corso.setIdCorso(Long.parseLong(params.get("corso")));
         corso.setNome(params.get("nome"));
         if (params.get("datainizio") != null && !"".equals(params.get("datainizio")))
             corso.setDataInizio(Date.valueOf(params.get("datainizio")));

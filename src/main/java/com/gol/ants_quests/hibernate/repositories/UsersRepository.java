@@ -9,14 +9,14 @@ import org.springframework.data.repository.query.Param;
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.util.Ruolo;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UsersRepository extends JpaRepository<User, Long> {
     // Metodo per trovare un utente per usernameEmail
     Optional<User> findByUsernameEmail(String usernameEmail);
 
     // Metodo per trovare tutti gli utenti con un determinato ruolo
     List<User> findByRuolo(Ruolo ruolo);
 
-    Ruolo findRuoloById(Integer userId);
+    Ruolo findRuoloById(Long userId);
 
     Ruolo findRuoloByUsernameEmail(String usernameEmail);
 

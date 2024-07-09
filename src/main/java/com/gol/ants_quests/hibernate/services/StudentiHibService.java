@@ -9,7 +9,7 @@ import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.repositories.StudentiRepository;
 
 @Service
-public class StudentiHibService extends GenericHibService<Studente, Integer, StudentiRepository> {
+public class StudentiHibService extends GenericHibService<Studente, Long, StudentiRepository> {
 
     public StudentiHibService(StudentiRepository repository) {
         super(repository);

@@ -31,7 +31,7 @@ public class GesStudentiService {
         Studente stud = new Studente();
 
         if (params.get("idstudente") != null && !"".equals(params.get("idstudente")))
-            stud.setIdStudente(Integer.parseInt(params.get("idstudente")));
+            stud.setIdStudente(Long.parseLong(params.get("idstudente")));
 
         stud.setNome(params.get("nome"));
         stud.setCognome(params.get("cognome"));
@@ -44,7 +44,7 @@ public class GesStudentiService {
         stud.setDataInserimento(Date.valueOf(LocalDate.now()));
         stud.setNote(params.get("note"));
         if (params.get("idcorso") != null && !"".equals("idcorso"))
-            stud.setCorso(new OnlyCorso(Integer.parseInt(params.get("idcorso")), null, null, null));
+            stud.setCorso(new OnlyCorso(Long.parseLong(params.get("idcorso")), null, null, null));
 
         /*
          * Attenzione se oggetto studente che passo al save ha un id gia presente a db
