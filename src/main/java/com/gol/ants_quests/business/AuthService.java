@@ -91,6 +91,10 @@ public class AuthService {
             if (userOptional.isPresent() && bcrypt.matches(passkey, userOptional.get().getPasskey())) {
                 setupSession(session, userOptional.get());
 
+                if(userOptional.get().isFirstTime()){
+                    return "redirect:/signup";
+                }
+
                 Ruolo ruolo = userOptional.get().getRuolo();
                 switch (ruolo) {
                     case studente:
