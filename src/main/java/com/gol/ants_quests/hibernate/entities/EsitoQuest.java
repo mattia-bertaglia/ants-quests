@@ -24,7 +24,7 @@ public class EsitoQuest extends GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idEstQst;
+    private Long idEstQst;
     private Date dataEsecuzione;
     private String punteggio;
     private String tempo;

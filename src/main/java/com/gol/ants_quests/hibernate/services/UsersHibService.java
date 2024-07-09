@@ -6,29 +6,22 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.gol.ants_quests.business.ErrorService;
 import com.gol.ants_quests.hibernate.entities.User;
-import com.gol.ants_quests.hibernate.repositories.UserRepository;
+import com.gol.ants_quests.hibernate.repositories.UsersRepository;
 import com.gol.ants_quests.util.Ruolo;
 
 import jakarta.servlet.http.HttpSession;
 
 @Service
-public class UserHibService extends GenericHibService<User, Integer, UserRepository> {
-
-    // TODO: TOGLIERE
-    private final UserRepository userRepository;
-    private final ErrorService errorService;
+public class UsersHibService extends GenericHibService<User, Long, UsersRepository> {
 
     // RIMANE SOLO super(userRepository)
-    public UserHibService(UserRepository userRepository, ErrorService errorService) {
+    public UsersHibService(UsersRepository userRepository) {
         super(userRepository);
-        this.userRepository = userRepository;
-        this.errorService = errorService;
     }
 
     public User findByUsernameEmail(String usernameEmail) {
-        Optional<User> userOptional = userRepository.findByUsernameEmail(usernameEmail);
+        Optional<User> userOptional = getRepository().findByUsernameEmail(usernameEmail);
         return userOptional.orElse(null);
     }
 
@@ -48,7 +41,7 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
             } else if (ruolo == Ruolo.admin) {
                 return "redirect:/homeAdmin";
             } else {
-                errorService.getToast(session, "unknownRuolo");
+                /* errorService.getToast(session, "unknownRuolo"); */
                 return "redirect:/";
             }
         }
@@ -61,7 +54,7 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         String password = params.get("passkey");
 
         if (email == null || password == null || findByUsernameEmail(email) != null) {
-            errorService.getToast(model, "registrationError");
+            /* errorService.getToast(model, "registrationError"); */
             return null;
         }
 
@@ -71,7 +64,7 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
         user.setRuolo(Ruolo.guest);
         /* user.setEnabled(false); */
 
-        return userRepository.save(user);
+        return getRepository().save(user);
     }
 
     // TODO: logica di business da fare in authservice
@@ -91,9 +84,9 @@ public class UserHibService extends GenericHibService<User, Integer, UserReposit
             return checkRole(usernameEmail, session);
         } else {
             if (findByUsernameEmail(usernameEmail) == null) {
-                errorService.getToast(session, "erroreLog");
+                /* errorService.getToast(session, "erroreLog"); */
             } else {
-                errorService.getToast(session, "passwordMismatch");
+                /* errorService.getToast(session, "passwordMismatch"); */
             }
             return "redirect:/";
         }

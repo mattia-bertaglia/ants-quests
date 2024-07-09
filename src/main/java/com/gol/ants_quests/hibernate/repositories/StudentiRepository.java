@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.gol.ants_quests.hibernate.entities.Studente;
 
 @Repository
-public interface StudentiRepository extends JpaRepository<Studente, Integer> {
+public interface StudentiRepository extends JpaRepository<Studente, Long> {
 
     List<Studente> findByNomeAndCognome(String nome, String cognome);
 

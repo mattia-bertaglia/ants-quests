@@ -14,7 +14,7 @@ import com.gol.ants_quests.business.GesStudentiService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/studenti")
+@RequestMapping("/ges_studenti")
 @RequiredArgsConstructor
 public class GesStudentiController {
 

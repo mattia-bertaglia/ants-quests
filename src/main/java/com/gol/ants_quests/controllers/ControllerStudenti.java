@@ -12,11 +12,12 @@ import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
 import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
-import com.gol.ants_quests.hibernate.services.StudentsHibService;
+import com.gol.ants_quests.hibernate.services.StudentiHibService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @Controller
 @RequestMapping("/studenti")
@@ -25,7 +26,7 @@ public class ControllerStudenti {
 
     private final QuestsHibService QHS;
     private final CategorieHibService CHS;
-    private final StudentsHibService SHS;
+    private final StudentiHibService SHS;
 
     @GetMapping("/")
     public String homepageStudente(HttpSession session, @RequestParam String nome, @RequestParam String cognome) {
@@ -41,18 +42,14 @@ public class ControllerStudenti {
     }
 
     @GetMapping("/doQuestionario")
-    public String doQuestionario(HttpSession session,@RequestParam("mySelect") Integer selectedValue) {
+    public String doQuestionario(HttpSession session, @RequestParam("mySelect") Long selectedValue) {
 
+        Optional<Quest> quest = QHS.findByID(selectedValue);
 
-       Optional<Quest> quest = QHS.findByID(selectedValue);
-        
-
-       session.setAttribute("quest", quest.get());
+        session.setAttribute("quest", quest.get());
 
         return "exe-test.html";
 
     }
-
-    
 
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.gol.ants_quests.hibernate.entities.User;
-import com.gol.ants_quests.hibernate.repositories.UserRepository;
+import com.gol.ants_quests.hibernate.repositories.UsersRepository;
 import com.gol.ants_quests.util.Ruolo;
 
 import jakarta.servlet.http.HttpSession;
@@ -20,7 +20,7 @@ public class AuthService {
 
     private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 
-    private final UserRepository userRepository;
+    private final UsersRepository userRepository;
     private final ErrorService errorService;
 
     public Optional<User> findByUsernameEmail(String usernameEmail) {

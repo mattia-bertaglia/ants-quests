@@ -15,7 +15,7 @@ import com.gol.ants_quests.business.GesCorsiService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("/corsi")
+@RequestMapping("/ges_corsi")
 @RequiredArgsConstructor
 public class GesCorsiController {
 
