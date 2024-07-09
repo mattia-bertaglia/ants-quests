@@ -91,15 +91,15 @@ public class AuthService {
             if (userOptional.isPresent() && bcrypt.matches(passkey, userOptional.get().getPasskey())) {
                 User user = userOptional.get();
                 session.setAttribute("usrlog", true);
-                session.setAttribute("usernameEmail", user.getUsernameEmail());
+                session.setAttribute("user", user);
 
                 String ruolo = user.getRuolo().toString();
                 switch (ruolo) {
                     case "studente":
                     case "guest":
-                        return "redirect:/homeStud";
+                        return "redirect:/homeStud/";
                     case "admin":
-                        return "redirect:/homeAdmin";
+                        return "redirect:/homeAdmin/";
                     default:
                         params.put("status", "unknownRuolo");
                         errorService.getToast(model, "unknownRuolo");
