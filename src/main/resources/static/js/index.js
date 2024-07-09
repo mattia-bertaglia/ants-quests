@@ -60,5 +60,15 @@ document.addEventListener('DOMContentLoaded', function() {
 // cazzatine
 
 // cambio da password a text per visualizzare la password
+let pass = document.getElementById("pass");
+const showPassword = document.getElementById("toggle-eye");
 
-// se sbagli la password 3 volte la pagina esplode (preferenza di ela)
+showPassword.addEventListener('mouseover', function(){
+    showPassword.setAttribute("value", "hide");
+    pass.setAttribute("type", "text");
+});
+
+showPassword.addEventListener('mouseout', function(){
+    showPassword.setAttribute("value", "show");
+    pass.setAttribute("type", "password");
+});

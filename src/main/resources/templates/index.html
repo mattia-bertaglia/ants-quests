@@ -26,11 +26,15 @@
             <form id="loginForm" action="/auth/login" method="post">
                 <h3>Accedi</h3>
                 <input type="text" name="usernameEmail" placeholder="E-mail" required>
-                <input type="password" name="passkey" placeholder="Password" required>
+                <div>
+                  <input id="pass" type="password" name="passkey" placeholder="Password" required>
+                  <input id="toggle-eye" type="button" value="show">
+                </div>
+                
                 <input type="submit" value="Accedi">
                 <!-- Mostra il messaggio di errore -->
-                <p class="error-message" th:text="${toastMessage}"></p>
-                <!-- Fine messaggio di errore -->
+                <p class="error-message" th:text="${toastMessage}" style="color: red;"></p>
+
                 <a class="btn btn-primary" href="#">Password dimenticata?</a>
             </form>
         </div>
@@ -45,19 +49,6 @@
         </div>
     </div>
 </div>
-
-  <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div id="toast-header" class="toast-header">
-            <strong id="title-toast" class="me-auto"></strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div id="message-toast" class="toast-body">
-
-        </div>
-    </div>
-  </div>
-
   <script src="jquery/jquery-3.7.1.min.js"></script>
   <script src="bootstrap/popper.min.js"></script>
   <script src="bootstrap/bootstrap.min.js"></script>
