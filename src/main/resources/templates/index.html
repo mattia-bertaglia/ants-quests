@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- Rimuovi questa parte se non è necessaria -->
+
     <div class="orangeBG">
         <div class="box signin signinbtn">
             <h2>Hai già un account?</h2>
@@ -20,7 +20,7 @@
             <button class="">Registrati</button>
         </div>
     </div>
-    <!-- Fino a qui -->
+  
     <div class="form-box">
         <div class="form signinform">
             <form id="loginForm" action="/auth/login" method="post">
@@ -63,19 +63,6 @@
   <script src="bootstrap/bootstrap.min.js"></script>
   <script src="js/index.js"></script>
   
-  <script>
-    // Rimuovi questa parte, non è necessaria
-    const title = "[[${toastTitle}]]";
-    const message = "[[${toastMessage}]]";
-    const toastColor = "[[${toastColor}]]";
 
-    const toast = document.getElementById('toast');
-    document.getElementById("title-toast").innerHTML = title;
-    document.getElementById("message-toast").innerHTML = message;
-    document.getElementById("toast-header").classList.add(toastColor);
-
-    bootstrap.Toast.getOrCreateInstance(toast).show();
-    // Fine rimozione
-  </script>
 </body>
 </html>
