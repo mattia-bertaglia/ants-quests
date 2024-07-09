@@ -2,6 +2,7 @@ package com.gol.ants_quests.hibernate.entities;
 
 import com.gol.ants_quests.util.Ruolo;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -42,7 +43,7 @@ public class User extends GenericEntity {
     @Column(name = "first_time", nullable = false, columnDefinition = "boolean default true")
     private boolean firstTime;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Studente studente;
 
 }
