@@ -83,11 +83,12 @@
                         <div class="row">
                             <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
                                 <h2 class="ml-lg-2">Elenco Studenti</h2>
+                                <br>
                             </div>
 
                             <!-- Pulsante per attivare il modale -->
-                            <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <button type="button" class="btn btn-aggiungi" data-toggle="modal"
+                            <div class="col-sm-12 p-0 flex justify-content-lg-start justify-content-center">
+                                <button type="submit" class="btn btn-secondary" data-toggle="modal"
                                     data-target="#addEmployeeModal">
                                     <i class="material-icon">&#xE147;</i>
                                     <span>Aggiungi nuovo studente</span> </button>
@@ -96,15 +97,16 @@
 
                         </div>
                     </div>
-
-                    <table class="table table-striped table-hover">
+                    <br><br>
+                    <table class="table table-striped table-bordered table-sm">
                         <thead>
                             <tr>
                                 <th>Stato</th>
                                 <th>Nominativo</th>
                                 <th>Email</th>
                                 <th>Corso</th>
-                                <th>Azioni</th>
+                                <th class="text-center">Dettaglio</th>
+                                <th class="text-center">Questionari</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -116,14 +118,11 @@
                                 <!-- <td th:text="${stud.email}"></td>  NELL'EMAIL MANCA VISUALIZZAZIONE -->
                                 <td></td>
                                 <!-- <td th:text="${stud.corso}"></td>  NEL CORSO MANCA VISUALIZZAZIONE -->
-                                <td>
-                                    <a href="#" class="edit" data-toggle="modal">
-                                        <i class="material-icons" data-toggle="tooltip" title="Modifica">&#xE254;</i>
-                                    </a>
-                                    <a href="#" class="delete" data-toggle="modal">
-                                        <i class="material-icons" data-toggle="tooltip" title="Cancella">&#xE872;</i>
-                                    </a>
-                                </td>
+                                <td class="d-flex justify-content-center align-items-center"><button
+                                        class="btn btn-primary w-75" data-bs-toggle="modal"
+                                        data-bs-target="#mod-dett-stud">Dettaglio</button></td>
+                                <td><button class="btn btn-primary w-75" data-bs-toggle="modal"
+                                        data-bs-target="#mod-quests">Vedi</button></td>
                             </tr>
                         </tbody>
                     </table>
@@ -210,6 +209,84 @@
                         </div>
                     </div>
                     <!-- Fine modale aggiungi -->
+
+                    <!-- Inizio modale Dettaglio-->
+
+                    <!--   <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog"
+                        aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form action="/new_std" method="post"> -->
+
+                    <div class="modal fade" id="mod-dett-stud" tabindex="-1" role="dialog"
+                        aria-labelledby="mod-dett-studLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+
+                            <div class="modal-content">
+                                <form action="#" method="post"></form>
+                                <div class="modal-header">
+                                    <h4>Dettaglio Studente</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label for="">Email</label>
+                                            <input type="email" class="form-control" value="mrossi@gmail.com">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="">Password</label>
+                                            <input type="password" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label>Nome</label>
+                                            <input type="email" class="form-control" value="Mario">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label>Cognome</label>
+                                            <input type="text" class="form-control" value="Rossi">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label for="">Data di Nascita</label>
+                                            <input type="date" class="form-control" value="2000-01-01">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label for="">Classe</label>
+                                            <select name="type" class="custom-select">
+                                                <option disabled selected> -Selezione un elemento- </option>
+                                                <option value="I"> Gol Aprile 2024 </option>
+                                                <option value="C"> Gol Ottobre 2023 </option>
+                                                <option value="C"> Fondo Impresa 2023 </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label for="">Stato</label>
+                                            <select name="type" class="custom-select">
+                                                <option value="studente">Studente</option>
+                                                <option value="guest" selected> Guest </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- TODO dati studente -->
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary">Pulisci</button>
+                                    <button class="btn btn-primary">Modifica</button>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <!-- Fine modale Dettaglio -->
 
 
                 </div>
