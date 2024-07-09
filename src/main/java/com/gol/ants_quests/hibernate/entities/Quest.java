@@ -34,11 +34,11 @@ public class  Quest extends GenericEntity {
     private String titolo;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "categoria_id")
     private CategoriaQuest categoriequest;
 
-    
+    @JsonManagedReference
     @OneToMany(mappedBy = "quest") 
     private List<EsitoQuest> esquestionari;
 

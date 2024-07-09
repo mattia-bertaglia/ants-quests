@@ -2,6 +2,9 @@ package com.gol.ants_quests.hibernate.entities;
 
 import java.sql.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,6 +38,7 @@ public class Studente extends GenericEntity {
     private Date dataInserimento;
     private Integer corsoId; // da eliminare una volta creata la relazione
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "studente")
     private List<EsitoQuest> esquestionari;
 }

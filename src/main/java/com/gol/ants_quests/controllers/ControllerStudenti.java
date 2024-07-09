@@ -17,6 +17,9 @@ import com.gol.ants_quests.hibernate.services.StudentsHibService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+
+
 @Slf4j
 @Controller
 @RequestMapping("/studenti")
@@ -33,6 +36,7 @@ public class ControllerStudenti {
 
         List<CategoriaQuest> categorie = CHS.findAll();
         session.setAttribute("categorie", categorie);
+        
         log.info("Aggiungo lista di categorie alla sessione");
         // lista questionari uguale per ogni studente
         // se assegnato ad una classe vede anche quelli del corso altrimenti no
@@ -52,6 +56,15 @@ public class ControllerStudenti {
         return "exe-test.html";
 
     }
+
+    @PostMapping("/submit-answers")
+    public String submitAnswers(HttpSession session) {
+       
+       Quest corrente = (Quest)session.getAttribute("quest");
+        
+        return "studenti-home";
+    }
+    
 
     
 

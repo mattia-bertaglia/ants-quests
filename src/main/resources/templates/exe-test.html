@@ -54,48 +54,58 @@
                             <p>Nessun questionario disponibile</p>
                         </div>
                         <hr>
-                        <div class="container carousel slide d-flex justify-content-center"
-                            id="carouselExampleControls">
-                            <div class="carousel-inner">
-                                <th:block th:each="domanda, index : ${session.quest.domanda}">
-                                    <div th:id="${domanda.idQstDet}"
-                                        th:class="'carousel-item' + (${index.index == 0} ? ' active' : '')">
-                                        <div class="d-flex flex-column align-items-center">
-                                            <h3 th:text="'Domanda ' + ${domanda.idQstDet} + ' :'"></h3>
-                                            <h2 th:text="${domanda.domanda}"></h2>
-                                            <ul class="list-unstyled">
-                                                <th:block th:each="risposta : ${domanda.risp}">
-                                                    <li>
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" name="risposta${domanda.idQstDet}" th:value="${risposta.risposta}" th:id="${risposta.idAns}">
-                                                            <label class="form-check-label" th:for="${risposta.idAns}" th:text="${risposta.risposta}"></label>
-                                                        </div>
-                                                    </li>
-                                                </th:block>
-                                            </ul>
-                                        </div>
+                        
+                            <form id="testForm" method="post" action="submit-answers">
+                                <div class="container carousel slide d-flex justify-content-center"
+                                    id="carouselExampleControls">
+                                    <div class="carousel-inner">
+                                        <th:block th:each="domanda, index : ${session.quest.domanda}">
+                                            <div th:id="${domanda.idQstDet}"
+                                                th:class="'carousel-item' + (${index.index == 0} ? ' active' : '')">
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <h3 th:text="'Domanda ' + ${domanda.idQstDet} + ' :'"></h3>
+                                                    <h2 th:text="${domanda.domanda}"></h2>
+                                                    <ul class="list-unstyled">
+                                                        <th:block th:each="risposta : ${domanda.risp}">
+                                                            <li>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="risposteMap"
+                                                                        th:value="${risposta.idAns}"
+                                                                        th:id="${risposta.idAns}">
+                                                                    <label class="form-check-label"
+                                                                        th:for="${risposta.idAns}"
+                                                                        th:text="${risposta.risposta}"></label>
+                                                                </div>
+                                                            </li>
+                                                        </th:block>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </th:block>
                                     </div>
-                                </th:block>
-                            </div>
-                            <div>
-                                <h4>Risposte corrette selezionate: <span id="correctCounter">0</span></h4>
-                            </div>
-                            <button class="carousel-control-prev" style="background-color: blue !important;"
-                                type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button"
-                                style="background-color: blue !important;" data-bs-target="#carouselExampleControls"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
 
-                        <div class="card-footer">
-                            <a target="_blank" href="/generate-pdf" class="btn btn-primary btn-lg">Concludi Test</a>
-                        </div>
+                                    <button class="carousel-control-prev" style="background-color: blue !important;"
+                                        type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                        style="background-color: blue !important;"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-lg">Concludi Test</button>
+                                </div>
+                            </form>
+                            
+                        
+
+                        
                     </div>
                 </div>
             </div>
@@ -107,25 +117,25 @@
         <script src="/bootstrap/bootstrap-table.min.js"></script>
         <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
         <script>
-            $(document).ready(function() {
-                
-                $('button[data-target]').on('click', function() {
+            $(document).ready(function () {
+
+                $('button[data-target]').on('click', function () {
                     var targetIndex = $(this).data('target');
                     $('#carouselExampleControls').carousel(targetIndex);
                 });
-        
-               
+
+
                 $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
                     var activeIndex = $(e.relatedTarget).index();
                     $('button[data-target]').removeClass('active');
                     $('#btn-' + activeIndex).addClass('active');
                 });
-        
-                
+
+
                 $('#btn-0').addClass('active');
             });
         </script>
-        
+
 </body>
 
 </html>

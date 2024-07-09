@@ -1,6 +1,9 @@
 package com.gol.ants_quests.hibernate.entities;
 
 import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,10 +31,12 @@ public class  EsitoQuest extends GenericEntity {
     private String punteggio;
     private String tempo;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "quest_id")
     private Quest quest;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "studente_id")
     private Studente studente;
