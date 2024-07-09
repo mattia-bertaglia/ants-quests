@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -50,6 +51,14 @@ public class ControllerStudenti {
 
         return "exe-test.html";
 
+    }
+
+    @PostMapping("/submit-answers")
+    public String submitAnswers(HttpSession session) {
+       
+       Quest corrente = (Quest)session.getAttribute("quest");
+        
+        return "studenti-home";
     }
 
 }
