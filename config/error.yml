@@ -1,10 +1,6 @@
 custom:
   error:
     toasts:
-      - code: "passwordMismatch"
-        title: "Password Mismatch"
-        message: "Passwords do not match."
-        color: "bg-danger"
       - code: "userExists"
         title: "User Exists"
         message: "A user with this email already exists."
