@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gol.ants_quests.business.AuthService;
 import com.gol.ants_quests.business.ErrorService;
-import com.gol.ants_quests.hibernate.entities.User;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
