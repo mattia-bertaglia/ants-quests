@@ -10,29 +10,126 @@
   <div class="container">
     <h3>Completa Registrazione</h3>
     <form id="registration-form" action="/auth/registrazione" method="POST">
-      <input type="text" name="nome" th:value="${nome}">
-      <input type="text" name="cognome" th:value="${cognome}">
-      <input type="date" name="dataNascita" placeholder="Data di nascita" required>
+      <input type="text" name="nome" th:value="${nome}" required>
+      <input type="text" name="cognome" th:value="${cognome}" required>
+      <input type="date" id="dataNascita" name="dataNascita" placeholder="Data di nascita" required>
+      <i id="error-dataNascita" class="hidden error">La data di nascita non può essere oggi o in futuro</i>
       <input id="cap" type="text" name="cap" placeholder="CAP" maxlength="5" required>
+      <i id="error-cap" class="hidden error">CAP non valido</i>
       <input type="text" name="provincia" placeholder="Provincia" required>
       <input id="phone" type="text" name="telefono" placeholder="Telefono" maxlength="10" required>
+      <i id="error-phone" class="hidden error">Numero di telefono non valido</i>
       <textarea name="note" placeholder="Note" rows="4"></textarea>
-      <input type="email" name="usernameEmail" th:value="${usernameEmail}">
+      <input type="email" name="usernameEmail" th:value="${usernameEmail}" required>
       <input id="pass" type="password" name="passkey" placeholder="Password" required>
       <i id="error-pass" class="hidden error">
-        la password deve contenere:
-        almeno un carattere minuscolo (abc),
-        almeno un carattere maiuscolo (ABC),
-        almeno un carattere numerico  (123)
+        La password deve contenere: almeno un carattere minuscolo (abc), almeno un carattere maiuscolo (ABC), almeno un carattere numerico (123)
       </i>
       <i id="correct-pass" class="hidden correct">Accettabile</i>
       <input id="checkpass" type="password" name="confirmPasskey" placeholder="Conferma Password" required>
       <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
       <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
-      <input type="submit" value="Registrati">
+      <input id="submit-btn" type="submit" value="Registrati" disabled>
     </form>    
   </div>
 
-  <script type="text/javascript" src="js\firstTime.js"></script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      const passInput = document.getElementById('pass');
+      const checkPassInput = document.getElementById('checkpass');
+      const submitBtn = document.getElementById('submit-btn');
+      const errorPass = document.getElementById('error-pass');
+      const correctPass = document.getElementById('correct-pass');
+      const errorCheckPass = document.getElementById('error-checkpass');
+      const correctCheckPass = document.getElementById('correct-checkpass');
+      const capInput = document.getElementById('cap');
+      const errorCap = document.getElementById('error-cap');
+      const phoneInput = document.getElementById('phone');
+      const errorPhone = document.getElementById('error-phone');
+      const dataNascitaInput = document.getElementById('dataNascita');
+      const errorDataNascita = document.getElementById('error-dataNascita');
+
+      function checkPasswords() {
+        const passValue = passInput.value;
+        const checkPassValue = checkPassInput.value;
+
+        const passValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/.test(passValue);
+        if (passValid) {
+          errorPass.classList.add('hidden');
+          correctPass.classList.remove('hidden');
+        } else {
+          errorPass.classList.remove('hidden');
+          correctPass.classList.add('hidden');
+        }
+
+        if (passValue === checkPassValue && passValue !== '') {
+          errorCheckPass.classList.add('hidden');
+          correctCheckPass.classList.remove('hidden');
+        } else {
+          errorCheckPass.classList.remove('hidden');
+          correctCheckPass.classList.add('hidden');
+        }
+
+        checkFormValidity();
+      }
+
+      function checkCap() {
+        const capValue = capInput.value;
+        const capValid = /^\d{5}$/.test(capValue);
+
+        if (capValid) {
+          errorCap.classList.add('hidden');
+        } else {
+          errorCap.classList.remove('hidden');
+        }
+
+        checkFormValidity();
+      }
+
+      function checkPhone() {
+        const phoneValue = phoneInput.value;
+        const phoneValid = /^\d{10}$/.test(phoneValue);
+
+        if (phoneValid) {
+          errorPhone.classList.add('hidden');
+        } else {
+          errorPhone.classList.remove('hidden');
+        }
+
+        checkFormValidity();
+      }
+
+      function checkDataNascita() {
+        const dataNascitaValue = new Date(dataNascitaInput.value);
+        const today = new Date();
+        const dataNascitaValid = dataNascitaValue < today;
+
+        if (dataNascitaValid) {
+          errorDataNascita.classList.add('hidden');
+        } else {
+          errorDataNascita.classList.remove('hidden');
+        }
+
+        checkFormValidity();
+      }
+
+      function checkFormValidity() {
+        const isFormValid = passInput.value === checkPassInput.value &&
+                            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/.test(passInput.value) &&
+                            /^\d{5}$/.test(capInput.value) &&
+                            /^\d{10}$/.test(phoneInput.value) &&
+                            dataNascitaInput.value !== '' &&
+                            new Date(dataNascitaInput.value) < new Date();
+
+        submitBtn.disabled = !isFormValid;
+      }
+
+      passInput.addEventListener('input', checkPasswords);
+      checkPassInput.addEventListener('input', checkPasswords);
+      capInput.addEventListener('input', checkCap);
+      phoneInput.addEventListener('input', checkPhone);
+      dataNascitaInput.addEventListener('input', checkDataNascita);
+    });
+  </script>
 </body>
 </html>
