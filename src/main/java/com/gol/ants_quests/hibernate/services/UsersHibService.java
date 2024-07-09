@@ -6,9 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.repositories.UsersRepository;
-import com.gol.ants_quests.util.Ruolo;
-
-import jakarta.servlet.http.HttpSession;
 
 @Service
 public class UsersHibService extends GenericHibService<User, Long, UsersRepository> {
