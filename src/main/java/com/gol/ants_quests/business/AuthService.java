@@ -91,20 +91,21 @@ public class AuthService {
                 setupSession(session, userOptional.get());
 
                 if(userOptional.get().isFirstTime()){
-                    return "redirect:/signup";
-                }
+                    return "redirect:/registrazione";
+                } else {
 
-                Ruolo ruolo = userOptional.get().getRuolo();
-                switch (ruolo) {
-                    case studente:
-                    case guest:
-                        return "redirect:/homeStud"; // Modificato per puntare a homeStud
-                    case admin:
-                        return "redirect:/admin/";
-                    default:
-                        params.put("status", "unknownRuolo");
-                        errorService.getToast(model, "unknownRuolo");
-                        return "redirect:/";
+                    Ruolo ruolo = userOptional.get().getRuolo();
+                    switch (ruolo) {
+                        case studente:
+                        case guest:
+                            return "redirect:/homeStud"; // Modificato per puntare a homeStud
+                        case admin:
+                            return "redirect:/admin/";
+                        default:
+                            params.put("status", "unknownRuolo");
+                            errorService.getToast(model, "unknownRuolo");
+                            return "redirect:/";
+                    }
                 }
             } else {
                 model.addAttribute("error", "Username o password non validi.");
