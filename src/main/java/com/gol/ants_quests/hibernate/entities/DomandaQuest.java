@@ -28,7 +28,7 @@ public class DomandaQuest extends GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idQstDet;
+    private Long idQstDet;
     private String domanda;
 
     @JsonBackReference

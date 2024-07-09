@@ -29,7 +29,7 @@ public class Quest extends GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idQst;
+    private Long idQst;
     private String titolo;
 
     @JsonBackReference
@@ -37,12 +37,11 @@ public class Quest extends GenericEntity {
     @JoinColumn(name = "categoria_id")
     private CategoriaQuest categoriequest;
 
-    
-    @OneToMany(mappedBy = "quest") 
+    @OneToMany(mappedBy = "quest")
     private List<EsitoQuest> esquestionari;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "dom") 
-    private List<DomandaQuest> domanda; 
+    @OneToMany(mappedBy = "dom")
+    private List<DomandaQuest> domanda;
 
 }
