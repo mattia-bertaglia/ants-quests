@@ -33,9 +33,7 @@ public class AuthController {
             // Gestione dell'errore
             if (authService.findByUsernameEmail(params.get("usernameEmail")).isEmpty()) {
                 errorService.getToast(session, "erroreLog"); // Utente non trovato
-            } else {
-                errorService.getToast(session, "passwordMismatch"); // Password non valida
-            }
+            }  
             return "redirect:/"; // Rimani sulla pagina di login con messaggio di errore
         }
     }
