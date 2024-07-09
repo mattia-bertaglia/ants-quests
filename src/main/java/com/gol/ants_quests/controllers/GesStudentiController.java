@@ -13,6 +13,7 @@ import com.gol.ants_quests.business.GesStudentiService;
 
 import lombok.RequiredArgsConstructor;
 
+// Ross & Nass
 @Controller
 @RequestMapping("/ges_studenti")
 @RequiredArgsConstructor
@@ -23,13 +24,13 @@ public class GesStudentiController {
     @GetMapping("/")
     public String getStud(Model model) {
         model.addAttribute("studenti", studSrv.findAllStudenti());
-        return "testStudenti.html";
+        return "gesStudentiAdmin.html";
     }
 
     @PostMapping("/savestud")
     public String saveStud(@RequestParam HashMap<String, String> params) {
         studSrv.saveStudente(params);
-        return "redirect:/studenti/";
+        return "redirect:/";
     }
 
 }

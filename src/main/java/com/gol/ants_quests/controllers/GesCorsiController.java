@@ -14,6 +14,7 @@ import com.gol.ants_quests.business.GesCorsiService;
 
 import lombok.RequiredArgsConstructor;
 
+// Ross & Nass
 @Controller
 @RequestMapping("/ges_corsi")
 @RequiredArgsConstructor
@@ -24,12 +25,12 @@ public class GesCorsiController {
     @GetMapping("/")
     public String getCorsi(Model model) {
         model.addAttribute("corsi", corsoService.findAllCorsi());
-        return "classi.html";
+        return "gesCorsiAdmin.html";
     }
 
     @PostMapping("/savecorso")
     public String saveCorso(@RequestParam HashMap<String, String> params) {
         corsoService.saveCorso(params);
-        return "redirect:/corsi/";
+        return "redirect:/";
     }
 }

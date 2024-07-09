@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/homeAdmin")
 public class AdminController {
 
     @GetMapping("/")
@@ -15,4 +15,8 @@ public class AdminController {
         return "homeAdmin.html";
     }
 
+    @GetMapping("/calendario")
+    public String calendario(Model model) {
+        return "calendario.html";
+    }
 }

@@ -58,15 +58,21 @@ public class QuestController {
         return "newquest.html";
     }
 
-    @GetMapping("/inserisciQuest")
-    public String inserisciQuest(
-            @RequestParam String titolo,
-            @RequestParam String categoriaId,
-            @RequestBody List<Map<String, Object>> domande) {
-        gestQuestService.createQuestWithDomandeERisposte(titolo, categoriaId, domande);
-        return "redirect:/nuovaQuest";
-    }
-
+    /*
+     * @GetMapping("/inserisciQuest")
+     * public String inserisciQuest(
+     * 
+     * @RequestParam String titolo,
+     * 
+     * @RequestParam String categoriaId,
+     * 
+     * @RequestBody List<Map<String, Object>> domande) {
+     * gestQuestService.createQuestWithDomandeERisposte(titolo, categoriaId,
+     * domande);
+     * return "redirect:/nuovaQuest";
+     * }
+     * /*
+     */
     @GetMapping("/categorie")
     public String categorie(Model model) {
         gestQuestService.findAll(model);
