@@ -4,15 +4,17 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.gol.ants_quests.business.ErrorService;
 import com.gol.ants_quests.hibernate.entities.User;
-import com.gol.ants_quests.hibernate.repositories.UserRepository;
+import com.gol.ants_quests.hibernate.repositories.UsersRepository;
+import com.gol.ants_quests.util.Ruolo;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
-public class UserHibService extends GenericHibService<User, Integer, UserRepository> {
+public class UsersHibService extends GenericHibService<User, Long, UsersRepository> {
 
     // RIMANE SOLO super(userRepository)
-    public UserHibService(UserRepository userRepository, ErrorService errorService) {
+    public UsersHibService(UsersRepository userRepository) {
         super(userRepository);
     }
 

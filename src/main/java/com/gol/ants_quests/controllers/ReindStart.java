@@ -6,11 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ReindStart {
 
-    @GetMapping("/")
-    public String inizio() {
-        return "index.html";
-    }
-
     @GetMapping("/admin")
     public String admin() {
         return "admin";

@@ -11,7 +11,7 @@ import com.gol.ants_quests.hibernate.entities.Corso;
 
 @Repository
 
-public interface CorsiRepository extends JpaRepository<Corso, Integer> {
+public interface CorsiRepository extends JpaRepository<Corso, Long> {
 
     List<Corso> findByNome(String name);
 

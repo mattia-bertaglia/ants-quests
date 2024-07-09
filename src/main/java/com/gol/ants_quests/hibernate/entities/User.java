@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,7 +42,7 @@ public class User extends GenericEntity {
     @Column(name = "first_time", nullable = false, columnDefinition = "boolean default true")
     private boolean firstTime;
 
-    @OneToOne(mappedBy = "user_id")
-    private OnlyStudente studente;
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private Studente studente;
 
 }
