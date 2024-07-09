@@ -48,7 +48,6 @@ public class AuthService {
         user.setFirstTime(false);
 
         // Salvataggio dell'utente con lo studente temporaneo
-
         User salvatoUser = userRepository.save(user);
         // popolare dati studente da form di firstTime.html
         Studente studenteTemp = new Studente(null,
@@ -95,7 +94,7 @@ public class AuthService {
                 switch (ruolo) {
                     case studente:
                     case guest:
-                        return "redirect:/studenti/";
+                        return "redirect:/homeStud"; // Modificato per puntare a homeStud
                     case admin:
                         return "redirect:/admin/";
                     default:
