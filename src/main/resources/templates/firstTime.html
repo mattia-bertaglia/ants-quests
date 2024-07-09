@@ -13,23 +13,26 @@
       <input type="text" name="nome" th:value="${nome}">
       <input type="text" name="cognome" th:value="${cognome}">
       <input type="date" name="dataNascita" placeholder="Data di nascita" required>
-      <input type="text" name="cap" placeholder="CAP" required>
+      <input id="cap" type="text" name="cap" placeholder="CAP" maxlength="5" required>
       <input type="text" name="provincia" placeholder="Provincia" required>
-      <input type="text" name="telefono" placeholder="Telefono" required>
+      <input id="phone" type="text" name="telefono" placeholder="Telefono" maxlength="10" required>
       <textarea name="note" placeholder="Note" rows="4"></textarea>
       <input type="email" name="usernameEmail" th:value="${usernameEmail}">
       <input id="pass" type="password" name="passkey" placeholder="Password" required>
-      <i id="error-pass" class="hidden error">Non accettabile, la password deve contenere:
-        - almeno un carattere minuscolo (abc)
-        - almeno un carattere maiuscolo (ABC)
-        - almeno un carattere numerico (123)
+      <i id="error-pass" class="hidden error">
+         la password deve contenere:
+        almeno un carattere minuscolo (abc),
+        almeno un carattere maiuscolo (ABC),
+        almeno un carattere numerico  (123)
       </i>
       <i id="correct-pass" class="hidden correct">Accettabile</i>
       <input id="checkpass" type="password" name="confirmPasskey" placeholder="Conferma Password" required>
       <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
       <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
       <input type="submit" value="Registrati">
-    </form>
+    </form>    
   </div>
+
+  <script type="text/javascript" src="js\firstTime.js"></script>
 </body>
 </html>
