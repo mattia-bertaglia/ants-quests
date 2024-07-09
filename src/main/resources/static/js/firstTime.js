@@ -2,6 +2,18 @@
 document.addEventListener('DOMContentLoaded', function() {
     var signupForm = document.getElementById("registration-form"); // Correggi l'id del form
 
+    signupForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Impedisce il submit del form
+        
+
+        if(true){
+
+        } else {
+            
+        }
+    
+    });
+
     var passwordInput = document.getElementById("pass");
     var confirmPasswordInput = document.getElementById("checkpass");
     var errorPass = document.getElementById("error-pass");
@@ -56,3 +68,61 @@ document.addEventListener('DOMContentLoaded', function() {
         signupForm.submit(); // Invia il form
     });
 });
+
+
+
+
+// CONTROLLO DATI PERSONALI DELL'UTENTE
+
+
+
+// controllo del cap inserito
+
+const cap = document.getElementById("cap");
+const caperror = document.getElementById("cap-error");
+const capcorrect = document.getElementById("cap-correct");
+
+
+cap.addEventListener("onchange", function(){
+    const capRegex = /^(0?[1-9]{5})$/;
+
+    if(capRegex.test(cap)){
+        caperror.classList.add("hidden");
+        capcorrect.classList.remove("hidden");
+
+    } else {
+        caperror.classList.remove("hidden");
+        capcorrect.classList.add("hidden");
+    }
+
+});
+
+
+
+// controllo del numero di telefono
+
+const phone = document.getElementById("");
+const phoneerror = document.getElementById("");
+const phonecorrect = document.getElementById("");
+
+phone.addEventListener("onchage", function(){
+    
+    const phoneRegex = /^[1-9]{10}$/;
+
+    if(phoneRegex.test(phone)){
+        phoneerror.classList.add("hidden");
+        phonecorrect.classList.remove("hidden");
+    } else {
+        phoneerror.classList.remove("hidden");
+        phonecorrect.classList.add("hidden");
+    }
+
+
+});
+
+
+
+
+
+
+
