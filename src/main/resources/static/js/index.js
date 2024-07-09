@@ -40,70 +40,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Evento click sul pulsante "Registrati" nel form di registrazione
-    signupbtn.addEventListener('click', function() {
-        formbox.classList.add('active');
-        body.classList.add('active');
-    });
-
-    // Gestione del form di registrazione
-    emailInput.addEventListener('input', function() {
-        var email = emailInput.value;
-        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailPattern.test(email)) {
-            emailError.classList.remove('hidden');
-            emailCorrect.classList.add('hidden');
-        } else {
-            emailError.classList.add('hidden');
-            emailCorrect.classList.remove('hidden');
-        }
-    });
-
-    signupForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        var nome = document.querySelector('input[name="nome"]').value;
-        var cognome = document.querySelector('input[name="cognome"]').value;
-        var email = emailInput.value;
-
-        if (!nome || !cognome || !email) {
-            alert('Devi completare tutti i campi per registrarti.');
-            return;
-        }
-
-        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailPattern.test(email)) {
-            emailError.classList.remove('hidden');
-            return;
-        } else {
-            emailError.classList.add('hidden');
-            emailCorrect.classList.remove('hidden');
-        }
-
-        alert('Registrazione avvenuta con successo!');
-        signupForm.submit();
-    });
+      // Controllo se tutti i campi sono completati
+      if (!nome || !cognome || !email) {
+          alert('Devi completare tutti i campi per registrarti.');
+          return;
+      }
+      // se tutti i campi sono stati compilati invia il form
+      signupForm.submit();
+  });
 });
-
-
-// logica per controllare che l'email non sia già esistente all'interno del database
-
-
-
-
-// logica controllo se l'utente è abilitato
 
 
 
 
 // LOGIN
-
-// controllo email
-
-
-
-// controllo password
-
 
 
 
