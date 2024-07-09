@@ -24,7 +24,7 @@ public class RispostaQuest extends GenericEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idAns;
+    private Long idAns;
     private String risposta;
     private Boolean corretta;
 

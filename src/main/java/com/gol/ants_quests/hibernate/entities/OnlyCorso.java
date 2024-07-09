@@ -25,7 +25,7 @@ public class OnlyCorso extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_corso")
-    private Integer idCorso;
+    private Long idCorso;
     private String nome;
 
     @Column(name = "data_inizio")

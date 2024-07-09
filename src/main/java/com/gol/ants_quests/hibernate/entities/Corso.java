@@ -27,7 +27,7 @@ public class Corso extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_corso")
-    private Integer idCorso;
+    private Long idCorso;
     private String nome;
 
     @Column(name = "data_inizio")
@@ -36,6 +36,6 @@ public class Corso extends GenericEntity {
     @Column(name = "data_fine")
     private Date dataFine;
 
-    @OneToMany(mappedBy = "corso_id")
+    @OneToMany(mappedBy = "corsoId")
     private List<OnlyStudente> studenti;
 }

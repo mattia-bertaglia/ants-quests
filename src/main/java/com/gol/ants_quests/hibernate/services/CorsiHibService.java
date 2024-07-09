@@ -10,7 +10,7 @@ import com.gol.ants_quests.hibernate.entities.Corso;
 import com.gol.ants_quests.hibernate.repositories.CorsiRepository;
 
 @Service
-public class CorsiHibService extends GenericHibService<Corso, Integer, CorsiRepository> {
+public class CorsiHibService extends GenericHibService<Corso, Long, CorsiRepository> {
     public CorsiHibService(CorsiRepository repository) {
         super(repository);
     }

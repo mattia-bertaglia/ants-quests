@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,11 +30,11 @@ public class Studente extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_studente")
-    private Integer idStudente;
+    private Long idStudente;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id_usr", nullable = true)
-    private OnlyUser user;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = true)
+    private User user;
 
     private String nome;
     private String cognome;
@@ -51,7 +52,7 @@ public class Studente extends GenericEntity {
     @JoinColumn(name = "corso_id")
     private OnlyCorso corso;
 
-    @OneToMany(mappedBy = "studente_id")
+    @OneToMany(mappedBy = "studenteId")
     private List<OnlyEsitoQuest> esquestionari;
 
 }
