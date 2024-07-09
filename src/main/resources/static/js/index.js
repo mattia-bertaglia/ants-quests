@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // se tutti i campi sono stati compilati invia il form
       signupForm.submit();
   });
-});
+
 
 
 
