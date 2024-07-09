@@ -40,31 +40,21 @@ public class AuthController {
 
     @PostMapping("/signup")
     public String signup(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
-
-        /*
-         * params = nome, cognome e email
-         * check email gia presente, se si = errore, rimani in index.html
-         * se email nuova, vai a firstTime.html
-         * compilazione dati User/Studente, invio dati, save a DB,
-         * con user che torna da save lo metti in sessione
-         * redirect:/homeStud
-         * 
-         */
-
         if (authService.userExists(params.get("usernameEmail"))) {
-            return "redirect:/"; // con errore username esistente
+            errorService.getToast(model, "usernameExists"); // Username già esistente
+            return "redirect:/"; // Rimani sulla pagina di registrazione con messaggio di errore
         } else {
             model.addAttribute("nome", params.get("nome"));
             model.addAttribute("cognome", params.get("cognome"));
             model.addAttribute("usernameEmail", params.get("usernameEmail"));
-            return "firstTime.html";
+            return "firstTime";
         }
     }
 
     @PostMapping("/registrazione")
     public String registrazione(HttpSession session, @RequestParam HashMap<String, String> params, Model model) {
         authService.registerUser(session, params, model);
-        return "/studenti/";
+        return "redirect:/homeStud";
     }
 
     @GetMapping("/logout")
