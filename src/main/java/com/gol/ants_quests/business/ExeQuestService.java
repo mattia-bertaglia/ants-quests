@@ -8,9 +8,11 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.gol.ants_quests.hibernate.entities.DomandaQuest;
 import com.gol.ants_quests.hibernate.entities.EsitoQuest;
 import com.gol.ants_quests.hibernate.entities.OnlyStudente;
 import com.gol.ants_quests.hibernate.entities.Quest;
+import com.gol.ants_quests.hibernate.entities.RispostaQuest;
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.hibernate.services.EsitiHibService;
@@ -27,6 +29,7 @@ public class ExeQuestService {
     private final EsitiHibService esitiSrv;
     private final CategorieHibService categorieHibSrv;
     private final QuestsHibService questSrv;
+    
 
     public void findAllEsitiQuest(Model model) {
         model.addAttribute("listaEsitiQuestionari", esitiSrv.findAll());
@@ -52,24 +55,57 @@ public class ExeQuestService {
 
         Optional<Quest> quest = questSrv.findByID(Long.parseLong(params.get("id-quest")));
         String tempo = params.get("tempo-quest");
-        int punteggio = 0;
+        
 
         // in params ci sono come chiave dom-{id} e valore ans-{id}
         // con quest andiamo a controllare quante risposte corrette su quante
+        int contatore = 0;
+        boolean domandaCicle = false;
+        for (HashMap.Entry<String, String> entry : params.entrySet()) {
+            if (entry.getKey().startsWith("dom")) {
 
-        EsitoQuest esitoFinale = new EsitoQuest();
-        esitoFinale.setDataEsecuzione(Date.valueOf(LocalDate.now()));
-        esitoFinale.setPunteggio(punteggio + "/" + quest.get().getDomanda().size());
-        esitoFinale.setTempo(tempo);
+                String idDomanda = entry.getKey().split("-")[1];
+                String idRisposta = entry.getValue().split("-")[1];
 
-        esitoFinale.setQuest(quest.get());
-        esitoFinale.setStudente(new OnlyStudente(user.getStudente().getIdStudente(), user, null, null, null, null, null,
-                null, null, null, null));
+                for (DomandaQuest domanda : quest.get().getDomanda()) {
+                    domandaCicle = false;
 
-        esitiSrv.save(esitoFinale);
+                    if (domanda.getIdQstDet() == Long.parseLong(idDomanda)) {
 
-        // elaborazione PDF
+                        for (RispostaQuest risposta : domanda.getRisp()) {
+
+                            if (risposta.getIdAns() == Long.parseLong(idRisposta)) {
+                                if(risposta.getCorretta())
+                                    contatore = contatore + 1;
+                                domandaCicle = true;
+                                break;
+                            }
+                            
+                        }
+
+                    }
+                    if(domandaCicle) break;
+                }
+
+            }
+        }
+            
+
+            EsitoQuest esitoFinale = new EsitoQuest();
+            esitoFinale.setDataEsecuzione(Date.valueOf(LocalDate.now()));
+            esitoFinale.setPunteggio(contatore + "/" + quest.get().getDomanda().size());
+            esitoFinale.setTempo(tempo);
+
+            esitoFinale.setQuest(quest.get());
+            esitoFinale.setStudente(
+                    new OnlyStudente(user.getStudente().getIdStudente(), user, null, null, null, null, null,
+                            null, null, null, null));
+
+            esitiSrv.save(esitoFinale);
+
+            // elaborazione PDF
+
+        
 
     }
-
 }
