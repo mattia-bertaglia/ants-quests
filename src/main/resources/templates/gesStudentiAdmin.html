@@ -121,8 +121,8 @@
 
                             <!-- Pulsante per attivare il modale -->
                             <div class="col-sm-12 p-0 flex justify-content-lg-start justify-content-center">
-                                <button type="submit" class="btn btn-secondary" data-toggle="modal"
-                                    data-target="#addEmployeeModal">
+                                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#addEmployeeModal">
                                     <i class="material-icon">&#xE147;</i>
                                     <span>Aggiungi nuovo studente</span> </button>
                             </div>
@@ -180,6 +180,8 @@
         </div>
     </div>
 
+
+
     <!-- Inizio footer   -->
     <div class="clearfix">
         <div class="hint-text text-center">Pagina <b>3</b> di <b>25</b></div>
@@ -209,14 +211,14 @@
     <!-- Inizio modale aggiungi -->
 
     <!-- form qui nel modale et local date now + ruolo + password -->
-    <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+    <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModal"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form action="/new_std" method="post">
 
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addEmployeeModalLabel">Aggiungi Studente</h5>
+                        <h5 class="modal-title">Aggiungi Studente</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -226,34 +228,32 @@
                             <label for="nome">Nome</label>
                             <input type="text" class="form-control" id="nome" name="nome" required>
                         </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="cognome">Cognome</label>
-                                <input type="text" class="form-control" id="nome" name="nome" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label for="numero">Numero</label>
-                                    <input type="text" class="form-control" id="nome" name="nome" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="indirizzo">Indirizzo</label>
-                                    <textarea class="form-control" id="indirizzo" name="indirizzo" required></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="telefono">Telefono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono" required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancella</button>
-                                <button type="submit" class="btn btn-success">Aggiungi</button>
-                            </div>
+                        <div class="form-group">
+                            <label for="cognome">Cognome</label>
+                            <input type="text" class="form-control" id="cognome" name="cognome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="numero">Numero</label>
+                            <input type="text" class="form-control" id="numero" name="numero" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="indirizzo">Indirizzo</label>
+                            <textarea class="form-control" id="indirizzo" name="indirizzo" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Telefono</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono" required>
+                        </div>
+                    </div>
                 </form>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancella</button>
+                    <button type="submit" class="btn btn-success">Aggiungi</button>
+                </div>
             </div>
         </div>
     </div>
@@ -265,63 +265,65 @@
         <div class="modal-dialog" role="document">
 
             <div class="modal-content">
-                <form action="#" method="post"></form>
-                <div class="modal-header">
-                    <h4>Dettaglio Studente</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="">Email</label>
-                            <input type="email" class="form-control" value="mrossi@gmail.com">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label for="">Password</label>
-                            <input type="password" class="form-control">
-                        </div>
-                    </div>
+                <form action="#" method="post">
 
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>Nome</label>
-                            <input type="email" class="form-control" value="Mario">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Cognome</label>
-                            <input type="text" class="form-control" value="Rossi">
-                        </div>
+                    <div class="modal-header">
+                        <h4>Dettaglio Studente</h4>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="">Data di Nascita</label>
-                            <input type="date" class="form-control" value="2000-01-01">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="">Email</label>
+                                <input type="email" class="form-control" value="mrossi@gmail.com">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="">Password</label>
+                                <input type="password" class="form-control">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="">Classe</label>
-                            <select name="type" class="custom-select">
-                                <option disabled selected> -Selezione un elemento- </option>
-                                <option value="I"> Gol Aprile 2024 </option>
-                                <option value="C"> Gol Ottobre 2023 </option>
-                                <option value="C"> Fondo Impresa 2023 </option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Nome</label>
+                                <input type="email" class="form-control" value="Mario">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Cognome</label>
+                                <input type="text" class="form-control" value="Rossi">
+                            </div>
                         </div>
-                        <div class="col-md-6 form-group">
-                            <label for="">Stato</label>
-                            <select name="type" class="custom-select">
-                                <option value="studente">Studente</option>
-                                <option value="guest" selected> Guest </option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="">Data di Nascita</label>
+                                <input type="date" class="form-control" value="2000-01-01">
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary">Pulisci</button>
-                    <button class="btn btn-primary">Modifica</button>
-                </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="">Classe</label>
+                                <select name="type" class="custom-select">
+                                    <option disabled selected> -Selezione un elemento- </option>
+                                    <option value="I"> Gol Aprile 2024 </option>
+                                    <option value="C"> Gol Ottobre 2023 </option>
+                                    <option value="C"> Fondo Impresa 2023 </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="">Stato</label>
+                                <select name="type" class="custom-select">
+                                    <option value="studente">Studente</option>
+                                    <option value="guest" selected> Guest </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary">Pulisci</button>
+                        <button class="btn btn-primary">Modifica</button>
+                    </div>
+                </form>
             </div>
 
 
@@ -333,18 +335,56 @@
 
     <!-- Modal per Vedi -->
 
+    <div class="modal fade" id="mod-quests" tabindex="-1" role="dialog" aria-labelledby="modDettStudLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl ">
+
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <table id="tab-last-quest" class="table table-striped table-bordered table-sm" style="width: 100%;"
+                        data-toggle="table" data-locale="it-IT">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Data</th>
+                                <th>Punteggio</th>
+                                <th>Tempo</th>
+                                <th class="text-center">Questionario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Ingresso - Logica</td>
+                                <td>2024-05-15</td>
+                                <td>25/30</td>
+                                <td>38 min 25 sec</td>
+                                <td><button class="btn btn-primary w-75">Vedi</button></td>
+                            </tr>
+                            <tr>
+                                <td>Ingresso - Logica</td>
+                                <td>2024-05-15</td>
+                                <td>22/30</td>
+                                <td>38 min 25 sec</td>
+                                <td><button class="btn btn-primary w-75">Vedi</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <!-- Fine modale vedi -->
 
 
 
 
 
 
-    <script src="jquery/jquery-3.7.1.min.js"></script>
-    <script src="bootstrap/popper.min.js"></script>
-    <script src="bootstrap/bootstrap.min.js"></script>
-    <!-- Bootstrap JS e jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+            <script src="/jquery/jquery-3.7.1.min.js"></script>
+            <script src="/bootstrap/popper.min.js"></script>
+            <script src="/bootstrap/bootstrap.min.js"></script>
 
 
 
