@@ -21,3 +21,7 @@ custom:
         title: "Generic Error"
         message: "An unexpected error occurred."
         color: "bg-warning"
+      - code: "notAuthOrOutSession"
+        title: "Non Autorizzato o Sessione Scaduta"
+        message: "Utente non Autorizzato alla pagina, Sessione Scaduta, Ripetere Login"
+        color: "bg-danger"
