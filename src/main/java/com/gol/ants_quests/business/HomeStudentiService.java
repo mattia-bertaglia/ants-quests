@@ -110,7 +110,9 @@ public class HomeStudentiService {
         String studDir = user.getStudente().getIdStudente() + "-" + user.getStudente().getCognome();
         String fileName = quest.get().getTitolo() + "_" + esitoFinale.getDataEsecuzione() + ".pdf";
         try {
-            pdfSrv.generatePdfFromHtml(studDir, fileName);
+            // TODO: passare al generate anche le domande/risposte dello studente e il quest
+            // stesso.
+            pdfSrv.generatePdfFromHtml(quest.get(), studDir, fileName);
         } catch (IOException e) {
             log.error("errore elaborazione pdf questionario", e);
         }
