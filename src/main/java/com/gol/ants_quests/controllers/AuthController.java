@@ -14,7 +14,6 @@ import com.gol.ants_quests.business.AuthService;
 import com.gol.ants_quests.business.ErrorService;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.entities.User;
-import com.gol.ants_quests.hibernate.services.StudentiHibService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
