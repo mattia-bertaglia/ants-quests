@@ -3,7 +3,8 @@ package com.gol.ants_quests.hibernate.services;
 
 import java.sql.Date;
 import java.util.List;
-
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.Corso;
@@ -19,8 +20,11 @@ public class CorsiHibService extends GenericHibService<Corso, Long, CorsiReposit
         return getRepository().findByNome(nome);
     }
 
-    List<Corso> findByDataInizioOrDataFine(Date dataInizio, Date dataFine) {
+    public List<Corso> findByDataInizioOrDataFine(Date dataInizio, Date dataFine) {
         return getRepository().findByDataInizioOrDataFine(dataInizio, dataFine);
     }
 
+    public List<Corso> findAll(Sort sort) {
+        return getRepository().findAll(Sort.by(Direction.DESC, "dataInizio"));
+    }
 }

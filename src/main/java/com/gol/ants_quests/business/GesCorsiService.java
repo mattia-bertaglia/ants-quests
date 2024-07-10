@@ -18,9 +18,8 @@ import lombok.RequiredArgsConstructor;
 public class GesCorsiService {
 
     private final CorsiHibService corsiHibSrv;
-    private final ErrorService errorService;
 
-    public List<Corso> findAllCorsi() {
+    public List<Corso> findAll() {
         return corsiHibSrv.findAll(Sort.by(Direction.DESC, "dataInizio"));
     }
 
@@ -66,7 +65,7 @@ public class GesCorsiService {
         Corso corso = new Corso();
 
         if (params.get("idcorso") != null && !"".equals(params.get("idcorso")))
-            corso.setIdCorso(Long.parseLong(params.get("corso")));
+            corso.setIdCorso(Long.parseLong(params.get("idcorso")));
         corso.setNome(params.get("nome"));
         if (params.get("datainizio") != null && !"".equals(params.get("datainizio")))
             corso.setDataInizio(Date.valueOf(params.get("datainizio")));

@@ -23,8 +23,8 @@ public class GesCorsiController {
     private final GesCorsiService corsoService;
 
     @GetMapping("/")
-    public String getCorsi(Model model) {
-        model.addAttribute("corsi", corsoService.findAllCorsi());
+    public String findAll(Model model) {
+        model.addAttribute("corsi", corsoService.findAll());
         return "gesCorsiAdmin.html";
     }
 
@@ -56,6 +56,6 @@ public class GesCorsiController {
     @PostMapping("/savecorso")
     public String saveCorso(@RequestParam HashMap<String, String> params) {
         corsoService.saveCorso(params);
-        return "redirect:/";
+        return "redirect:/ges_corsi/";
     }
 }
