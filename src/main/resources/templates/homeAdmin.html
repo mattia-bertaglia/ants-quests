@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home studente</title>
+    <title>home Admin</title>
     <!-- bootstrap link -->
     <link rel="stylesheet" href="css/StyleRoss.css">
     <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
@@ -15,12 +15,14 @@
 </head>
 
 <body>
-    <h1>Benvenuto nella tua Home admin</h1>
-    <!-- Bottone di logout -->
-    <form action="/auth/logout" method="get">
-        <button type="submit" id="logoutBtn">Logout</button>
-    </form>
 
+    <!-- Bottone di logout -->
+    <div class="d-flex justify-content-end">
+        <form action="/auth/logout" method="get">
+            <button type="submit" id="logoutBtn">Logout</button>
+        </form>
+    </div>
+    <h1>Benvenuto nella tua Home admin</h1>
     <!-- Inizio Nav -->
     <div class="main-content">
         <nav aria-label="breadcrumb">

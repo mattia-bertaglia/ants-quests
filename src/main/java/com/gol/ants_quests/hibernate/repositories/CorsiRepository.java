@@ -13,8 +13,8 @@ import com.gol.ants_quests.hibernate.entities.Corso;
 
 public interface CorsiRepository extends JpaRepository<Corso, Long> {
 
-    List<Corso> findByNome(String name);
+    List<Corso> findByNome(String nome);
 
-    List<Corso> findByDataInizioOrDataFine(Date dataInizio, Date daatFine);
+    List<Corso> findByDataInizioOrDataFine(Date dataInizio, Date dataFine);
 
 }
