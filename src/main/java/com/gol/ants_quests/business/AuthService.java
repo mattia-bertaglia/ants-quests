@@ -81,7 +81,17 @@ public class AuthService {
         session.setAttribute("user", user);
     }
 
-    public String logInUser(HashMap<String, String> params, HttpSession session, Model model) {
+    public Optional<Studente> nomeLoggedStud(String usernameEmail) {
+
+        return studHibSrv.findNomeByUser(usernameEmail);
+    }
+
+    public Optional<Studente> cognomeLoggedStud(String usernameEmail) {
+
+        return studHibSrv.findCognomeByUser(usernameEmail);
+    }
+
+    public boolean logInUser(HashMap<String, String> params, HttpSession session, Model model) {
         if (params.containsKey("usernameEmail") && params.containsKey("passkey")) {
             String usernameEmail = params.get("usernameEmail");
             String passkey = params.get("passkey");
@@ -90,29 +100,30 @@ public class AuthService {
             if (userOptional.isPresent() && bcrypt.matches(passkey, userOptional.get().getPasskey())) {
                 setupSession(session, userOptional.get());
 
-                if(userOptional.get().isFirstTime()){
-                    return "redirect:/registrazione";
-                } else {
-
-                    Ruolo ruolo = userOptional.get().getRuolo();
-                    switch (ruolo) {
-                        case studente:
-                        case guest:
-                            return "redirect:/homeStud"; // Modificato per puntare a homeStud
-                        case admin:
-                            return "redirect:/admin/";
-                        default:
-                            params.put("status", "unknownRuolo");
-                            errorService.getToast(model, "unknownRuolo");
-                            return "redirect:/";
-                    }
+                Ruolo ruolo = userOptional.get().getRuolo();
+                switch (ruolo) {
+                    case studente:
+                    case guest:
+                        if (userOptional.get().isFirstTime()) {
+                            params.put("root", "/auth/signup");
+                        } else
+                            params.put("root", "/homeStud");
+                        break;
+                    case admin:
+                        params.put("root", "/homeAdmin/");
+                        break;
+                    default:
+                        params.put("status", "unknownRuolo");
+                        return false;
                 }
+                return true;
             } else {
-                model.addAttribute("error", "Username o password non validi.");
-                return "redirect:/"; // pagina di login con errore
+                params.put("status", "erroreLog");
+                return false; // pagina di login con errore
+
             }
         }
 
-        return "redirect:/";
+        return false;
     }
 }

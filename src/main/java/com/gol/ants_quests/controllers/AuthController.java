@@ -1,6 +1,7 @@
 package com.gol.ants_quests.controllers;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gol.ants_quests.business.AuthService;
 import com.gol.ants_quests.business.ErrorService;
+import com.gol.ants_quests.hibernate.entities.Studente;
+import com.gol.ants_quests.hibernate.entities.User;
+import com.gol.ants_quests.hibernate.services.StudentiHibService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -26,29 +30,44 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
-        String loginResult = authService.logInUser(params, session, model);
-        if (loginResult.equals("redirect:/homeStud") || loginResult.equals("redirect:/homeAdmin")) {
-            return loginResult;
+        boolean loginResult = authService.logInUser(params, session, model);
+
+        if (loginResult) {
+            return "redirect:" + params.get("root");
         } else {
-            // Gestione dell'errore
-            if (authService.findByUsernameEmail(params.get("usernameEmail")).isEmpty()) {
-                errorService.getToast(session, "erroreLog"); // Utente non trovato
-            }  
-            return "redirect:/"; // Rimani sulla pagina di login con messaggio di errore
+            errorService.getToast(session, params.get("status"));
+            return "redirect:/";
         }
     }
 
-    @PostMapping("/signup")
+    @GetMapping("/signup")
     public String signup(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
-        if (authService.userExists(params.get("usernameEmail"))) {
-            errorService.getToast(model, "usernameExists"); // Username già esistente
+        String nome = "";
+        String cognome = "";
+        String usernameEmail = "";
+        boolean userLogged = session.getAttribute("usrlog") != null ? (boolean) session.getAttribute("usrlog") : false;
+        if (!userLogged && authService.userExists(params.get("usernameEmail"))) {
+            errorService.getToast(session, "usernameExists"); // Username già esistente
             return "redirect:/"; // Rimani sulla pagina di registrazione con messaggio di errore
-        } else {
-            model.addAttribute("nome", params.get("nome"));
-            model.addAttribute("cognome", params.get("cognome"));
-            model.addAttribute("usernameEmail", params.get("usernameEmail"));
-            return "firstTime";
+        } else if (!userLogged && !authService.userExists(params.get("usernameEmail"))) {
+            nome = params.get("nome");
+            cognome = params.get("cognome");
+            usernameEmail = params.get("usernameEmail");
+
+        } else if (userLogged) {
+            User user = (User) session.getAttribute("user");
+            usernameEmail = user.getUsernameEmail();
+            Optional<Studente> studOpt = authService.nomeLoggedStud(usernameEmail);
+            nome = studOpt.isPresent() ? studOpt.get().getNome() : "";
+            studOpt = authService.cognomeLoggedStud(usernameEmail);
+            cognome = studOpt.isPresent() ? studOpt.get().getCognome() : "";
+
         }
+
+        model.addAttribute("nome", nome);
+        model.addAttribute("cognome", cognome);
+        model.addAttribute("usernameEmail", usernameEmail);
+        return "firstTime";
     }
 
     @PostMapping("/registrazione")
