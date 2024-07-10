@@ -10,21 +10,40 @@
 </head>
 
 <body>
+
+    <navbar class="navbar navbar-expand">
+        <a href="/homeStud/profilo" class="btn btn-primary">Profilo</a>
+        <a href="/auth/logout" class="btn btn-warning">Logout</a>
+    </navbar>
+
+    <hr>
     <div class="container">
         <div class="card-body form-group d-flex flex-column align-items-center my-4">
             <div class="row mb-3 w-50">
                 <form action="doQuestionario" method="get">
-                    <input class="btn btn-primary" type="submit" value="Inizia il questionario">
-                    <h2>Scegliere questionario</h2>
-                    <select name="mySelect" id="mySelect" class="form-control">
-                        <th:block th:each="categoria : ${categorie}">
-                            <optgroup th:label="${categoria.nome}">
-                                <option th:each="questionario : ${categoria.questionari}"
-                                    th:value="${questionario.idQst}" th:text="${questionario.titolo}">
-                                </option>
-                            </optgroup>
-                        </th:block>
-                    </select>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Scegliere questionario</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <select name="quest-select" class="form-select">
+                                        <th:block th:each="categoria : ${categorie}">
+                                            <optgroup th:label="${categoria.nome}">
+                                                <option th:each="questionario : ${categoria.questionari}"
+                                                    th:value="${questionario.idQst}" th:text="${questionario.titolo}">
+                                                </option>
+                                            </optgroup>
+                                        </th:block>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input class="btn btn-primary" type="submit" value="Inizia il questionario">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <h1>Questionari svolti:</h1>
@@ -82,9 +101,7 @@
 
 
     <script src="/jquery/jquery-3.7.1.min.js" defer></script>
-
     <script src="/bootstrap/popper.min.js" defer></script>
-
     <script src="/bootstrap/bootstrap.min.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
