@@ -3,6 +3,7 @@ package com.gol.ants_quests.business;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -23,43 +24,10 @@ public class GesCorsiService {
         return corsiHibSrv.findAll(Sort.by(Direction.DESC, "dataInizio"));
     }
 
-    /*
-     * ESEMPIO DA PROVARE
-     * SBLOCCARE GESCORSICONTROLLER.JAVA
-     * 
-     * public Optional<Corso> findByNome(String nome) {
-     * return corsiHibSrv.findByNome(nome);
-     * }
-     * public Optional<Corso> findByDataInizioOrDataFine(Date dataInizio, Date
-     * dataFine) {
-     * return corsiHibSrv.findByDataInizioOrDataFine(dataInizio, dataFine);
-     * 
-     * public Corso saveCorso(HashMap<String, String> corsoData, Model model){
-     * String nome = corsoData.get("nome");
-     * Date inizio = corsoData.get("dataInizio");
-     * Date fine = corsoData.get("dataFine");
-     * 
-     * if(inizio == null || fine == null || corsoExists(nome)){
-     * erroreService.getToast(model, "registrationError");
-     * return null;
-     * }
-     * 
-     * Corso corso = new Corso();
-     * corso.setNome(nome);
-     * corso.setDataInizio(inizio);
-     * corso.setDataFine(fine);
-     * 
-     * return corsiHibSrv.save(corso);
-     * 
-     * }
-     * 
-     * public boolean corsoExists(String nome) {
-     * return corsiHibSrv.findByNome(nome).isPresent();
-     * }
-     * 
-     * SOTTO: Se esiste un ID di corso nei parametri, imposta l'ID del corso
-     * VALUTARE SE SI POSSONO UNIRE E PROVARLI ENTRAMBI
-     */
+    public Optional<Corso> findById(Long idCorso) {
+
+        return corsiHibSrv.findById(idCorso);
+    }
 
     public Corso saveCorso(HashMap<String, String> params) {
         Corso corso = new Corso();

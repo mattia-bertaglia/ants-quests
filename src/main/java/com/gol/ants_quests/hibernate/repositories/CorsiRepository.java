@@ -3,6 +3,7 @@ package com.gol.ants_quests.hibernate.repositories;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +14,8 @@ import com.gol.ants_quests.hibernate.entities.Corso;
 @Repository
 
 public interface CorsiRepository extends JpaRepository<Corso, Long> {
+
+    Optional<Corso> findById(Long idCorso);
 
     List<Corso> findByNome(String nome);
 

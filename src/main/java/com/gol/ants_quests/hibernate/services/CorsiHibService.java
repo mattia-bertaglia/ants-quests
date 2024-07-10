@@ -3,6 +3,8 @@ package com.gol.ants_quests.hibernate.services;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,10 @@ import com.gol.ants_quests.hibernate.repositories.CorsiRepository;
 public class CorsiHibService extends GenericHibService<Corso, Long, CorsiRepository> {
     public CorsiHibService(CorsiRepository repository) {
         super(repository);
+    }
+
+    public Optional<Corso> findById(Long idCorso) {
+        return getRepository().findById(idCorso);
     }
 
     public List<Corso> findByNome(String nome) {

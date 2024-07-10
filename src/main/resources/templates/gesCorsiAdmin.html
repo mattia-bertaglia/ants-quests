@@ -129,9 +129,14 @@
                                         <td th:text="${corso.nome}"></td>
                                         <td th:text="${corso.dataInizio}"> </td>
                                         <td th:text="${corso.dataFine}"></td>
-                                        <td class="d-flex justify-content-center align-items-center"><button
-                                                class="btn btn-secondary" data-bs-toggle="modal"
-                                                data-bs-target="#addEmployeeModal1">Modifica</button></td>
+                                        <td class="d-flex justify-content-center align-items-center">
+                                            <button class="btn btn-secondary" data-bs-toggle="modal"
+                                                data-bs-target="#editCourseModal"
+                                                th:onclick="populateModal([[${corso}]])">
+
+                                                Modifica
+                                            </button>
+                                        </td>
                                         <td class="justify-content-center"><button class="btn btn-secondary"
                                                 data-bs-toggle="modal" data-bs-target="#addEmployeeModal2">Vedi</button>
                                         </td>
@@ -170,12 +175,6 @@
 
 
 
-
-
-
-
-
-    <!-- VERIFICARE SE AGGIUNGE CAMPI, VEDERE APPUNTI MATTIA -->
     <!-- Inizio modale aggiungi -->
     <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
         aria-hidden="true">
@@ -184,11 +183,8 @@
                 <form action="/ges_corsi/savecorso" method="post">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addEmployeeModalLabel">Aggiungi Corso</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
-
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="nome">Nome del Corso</label>
@@ -204,7 +200,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancella</button>
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
                         <button type="submit" class="btn btn-success">Aggiungi</button>
                     </div>
                 </form>
@@ -213,36 +209,53 @@
     </div>
     <!-- Fine modale aggiungi -->
 
-
-    <!-- inizio Modale Dettaglio CONTROLLARE-->
-    <!-- Modale Modifica -->
-    <div class="modal fade" id="addEmployeeModal1" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+    <!-- inizio Modale Dettaglio CONTROLLARE NON CICLA I CORSI ALL'INTERNO DEL MODALE-->
+    <div class="modal fade" id="editCourseModal" tabindex="-1" role="dialog" aria-labelledby="editCourseModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="/ges_corsi/savecorso" method="post">
-
+                <form action="/ges_corsi/savecorso" method="post" id="editCourseForm">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addEmployeeModalLabel1">prova</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title" id="editCourseModalLabel">Modifica Corso</h5>
+                        <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
-
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="nome">Nome del Corso</label>
-                            <input type="text" class="form-control" id="nome" name="nome" required>
+                            <!--  <form id="editCourseForm"> -->
+                            <label for="courseName" class="form-label">ID Corso</label>
+                            <input type="text" class="form-control" id="courseId" name="idcorso" disabled>
                         </div>
-
+                        <div class="form-group">
+                            <label for="courseName" class="form-label">Nome Corso</label>
+                            <input type="text" class="form-control" id="courseName" name="nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate" class="form-label">Data Inizio</label>
+                            <input type="date" class="form-control" id="startDate" name="datainizio">
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate" class="form-label">Data Fine</label>
+                            <input type="date" class="form-control" id="endDate" name="datafine">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                        <button type="submit" class="btn btn-success" th:onclick="submitEditForm([[${corso}]])">Salva
+                            Modifiche</button>
+                        <!--  th:onclick="populateModal([[${corso}]])"> -->
+                        <!--  <button type="submit" class="btn btn-success">Aggiungi</button> -->
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
     <!-- Fine modale dettaglio -->
 
     <!-- Modale Vedi Studenti CONTROLORE-->
+
+    <!--  <td th:text="${corso.studenti.toString}"></td>  -->
+
     <div class="modal fade" id="addEmployeeModal2" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -252,9 +265,7 @@
 
                     <div class="modal-header">
                         <h5 class="modal-title" id="addEmployeeModalLabel2">prova2</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
 
                     <div class="modal-body">
@@ -279,6 +290,27 @@
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
     <script src="/bootstrap/pagine-dinamiche.js"></script>
+
+    <script>
+        function populateModal(corso) {
+            console.log(corso);
+            document.getElementById('courseId').value = corso.idCorso;
+            document.getElementById('courseName').value = corso.nome;
+            document.getElementById('startDate').value = corso.dataInizio;
+            document.getElementById('endDate').value = corso.dataFine;
+        }
+
+        function submitEditForm(corso) {
+            console.log(corso);
+            document.getElementById('courseId').value = corso.idCorso;
+            document.setElementById('courseName').value = nome;
+            document.setElementById('startDate').value = dataInizio;
+            document.setElementById('endDate').value = dataFine;
+
+            /* document.setElementById('editCourseForm').submit(); */
+        }
+
+    </script>
 
 
 
