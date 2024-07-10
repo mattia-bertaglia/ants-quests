@@ -9,15 +9,28 @@ import java.nio.file.Paths;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.xhtmlrenderer.pdf.ITextRenderer;
+
+import com.gol.ants_quests.hibernate.entities.Quest;
 
 @Service
 public class PdfService {
 
-    public byte[] generatePdfFromHtml(String htmlPath) throws IOException {
-        htmlPath = htmlPath.replace("%2F", "/");
-        File htmlFile = new File(htmlPath);
+    @Value("${template-pdf}")
+    private String templatePDF;
+
+    @Value("${main-dir-quests}")
+    private String mainDirQuests;
+
+    public byte[] generatePdfFromHtml(Quest quest, String studDir, String fileName) throws IOException {
+        /* htmlPath = htmlPath.replace("%2F", "/"); */
+        File htmlFile = new File(templatePDF);
+
+        // TODO: come mettiamo nel template i dati del questionario appena svolto ??
+        // parametro quest per prendere le domande del questionario svolto.
+
         Document document = getDocument(htmlFile);
         String xhtmlContent = convertToXhtml(document);
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
@@ -29,7 +42,7 @@ public class PdfService {
             renderer.layout();
             renderer.createPDF(outputStream, true);
 
-            savePdfToFile(outputStream.toByteArray(), "./doc/ciao.pdf");
+            savePdfToFile(outputStream.toByteArray(), mainDirQuests + "/" + studDir, fileName);
 
             return outputStream.toByteArray();
         } catch (Exception e) {
@@ -47,8 +60,14 @@ public class PdfService {
         return document.html();
     }
 
-    private void savePdfToFile(byte[] pdfBytes, String filePath) {
-        File file = Paths.get(filePath).toFile();
+    private void savePdfToFile(byte[] pdfBytes, String dirPath, String filePath) {
+
+        File dir = new File(dirPath);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        File file = Paths.get(dirPath + "/" + filePath).toFile();
         try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(pdfBytes);
         } catch (IOException e) {

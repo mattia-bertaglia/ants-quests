@@ -1,10 +1,13 @@
 package com.gol.ants_quests.business;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -24,12 +27,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ExeQuestService {
+public class HomeStudentiService {
 
     private final EsitiHibService esitiSrv;
     private final CategorieHibService categorieHibSrv;
     private final QuestsHibService questSrv;
-    
+
+    private final PdfService pdfSrv;
 
     public void findAllEsitiQuest(Model model) {
         model.addAttribute("listaEsitiQuestionari", esitiSrv.findAll());
@@ -46,7 +50,7 @@ public class ExeQuestService {
 
     public void openHomeStud(Model model, Long idStudente) {
         log.info("caricamento categorie");
-        model.addAttribute("categorie", categorieHibSrv.findAll());
+        model.addAttribute("categorie", categorieHibSrv.findAll(Sort.by(Direction.DESC, "nome")));
         log.info("caricamento esiti studente: " + idStudente);
         model.addAttribute("esiti", esitiSrv.findByStudente(idStudente));
     }
@@ -55,7 +59,6 @@ public class ExeQuestService {
 
         Optional<Quest> quest = questSrv.findByID(Long.parseLong(params.get("id-quest")));
         String tempo = params.get("tempo-quest");
-        
 
         // in params ci sono come chiave dom-{id} e valore ans-{id}
         // con quest andiamo a controllare quante risposte corrette su quante
@@ -75,37 +78,42 @@ public class ExeQuestService {
                         for (RispostaQuest risposta : domanda.getRisp()) {
 
                             if (risposta.getIdAns() == Long.parseLong(idRisposta)) {
-                                if(risposta.getCorretta())
+                                if (risposta.getCorretta())
                                     contatore = contatore + 1;
                                 domandaCicle = true;
                                 break;
                             }
-                            
+
                         }
 
                     }
-                    if(domandaCicle) break;
+                    if (domandaCicle)
+                        break;
                 }
 
             }
         }
-            
 
-            EsitoQuest esitoFinale = new EsitoQuest();
-            esitoFinale.setDataEsecuzione(Date.valueOf(LocalDate.now()));
-            esitoFinale.setPunteggio(contatore + "/" + quest.get().getDomanda().size());
-            esitoFinale.setTempo(tempo);
+        EsitoQuest esitoFinale = new EsitoQuest();
+        esitoFinale.setDataEsecuzione(Date.valueOf(LocalDate.now()));
+        esitoFinale.setPunteggio(contatore + "/" + quest.get().getDomanda().size());
+        esitoFinale.setTempo(tempo);
 
-            esitoFinale.setQuest(quest.get());
-            esitoFinale.setStudente(
-                    new OnlyStudente(user.getStudente().getIdStudente(), user, null, null, null, null, null,
-                            null, null, null, null));
+        esitoFinale.setQuest(quest.get());
+        esitoFinale.setStudente(
+                new OnlyStudente(user.getStudente().getIdStudente(), user, null, null, null, null, null,
+                        null, null, null, null));
 
-            esitiSrv.save(esitoFinale);
+        esitiSrv.save(esitoFinale);
 
-            // elaborazione PDF
-
-        
+        // elaborazione PDF
+        String studDir = user.getStudente().getIdStudente() + "-" + user.getStudente().getCognome();
+        String fileName = quest.get().getTitolo() + "_" + esitoFinale.getDataEsecuzione() + ".pdf";
+        try {
+            pdfSrv.generatePdfFromHtml(studDir, fileName);
+        } catch (IOException e) {
+            log.error("errore elaborazione pdf questionario", e);
+        }
 
     }
 }
