@@ -2,22 +2,13 @@ package com.gol.ants_quests.business;
 
 
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
-import com.gol.ants_quests.hibernate.entities.DomandaQuest;
-import com.gol.ants_quests.hibernate.entities.Quest;
-import com.gol.ants_quests.hibernate.entities.RispostaQuest;
-import com.gol.ants_quests.hibernate.services.CategorieHibService;
-import com.gol.ants_quests.hibernate.services.DomandeHibService;
-import com.gol.ants_quests.hibernate.services.QuestsHibService;
-import com.gol.ants_quests.hibernate.services.RisposteHibService;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class GestQuestService {
     
+    /* 
     private final CategorieHibService categorieHibService;
     private final QuestsHibService questsHibService;
     private final DomandeHibService domandeHibService;
@@ -46,5 +37,7 @@ public class GestQuestService {
 
         return quest;
     }
+
+    */
 
 }

@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esiti</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
+    <title>Esiti</title>
 </head>
 <body>
 
     <br>
-    
+    <nav></nav>
     
     <div class="container">
         <div class="row">
@@ -25,15 +25,26 @@
     
                     <form action="esiti" method="get">
     
-                        <div class="form-group">
-                            <label for="">Categoria</label><br>
-                            <select name="type" style="padding: 10px; width: 49%;">
+                        <div class="form-group" >
+                            <label for="">Titolo</label><br>
+                            <select style="padding: 10px; width: 30%;" id="mySel" onchange="changeVisibility(this)">
                                 <option disabled="" selected=""> -Selezione un elemento- </option>
-                                <option onclick="filterSelection()"> Ingresso </option>
-                                <option onclick="filterSelection()"> Corso </option>
+                                <option th:each="alltitoli : ${listaQuestionari}" th:text="${alltitoli.titolo}" th:value="${alltitoli.titolo}"></option>
+                                
                             </select>
                         </div>
-    
+
+
+                        <div>
+
+                            <label for="">Categoria</label><br>
+                            <select name="type" style="padding: 10px; width: 30%;" onchange="changeVisibilityCat(this)">
+                                <option disabled="" selected=""> -Selezione un elemento- </option>
+                                <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}" th:value="${categorie.nome}"></option>
+                            </select>
+                        </div>
+
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -53,7 +64,7 @@
                         </div>
                         
                         <div class="form-group text-center">
-                        <button type="button" class="btn btn-primary  w-75">Cerca</button>
+                        <button type="button" class="btn btn-primary  w-75" onclick="changeVisibilityDate()">Cerca</button>
                         </div>
     
                     </form>
@@ -105,6 +116,9 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <a onclick="prevPage()" href = "#" id="btn_prev">Prev</a>
+                            <a onclick="nextPage()" href="#" id="btn_next">Next</a>
+                            page: <span id="page"></span>
                         </form>  
                 </div>
             </div>
@@ -132,10 +146,118 @@ function myFunction() {
   }
 }
 
+function changeVisibility(e){
+    
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
 
-function filterSelection() {
+    for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+        txtValue = td.textContent || td.innerText;
+      if (txtValue.indexOf(e.value) > -1) {
 
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
 }
+
+function changeVisibilityCat(e){
+    
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+        txtValue = td.textContent || td.innerText;
+      if (txtValue.indexOf(e.value) > -1) {
+
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+
+
+var current_page = 1;
+var records_per_page = 10;
+var l = document.getElementById("myTable").rows.length
+
+function prevPage()
+{
+
+    if (current_page > 1) {
+        current_page--;
+        changePage(current_page);
+    }
+}
+
+function nextPage()
+{
+    if (current_page < numPages()) {
+        current_page++;
+        changePage(current_page);
+    }
+}
+    
+function changePage(page)
+{
+    var btn_next = document.getElementById("btn_next");
+    var btn_prev = document.getElementById("btn_prev");
+    var listing_table = document.getElementById("myTable");
+    var page_span = document.getElementById("page");
+ 
+    // Validate page
+    if (page < 1) page = 1;
+    if (page > numPages()) page = numPages();
+
+    [...listing_table.getElementsByTagName('tr')].forEach((tr)=>{
+        tr.style.display='none'; // reset all to not display
+    });
+    listing_table.rows[0].style.display = ""; // display the title row
+
+    for (var i = (page-1) * records_per_page + 1; i < (page * records_per_page) + 1; i++) {
+        if (listing_table.rows[i]) {
+            listing_table.rows[i].style.display = ""
+        } else {
+            continue;
+        }
+    }
+    
+    page_span.innerHTML = page + "/" + numPages();
+
+    if (page == 1) {
+        btn_prev.style.visibility = "hidden";
+    } else {
+        btn_prev.style.visibility = "visible";
+    }
+
+    if (page == numPages()) {
+        btn_next.style.visibility = "hidden";
+    } else {
+        btn_next.style.visibility = "visible";
+    }
+}
+
+function numPages()
+{
+    return Math.ceil((l - 1) / records_per_page);
+}
+
+window.onload = function() {
+    changePage(current_page);
+};
+    
+
+
+
 
 
 

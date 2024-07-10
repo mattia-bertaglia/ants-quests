@@ -18,17 +18,21 @@ public class QuestController {
 
     @GetMapping("/esiti")
     public String esiti(@RequestParam HashMap<String, String> params, Model model) {
-
+        showSrv.findAllCategorie(model);
         showSrv.findAllEsitiQuest(model);
-        
+        showSrv.findAllQuestByCategoria(model);
         return "esitiQuestionari.html";
     }
 
     @GetMapping("/lista")
-    public String gestione(Model model) {
-
+    public String lista(Model model) {
         showSrv.findAllQuestByCategoria(model);
-
         return "listaQuestionari.html";
     }
+
+    @GetMapping("/gestione")
+    public String gestioneQuest(Model model) {
+        return "gestioneQuestionario.html";
+    }
+    
 }

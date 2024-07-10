@@ -1,14 +1,8 @@
 package com.gol.ants_quests.controllers;
 
-import java.util.List;
-import java.util.Map;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.gol.ants_quests.business.GestQuestService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -20,7 +14,7 @@ public class GestQuestController {
 
 
 
-
+/* 
     private final GestQuestService gestQuestService;
 
     @GetMapping("/nuovaQuest")
@@ -42,6 +36,13 @@ public class GestQuestController {
     public String categorie(Model model) {
         gestQuestService.findAll(model);
         return "newquest.html";
-    }
+    }*/
+
+
+
+
+
+
+
 
 }

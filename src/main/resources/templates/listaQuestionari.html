@@ -4,59 +4,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestione</title>
+    <title>Lista</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
 </head>
 <body>
+    
+    <nav></nav>
 
-
-
-
-
-
-
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    Ingresso
-                </div>
-                <div class="card-body">
-                        <div>
-                            <ul class="list-group list-group-flush">
-                                <li th:each="questionari : ${listaQuestionari}" th:if="${questionari.categoriequest.idCat}==I" th:text="${questionari.titolo}" class="list-group-item"></li>
-                                <a href="dettaglio-test.html" class="btn float-end">...</a>
-                            </ul>
-                        </div>
-                </div>
+    <form action="/quest/gestione" method="get">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+                <button type="submit"  name="id_quest" value="new" class="btn btn-lg btn-primary w-100">Nuovo Questionario</button>
             </div>
         </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Ingresso
+                    </div>
+                    <div class="card-body">
+                        <div>
+                             <ul class="list-group list-group-flush">
+                                <li th:each="questionari : ${listaQuestionari}" class="list-group-item">
+                                    <span th:if="${questionari.categoriequest.idCat}==I" th:text="${questionari.titolo}"></span>
+                                    <button type="submit"  name="id_quest" th:value="${questionari.idQst}" class="btn float-end">...</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         Corso
                     </div>
-                    <div class="card-body">
-                            <div>
-                                <ul class="list-group list-group-flush">
-                                    <li th:each="questionari : ${listaQuestionari}" th:if="${questionari.categoriequest.idCat}==C" th:text="${questionari.titolo}" class="list-group-item"></li>
-                                </ul>
-                            </div>
+                <div class="card-body">
+                    <div>
+                        <ul class="list-group list-group-flush">
+                             <li th:each="questionari : ${listaQuestionari}" th:if="${questionari.categoriequest.idCat}==C" th:text="${questionari.titolo}" class="list-group-item"></li>
+                        </ul>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
+</form>
 
-
-
-
-
-
-
-    
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <script src="bootstrap/popper.min.js"></script>
     <script src="bootstrap/bootstrap.min.js"></script>
