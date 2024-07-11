@@ -65,7 +65,7 @@
                             <td th:text="${record.tempo}"></td>
                             <td th:text="${record.dataEsecuzione}"></td>
                             <td><button class="btn btn-primary view-pdf-btn" data-toggle="modal" data-target="#pdfModal"
-                                    data-pdf-url="https://www.learningcontainer.com/wp-content/uploads/2019/09/sample-pdf-file.pdf">Vedi</button>
+                                    th:data-pdf-url="|/pdf/open?pathFile=${record.studente.idStudente}-${record.studente.cognome}/${record.quest.titolo}_${record.dataEsecuzione}.pdf|">Vedi</button>
                             </td>
                         </tr>
                     </tbody>

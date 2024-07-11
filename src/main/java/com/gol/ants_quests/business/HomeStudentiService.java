@@ -1,8 +1,8 @@
 package com.gol.ants_quests.business;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -20,6 +20,7 @@ import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.hibernate.services.EsitiHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
+import com.gol.ants_quests.hibernate.services.RisposteHibService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,7 @@ public class HomeStudentiService {
     private final EsitiHibService esitiSrv;
     private final CategorieHibService categorieHibSrv;
     private final QuestsHibService questSrv;
+    private final RisposteHibService risposteSrv;
 
     private final PdfService pdfSrv;
 
@@ -57,6 +59,7 @@ public class HomeStudentiService {
 
     public void eleborazioneQuestionario(User user, HashMap<String, String> params) {
 
+        log.info(params.toString());
         Optional<Quest> quest = questSrv.findByID(Long.parseLong(params.get("id-quest")));
         String tempo = params.get("tempo-quest");
 
@@ -107,15 +110,51 @@ public class HomeStudentiService {
         esitiSrv.save(esitoFinale);
 
         // elaborazione PDF
-        String studDir = user.getStudente().getIdStudente() + "-" + user.getStudente().getCognome();
-        String fileName = quest.get().getTitolo() + "_" + esitoFinale.getDataEsecuzione() + ".pdf";
-        try {
-            // TODO: passare al generate anche le domande/risposte dello studente e il quest
-            // stesso.
-            pdfSrv.generatePdfFromHtml(quest.get(), studDir, fileName);
-        } catch (IOException e) {
-            log.error("errore elaborazione pdf questionario", e);
-        }
+        String studDir = "/" + user.getStudente().getIdStudente() + "-" + user.getStudente().getCognome();
+        String fileName = "/" + quest.get().getTitolo() + "_" + esitoFinale.getDataEsecuzione() + ".pdf";
+        pdfSrv.generatePdfiText(quest.get(), params, studDir, fileName);
 
     }
+
+    public void elaborazioneQuestionarioQuery(User user, HashMap<String, String> params) {
+
+        log.info(params.toString());
+        Optional<Quest> quest = questSrv.findByID(Long.parseLong(params.get("id-quest")));
+        String tempo = params.get("tempo-quest");
+
+        // in params ci sono come chiave dom-{id} e valore ans-{id}
+        // con quest andiamo a controllare quante risposte corrette su quante
+        int contatore = 0;
+
+        ArrayList<String> idRisposteDate = new ArrayList<>();
+
+        for (HashMap.Entry<String, String> entry : params.entrySet()) {
+            if (entry.getValue().startsWith("ans") && risposteSrv
+                    .findRispostaCorrettaById(Long.parseLong(entry.getValue().split("-")[1])).isPresent()) {
+
+                contatore++;
+                idRisposteDate.add(entry.getValue().split("-")[1]);
+
+            }
+        }
+
+        EsitoQuest esitoFinale = new EsitoQuest();
+        esitoFinale.setDataEsecuzione(Date.valueOf(LocalDate.now()));
+        esitoFinale.setPunteggio(contatore + "/" + quest.get().getDomanda().size());
+        esitoFinale.setTempo(tempo);
+
+        esitoFinale.setQuest(quest.get());
+        esitoFinale.setStudente(
+                new OnlyStudente(user.getStudente().getIdStudente(), user, null, null, null, null, null,
+                        null, null, null, null));
+
+        esitiSrv.save(esitoFinale);
+
+        // elaborazione PDF
+        String studDir = "/" + user.getStudente().getIdStudente() + "-" + user.getStudente().getCognome();
+        String fileName = "/" + quest.get().getTitolo() + "_" + esitoFinale.getDataEsecuzione() + ".pdf";
+        pdfSrv.generatePdfiText(quest.get(), params, studDir, fileName);
+
+    }
+
 }

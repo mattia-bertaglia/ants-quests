@@ -1,34 +1,31 @@
 package com.gol.ants_quests.controllers;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.File;
 
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import com.gol.ants_quests.business.PdfService;
-
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequiredArgsConstructor
 public class PdfController {
 
-    private final PdfService pdfService;
+    @GetMapping(value = "/pdf/open", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<FileSystemResource> pdfOpen(@RequestParam("pathFile") String pathFile) {
+        File file = new File("./doc/" + pathFile);
+        /* File file = new File("./doc/3-Snoding/Logica_2024-07-11.pdf"); */
 
-    /* @PostMapping("/generate-pdf") */
-    public void generatePdfUrl(@RequestBody String percorsofile, HttpServletResponse response) throws IOException {
-        percorsofile = percorsofile.replace("percorsofile=", "");
-        byte[] pdfBytes = pdfService.generatePdfFromHtml(null, percorsofile, ""); // cambiati i parametri
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("attachment", file.getName());
+        headers.setContentType(MediaType.APPLICATION_PDF);
 
-        response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "inline; filename=generated.pdf");
-        response.setContentLength(pdfBytes.length);
-
-        try (OutputStream os = response.getOutputStream()) {
-            os.write(pdfBytes);
-            os.flush();
-        }
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .body(new FileSystemResource(file));
     }
+
 }

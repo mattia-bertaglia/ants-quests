@@ -74,7 +74,7 @@ public class HomeStudentiController {
     public String submitAnswers(HttpSession session, @RequestParam HashMap<String, String> params) {
 
         User user = (User) session.getAttribute("user");
-        questService.eleborazioneQuestionario(user, params);
+        questService.eleborazioneQuestionarioQuery(user, params);
 
         return "redirect:/homeStud/";
     }
