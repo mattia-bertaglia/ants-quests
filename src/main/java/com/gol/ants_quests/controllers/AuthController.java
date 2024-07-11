@@ -1,7 +1,6 @@
 package com.gol.ants_quests.controllers;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gol.ants_quests.business.AuthService;
 import com.gol.ants_quests.business.ErrorService;
-import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.entities.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,7 +32,7 @@ public class AuthController {
         if (loginResult) {
             return "redirect:" + params.get("root");
         } else {
-            errorService.getToast(session, params.get("status"));
+            // errorService.getToast(session, params.get("status"));
             return "redirect:/";
         }
     }
@@ -44,22 +42,19 @@ public class AuthController {
         String nome = "";
         String cognome = "";
         String usernameEmail = "";
-        boolean userLogged = session.getAttribute("usrlog") != null ? (boolean) session.getAttribute("usrlog") : false;
-        if (!userLogged && authService.userExists(params.get("usernameEmail"))) {
-            errorService.getToast(session, "usernameExists"); // Username già esistente
+        if (!authService.isLogged(session) && authService.userExists(params.get("usernameEmail"))) {
+            // errorService.getToast(session, "usernameExists"); // Username già esistente
             return "redirect:/"; // Rimani sulla pagina di registrazione con messaggio di errore
-        } else if (!userLogged && !authService.userExists(params.get("usernameEmail"))) {
+        } else if (!authService.isLogged(session) && !authService.userExists(params.get("usernameEmail"))) {
             nome = params.get("nome");
             cognome = params.get("cognome");
             usernameEmail = params.get("usernameEmail");
 
-        } else if (userLogged) {
+        } else if (authService.isLogged(session)) {
             User user = (User) session.getAttribute("user");
             usernameEmail = user.getUsernameEmail();
-            Optional<Studente> studOpt = authService.nomeLoggedStud(usernameEmail);
-            nome = studOpt.isPresent() ? studOpt.get().getNome() : "";
-            studOpt = authService.cognomeLoggedStud(usernameEmail);
-            cognome = studOpt.isPresent() ? studOpt.get().getCognome() : "";
+            nome = user.getStudente().getNome();
+            cognome = user.getStudente().getCognome();
 
         }
 
@@ -71,8 +66,7 @@ public class AuthController {
 
     @PostMapping("/registrazione")
     public String registrazione(HttpSession session, @RequestParam HashMap<String, String> params, Model model) {
-        boolean userLogged = session.getAttribute("usrlog") != null ? (boolean) session.getAttribute("usrlog") : false;
-        if (userLogged) {
+        if (authService.isLogged(session)) {
             authService.updateUser(session, params, model);
         } else {
             authService.registerUser(session, params, model);
