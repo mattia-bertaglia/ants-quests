@@ -71,7 +71,13 @@ public class AuthController {
 
     @PostMapping("/registrazione")
     public String registrazione(HttpSession session, @RequestParam HashMap<String, String> params, Model model) {
-        authService.registerUser(session, params, model);
+        boolean userLogged = session.getAttribute("usrlog") != null ? (boolean) session.getAttribute("usrlog") : false;
+        if (userLogged) {
+            authService.updateUser(session, params, model);
+        } else {
+            authService.registerUser(session, params, model);
+        }
+
         return "redirect:/homeStud";
     }
 
