@@ -149,7 +149,7 @@
                         <!-- Inizio pagine dinamiche   -->
                         <div class="clearfix">
                             <div class="hint-text text-center">Pagina <b id="currentPage">1</b> di <b
-                                    id="totalPages">?</b></div>
+                                    id="totalPages"></b></div>
                             <ul class="pagination justify-content-center" id="pagination">
                                 <li class="page-item" id="prevPage"><a href="#" class="page-link">Precedente</a></li>
                                 <li class="page-item" id="nextPage"><a href="#" class="page-link">Successiva</a></li>
@@ -209,21 +209,20 @@
     </div>
     <!-- Fine modale aggiungi -->
 
-    <!-- inizio Modale Dettaglio CONTROLLARE NON CICLA I CORSI ALL'INTERNO DEL MODALE-->
+    <!-- inizio Modale Dettaglio/Modifica-->
     <div class="modal fade" id="editCourseModal" tabindex="-1" role="dialog" aria-labelledby="editCourseModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="/ges_corsi/savecorso" method="post" id="editCourseForm">
+                <form action="/ges_corsi/savecorso" method="post">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editCourseModalLabel">Modifica Corso</h5>
                         <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <!--  <form id="editCourseForm"> -->
-                            <label for="courseName" class="form-label">ID Corso</label>
-                            <input type="text" class="form-control" id="courseId" name="idcorso" disabled>
+                            <label for="idCorso" class="form-label">ID Corso</label>
+                            <input type="text" readonly class="form-control-plaintext" id="idCorso" name="idcorso">
                         </div>
                         <div class="form-group">
                             <label for="courseName" class="form-label">Nome Corso</label>
@@ -240,17 +239,14 @@
                     </div>
                     <div class="modal-footer">
                         <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
-                        <button type="submit" class="btn btn-success" th:onclick="submitEditForm([[${corso}]])">Salva
+                        <button type="submit" class="btn btn-success">Salva
                             Modifiche</button>
-                        <!--  th:onclick="populateModal([[${corso}]])"> -->
-                        <!--  <button type="submit" class="btn btn-success">Aggiungi</button> -->
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <!-- Fine modale dettaglio -->
+    <!-- Fine Modale Dettaglio/Modifica -->
 
     <!-- Modale Vedi Studenti CONTROLORE-->
 
@@ -294,21 +290,21 @@
     <script>
         function populateModal(corso) {
             console.log(corso);
-            document.getElementById('courseId').value = corso.idCorso;
+            document.getElementById('idCorso').value = corso.idCorso;
             document.getElementById('courseName').value = corso.nome;
             document.getElementById('startDate').value = corso.dataInizio;
             document.getElementById('endDate').value = corso.dataFine;
         }
 
-        function submitEditForm(corso) {
-            console.log(corso);
-            document.getElementById('courseId').value = corso.idCorso;
-            document.setElementById('courseName').value = nome;
-            document.setElementById('startDate').value = dataInizio;
-            document.setElementById('endDate').value = dataFine;
-
-            /* document.setElementById('editCourseForm').submit(); */
-        }
+        /*   function submitEditForm(corso) {
+              console.log(corso);
+              document.getElementById('courseId').value = corso.idCorso;
+              document.setElementById('courseName').value = nome;
+              document.setElementById('startDate').value = dataInizio;
+              document.setElementById('endDate').value = dataFine;
+  
+             
+          }  *//* document.setElementById('editCourseForm').submit(); */
 
     </script>
 
