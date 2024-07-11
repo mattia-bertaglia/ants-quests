@@ -76,7 +76,7 @@ public class PdfService {
      * }
      */
 
-    public ByteArrayInputStream generatePdfiText(Quest quest, HashMap<String, String> risposte, String dirPath,
+    public ByteArrayInputStream generatePdfiText(Quest quest, HashMap<Long, Boolean> risposte, String dirPath,
             String fileName) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -90,13 +90,18 @@ public class PdfService {
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
 
-            for (DomandaQuest domanda : quest.getDomanda()) {
-                for (Entry<String, String> risposta : risposte.entrySet()) {
-                    if (risposta.getKey().endsWith(String.valueOf(domanda.getIdQstDet()))) {
-                        buildDomandaParagraph(document, domanda, risposta.getValue().split("-")[1]);
-                    }
-                }
+            
+
+            int contatore = 0;
+
+            for (HashMap.Entry<Long, Boolean> entry : risposte.entrySet()) {
+
+                buildDomandaParagraph(document, quest.getDomanda().get(contatore), entry);
+                contatore++;
+
             }
+
+        
 
             document.close();
         } catch (Exception e) {
@@ -108,7 +113,7 @@ public class PdfService {
         return new ByteArrayInputStream(out.toByteArray());
     }
 
-    private void buildDomandaParagraph(com.itextpdf.text.Document document, DomandaQuest domanda, String idRisposta) {
+    private void buildDomandaParagraph(com.itextpdf.text.Document document, DomandaQuest domanda, Entry<Long, Boolean> entry) {
 
         try {
             // Aggiungi la domanda

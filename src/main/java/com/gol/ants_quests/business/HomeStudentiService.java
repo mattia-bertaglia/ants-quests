@@ -2,9 +2,7 @@ package com.gol.ants_quests.business;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
@@ -12,11 +10,9 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.gol.ants_quests.hibernate.entities.DomandaQuest;
 import com.gol.ants_quests.hibernate.entities.EsitoQuest;
 import com.gol.ants_quests.hibernate.entities.OnlyStudente;
 import com.gol.ants_quests.hibernate.entities.Quest;
-import com.gol.ants_quests.hibernate.entities.RispostaQuest;
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.hibernate.services.EsitiHibService;
@@ -58,7 +54,7 @@ public class HomeStudentiService {
         model.addAttribute("esiti", esitiSrv.findByStudente(idStudente));
     }
 
-    public void eleborazioneQuestionario(User user, HashMap<String, String> params) {
+     /*public void eleborazioneQuestionario(User user, HashMap<String, String> params) {
 
         log.info(params.toString());
         Optional<Quest> quest = questSrv.findByID(Long.parseLong(params.get("id-quest")));
@@ -115,7 +111,7 @@ public class HomeStudentiService {
         String fileName = "/" + quest.get().getTitolo() + "_" + esitoFinale.getDataEsecuzione() + ".pdf";
         pdfSrv.generatePdfiText(quest.get(), params, studDir, fileName);
 
-    }
+    }*/
 
     public void elaborazioneQuestionarioQuery(User user, HashMap<String, String> params) {
 
@@ -127,15 +123,16 @@ public class HomeStudentiService {
         // con quest andiamo a controllare quante risposte corrette su quante
         int contatore = 0;
 
-        ArrayList<String> idRisposteDate = new ArrayList<>();
+        HashMap<Long, Boolean> idRisposteDate = new HashMap<>();
 
+        boolean isPresent;
         for (HashMap.Entry<String, String> entry : params.entrySet()) {
-            if (entry.getValue().startsWith("ans") && risposteSrv
-                    .findRispostaCorrettaById(Long.parseLong(entry.getValue().split("-")[1])).isPresent()) {
+            isPresent = false;
+            if (entry.getValue().startsWith("ans")) {
 
-                contatore++;
-                idRisposteDate.add(entry.getValue().split("-")[1]);
-
+                if (isPresent = risposteSrv.findRispostaCorrettaById(Long.parseLong(entry.getValue().split("-")[1])).isPresent()) 
+                    contatore++;
+                idRisposteDate.put(Long.parseLong(entry.getValue().split("-")[1]), isPresent);
             }
         }
 
@@ -154,7 +151,7 @@ public class HomeStudentiService {
         // elaborazione PDF
         String studDir = "/" + user.getStudente().getIdStudente() + "-" + user.getStudente().getCognome();
         String fileName = "/" + quest.get().getTitolo() + "_" + esitoFinale.getDataEsecuzione() + ".pdf";
-        pdfSrv.generatePdfiText(quest.get(), params, studDir, fileName);
+        pdfSrv.generatePdfiText(quest.get(), idRisposteDate, studDir, fileName);
 
     }
 
