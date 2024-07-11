@@ -85,24 +85,16 @@ public class AuthService {
         user.setPasskey(bcrypt.encode(password));
         user.setFirstTime(false);
 
-        long iduser = user.getId();
-        Optional<Studente> stud = studHibSrv.findByUserID(iduser);
-        long idStudente = stud.get().getIdStudente();
-
         User salvatoUser = userRepository.save(user);
 
-        Studente studenteTemp = new Studente(idStudente,
-                salvatoUser,
-                params.get("nome"),
-                params.get("cognome"),
-                Date.valueOf(params.get("dataNascita")),
-                params.get("cap"),
-                params.get("provincia"),
-                params.get("telefono"),
-                params.get("note"),
-                Date.valueOf(LocalDate.now()),
-                null,
-                null);
+        Studente studenteTemp = salvatoUser.getStudente();
+        studenteTemp.setNome(params.get("nome"));
+        studenteTemp.setCognome(params.get("cognome"));
+        studenteTemp.setDataNascita(Date.valueOf(params.get("dataNascita")));
+        studenteTemp.setCap(params.get("cap"));
+        studenteTemp.setProvincia(params.get("provincia"));
+        studenteTemp.setTelefono(params.get("telefono"));
+        studenteTemp.setNote(params.get("note"));
         salvatoUser.setStudente(studHibSrv.save(studenteTemp));
 
         if (salvatoUser == null || salvatoUser.getId() == null) {
@@ -165,6 +157,29 @@ public class AuthService {
         }
 
         return false;
+    }
+
+    public boolean isLogged(HttpSession session) {
+        boolean userLogged = false;
+
+        if (session.getAttribute("usrlog") != null)
+            userLogged = (boolean) session.getAttribute("usrlog");
+
+        if (userLogged) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean hasPermission(HttpSession session, Ruolo ruolo) {
+        User user = (User) session.getAttribute("user");
+        if (user.getRuolo().equals(ruolo)) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }
