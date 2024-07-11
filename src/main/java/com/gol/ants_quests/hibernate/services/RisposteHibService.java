@@ -1,5 +1,7 @@
 package com.gol.ants_quests.hibernate.services;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.RispostaQuest;
@@ -10,5 +12,11 @@ public class RisposteHibService extends GenericHibService<RispostaQuest, Long, R
 
     public RisposteHibService(RisposteRepository repository) {
         super(repository);
+    }
+
+    
+    public Optional<RispostaQuest> findRispostaCorrettaById(Long idAns) {
+        return getRepository().findRispostaCorrettaById(idAns);
+
     }
 }
