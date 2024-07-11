@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.gol.ants_quests.hibernate.entities.DomandaQuest;
 import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.entities.RispostaQuest;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
@@ -90,8 +91,6 @@ public class PdfService {
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
 
-            
-
             int contatore = 0;
 
             for (HashMap.Entry<Long, Boolean> entry : risposte.entrySet()) {
@@ -100,8 +99,6 @@ public class PdfService {
                 contatore++;
 
             }
-
-        
 
             document.close();
         } catch (Exception e) {
@@ -113,7 +110,8 @@ public class PdfService {
         return new ByteArrayInputStream(out.toByteArray());
     }
 
-    private void buildDomandaParagraph(com.itextpdf.text.Document document, DomandaQuest domanda, Entry<Long, Boolean> entry) {
+    private void buildDomandaParagraph(com.itextpdf.text.Document document, DomandaQuest domanda,
+            Entry<Long, Boolean> entry) {
 
         try {
             // Aggiungi la domanda
@@ -123,12 +121,24 @@ public class PdfService {
             document.add(questionParagraph);
 
             // Aggiungi le opzioni
+            
             Font optionFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
             PdfPTable table = new PdfPTable(1); // Una colonna
             table.setWidthPercentage(100);
 
             for (RispostaQuest risposta : domanda.getRisp()) {
+
                 PdfPCell cell = new PdfPCell(new Paragraph(risposta.getRisposta(), optionFont));
+                
+
+                if (risposta.getIdAns() == entry.getKey() && entry.getValue()) {
+                    cell.setBackgroundColor(new BaseColor(144, 238, 144)); // Verde chiaro
+                    
+
+                } else if (risposta.getIdAns() == entry.getKey() && entry.getValue()==false) {
+                    cell.setBackgroundColor(new BaseColor(255, 182, 193));
+                }
+
                 cell.setBorder(PdfPCell.NO_BORDER);
                 table.addCell(cell);
             }
