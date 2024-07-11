@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -53,6 +54,10 @@ public class GesStudentiService {
          */
         return studHibSrv.save(stud);
 
+    }
+
+    public Optional<Studente> findByTelefono(String telefono) {
+        return studHibSrv.findByTelefono(telefono);
     }
 
 }

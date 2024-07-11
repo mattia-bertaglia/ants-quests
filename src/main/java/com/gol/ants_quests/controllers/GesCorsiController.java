@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gol.ants_quests.business.GesCorsiService;
+import com.gol.ants_quests.business.GesStudentiService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class GesCorsiController {
 
     private final GesCorsiService corsoService;
+    private final GesStudentiService studentiService;
 
     @GetMapping("/")
     public String findAll(Model model) {
@@ -34,9 +36,9 @@ public class GesCorsiController {
         return "redirect:/ges_corsi/";
     }
 
-    @PostMapping("/findStudentiByTelefono")
-    public String findStudentiByTelefono(Model model) {
-        studSrv.findStudentiByTelefono();
+    @PostMapping("/findByTelefono")
+    public String findByTelefono(Model model, String telefono) {
+        model.addAttribute("studenti", studentiService.findByTelefono(telefono));
         return "redirect:/ges_corsi/";
     }
 
