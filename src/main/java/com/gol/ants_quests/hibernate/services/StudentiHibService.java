@@ -30,6 +30,10 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
         return getRepository().findCognomeByUserUsernameEmail(user);
     }
 
+    public Optional<Studente> findByUserID(long iduser) {
+        return getRepository().findByUserId(iduser);
+    }
+
     /*
      * List<Studente> findByNome(String nome) {
      * return getRepository().findByNome(nome);
