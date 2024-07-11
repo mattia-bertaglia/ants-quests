@@ -72,6 +72,46 @@ public class AuthService {
         setupSession(session, userRepository.save(user));
     }
 
+    public void updateUser(HttpSession session, HashMap<String, String> params, Model model) {
+        String email = params.get("usernameEmail");
+        String password = params.get("passkey");
+
+        if (email == null || password == null || !userExists(email)) {
+            errorService.getToast(model, "registrationError");
+            return;
+        }
+
+        User user = (User) session.getAttribute("user");
+        user.setPasskey(bcrypt.encode(password));
+        user.setFirstTime(false);
+
+        long iduser = user.getId();
+        Optional<Studente> stud = studHibSrv.findByUserID(iduser);
+        long idStudente = stud.get().getIdStudente();
+
+        User salvatoUser = userRepository.save(user);
+
+        Studente studenteTemp = new Studente(idStudente,
+                salvatoUser,
+                params.get("nome"),
+                params.get("cognome"),
+                Date.valueOf(params.get("dataNascita")),
+                params.get("cap"),
+                params.get("provincia"),
+                params.get("telefono"),
+                params.get("note"),
+                Date.valueOf(LocalDate.now()),
+                null,
+                null);
+        salvatoUser.setStudente(studHibSrv.save(studenteTemp));
+
+        if (salvatoUser == null || salvatoUser.getId() == null) {
+            errorService.getToast(model, "errore di registrazione");
+            return;
+        }
+
+    }
+
     public boolean userExists(String usernameEmail) {
         return userRepository.findByUsernameEmail(usernameEmail).isPresent();
     }
@@ -126,4 +166,5 @@ public class AuthService {
 
         return false;
     }
+
 }
