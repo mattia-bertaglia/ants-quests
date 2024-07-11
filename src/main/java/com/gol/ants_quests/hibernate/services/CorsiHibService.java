@@ -1,4 +1,3 @@
-
 package com.gol.ants_quests.hibernate.services;
 
 import java.sql.Date;

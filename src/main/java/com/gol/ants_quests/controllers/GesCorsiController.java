@@ -33,4 +33,22 @@ public class GesCorsiController {
         corsoService.saveCorso(params);
         return "redirect:/ges_corsi/";
     }
+
+    @PostMapping("/findStudentiByTelefono")
+    public String findStudentiByTelefono(Model model) {
+        studSrv.findStudentiByTelefono();
+        return "redirect:/ges_corsi/";
+    }
+
+    /*
+     * @PostMapping("/aggiungiStudenteCorso")
+     * public String aggiungiStudenteCorso(@RequestParam HashMap<String, String>
+     * params) {
+     * studSrv.aggiungiStudenteCorso(params);
+     * return "redirect:/ges_corsi/";
+     * 
+     * // studente già presente in db, se c'è aggiunge , altrimenti dice chenon
+     * esiste
+     * }
+     */
 }
