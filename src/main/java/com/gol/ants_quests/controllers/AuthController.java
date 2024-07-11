@@ -32,7 +32,7 @@ public class AuthController {
         if (loginResult) {
             return "redirect:" + params.get("root");
         } else {
-            // errorService.getToast(session, params.get("status"));
+            errorService.getToast(session, params.get("status"));
             return "redirect:/";
         }
     }
@@ -43,7 +43,8 @@ public class AuthController {
         String cognome = "";
         String usernameEmail = "";
         if (!authService.isLogged(session) && authService.userExists(params.get("usernameEmail"))) {
-            // errorService.getToast(session, "usernameExists"); // Username già esistente
+
+            errorService.getToast(session, "usernameExists"); // Username già esistente
             return "redirect:/"; // Rimani sulla pagina di registrazione con messaggio di errore
         } else if (!authService.isLogged(session) && !authService.userExists(params.get("usernameEmail"))) {
             nome = params.get("nome");

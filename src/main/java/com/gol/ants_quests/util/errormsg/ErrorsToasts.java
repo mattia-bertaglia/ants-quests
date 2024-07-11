@@ -26,6 +26,13 @@ public class ErrorsToasts {
                 return t;
             }
         }
+        // ho creato questo if perchè il programma non riesce a prendere i dati da
+        // inserire nel messaggio
+        // di errore da error.yml
+        if (code.equals("usernameExists")) {
+            return new Toast("usernameExists", "username già esistente", "The e-mail already exists, try logging in",
+                    "bg-warning");
+        }
         return new Toast("generico", "Errore Generico", "E' successo qualcosa", "bg-warning");
     }
 }
