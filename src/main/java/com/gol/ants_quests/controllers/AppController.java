@@ -49,8 +49,15 @@ public class AppController {
     }
 
     @GetMapping("/homeStud")
-    public String homeStud(Model model) {
+    public String homeStud(HttpSession session, Model model) {
         // Check Autenticazione
-        return "homeStud.html";
+        if (authService.isLogged(session)
+                && (authService.hasPermission(session, guest)
+                        || authService.hasPermission(session, studente))) {
+            return "homeStud.html";
+        } else {
+            return "redirect:/";
+        }
+
     }
 }
