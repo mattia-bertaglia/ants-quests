@@ -28,8 +28,8 @@
                     <div class="card-body">
                         <div>
                              <ul class="list-group list-group-flush">
-                                <li th:each="questionari : ${listaQuestionari}" class="list-group-item">
-                                    <span th:if="${questionari.categoriequest.idCat}==I" th:text="${questionari.titolo}"></span>
+                                <li th:each="questionari : ${listaQuestionari}" class="list-group-item" th:if="${questionari.categoriequest.idCat}==I">
+                                    <span th:text="${questionari.titolo}"></span>
                                     <button type="submit"  name="id_quest" th:value="${questionari.idQst}" class="btn float-end">...</button>
                                 </li>
                             </ul>
@@ -46,7 +46,11 @@
                 <div class="card-body">
                     <div>
                         <ul class="list-group list-group-flush">
-                             <li th:each="questionari : ${listaQuestionari}" th:if="${questionari.categoriequest.idCat}==C" th:text="${questionari.titolo}" class="list-group-item"></li>
+                            <li th:each="questionari : ${listaQuestionari}" class="list-group-item" th:if="${questionari.categoriequest.idCat}==C">
+                                <span th:text="${questionari.titolo}"></span>
+                                <button type="submit"  name="id_quest" th:value="${questionari.idQst}" class="btn float-end">...</button>
+                            </li>
+
                         </ul>
                     </div>
                 </div>
