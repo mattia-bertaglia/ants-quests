@@ -65,9 +65,10 @@ create table antsquests.esiti_quests (
     id_est_qst bigint primary key auto_increment,
     quest_id bigint not null,
     studente_id bigint not null,
-    data_esecuzione date not null,
+    data_esecuzione timestamp not null,
     punteggio varchar(7) not null,
     tempo varchar(50) not null,
+    path_pdf varchar(100) not null,
     foreign key (quest_id) references antsquests.quests(id_qst),
     foreign key (studente_id) references antsquests.studenti(id_studente)
 );

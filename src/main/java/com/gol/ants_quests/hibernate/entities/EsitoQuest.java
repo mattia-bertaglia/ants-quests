@@ -1,6 +1,6 @@
 package com.gol.ants_quests.hibernate.entities;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,9 +25,10 @@ public class EsitoQuest extends GenericEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idEstQst;
-    private Date dataEsecuzione;
+    private Timestamp dataEsecuzione;
     private String punteggio;
     private String tempo;
+    private String pathPdf;
 
     @ManyToOne
     @JoinColumn(name = "quest_id")
