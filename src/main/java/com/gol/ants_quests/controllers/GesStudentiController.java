@@ -29,8 +29,8 @@ public class GesStudentiController {
 
     @PostMapping("/savestud")
     public String saveStud(@RequestParam HashMap<String, String> params) {
-        studSrv.saveStudente(params);
-        return "redirect:/";
+        studSrv.saveStudenteFixed(params);
+        return "redirect:/ges_studenti/";
     }
 
 }

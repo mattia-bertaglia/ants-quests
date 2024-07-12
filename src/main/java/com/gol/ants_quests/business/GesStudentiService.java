@@ -8,12 +8,16 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.OnlyCorso;
 
 import com.gol.ants_quests.hibernate.entities.Studente;
+import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.services.StudentiHibService;
+import com.gol.ants_quests.hibernate.services.UsersHibService;
+import com.gol.ants_quests.util.Ruolo;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +27,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GesStudentiService {
 
+    private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
     private final StudentiHibService studHibSrv;
+    private final UsersHibService usersSrv;
 
     public List<Studente> findAllStudenti() {
         return studHibSrv.findAll(Sort.by(Direction.DESC, "dataInserimento"));
@@ -54,6 +60,33 @@ public class GesStudentiService {
          */
         return studHibSrv.save(stud);
 
+    }
+
+    public void saveStudenteFixed(HashMap<String, String> params) {
+        // esempio
+        User user = new User();
+        user.setUsernameEmail(params.get("email")); // params.get
+        user.setPasskey(bcrypt.encode("123"));
+        user.setRuolo(Ruolo.studente);
+        user.setFirstTime(true);
+
+        // Salvataggio dell'utente con lo studente temporaneo
+        User salvatoUser = usersSrv.save(user);
+        // popolare dati studente da form di firstTime.html
+        Studente studenteTemp = new Studente(null,
+                salvatoUser,
+                params.get("nome"),
+                params.get("cognome"),
+                null,
+                null,
+                null,
+                null,
+                null,
+                Date.valueOf(LocalDate.now()),
+                null,
+                null);
+        salvatoUser.setStudente(studHibSrv.save(studenteTemp));
+        // fine esempio
     }
 
     public Optional<Studente> findByTelefono(String telefono) {

@@ -162,7 +162,7 @@
                                     <td></td>
                                     <!-- <td th:text="${stud.stato}"></td> NELLO STATO MANCA VISUALIZZAZIONE  -->
                                     <td th:text="${stud.nome + ' ' + stud.cognome}"></td>
-                                    <td></td>
+                                    <td> </td>
                                     <!-- <td th:text="${stud.email}"></td>  NELL'EMAIL MANCA VISUALIZZAZIONE -->
                                     <td></td>
                                     <!-- <td th:text="${stud.corso}"></td>  NEL CORSO MANCA VISUALIZZAZIONE -->
@@ -215,13 +215,11 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="/new_std" method="post">
+                <form action="/ges_studenti/savestud" method="post">
 
                     <div class="modal-header">
                         <h5 class="modal-title">Aggiungi Studente</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">x</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
@@ -236,24 +234,13 @@
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
-                        <div class="form-group">
-                            <label for="numero">Numero</label>
-                            <input type="text" class="form-control" id="numero" name="numero" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="indirizzo">Indirizzo</label>
-                            <textarea class="form-control" id="indirizzo" name="indirizzo" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono">Telefono</label>
-                            <input type="text" class="form-control" id="telefono" name="telefono" required>
-                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                        <button type="submit" class="btn btn-success">Aggiungi</button>
                     </div>
                 </form>
-                <div class="modal-footer">
-                    <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancella</button>
-                    <button type="submit" class="btn btn-success">Aggiungi</button>
-                </div>
             </div>
         </div>
     </div>
