@@ -218,7 +218,7 @@
                 <form action="/ges_studenti/savestud" method="post">
 
                     <div class="modal-header">
-                        <h5 class="modal-title">Aggiungi Studente</h5>
+                        <h5 class="modal-title" id="addEmployeeModalLabel">Aggiungi Studente</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">x</button>
                     </div>
                     <div class="modal-body">
@@ -252,7 +252,7 @@
         <div class="modal-dialog" role="document">
 
             <div class="modal-content">
-                <form action="#" method="post">
+                <form action="/ges_studenti/savestud" method="post">
 
                     <div class="modal-header">
                         <h4>Dettaglio Studente</h4>
@@ -271,22 +271,25 @@
 
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                <label>Nome</label>
-                                <input type="email" class="form-control" value="Mario">
+                                <label>Nome Cognome</label>
+                                <input type="text" class="form-control" value="Mario Rossi">
                             </div>
-                            <div class="col-md-6 form-group">
-                                <label>Cognome</label>
-                                <input type="text" class="form-control" value="Rossi">
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6 form-group">
                                 <label for="">Data di Nascita</label>
                                 <input type="date" class="form-control" value="2000-01-01">
                             </div>
                         </div>
-
+                        
                         <div class="row">
+
+                            <div class="col-md-6 form-group">
+                                <label for="">Stato</label>
+                                <select name="type" class="custom-select">
+                                    <option value="studente">Studente</option>
+                                    <option value="guest" selected> Guest </option>
+                                </select>
+                            </div>
+
                             <div class="col-md-6 form-group">
                                 <label for="">Classe</label>
                                 <select name="type" class="custom-select">
@@ -294,13 +297,6 @@
                                     <option value="I"> Gol Aprile 2024 </option>
                                     <option value="C"> Gol Ottobre 2023 </option>
                                     <option value="C"> Fondo Impresa 2023 </option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="">Stato</label>
-                                <select name="type" class="custom-select">
-                                    <option value="studente">Studente</option>
-                                    <option value="guest" selected> Guest </option>
                                 </select>
                             </div>
                         </div>
