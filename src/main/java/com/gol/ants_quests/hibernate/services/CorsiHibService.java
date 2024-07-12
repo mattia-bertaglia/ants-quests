@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.Corso;
+
 import com.gol.ants_quests.hibernate.repositories.CorsiRepository;
 
 @Service
@@ -32,4 +33,9 @@ public class CorsiHibService extends GenericHibService<Corso, Long, CorsiReposit
     public List<Corso> findAll(Sort sort) {
         return getRepository().findAll(Sort.by(Direction.DESC, "dataInizio"));
     }
+
+    public void update(Corso corso) {
+
+    }
+
 }

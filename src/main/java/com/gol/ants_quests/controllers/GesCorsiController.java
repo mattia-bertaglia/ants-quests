@@ -36,6 +36,12 @@ public class GesCorsiController {
         return "redirect:/ges_corsi/";
     }
 
+    @PostMapping("/eliminaStudenteDalCorso")
+    public String eliminaStudenteDalCorso(@RequestParam HashMap<String, String> params) {
+        corsoService.eliminaStudenteDalCorso(params);
+        return "redirect:/ges_corsi/";
+    }
+
     @PostMapping("/findByTelefono")
     public String findByTelefono(Model model, String telefono) {
         model.addAttribute("studenti", studentiService.findByTelefono(telefono));

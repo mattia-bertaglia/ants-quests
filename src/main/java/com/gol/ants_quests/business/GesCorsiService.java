@@ -27,10 +27,12 @@ public class GesCorsiService {
         return corsiHibSrv.findAll(Sort.by(Direction.DESC, "dataInizio"));
     }
 
-    public Optional<Corso> findById(Long idCorso) {
-
-        return corsiHibSrv.findById(idCorso);
-    }
+    /*
+     * public Optional<Corso> findById(Long idCorso) {
+     * 
+     * return corsiHibSrv.findById(idCorso);
+     * }
+     */
 
     public Optional<Studente> findByTelefono(String telefono) {
         return studHibSrv.findByTelefono(telefono);
@@ -50,41 +52,25 @@ public class GesCorsiService {
         return corsiHibSrv.save(corso);
     }
 
-    /*
-     * public User registerUser(HashMap<String, String> userData, Model model) {
-     * String email = userData.get("usernameEmail");
-     * String password = userData.get("passkey");
-     * 
-     * if (email == null || password == null || userExists(email)) {
-     * errorService.getToast(model, "registrationError");
-     * return null;
-     * }
-     * 
-     * User user = new User();
-     * user.setUsernameEmail(email);
-     * user.setPasskey(bcrypt.encode(password));
-     * user.setRuolo(Ruolo.guest);
-     * user.setFirstTime(false);
-     * 
-     * return userRepository.save(user);
-     * }
-     * 
-     */
+    public Studente eliminaStudenteDalCorso(HashMap<String, String> params) {
+        if (params.get("idStudente") != null && !"".equals(params.get("idStudente"))) {
+            Long idStudente = Long.parseLong(params.get("idStudente"));
+            Studente studente = studHibSrv.findById(idStudente).get();
 
-    // al momento aggiungendo lo studente tramite numero di telefono, eventualmente
-    // con email, LISTA STUDENTI
+            if (studente != null) {
+                // Rimuovi l'ID del corso dallo studente
+                studente.setCorso(null);
 
-    /*
-     * public List<Studente> aggiungiStudenteCorso(HashMap<String, String> params) {
-     * Corso corso = new Corso();
-     * 
-     * for (OnlyStudente studente : corso.getStudenti()) {
-     * System.out.println(studente);
-     * }
-     * return studHibSrv.findAll();
-     * }
-     */
-
-    // lista studenti in corsi
+                // Salva le modifiche
+                return studHibSrv.save(studente);
+            } else {
+                // Gestisci il caso in cui lo studente non viene trovato
+                throw new RuntimeException("Studente non trovato con ID: " + idStudente);
+            }
+        } else {
+            // Gestisci il caso in cui l'ID dello studente non è presente nei parametri
+            throw new IllegalArgumentException("ID dello studente non fornito");
+        }
+    }
 
 }

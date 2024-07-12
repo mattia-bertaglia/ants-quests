@@ -31,8 +31,8 @@ public class GenericHibService<E extends GenericEntity, TipoID, J extends JpaRep
         return repository.save(e);
     }
 
-    public void delete(TipoID tipoId) {
-        repository.deleteById(tipoId);
+    public void delete(TipoID stud) {
+        repository.deleteById(stud);
     }
 
 }
