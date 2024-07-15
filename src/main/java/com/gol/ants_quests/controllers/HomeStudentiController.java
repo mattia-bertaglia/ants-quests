@@ -27,7 +27,7 @@ public class HomeStudentiController {
     private final AuthService authSrv;
     private final HomeStudentiService homeStudSrv;
 
-    private final ErrorService errSrv;
+    private final ErrorService errorSrv;
 
     @GetMapping("/")
     public String homepageStudente(HttpSession session, Model model) {
@@ -41,7 +41,7 @@ public class HomeStudentiController {
 
         } else {
             log.warn("Home Studente - Non Autorizzato o Sessione Scaduta");
-            errSrv.getToast(session, "notAuthOrOutSession");
+            errorSrv.addErrorMessageToSession(session, "notAuthOrOutSession");
             return "redirect:/";
         }
 

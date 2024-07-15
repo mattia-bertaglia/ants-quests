@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Optional;
 
-import org.springframework.cglib.core.Local;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -114,16 +113,6 @@ public class AuthService {
         session.setAttribute("user", user);
     }
 
-    public Optional<Studente> nomeLoggedStud(String usernameEmail) {
-
-        return studHibSrv.findNomeByUser(usernameEmail);
-    }
-
-    public Optional<Studente> cognomeLoggedStud(String usernameEmail) {
-
-        return studHibSrv.findCognomeByUser(usernameEmail);
-    }
-
     public boolean logInUser(HashMap<String, String> params, HttpSession session, Model model) {
         if (params.containsKey("usernameEmail") && params.containsKey("passkey")) {
             String usernameEmail = params.get("usernameEmail");
@@ -171,7 +160,6 @@ public class AuthService {
 
     public boolean hasPermission(HttpSession session, Ruolo ruolo) {
         User user = (User) session.getAttribute("user");
-
         return user.getRuolo().equals(ruolo);
     }
 
