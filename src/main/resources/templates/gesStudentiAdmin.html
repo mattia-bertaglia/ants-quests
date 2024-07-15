@@ -67,37 +67,41 @@
                 <div class="card">
                     <div class="card-header">
                         <h5>Filtri Ricerca</h5>
-
                     </div>
                     <div class="card-body">
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label for="">Nome Utente</label>
-                                    <input type="text" class="form-control" placeholder="Nome e Cognome">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="">Stato</label>
-                                    <select name="type" class="custom-select">
-                                        <option disabled selected> -Selezione un elemento- </option>
-                                        <option value="I"> Studente </option>
-                                        <option value="C"> Guest </option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="">Classe</label>
-                                    <select name="type" class="custom-select">
-                                        <option disabled selected> -Selezione un elemento- </option>
-                                        <option> -Nessuna- </option>
-                                        <option value="I"> Gol Aprile 2024 </option>
-                                        <option value="C"> Gol Ottobre 2023 </option>
-                                        <option value="C"> Fondo Impresa 2023 </option>
-                                    </select>
+                        <form action="/ges_studenti/" id="searchForm">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="nome">Nome Utente</label>
+                                        <input type="text" class="form-control" name="nome" id="myInput"
+                                            onkeyup="myFunction()" placeholder="Inserisci il nome dello studente">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Stato</label>
+                                        <select name="type" class="custom-select">
+                                            <option disabled selected> -Selezione un elemento- </option>
+                                            <option value="I"> Studente </option>
+                                            <option value="C"> Guest </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="">Classe</label>
+                                        <select name="type" class="custom-select" id="">
+                                            <option disabled selected> -Selezione un elemento- </option>
+                                            <option> -Nessuna- </option>
+                                            <option value="I"> Gol Aprile 2024 </option>
+                                            <option value="C"> Gol Ottobre 2023 </option>
+                                            <option value="C"> Fondo Impresa 2023 </option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-secondary">Cerca</button>
+                        </form>
+
+
                     </div>
+
 
                 </div>
             </div>
@@ -146,11 +150,12 @@
                     </div>
                     <br><br>
                     <div class="card-body">
-                        <table class="table table-striped table-bordered table-sm">
+                        <table id="tab-last-quest" class="table table-striped table-bordered table-sm"
+                            style="width: 100%;" data-toggle="table" data-locale="it-IT">
                             <thead>
                                 <tr>
                                     <th>Stato</th>
-                                    <th>Nominativo</th>
+                                    <th name="nome" id="myInput"> Nominativo</th>
                                     <th>Email</th>
                                     <th>Corso</th>
                                     <th class="text-center">Dettaglio</th>
@@ -166,10 +171,14 @@
                                     <!-- <td th:text="${stud.email}"></td>  NELL'EMAIL MANCA VISUALIZZAZIONE -->
                                     <td></td>
                                     <!-- <td th:text="${stud.corso}"></td>  NEL CORSO MANCA VISUALIZZAZIONE -->
-                                    <td><button class="btn btn-primary w-75" data-bs-toggle="modal"
-                                            data-bs-target="#mod-dett-stud">Dettaglio</button></td>
-                                    <td><button class="btn btn-primary w-75" data-bs-toggle="modal"
-                                            data-bs-target="#mod-quests">Vedi</button></td>
+                                    <td class="d-flex justify-content-center align-items-center">
+                                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#modDettStud" th:onclick="populateModal([[${studente}]])">
+                                            Modifica
+                                        </button>
+                                    </td>
+                                    <td class="justify-content-center"><button>Vedi</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -247,7 +256,7 @@
     <!-- Fine modale aggiungi -->
 
     <!-- Inizio modale Dettaglio-->
-    <div class="modal fade" id="mod-dett-stud" tabindex="-1" role="dialog" aria-labelledby="modDettStudLabel"
+    <div class="modal fade" id="modDettStud" tabindex="-1" role="dialog" aria-labelledby="modDettStudLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
 
@@ -255,56 +264,29 @@
                 <form action="/ges_studenti/savestud" method="post">
 
                     <div class="modal-header">
-                        <h4>Dettaglio Studente</h4>
+                        <h4 class="modal-title" id="modDettStudLabel">Dettaglio Studente</h4>
+                        <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label for="">Email</label>
-                                <input type="email" class="form-control" value="mrossi@gmail.com">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="">Password</label>
-                                <input type="password" class="form-control">
-                            </div>
+                        <div class="form-group">
+                            <label for="idStudente" class="form-label">ID Studente</label>
+                            <input type="text" readonly class="form-control-plaintext" id="idStudente"
+                                name="idstudente">
                         </div>
-
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label>Nome Cognome</label>
-                                <input type="text" class="form-control" value="Mario Rossi">
-                            </div>
-                            <div class="col-md-6 form-group">
-                                <label for="">Data di Nascita</label>
-                                <input type="date" class="form-control" value="2000-01-01">
-                            </div>
+                        <div class="form-group">
+                            <label for="nomeStudente" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nomeStudente" name="nome">
                         </div>
-                        
-                        <div class="row">
-
-                            <div class="col-md-6 form-group">
-                                <label for="">Stato</label>
-                                <select name="type" class="custom-select">
-                                    <option value="studente">Studente</option>
-                                    <option value="guest" selected> Guest </option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6 form-group">
-                                <label for="">Classe</label>
-                                <select name="type" class="custom-select">
-                                    <option disabled selected> -Selezione un elemento- </option>
-                                    <option value="I"> Gol Aprile 2024 </option>
-                                    <option value="C"> Gol Ottobre 2023 </option>
-                                    <option value="C"> Fondo Impresa 2023 </option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label for="cognomeStudente" class="form-label">Cognome</label>
+                            <input type="text" class="form-control" id="cognomeStudente" name="cognome">
                         </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary">Pulisci</button>
-                        <button class="btn btn-primary">Modifica</button>
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                        <button type="submit" class="btn btn-success">Salva
+                            Modifiche</button>
                     </div>
                 </form>
             </div>
@@ -370,6 +352,38 @@
             <script src="/bootstrap/bootstrap.min.js"></script>
 
 
+            <script>
+                /* inizio script per modale modifica */
+                function populateModal(studente) {
+                    console.log(studente);
+                    document.getElementById('idStudente').value = studente.idStudente;
+                    document.getElementById('nomeStudente').value = studente.nome;
+                    document.getElementById('cognomeStudente').value = studente.cognome;
+
+                }
+                /* inizio script per filtro ricerca nome */
+                function myFunction() {
+
+                    var input, filter, table, tr, td, i, txtValue;
+                    input = document.getElementById("myInput");
+                    filter = input.value.toUpperCase();
+                    table = document.getElementById("tab-last-quest");
+                    tr = table.getElementsByTagName("tr");
+                    for (i = 0; i < tr.length; i++) {
+                        td = tr[i].getElementsByTagName("td")[0];
+                        if (td) {
+                            txtValue = td.textContent || td.innerText;
+                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                tr[i].style.display = "";
+                            } else {
+                                tr[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+
+
+            </script>
 
 
 </body>
