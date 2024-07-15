@@ -46,5 +46,12 @@ public class QuestController {
 
         return "gestioneQuestionario.html";
     }
+
+    @GetMapping("/savetest")
+    public String savetest(){
+
+
+        return "redirect:";
+    }
     
 }
