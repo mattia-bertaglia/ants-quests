@@ -30,13 +30,13 @@ public class AdminController {
             return "homeAdmin.html";
         } else if (!authService.isLogged(session)) {
             // Altrimenti manda alla pagina di login con un messaggio di errore
-            // errorService.getMessage(model, "userNotLogged");
+            errorService.addErrorMessageToModel(model, "notLogged");
             return "redirect:/";
         } else if (!authService.hasPermission(session, ruolo)) {
-            // errorService.getMessage(model, "noPermission");
+            errorService.addErrorMessageToModel(model, "noPermission");
             return "redirect:/";
         } else {
-            // errorService.getMessage(model, "genericError");
+            errorService.addErrorMessageToModel(model, "unknownError");
             return "redirect:/";
         }
     }

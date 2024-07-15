@@ -30,9 +30,10 @@ public class AuthController {
         boolean loginResult = authService.logInUser(params, session, model);
 
         if (loginResult) {
+            errorService.addErrorMessageToSession(session, "loginSuccess");
             return "redirect:" + params.get("root");
         } else {
-            errorService.getToast(session, params.get("status"));
+            errorService.addErrorMessageToSession(session, params.get("status"));
             return "redirect:/";
         }
     }
@@ -44,7 +45,7 @@ public class AuthController {
         String usernameEmail = "";
         if (!authService.isLogged(session) && authService.userExists(params.get("usernameEmail"))) {
 
-            errorService.getToast(session, "usernameExists"); // Username già esistente
+            errorService.addErrorMessageToSession(session, "usernameExists"); // Username già esistente
             return "redirect:/"; // Rimani sulla pagina di registrazione con messaggio di errore
         } else if (!authService.isLogged(session) && !authService.userExists(params.get("usernameEmail"))) {
             nome = params.get("nome");
@@ -78,6 +79,7 @@ public class AuthController {
 
     @GetMapping("/logout")
     public String logout(HttpSession session, HttpServletRequest request) {
+        errorService.addErrorMessageToSession(session, "logoutSuccess");
         session.invalidate();
         return "redirect:/";
     }
