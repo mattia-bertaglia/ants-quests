@@ -73,4 +73,66 @@ public class GesCorsiService {
         }
     }
 
+    /*
+     * public Corso eliminaStudenteDalCorso(HashMap<String, String> params) {
+     * if (params.get("idCorso") != null && !"".equals(params.get("idCorso"))) {
+     * Long idCorso = Long.parseLong(params.get("idCorso"));
+     * 
+     * Corso corso = corsiHibSrv.findById(idCorso).get();
+     * 
+     * if (corso != null) {
+     * // Rimuovi l'ID del corso dallo studente
+     * corso.setStudenti(null);
+     * 
+     * // Salva le modifiche
+     * return corsiHibSrv.save(corso);
+     * } else {
+     * // Gestisci il caso in cui lo studente non viene trovato
+     * throw new RuntimeException("Studente non trovato con ID: " + idCorso);
+     * }
+     * } else {
+     * // Gestisci il caso in cui l'ID dello studente non è presente nei parametri
+     * throw new IllegalArgumentException("ID dello studente non fornito");
+     * }
+     * }
+     * 
+     * @Transactional
+     * public void eliminaStudenteDalCorso(Long idCorso, Long idStudente) {
+     * Corso corso = corsiHibSrv.findById(idCorso)
+     * .orElseThrow(() -> new RuntimeException("Corso non trovato con ID: " +
+     * idCorso));
+     * 
+     * // Rimuovi l'associazione con il corso
+     * corso.setStudenti(null);
+     * corsiHibSrv.save(corso);
+     * }
+     */
+
+    /*
+     * @Transactional
+     * public void eliminaStudenteDalCorso(Long idCorso, Long idStudente) {
+     * Studente studente = studHibSrv.findById(idStudente)
+     * .orElseThrow(() -> new RuntimeException("Studente non trovato con ID: " +
+     * idStudente));
+     * 
+     * // Rimuovi l'associazione con il corso
+     * studente.setCorso(null);
+     * studHibSrv.save(studente);
+     * }
+     */
+    /*
+     * @Transactional
+     * public void eliminaStudenteDalCorso(Long idCorso, Long idStudente) {
+     * Corso corso = corsiHibSrv.findById(idCorso)
+     * .orElseThrow(() -> new RuntimeException("Corso non trovato con ID: " +
+     * idCorso));
+     * 
+     * // Rimuovi l'associazione con il corso
+     * corso.setStudenti(null);
+     * 
+     * // Salva le modifiche
+     * corsiHibSrv.save(corso);
+     * }
+     */
+
 }

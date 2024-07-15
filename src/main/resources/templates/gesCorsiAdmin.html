@@ -256,9 +256,11 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="/ges_corsi/eliminaStudenteDalCorso">
+                <form action="/ges_corsi/eliminaStudenteDalCorso" method="post">
                     <div class="modal-header">
-                        titolo
+                        <h5 class="modal-title" id="editCourseModalLabel">Studenti del corso</h5>
+                        <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
+
                     </div>
                     <div class="modal-body">
                         <table id="tab-last-quest" class="table table-striped table-bordered table-sm"
@@ -266,14 +268,19 @@
                             <thead>
                                 <tr>
                                     <!-- sistemare campi studente, nominativo-email-bottone cancella -->
+
                                     <th>Nominativo</th>
                                     <th>Telefono</th>
+
                                     <th class="text-center">Elimina</th>
+
                                     <!--  <th class="text-center" onclick="rimuoviElemento(this)">Elimina</th> -->
                                     <!-- <button onclick="rimuoviElemento(this)">Rimuovi</button> -->
+
+
                                 </tr>
                             </thead>
-                            <tbody data-id="" id="lista-studenti">
+                            <tbody id="lista-studenti">
 
                             </tbody>
                         </table>
@@ -282,123 +289,44 @@
             </div>
         </div>
     </div>
+    <!-- Fine modale vedi studente -->
 
-
-
-    <!-- 
-    <div class="main-content">
-        <div class="custom-margin">
-            <div class="col-md-12">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
-                                <h2 class="ml-lg-2">Elenco Corsi</h2>
-                                <br>
-                            </div>
-
-                            Pulsante per attivare il modale --
-                            <div class="col-sm-12 p-0 flex justify-content-lg-start justify-content-center">
-                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#addEmployeeModal">
-                                    <i class="material-icon">&#xE147;</i>
-                                    <span>Aggiungi nuovo corso</span> </button>
-                            </div>
-
-
-                        </div>
-                    </div> -->
-    <!--   <div class="modal fade" id="addEmployeeModal2" tabindex="-1" role="dialog"
-                    aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-
-                            <form action="/ges_corsi/findByTelefono" method="post">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="addEmployeeModalLabel2">Dettaglio Studente</h5>
-                                    <button type="reset" class="close" data-bs-dismiss="modal"
-                                        aria-label="Close">X</button>
-                                </div>
-                                <div>
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="telefono">Aggiungi</label>
-                                            <input type="text" class="form-control" id="telefono" name="telefono"
-                                                placeholder="Inserisci telefono studente">
-                                            <div class="modal-footer"> -->
-    <!-- <button class="btn btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#editCourseModal"
-                                        th:onclick="populateModal([[${corso}]])">
-        
-                                       Cerca -->
-    <!--   </button>
-                                                <button type="reset" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Cancella</button>
-                                                <button type="submit" class="btn btn-success">Aggiungi</button>
-                                            </div>
-                            </form>
-                        </div>
+    <!-- Modale Vedi Studenti CONTROLORE-->
+    <!-- <div class="modal fade" id="addEmployeeModal2" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="/ges_corsi/eliminaStudenteDalCorso" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEmployeeModalLabel">Studenti nel corso</h5>
+                        <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
-                </div>
-                <hr>
-                -->
+                    <div class="card-body">
+                        <table id="tab-last-quest" class="table table-striped table-bordered table-sm"
+                            style="width: 100%;" data-toggle="table" data-locale="it-IT">
+                            <thead>
+                                <tr>
+                                    <th name="idCorso" id="idCorso">Id Corso</th>
+                                    <th name="nome" id="myInput">Nominativo</th>
+                                    <th name="dataInizio" id="inizio">Telefono</th>
+                                    <th name="dataFine" id="fine">Email</th>
+                                    <th class="text-center">Elimina</th>
 
-    <!--   <div class="card-body">
-                    <table id="tab-last-quest" class="table table-striped table-bordered table-sm" style="width: 100%;"
-                        data-toggle="table" data-locale="it-IT">
-                        <thead>
-                            <tr>
-                                <th>Nominativo</th>
-                                <th>Email</th>
-                                <th>Numero</th>
-                                <th class="text-center">Elimina</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <tr th:each="corso : ${corsi}">
-                                <td th:text="${corso.studenti}"></td>
-                                <td> </td>
-                                <td></td>
-
-                                <td class="d-flex justify-content-center align-items-center">
-                                    <button class="btn btn-secondary" data-bs-toggle="modal"
-                                        data-bs-target="#editCourseModal" th:onclick="populateModal([[${id}]])">Elimina
-                                    </button>
-                                </td>
-                            </tr> -->
-    <!--    "${corso.studenti}"
-                  <tr th:each="studente : ${studenti}">
-                    <td th:text="${studente.nome + studente.cognome}"></td>
-                    <td th:text="${studente.email}"> </td>
-                    <td th:text="${studente.telefono}"></td>
-
-                    <td class="d-flex justify-content-center align-items-center">
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editCourseModal"
-                            th:onclick="populateModal([[${id}]])">Elimina
-                        </button>
-                    </td>
-                </tr> -->
-    <!--          </tbody>
-                    </table>
-                </div>
-
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="stud : ${corso.studenti}">
+                                    <td th:text="${stud.nome} ${stud.cognome}"></td>
+                                    <td th:text="${stud.telefono}"></td>
+                                    <td></td>
+                                    <td button onclick="togliStudenteCorso(this)">Elimina</button>
+                                    </td>
+                                </tr>
+                </form>
+                </tbody>
+                </table>
             </div>
-
-        </div>
-    </div> -->
-
-    <!--</div>
-     </div>
-    </div>
-    </div>
-    </div> -->
-
-
-
-    <!-- only studente nella visuale studenti -->
-
-
+ -->
     <!-- Fine modale vedi studente -->
 
 
@@ -416,26 +344,8 @@
             document.getElementById('startDate').value = corso.dataInizio;
             document.getElementById('endDate').value = corso.dataFine;
         }
+
         /* inizio script per modale vedi studenti */
-        /* DA RIATTIVARE */
-
-        /*   function getIdCorso(corso) {
-            document.getElementById('idCorso').value = corso.idCorso;
-            const tbodyStudenti = document.getElementById("lista-studenti");
-            tbodyStudenti.innerHTML = "";
-
-            for (const stud of corso.studenti) {
-                console.log(stud);
-
-                tbodyStudenti.innerHTML +=
-                    "<tr>" +
-                    "<td>" + stud.nome + " " + stud.cognome + "</td>" +
-                    "<td>" + stud.telefono + "</td>" +
-                    "<td><button>Elimina</button></td>" +
-                    "</tr>";
-
-            }} */
-
         function getIdCorso(corso) {
             document.getElementById('idCorso').value = corso.idCorso;
             const tbodyStudenti = document.getElementById("lista-studenti");
@@ -445,46 +355,76 @@
                 const row = document.createElement('tr');
                 row.id = stud.idStudente;
                 row.innerHTML = `
-            <td>${stud.nome} ${stud.cognome}</td>
-            <td>${stud.telefono}</td>
-            <td><button onclick="eliminaStudente(${corso.idCorso}, ${stud.idStudente}, this)">Elimina</button></td>
-        `;
+                 <td>${stud.nome} ${stud.cognome}</td>
+                 <td>${stud.telefono}</td>
+                  
+                 <td><button onclick="eliminaStudenteDalCorso(this)">Elimina</button></td>
+             
+             `;
+
 
                 tbodyStudenti.appendChild(row);
             }
         }
+        /*  <td><button onclick="eliminaStudenteDalCorso(${corso.idStudente}, ${stud.idCorso}, this)">Elimina</button></td> */
 
-        function eliminaStudente(idCorso, idStudente, button) {
-            // Rimuovi la riga dal DOM
+
+
+        /*  function togliStudenteCorso(studente) {
+             console.log(studente);
+             document.getElementById('idCorso').value = studente.idCorso;
+             /*  document.getElementById('courseName').value = corso.nome;
+              document.getElementById('startDate').value = corso.dataInizio;
+              document.getElementById('endDate').value = corso.dataFine;                      
+ 
+         } 
+              */
+
+
+        function eliminaStudenteDalCorso(idCorso, idStudente, button) {
+            // Ottieni la riga corrente
             const row = button.closest('tr');
+
+            // Rimuovi visivamente la riga immediatamente
             row.remove();
 
             // Debug: Stampa gli ID per verificare
             console.log(`Eliminando studente con ID: ${idStudente} dal corso con ID: ${idCorso}`);
 
-            // Invia richiesta al backend per rimuovere lo studente
+            const data = JSON.stringify({
+                idCorso: idCorso,
+                idStudente: idStudente
+            });
+
+            console.log('Dati inviati:', data);
+
+
+            // Invia la richiesta al backend per rimuovere lo studente
             $.ajax({
-                url: '/eliminaStudenteDalCorso',  // Indirizzo dell'endpoint backend
-                type: 'POST',                     // Tipo di richiesta
-                contentType: 'application/json',  // Tipo di contenuto
-                data: JSON.stringify({            // Dati inviati al server
-                    idCorso: idCorso,
-                    idStudente: idStudente
-                }),
-                success: function (data) {         // Funzione di callback per il successo
-                    if (data.success) {
+                url: '/eliminaStudenteDalCorso',
+                type: 'POST',
+                contentType: 'application/json',
+                data: data,
+                success: function (response) {
+                    console.log('Risposta dal backend:', response);
+                    if (response === "success") {
                         console.log('Studente rimosso dal backend con successo');
+                        // Non è necessario fare nulla qui, la riga è già stata rimossa
                     } else {
                         console.error('Errore nella rimozione dello studente dal backend');
+                        // Ripristina la riga nel DOM in caso di errore
+                        document.getElementById('${idStudente}').appendChild(row);
                     }
                 },
-                error: function (error) {          // Funzione di callback per l'errore
+                error: function (error) {
                     console.error('Errore:', error);
+                    // Ripristina la riga nel DOM in caso di errore
+                    document.getElementById('${idStudente}').appendChild(row);
                 }
             });
         }
 
-        /* onclick="rimuoviElemento(this)" */
+
 
 
         // BUG NON CERCA CON CAMPI MULTIPLI
