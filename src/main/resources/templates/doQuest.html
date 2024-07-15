@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/animate.min.css"><!-- TODO: Serve ? -->
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
 </head>
@@ -37,16 +38,14 @@
                 <div class="card">
                     <div class="card-header">
 
-                        <div class="row">
-                            <div class="col-md-2">
-                                <h5 th:text="${quest.titolo}"></h5>
-                            </div>
+                        <div class="row text-center ">
+                            <h2 class="fw-bold" th:text="|Test: ${quest.titolo}|"></h2>
                         </div>
                     </div>
                     <div class="card-body">
-                        <div th:if="${quest != null}">
+                        <div th:if="${quest != null}" class="legenda-domande">
                             <th:block th:each="domanda, index : ${quest.domanda}">
-                                <button class="btn btn-outline-primary" th:id="'btn-dom-' + ${index.index}"
+                                <button class="btn btn-outline-primary" th:id="'btn-dom-' + ${domanda.idQstDet}"
                                     th:text="${index.index + 1}" th:data-target="${index.index}"></button>
                             </th:block>
                         </div>
@@ -55,9 +54,11 @@
                         </div>
                         <hr>
 
-                        <form id="testForm" method="post" action="submit-answers">
+                        <form id="testForm" method="post" action="submit-quest"
+                            th:data-count-dom="${quest.domanda.size}">
                             <input type="hidden" name="id-quest" th:value="${quest.idQst}">
                             <input type="hidden" name="tempo-quest" id="tempo-quest">
+
                             <div class="container carousel slide d-flex justify-content-center"
                                 id="carouselExampleControls">
                                 <div class="carousel-inner">
@@ -65,16 +66,17 @@
                                         <div th:id="|dom-${domanda.idQstDet}|"
                                             th:class="'carousel-item' + (${index.index == 0} ? ' active' : '')">
                                             <div class="d-flex flex-column align-items-center">
-                                                <h3 th:text="'Domanda ' + ${index.index + 1}"></h3>
-                                                <h2 th:text="${domanda.domanda}"></h2>
-                                                <ul class="list-unstyled">
+                                                <h3 class="fw-bold mb-0" th:text="'Domanda ' + ${index.index + 1}"></h3>
+                                                <h2 class="my-4" th:text="${domanda.domanda}"></h2>
+                                                <ul class="list-unstyled mb-4">
                                                     <li th:each="risposta : ${domanda.risp}">
-                                                        <div class="form-radio">
-                                                            <input class="form-radio-input" type="radio"
+                                                        <div
+                                                            class="form-check  btn btn-outline-primary d-flex align-items-center">
+                                                            <input class="form-radio-input  me-4" type="radio"
                                                                 th:name="|dom-${domanda.idQstDet}|"
                                                                 th:value="|ans-${risposta.idAns}|"
                                                                 th:id="|ans-${risposta.idAns}|">
-                                                            <label class="form-radio-label"
+                                                            <label class="form-radio-label h4 me-4 w-100"
                                                                 th:for="|ans-${risposta.idAns}|"
                                                                 th:text="${risposta.risposta}"></label>
                                                         </div>
@@ -85,27 +87,35 @@
                                     </th:block>
                                 </div>
 
-                                <button class="carousel-control-prev" style="background-color: blue !important;"
-                                    type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
+                                <button class="carousel-control-prev"
+                                    style="background-color: rgba(0, 89, 255, 0.5) !important;" type="button"
+                                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span aria-hidden="true">
+                                        <svg width="50" height="50" fill="black" class="bi bi-arrow-left-circle-fill"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                                        </svg>
+                                    </span>
                                 </button>
                                 <button class="carousel-control-next" type="button"
-                                    style="background-color: blue !important;" data-bs-target="#carouselExampleControls"
-                                    data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
+                                    style="background-color: rgba(0, 89, 255, 0.5) !important;"
+                                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span aria-hidden="true">
+                                        <svg width="50" height="50" fill="black" class="bi bi-arrow-right-circle-fill"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                                        </svg>
+                                    </span>
                                 </button>
                             </div>
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-lg">Concludi Test</button>
+                                <button type="reset" class="btn btn-outline-secondary btn-lg">Pulisci</button>
                             </div>
                         </form>
-
-
-
-
                     </div>
                 </div>
             </div>
@@ -116,38 +126,8 @@
         <script src="/bootstrap/bootstrap.min.js"></script>
         <script src="/bootstrap/bootstrap-table.min.js"></script>
         <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
-        <script>
-            $(document).ready(function () {
-
-                // Memorizza ora apertura pagina
-                const startTime = Date.now();
-
-                $('button[data-target]').on('click', function () {
-                    var targetIndex = $(this).data('target');
-                    $('#carouselExampleControls').carousel(targetIndex);
-                });
-
-
-                $('#carouselExampleControls').on('slide.bs.carousel', function (e) {
-                    var activeIndex = $(e.relatedTarget).index();
-                    $('button[data-target]').removeClass('active');
-                    $('#btn-' + activeIndex).addClass('active');
-                });
-
-                $('#testForm').on('submit', function (event) {
-                    // Calcola il tempo trascorso in millisecondi
-                    var elapsedTime = Date.now() - startTime;
-
-                    // Converti in secondi
-                    var elapsedSeconds = elapsedTime / 1000;
-
-                    $('#tempo-quest').val(elapsedSeconds);
-                });
-
-
-                $('#btn-0').addClass('active');
-            });
-        </script>
+        <script src="/bootbox.all.min.js"></script>
+        <script src="/do-quest.js"></script>
 
 </body>
 
