@@ -34,7 +34,6 @@ public class Studente extends GenericEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = true)
-    
     private User user;
     private String nome;
     private String cognome;

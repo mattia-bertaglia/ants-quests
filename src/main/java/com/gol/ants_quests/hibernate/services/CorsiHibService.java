@@ -34,8 +34,4 @@ public class CorsiHibService extends GenericHibService<Corso, Long, CorsiReposit
         return getRepository().findAll(Sort.by(Direction.DESC, "dataInizio"));
     }
 
-    public void update(Corso corso) {
-
-    }
-
 }
