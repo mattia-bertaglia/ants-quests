@@ -29,7 +29,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <select name="quest-select" class="form-select">
-                                        <th:block th:each="categoria : ${categorie}">
+                                        <th:block th:each="categoria : ${questionari}">
                                             <optgroup th:label="${categoria.nome}">
                                                 <option th:each="questionario : ${categoria.questionari}"
                                                     th:value="${questionario.idQst}" th:text="${questionario.titolo}">
