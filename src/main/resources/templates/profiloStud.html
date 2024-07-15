@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .correct {
+            color: green;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <navbar class="navbar navbar-expand">
+        <a href="/homeStud/" class="btn btn-primary">Home</a>
+        <a href="/auth/logout" class="btn btn-warning">Logout</a>
+    </navbar>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Profilo Utente</h3>
+            </div>
+            <div class="card-body">
+
+                <div class="container">
+                    <form id="profilo-form" action="/homeStud/modificaProfilo" method="POST">
+
+                        <input type="email" readonly class="form-control form-control-plaintext" name="usernameEmail"
+                            th:value="${session.user.usernameEmail}" required>
+                        <input id="pass" type="password" readonly class="form-control form-control-plaintext"
+                            name="passkey" placeholder="Password" required>
+                        <i id="error-pass" class="hidden error">
+                            La password deve contenere: almeno un carattere minuscolo (abc), almeno un carattere
+                            maiuscolo (ABC), almeno un carattere numerico (123)
+                        </i>
+                        <i id="correct-pass" class="hidden correct">Accettabile</i>
+                        <input id="checkpass" type="password" readonly class="form-control form-control-plaintext"
+                            name="confirmPasskey" placeholder="Conferma Password" required>
+                        <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
+                        <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
+
+                        <hr>
+
+                        <input type="text" readonly class="form-control form-control-plaintext" name="nome"
+                            th:value="${session.user.studente.nome}" required>
+                        <input type="text" readonly class="form-control form-control-plaintext" name="cognome"
+                            th:value="${session.user.studente.cognome}" required>
+                        <input type="date" readonly class="form-control form-control-plaintext" id="dataNascita"
+                            name="dataNascita" th:value="${session.user.studente.dataNascita}" required>
+                        <i id="error-dataNascita" class="hidden error">La data di nascita non può essere oggi o in
+                            futuro</i>
+                        <input id="cap" type="text" readonly class="form-control form-control-plaintext" name="cap"
+                            maxlength="5" th:value="${session.user.studente.cap}" required>
+                        <i id="error-cap" class="hidden error">CAP non valido</i>
+                        <input type="text" readonly class="form-control form-control-plaintext" name="provincia"
+                            th:value="${session.user.studente.provincia}" required>
+                        <input id="phone" type="text" readonly class="form-control form-control-plaintext"
+                            name="telefono" maxlength="10" th:value="${session.user.studente.telefono}" required>
+                        <i id="error-phone" class="hidden error">Numero di telefono non valido</i>
+                        <textarea name="note" placeholder="Note" rows="4" class="form-control-plaintext"
+                            th:value="${session.user.studente.note}"></textarea>
+
+                        <input id="submit-btn" type="submit" class="btn btn-primary" value="Salva Modifiche" hidden
+                            disabled>
+                    </form>
+                </div>
+
+            </div>
+            <div class="card-footer">
+                <button id="btn-mod-profilo" class="btn btn-outline-primary">Modifica</button>
+                <button id="btn-close-mod" class="btn btn-outline-danger" hidden>Annulla</button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/bootstrap/popper.min.js"></script>
+    <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="/controllo-form-users.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btn-mod-profilo").on("click", function () {
+                $("#submit-btn").removeAttr("hidden");
+                $("#btn-close-mod").removeAttr("hidden");
+                document.querySelectorAll("textarea, input.form-control-plaintext").forEach(function (input) {
+                    input.readOnly = false;
+                    input.classList.remove("form-control-plaintext");
+                    input.classList.add("form-control");
+                });
+            });
+
+            $("#btn-close-mod").on("click", function () {
+                $("#submit-btn").attr("hidden", "hidden");
+                $("#btn-close-mod").attr("hidden", "hidden");
+                document.querySelectorAll("textarea, input.form-control").forEach(function (input) {
+                    input.readOnly = true;
+                    input.classList.add("form-control-plaintext");
+                    input.classList.remove("form-control");
+                });
+            });
+        });
+    </script>
+
+
+
+</body>
+
+</html>
