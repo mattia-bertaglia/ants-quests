@@ -20,24 +20,25 @@
                     <div class="card-header">
                         Impostazioni Test
                     </div>
-                    <div class="card-body">
-                        <label for="">Categoria</label>
-
-                        <select name="type" style="padding: 10px; width: 100%;">
-                            <option disabled selected> -Selezione un elemento- </option>
-                            <option th:each="categorie : ${listaCategorie}" 
-                                <!--th:selected="${quest.categoriequest.idCat}"--
-                                th:text="${categorie.nome}" th:value="${categorie.nome}">
-                            </option>
-                        </select>
-                    </div>
-                    <div class="card-body">
-                        <label for="">Titolo</label>
-                        <input id="titolo" type="text" th:value="${quest.titolo}" style="padding: 10px; width: 100%;">
-                    </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Salva</button>
-                    </div>
+                    <form action="quest/lista" method="get">
+                        <div class="card-body">
+                            <label for="">Categoria</label>
+                            <select id="type" name="type" style="padding: 10px; width: 100%;">
+                                <option disabled selected> -Selezione un elemento- </option>
+                                <option th:each="categorie : ${listaCategorie}" 
+                                    <!--th:selected="${quest.categoriequest.idCat}"--
+                                    th:text="${categorie.nome}" th:value="${categorie.idCat}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="card-body">
+                            <label for="">Titolo</label>
+                            <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}" style="padding: 10px; width: 100%;">
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Salva</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
