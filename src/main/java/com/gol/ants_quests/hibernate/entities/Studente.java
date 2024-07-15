@@ -46,6 +46,7 @@ public class Studente extends GenericEntity {
     private String provincia;
     private String telefono;
     private String note;
+
     private Date dataInserimento;
 
     @ManyToOne

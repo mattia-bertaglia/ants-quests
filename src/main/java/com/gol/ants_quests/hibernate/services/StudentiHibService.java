@@ -2,6 +2,7 @@
 package com.gol.ants_quests.hibernate.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,18 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
     public List<Studente> findByNomeAndCognome(String nome, String cognome) {
         return getRepository().findByNomeAndCognome(nome, cognome);
 
+    }
+
+    public Optional<Studente> findNomeByUser(String user) {
+        return getRepository().findNomeByUserUsernameEmail(user);
+    }
+
+    public Optional<Studente> findCognomeByUser(String user) {
+        return getRepository().findCognomeByUserUsernameEmail(user);
+    }
+
+    public Optional<Studente> findByUserID(long iduser) {
+        return getRepository().findByUserId(iduser);
     }
 
     /*

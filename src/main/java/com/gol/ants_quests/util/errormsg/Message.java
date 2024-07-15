@@ -7,11 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Toast {
+public class Message {
 
     private String code;
-    private String title;
     private String message;
-    private String color;
 
 }

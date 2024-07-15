@@ -27,50 +27,59 @@ public class AuthController {
 
     @PostMapping("/login")
     public String login(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
-        String loginResult = authService.logInUser(params, session, model);
-        if (loginResult.equals("redirect:/homeStud") || loginResult.equals("redirect:/homeAdmin")) {
-            return loginResult;
+        boolean loginResult = authService.logInUser(params, session, model);
+
+        if (loginResult) {
+            errorService.addErrorMessageToSession(session, "loginSuccess");
+            return "redirect:" + params.get("root");
         } else {
-            // Gestione dell'errore
-            if (authService.findByUsernameEmail(params.get("usernameEmail")).isEmpty()) {
-                errorService.getToast(session, "erroreLog"); // Utente non trovato
-            } else {
-                errorService.getToast(session, "passwordMismatch"); // Password non valida
-            }
-            return "redirect:/"; // Rimani sulla pagina di login con messaggio di errore
+            errorService.addErrorMessageToSession(session, params.get("status"));
+            return "redirect:/";
         }
     }
 
-    @PostMapping("/signup")
+    @GetMapping("/signup")
     public String signup(@RequestParam HashMap<String, String> params, HttpSession session, Model model) {
+        String nome = "";
+        String cognome = "";
+        String usernameEmail = "";
+        if (!authService.isLogged(session) && authService.userExists(params.get("usernameEmail"))) {
 
-        /*
-         * params = nome, cognome e email
-         * check email gia presente, se si = errore, rimani in index.html
-         * se email nuova, vai a firstTime.html
-         * compilazione dati User/Studente, invio dati, save a DB,
-         * con user che torna da save lo metti in sessione
-         * redirect:/homeStud
-         * 
-         */
+            errorService.addErrorMessageToSession(session, "usernameExists"); // Username già esistente
+            return "redirect:/"; // Rimani sulla pagina di registrazione con messaggio di errore
+        } else if (!authService.isLogged(session) && !authService.userExists(params.get("usernameEmail"))) {
+            nome = params.get("nome");
+            cognome = params.get("cognome");
+            usernameEmail = params.get("usernameEmail");
 
-        User newUser = authService.registerUser(params, model);
-        if (newUser != null) {
-            authService.setupSession(session, newUser);
-            return "redirect:/?status=signOK";
-        } else {
-            // Rimani sulla pagina di registrazione se ci sono errori
-            return "/firstTime";
+        } else if (authService.isLogged(session)) {
+            User user = (User) session.getAttribute("user");
+            usernameEmail = user.getUsernameEmail();
+            nome = user.getStudente().getNome();
+            cognome = user.getStudente().getCognome();
+
         }
+
+        model.addAttribute("nome", nome);
+        model.addAttribute("cognome", cognome);
+        model.addAttribute("usernameEmail", usernameEmail);
+        return "firstTime";
     }
 
-    @PostMapping("/firstTime")
-    public String firstTime(Model model) {
-        return "/auth/firstTime";
+    @PostMapping("/registrazione")
+    public String registrazione(HttpSession session, @RequestParam HashMap<String, String> params, Model model) {
+        if (authService.isLogged(session)) {
+            authService.updateUser(session, params, model);
+        } else {
+            authService.registerUser(session, params, model);
+        }
+
+        return "redirect:/homeStud";
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session, HttpServletRequest request) {
+        errorService.addErrorMessageToSession(session, "logoutSuccess");
         session.invalidate();
         return "redirect:/";
     }

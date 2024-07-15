@@ -1,32 +1,44 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!-- Complete 11-07-2024 -->
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrazione Utente</title>
   <link rel="stylesheet" href="/css/firstTime.css">
 </head>
+
 <body>
   <div class="container">
     <h3>Completa Registrazione</h3>
-    <form id="registration-form" action="/auth/signup" method="POST">
-      <input type="date" name="dataNascita" placeholder="Data di nascita" required>
-      <input type="text" name="cap" placeholder="CAP" required>
+    <form id="registration-form" action="/auth/registrazione" method="POST">
+      <input type="text" name="nome" th:value="${nome}" required>
+      <input type="text" name="cognome" th:value="${cognome}" required>
+      <input type="date" id="dataNascita" name="dataNascita" placeholder="Data di nascita" required>
+      <i id="error-dataNascita" class="hidden error">La data di nascita non può essere oggi o in futuro</i>
+      <input id="cap" type="text" name="cap" placeholder="CAP" maxlength="5" required>
+      <i id="error-cap" class="hidden error">CAP non valido</i>
       <input type="text" name="provincia" placeholder="Provincia" required>
-      <input type="text" name="telefono" placeholder="Telefono" required>
+      <input id="phone" type="text" name="telefono" placeholder="Telefono" maxlength="10" required>
+      <i id="error-phone" class="hidden error">Numero di telefono non valido</i>
       <textarea name="note" placeholder="Note" rows="4"></textarea>
+      <input type="email" name="usernameEmail" th:value="${usernameEmail}" required>
       <input id="pass" type="password" name="passkey" placeholder="Password" required>
-      <i id="error-pass" class="hidden error">Non accettabile, la password deve contenere:
-        - almeno un carattere minuscolo (abc)
-        - almeno un carattere maiuscolo (ABC)
-        - almeno un carattere numerico (123)
+      <i id="error-pass" class="hidden error">
+        La password deve contenere: almeno un carattere minuscolo (abc), almeno un carattere maiuscolo (ABC), almeno un
+        carattere numerico (123)
       </i>
       <i id="correct-pass" class="hidden correct">Accettabile</i>
       <input id="checkpass" type="password" name="confirmPasskey" placeholder="Conferma Password" required>
       <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
       <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
-      <input type="submit" value="Registrati">
+      <input id="submit-btn" type="submit" value="Registrati" disabled>
     </form>
   </div>
+
+  <script src="/check-first-time.js">
+
+  </script>
 </body>
+
 </html>
