@@ -9,10 +9,11 @@
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
     <title>Esiti</title>
 </head>
+
 <body>
     <br>
     <nav></nav>
-    
+
     <div class="container">
         <div class="row">
             <div class="col">
@@ -44,6 +45,7 @@
                                     <div class="col-md-6">
                                         <label for="data_fine">Data Fine</label>
                                         <input type="date" id="data_fine" name="data_fine" class="form-control" onchange="changeVisibilityDate()">
+                                        <small id="dateError" class="text-danger"></small>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +54,7 @@
                                 <label for="area">Utente</label>
                                 <input type="text" onkeyup="myFunction()" id="stringa" name="area" class="form-control" placeholder="Nome e Cognome"><br>
                             </div>
-                            
+
                             <div class="form-group text-center">
                                 <button type="button" class="btn btn-secondary w-75 mt-2" onclick="removeFilters()">Rimuovi Filtri</button>
                             </div>
@@ -61,9 +63,9 @@
                 </div>
             </div>
         </div>
-    
+
         <br>
-    
+
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -75,6 +77,9 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        <div id="noResultsMessage" class="alert alert-danger" style="display: none;">
+                            Non posso farti vedere dei questionari dove nel filtro la data di inizio sia maggiore della data di fine.
+                        </div>
                         <table id="myTable" class="table table-striped table-bordered table-sm" style="width: 100%;" data-toggle="table" data-locale="it-IT">
                             <thead>
                                 <tr>
@@ -91,11 +96,13 @@
                                 <tr th:each="questionari : ${listaEsitiQuestionari}">
                                     <td th:text="${questionari.Quest.categoriequest.nome}"></td>
                                     <td th:text="${questionari.Quest.titolo}"></td>
-                                    <td th:text="${questionari.dataEsecuzione}"></td>
+                                    <td th:text="${#dates.format(questionari.dataEsecuzione, 'dd-MM-yyyy')}"></td>
                                     <td th:text="${questionari.punteggio}"></td>
                                     <td th:text="${questionari.tempo}"></td>
                                     <td th:text="|${questionari.studente.nome} ${questionari.studente.cognome}|"></td>
-                                    <td class="text-center"><button name="id_quest" type="submit" class="btn btn-primary w-75" th:value="${questionari.idEstQst}">Vedi</button></td>
+                                    <td class="text-center">
+                                        <button name="id_quest" type="submit" class="btn btn-primary w-75" th:value="${questionari.idEstQst}">Vedi</button>
+                                    </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(listaEsitiQuestionari)}">
                                     <td class="text-center" colspan="7">Nessun Elemento</td>
@@ -103,158 +110,181 @@
                             </tbody>
                         </table>
                         <div class="text-center">
-                            <a onclick="prevPage()" href="#" id="btn_prev">Prev</a>
-                            <a onclick="nextPage()" href="#" id="btn_next">Next</a>
-                            page: <span id="page"></span>
+                            <button onclick="prevPage()" class="btn btn-secondary" id="btn_prev">Precedente</button>
+                            <span>Pagina <span id="page"></span> di <span id="totalPages"></span></span>
+                            <button onclick="nextPage()" class="btn btn-secondary" id="btn_next">Successivo</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <script src="bootstrap/popper.min.js"></script>
     <script src="bootstrap/bootstrap.min.js"></script>
     <script src="js/index.js"></script>
 
     <script>
-    let filters = {
-        title: '',
-        category: '',
-        user: '',
-        dateStart: '',
-        dateEnd: ''
-    };
-    var current_page = 1;
-    var records_per_page = 10;
-    var filteredData = [];
-
-    function applyFilters() {
-        var table, tr, i;
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-        filteredData = [];
-
-        for (i = 1; i < tr.length; i++) {
-            let display = true;
-            let questionari = tr[i].children;
-
-            if (filters.title) {
-                if (!questionari[1].innerText.toUpperCase().includes(filters.title.toUpperCase())) {
-                    display = false;
-                }
-            }
-
-            if (filters.category) {
-                if (!questionari[0].innerText.includes(filters.category)) {
-                    display = false;
-                }
-            }
-
-            if (filters.user) {
-                if (!questionari[5].innerText.toUpperCase().includes(filters.user.toUpperCase())) {
-                    display = false;
-                }
-            }
-
-            if (filters.dateStart || filters.dateEnd) {
-                var dataEsecuzione = new Date(questionari[2].innerText);
-                if ((filters.dateStart && dataEsecuzione < new Date(filters.dateStart)) ||
-                    (filters.dateEnd && dataEsecuzione > new Date(filters.dateEnd))) {
-                    display = false;
-                }
-            }
-
-            if (display) {
-                filteredData.push(tr[i]);
-            }
-        }
-
-        updateTable();
-    }
-
-    function updateTable() {
-        var table = document.getElementById("myTable");
-        var tr = table.getElementsByTagName("tr");
-
-        for (var i = 1; i < tr.length; i++) {
-            tr[i].style.display = 'none'; // Nascondi tutte le righe
-        }
-
-        for (var i = (current_page - 1) * records_per_page; i < current_page * records_per_page && i < filteredData.length; i++) {
-            filteredData[i].style.display = ''; // Mostra solo le righe filtrate
-        }
-
-        document.getElementById("page").innerText = current_page;
-
-        document.getElementById("btn_prev").style.visibility = current_page === 1 ? "hidden" : "visible";
-        document.getElementById("btn_next").style.visibility = current_page === numPages() ? "hidden" : "visible";
-    }
-
-    function myFunction() {
-        filters.user = document.getElementById("stringa").value;
-        current_page = 1; // Reset to first page
-        applyFilters();
-    }
-
-    function changeVisibility() {
-        filters.title = document.getElementById("titolo").value;
-        current_page = 1; // Reset to first page
-        applyFilters();
-    }
-
-    function changeVisibilityCat(e) {
-        filters.category = e.value;
-        current_page = 1; // Reset to first page
-        applyFilters();
-    }
-
-    function changeVisibilityDate() {
-        filters.dateStart = document.getElementById("data_inizio").value;
-        filters.dateEnd = document.getElementById("data_fine").value;
-        current_page = 1; // Reset to first page
-        applyFilters();
-    }
-
-    function removeFilters() {
-        filters = {
+        let filters = {
             title: '',
             category: '',
             user: '',
             dateStart: '',
             dateEnd: ''
         };
-        document.getElementById("titolo").value = '';
-        document.querySelector("[name='type']").selectedIndex = 0;
-        document.getElementById("data_inizio").value = '';
-        document.getElementById("data_fine").value = '';
-        document.getElementById("stringa").value = '';
-        current_page = 1; // Reset to first page
-        applyFilters();
-    }
+        var current_page = 1;
+        var records_per_page = 10;
+        var filteredData = [];
 
-    function prevPage() {
-        if (current_page > 1) {
-            current_page--;
+        function applyFilters() {
+            current_page = 1; // Ripristina la pagina a 1
+            var table, tr, i;
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            filteredData = [];
+
+            if (filters.dateStart && filters.dateEnd && new Date(filters.dateStart) > new Date(filters.dateEnd)) {
+                document.getElementById("noResultsMessage").style.display = "block";
+                table.style.display = "none"; // Nascondi la tabella
+                return;
+            }
+
+            document.getElementById("noResultsMessage").style.display = "none"; // Nascondi il messaggio
+            table.style.display = "table"; // Mostra la tabella
+
+            for (i = 1; i < tr.length; i++) {
+                let display = true;
+                let questionari = tr[i].children;
+
+                if (filters.title) {
+                    if (!questionari[1].innerText.toUpperCase().includes(filters.title.toUpperCase())) {
+                        display = false;
+                    }
+                }
+
+                if (filters.category) {
+                    if (!questionari[0].innerText.includes(filters.category)) {
+                        display = false;
+                    }
+                }
+
+                if (filters.user) {
+                    if (!questionari[5].innerText.toUpperCase().includes(filters.user.toUpperCase())) {
+                        display = false;
+                    }
+                }
+
+                if (filters.dateStart || filters.dateEnd) {
+                    var dataEsecuzione = new Date(questionari[2].innerText.split('-').reverse().join('-'));
+                    if ((filters.dateStart && dataEsecuzione < new Date(filters.dateStart)) ||
+                        (filters.dateEnd && dataEsecuzione > new Date(filters.dateEnd))) {
+                        display = false;
+                    }
+                }
+
+                if (display) {
+                    filteredData.push(tr[i]);
+                }
+            }
+
             updateTable();
         }
-    }
 
-    function nextPage() {
-        if (current_page < numPages()) {
-            current_page++;
-            updateTable();
+        function changeVisibility() {
+            filters.title = document.getElementById("titolo").value;
+            applyFilters();
         }
-    }
-    
-    function numPages() {
-        return Math.ceil(filteredData.length / records_per_page);
-    }
 
-    window.onload = function() {
-        applyFilters();
-    };
+        function changeVisibilityCat(e) {
+            filters.category = e.value;
+            applyFilters();
+        }
+
+        function changeVisibilityDate() {
+            var startDate = document.getElementById("data_inizio").value;
+            var endDate = document.getElementById("data_fine").value;
+
+            if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+                document.getElementById("dateError").innerText = "La data di inizio non può essere successiva alla data di fine.";
+                document.getElementById("myTable").style.display = "none"; // Nascondi la tabella
+                document.getElementById("noResultsMessage").style.display = "block"; // Mostra il messaggio
+                return;
+            } else {
+                document.getElementById("dateError").innerText = ""; // Rimuovi il messaggio di errore se le date sono valide
+                document.getElementById("myTable").style.display = "table"; // Mostra la tabella
+                document.getElementById("noResultsMessage").style.display = "none"; // Nascondi il messaggio
+            }
+
+            filters.dateStart = startDate;
+            filters.dateEnd = endDate;
+            applyFilters();
+        }
+
+        function myFunction() {
+            filters.user = document.getElementById("stringa").value;
+            applyFilters();
+        }
+
+        function removeFilters() {
+            filters = {
+                title: '',
+                category: '',
+                user: '',
+                dateStart: '',
+                dateEnd: ''
+            };
+            document.getElementById("titolo").value = '';
+            document.querySelector("[name='type']").selectedIndex = 0;
+            document.getElementById("data_inizio").value = '';
+            document.getElementById("data_fine").value = '';
+            document.getElementById("stringa").value = '';
+            document.getElementById("dateError").innerText = ''; // Rimuovi messaggio errore
+            document.getElementById("noResultsMessage").style.display = "none"; // Nascondi messaggio
+            applyFilters();
+        }
+
+        function prevPage() {
+            if (current_page > 1) {
+                current_page--;
+                updateTable();
+            }
+        }
+
+        function nextPage() {
+            if (current_page < numPages()) {
+                current_page++;
+                updateTable();
+            }
+        }
+
+        function numPages() {
+            return Math.ceil(filteredData.length / records_per_page);
+        }
+
+        function updateTable() {
+            var table = document.getElementById("myTable");
+            var tr = table.getElementsByTagName("tr");
+
+            for (var i = 1; i < tr.length; i++) {
+                tr[i].style.display = 'none'; // Nascondi tutte le righe
+            }
+
+            for (var i = (current_page - 1) * records_per_page; i < current_page * records_per_page && i < filteredData.length; i++) {
+                filteredData[i].style.display = ''; // Mostra solo le righe filtrate
+            }
+
+            document.getElementById("page").innerText = current_page;
+            document.getElementById("totalPages").innerText = numPages();
+
+            document.getElementById("btn_prev").style.visibility = current_page === 1 ? "hidden" : "visible";
+            document.getElementById("btn_next").style.visibility = current_page === numPages() ? "hidden" : "visible";
+        }
+
+        window.onload = function() {
+            applyFilters();
+        };
     </script>
 </body>
 </html>
+
