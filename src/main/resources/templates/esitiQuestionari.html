@@ -10,7 +10,6 @@
     <title>Esiti</title>
 </head>
 <body>
-
     <br>
     <nav></nav>
     
@@ -22,53 +21,42 @@
                         <h5>Filtri Ricerca</h5>
                     </div>
                     <div class="card-body">
-    
-                    <form action="esiti" method="get">
-    
-                        <div class="form-group" >
-                            <label for="">Titolo</label><br>
-                            <select style="padding: 10px; width: 30%;" id="mySel" onchange="changeVisibility(this)">
-                                <option disabled="" selected=""> -Selezione un elemento- </option>
-                                <option th:each="alltitoli : ${listaQuestionari}" th:text="${alltitoli.titolo}" th:value="${alltitoli.titolo}"></option>
-                                
-                            </select>
-                        </div>
+                        <form id="filterForm">
+                            <div class="form-group text-center">
+                                <label for="">Categoria</label><br>
+                                <select name="type" style="padding: 10px; width: 50%;" onchange="changeVisibilityCat(this)">
+                                    <option disabled="" selected=""> -Selezione un elemento- </option>
+                                    <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}" th:value="${categorie.nome}"></option>
+                                </select>
+                            </div>
 
+                            <div class="form-group text-center">
+                                <label for="">Titolo</label><br>
+                                <input type="text" id="titolo" class="form-control" placeholder="Inserisci titolo" onkeyup="changeVisibility()">
+                            </div>
 
-                        <div>
-
-                            <label for="">Categoria</label><br>
-                            <select name="type" style="padding: 10px; width: 30%;" onchange="changeVisibilityCat(this)">
-                                <option disabled="" selected=""> -Selezione un elemento- </option>
-                                <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}" th:value="${categorie.nome}"></option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="data_inizio">Data Inizio</label>
-                                    <input type="date" id="data_inizio" name="data_inizio" class="form-control">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="data_fine">Data Fine</label>
-                                    <input type="date" id="data_fine" name="data_fine" class="form-control">
+                            <div class="form-group text-center">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="data_inizio">Data Inizio</label>
+                                        <input type="date" id="data_inizio" name="data_inizio" class="form-control" onchange="changeVisibilityDate()">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="data_fine">Data Fine</label>
+                                        <input type="date" id="data_fine" name="data_fine" class="form-control" onchange="changeVisibilityDate()">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-    
-                        <div class="form-group">
-                            <label for="area">Utente</label>
-                            <input type="text" onkeyup="myFunction()" id="stringa" name="area" class="form-control" placeholder="Nome e Cognome"><br>
-                        </div>
-                        
-                        <div class="form-group text-center">
-                        <button type="button" class="btn btn-primary  w-75" onclick="changeVisibilityDate()">Cerca</button>
-                        </div>
-    
-                    </form>
-    
+
+                            <div class="form-group text-center">
+                                <label for="area">Utente</label>
+                                <input type="text" onkeyup="myFunction()" id="stringa" name="area" class="form-control" placeholder="Nome e Cognome"><br>
+                            </div>
+                            
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-secondary w-75 mt-2" onclick="removeFilters()">Rimuovi Filtri</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -80,7 +68,6 @@
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-    
                         <div class="row">
                             <div class="col-md-2">
                                 <h5>Elenco Questionari</h5>
@@ -88,190 +75,186 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="esiti" method="get">
-                            <table id="myTable" class="table table-striped table-bordered table-sm" style="width: 100%;" data-toggle="table" data-locale="it-IT">
-                                <thead>
-                                    <tr>
-                                        <th>Categoria</th>
-                                        <th>Titolo</th>
-                                        <th>Data</th>
-                                        <th>Punteggio</th>
-                                        <th>Tempo</th>
-                                        <th>Utente</th>
-                                        <th class="text-center">Questionario</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="questionari : ${listaEsitiQuestionari}">
-                                        <td th:text="${questionari.Quest.categoriequest.nome}"></td>
-                                        <td th:text="${questionari.Quest.titolo}"></td>
-                                        <td th:text="${questionari.dataEsecuzione}"></td>
-                                        <td th:text="${questionari.punteggio}"></td>
-                                        <td th:text="${questionari.tempo}"></td>
-                                        <td th:text="|${questionari.studente.nome} ${questionari.studente.cognome}|"></td>
-                                        <td class="text-center"><button name="id_quest" type="submit" class="btn btn-primary w-75" th:value="${questionari.idEstQst}">Vedi</button></td>
-                                    </tr> 
-                                    <tr th:if="${#lists.isEmpty(listaEsitiQuestionari)}">
-                                        <td class="text-center" colspan="7">Nessun Elemento</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a onclick="prevPage()" href = "#" id="btn_prev">Prev</a>
+                        <table id="myTable" class="table table-striped table-bordered table-sm" style="width: 100%;" data-toggle="table" data-locale="it-IT">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Titolo</th>
+                                    <th>Data</th>
+                                    <th>Punteggio</th>
+                                    <th>Tempo</th>
+                                    <th>Utente</th>
+                                    <th class="text-center">Questionario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="questionari : ${listaEsitiQuestionari}">
+                                    <td th:text="${questionari.Quest.categoriequest.nome}"></td>
+                                    <td th:text="${questionari.Quest.titolo}"></td>
+                                    <td th:text="${questionari.dataEsecuzione}"></td>
+                                    <td th:text="${questionari.punteggio}"></td>
+                                    <td th:text="${questionari.tempo}"></td>
+                                    <td th:text="|${questionari.studente.nome} ${questionari.studente.cognome}|"></td>
+                                    <td class="text-center"><button name="id_quest" type="submit" class="btn btn-primary w-75" th:value="${questionari.idEstQst}">Vedi</button></td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(listaEsitiQuestionari)}">
+                                    <td class="text-center" colspan="7">Nessun Elemento</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <a onclick="prevPage()" href="#" id="btn_prev">Prev</a>
                             <a onclick="nextPage()" href="#" id="btn_next">Next</a>
                             page: <span id="page"></span>
-                        </form>  
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
     
-        <script>
-function myFunction() {
-  var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("stringa");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[5];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
+    <script src="jquery/jquery-3.7.1.min.js"></script>
+    <script src="bootstrap/popper.min.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
 
-function changeVisibility(e){
-    
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
+    <script>
+    let filters = {
+        title: '',
+        category: '',
+        user: '',
+        dateStart: '',
+        dateEnd: ''
+    };
+    var current_page = 1;
+    var records_per_page = 10;
+    var filteredData = [];
 
-    for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
-    if (td) {
-        txtValue = td.textContent || td.innerText;
-      if (txtValue.indexOf(e.value) > -1) {
+    function applyFilters() {
+        var table, tr, i;
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        filteredData = [];
 
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
+        for (i = 1; i < tr.length; i++) {
+            let display = true;
+            let questionari = tr[i].children;
 
-function changeVisibilityCat(e){
-    
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
+            if (filters.title) {
+                if (!questionari[1].innerText.toUpperCase().includes(filters.title.toUpperCase())) {
+                    display = false;
+                }
+            }
 
-    for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-        txtValue = td.textContent || td.innerText;
-      if (txtValue.indexOf(e.value) > -1) {
+            if (filters.category) {
+                if (!questionari[0].innerText.includes(filters.category)) {
+                    display = false;
+                }
+            }
 
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-}
+            if (filters.user) {
+                if (!questionari[5].innerText.toUpperCase().includes(filters.user.toUpperCase())) {
+                    display = false;
+                }
+            }
 
+            if (filters.dateStart || filters.dateEnd) {
+                var dataEsecuzione = new Date(questionari[2].innerText);
+                if ((filters.dateStart && dataEsecuzione < new Date(filters.dateStart)) ||
+                    (filters.dateEnd && dataEsecuzione > new Date(filters.dateEnd))) {
+                    display = false;
+                }
+            }
 
+            if (display) {
+                filteredData.push(tr[i]);
+            }
+        }
 
-var current_page = 1;
-var records_per_page = 10;
-var l = document.getElementById("myTable").rows.length
-
-function prevPage()
-{
-
-    if (current_page > 1) {
-        current_page--;
-        changePage(current_page);
+        updateTable();
     }
-}
 
-function nextPage()
-{
-    if (current_page < numPages()) {
-        current_page++;
-        changePage(current_page);
+    function updateTable() {
+        var table = document.getElementById("myTable");
+        var tr = table.getElementsByTagName("tr");
+
+        for (var i = 1; i < tr.length; i++) {
+            tr[i].style.display = 'none'; // Nascondi tutte le righe
+        }
+
+        for (var i = (current_page - 1) * records_per_page; i < current_page * records_per_page && i < filteredData.length; i++) {
+            filteredData[i].style.display = ''; // Mostra solo le righe filtrate
+        }
+
+        document.getElementById("page").innerText = current_page;
+
+        document.getElementById("btn_prev").style.visibility = current_page === 1 ? "hidden" : "visible";
+        document.getElementById("btn_next").style.visibility = current_page === numPages() ? "hidden" : "visible";
     }
-}
-    
-function changePage(page)
-{
-    var btn_next = document.getElementById("btn_next");
-    var btn_prev = document.getElementById("btn_prev");
-    var listing_table = document.getElementById("myTable");
-    var page_span = document.getElementById("page");
- 
-    // Validate page
-    if (page < 1) page = 1;
-    if (page > numPages()) page = numPages();
 
-    [...listing_table.getElementsByTagName('tr')].forEach((tr)=>{
-        tr.style.display='none'; // reset all to not display
-    });
-    listing_table.rows[0].style.display = ""; // display the title row
+    function myFunction() {
+        filters.user = document.getElementById("stringa").value;
+        current_page = 1; // Reset to first page
+        applyFilters();
+    }
 
-    for (var i = (page-1) * records_per_page + 1; i < (page * records_per_page) + 1; i++) {
-        if (listing_table.rows[i]) {
-            listing_table.rows[i].style.display = ""
-        } else {
-            continue;
+    function changeVisibility() {
+        filters.title = document.getElementById("titolo").value;
+        current_page = 1; // Reset to first page
+        applyFilters();
+    }
+
+    function changeVisibilityCat(e) {
+        filters.category = e.value;
+        current_page = 1; // Reset to first page
+        applyFilters();
+    }
+
+    function changeVisibilityDate() {
+        filters.dateStart = document.getElementById("data_inizio").value;
+        filters.dateEnd = document.getElementById("data_fine").value;
+        current_page = 1; // Reset to first page
+        applyFilters();
+    }
+
+    function removeFilters() {
+        filters = {
+            title: '',
+            category: '',
+            user: '',
+            dateStart: '',
+            dateEnd: ''
+        };
+        document.getElementById("titolo").value = '';
+        document.querySelector("[name='type']").selectedIndex = 0;
+        document.getElementById("data_inizio").value = '';
+        document.getElementById("data_fine").value = '';
+        document.getElementById("stringa").value = '';
+        current_page = 1; // Reset to first page
+        applyFilters();
+    }
+
+    function prevPage() {
+        if (current_page > 1) {
+            current_page--;
+            updateTable();
+        }
+    }
+
+    function nextPage() {
+        if (current_page < numPages()) {
+            current_page++;
+            updateTable();
         }
     }
     
-    page_span.innerHTML = page + "/" + numPages();
-
-    if (page == 1) {
-        btn_prev.style.visibility = "hidden";
-    } else {
-        btn_prev.style.visibility = "visible";
+    function numPages() {
+        return Math.ceil(filteredData.length / records_per_page);
     }
 
-    if (page == numPages()) {
-        btn_next.style.visibility = "hidden";
-    } else {
-        btn_next.style.visibility = "visible";
-    }
-}
-
-function numPages()
-{
-    return Math.ceil((l - 1) / records_per_page);
-}
-
-window.onload = function() {
-    changePage(current_page);
-};
-    
-
-
-
-
-
-
-
-
-
-
-        </script>
-
-
-        <script src="jquery/jquery-3.7.1.min.js"></script>
-        <script src="bootstrap/popper.min.js"></script>
-        <script src="bootstrap/bootstrap.min.js"></script>
-        <script src="js/index.js"></script>
-    
-    </body>
+    window.onload = function() {
+        applyFilters();
+    };
+    </script>
+</body>
 </html>
