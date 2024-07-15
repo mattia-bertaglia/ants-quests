@@ -1,7 +1,6 @@
 package com.gol.ants_quests.controllers;
 
 import java.util.HashMap;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gol.ants_quests.business.AuthService;
 import com.gol.ants_quests.business.ErrorService;
 import com.gol.ants_quests.business.HomeStudentiService;
-import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.entities.User;
-import com.gol.ants_quests.hibernate.services.QuestsHibService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -27,55 +24,62 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class HomeStudentiController {
 
-    private final QuestsHibService QHS;
-
     private final AuthService authSrv;
-    private final HomeStudentiService questService;
+    private final HomeStudentiService homeStudSrv;
 
     private final ErrorService errSrv;
 
     @GetMapping("/")
     public String homepageStudente(HttpSession session, Model model) {
         // inserire una lista di questionari per lo studente nella session
-        log.info("Apertura Home Page Studente ...");
+        log.info("Start Open Home Page Studente ...");
 
-        // authSrv.checkAuthenticaton(session)
+        // TODO: authSrv.checkAuthentication(session)
         if (session.getAttribute("usrlog") != null) {
             User user = (User) session.getAttribute("user");
-            questService.openHomeStud(model, user.getStudente().getIdStudente());
+            homeStudSrv.openHomeStud(model, user.getStudente().getIdStudente());
 
         } else {
-            log.warn("Home Admin - Non Autorizzato o Sessione Scaduta");
+            log.warn("Home Studente - Non Autorizzato o Sessione Scaduta");
             errSrv.getToast(session, "notAuthOrOutSession");
             return "redirect:/";
         }
 
-        log.info("Apertura Home Page Studente ... DONE");
+        log.info("End Open Home Page Studente.");
         return "homeStud.html";
     }
 
     @GetMapping("/profilo")
     public String openProfilo(HttpSession session, Model model) {
+        // TODO: authSrv.checkAuthentication(session)
+        log.info("Open Pagina Profilo Studente.");
+        // TODO: Compilazione Profilo Utente, aggiungere form per modifica dati.
         return "profiloStud.html";
     }
 
+    // TODO: modifica Profilo Studente
+
     @GetMapping("/doQuestionario")
     public String doQuestionario(HttpSession session, Model model, @RequestParam("quest-select") Long selectedValue) {
+        // TODO: authSrv.checkAuthentication(session)
+        log.info("Start Questionario=" + selectedValue + " ...");
 
-        Optional<Quest> quest = QHS.findByID(selectedValue);
+        homeStudSrv.doQuestionario(model, selectedValue);
 
-        model.addAttribute("quest", quest.get());
-
-        return "exe-test.html";
+        log.info("End Questionario=" + selectedValue);
+        return "doQuest.html";
 
     }
 
-    @PostMapping("/submit-answers")
-    public String submitAnswers(HttpSession session, @RequestParam HashMap<String, String> params) {
+    @PostMapping("/submit-quest")
+    public String submitQuest(HttpSession session, @RequestParam HashMap<String, String> params) {
+        // TODO: authSrv.checkAuthentication(session)
+        log.info("Start Submit Questionario ...");
 
         User user = (User) session.getAttribute("user");
-        questService.elaborazioneQuestionarioQuery(user, params);
+        homeStudSrv.elaborazioneQuestionario(user, params);
 
+        log.info("End Submit Questionario.");
         return "redirect:/homeStud/";
     }
 

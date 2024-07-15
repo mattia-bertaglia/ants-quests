@@ -1,7 +1,9 @@
 package com.gol.ants_quests.business;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -48,111 +50,81 @@ public class HomeStudentiService {
     }
 
     public void openHomeStud(Model model, Long idStudente) {
-        log.info("caricamento categorie");
-        model.addAttribute("categorie", categorieHibSrv.findAll(Sort.by(Direction.DESC, "nome")));
-        log.info("caricamento esiti studente: " + idStudente);
+        log.info("Caricamento Categorie e Questioanari");
+        model.addAttribute("questionari", categorieHibSrv.findAll(Sort.by(Direction.DESC, "nome")));
+        log.info("Caricamento esiti Studente: " + idStudente);
         model.addAttribute("esiti", esitiSrv.findByStudente(idStudente));
     }
 
-     /*public void eleborazioneQuestionario(User user, HashMap<String, String> params) {
+    public void doQuestionario(Model model, Long idQuest) {
+        log.info("Caricamento Questionario=" + idQuest);
+        model.addAttribute("quest", questSrv.findByID(idQuest).get());
 
-        log.info(params.toString());
+    }
+
+    public void elaborazioneQuestionario(User user, HashMap<String, String> params) {
+
+        log.info("Start Elaborazione Questionario, Studente=" + user.getUsernameEmail());
         Optional<Quest> quest = questSrv.findByID(Long.parseLong(params.get("id-quest")));
-        String tempo = params.get("tempo-quest");
 
-        // in params ci sono come chiave dom-{id} e valore ans-{id}
-        // con quest andiamo a controllare quante risposte corrette su quante
-        int contatore = 0;
-        boolean domandaCicle = false;
-        for (HashMap.Entry<String, String> entry : params.entrySet()) {
-            if (entry.getKey().startsWith("dom")) {
-
-                String idDomanda = entry.getKey().split("-")[1];
-                String idRisposta = entry.getValue().split("-")[1];
-
-                for (DomandaQuest domanda : quest.get().getDomanda()) {
-                    domandaCicle = false;
-
-                    if (domanda.getIdQstDet() == Long.parseLong(idDomanda)) {
-
-                        for (RispostaQuest risposta : domanda.getRisp()) {
-
-                            if (risposta.getIdAns() == Long.parseLong(idRisposta)) {
-                                if (risposta.getCorretta())
-                                    contatore = contatore + 1;
-                                domandaCicle = true;
-                                break;
-                            }
-
-                        }
-
-                    }
-                    if (domandaCicle)
-                        break;
-                }
-
-            }
-        }
+        int contRisposteCorrette = 0;
+        HashMap<Long, Boolean> mapRisposteDate = new HashMap<Long, Boolean>();
+        checkRisposte(contRisposteCorrette, mapRisposteDate, params);
 
         EsitoQuest esitoFinale = new EsitoQuest();
-        esitoFinale.setDataEsecuzione(Date.valueOf(LocalDate.now()));
-        esitoFinale.setPunteggio(contatore + "/" + quest.get().getDomanda().size());
-        esitoFinale.setTempo(tempo);
+        esitoFinale.setDataEsecuzione(Timestamp.valueOf(LocalDateTime.now()));
+        esitoFinale.setPunteggio(contRisposteCorrette + "/" + quest.get().getDomanda().size());
+        esitoFinale.setTempo(params.get("tempo-quest"));
 
         esitoFinale.setQuest(quest.get());
         esitoFinale.setStudente(
                 new OnlyStudente(user.getStudente().getIdStudente(), user, null, null, null, null, null,
                         null, null, null, null));
 
+        // elaborazione PDF
+        String dataEsecuzione = new SimpleDateFormat("yyyy-MM-dd-hh-mm").format(esitoFinale.getDataEsecuzione());
+        String studDir = "/" + user.getStudente().getIdStudente() + "-" + user.getStudente().getCognome()
+                + user.getStudente().getNome();
+        String fileName = "/" + quest.get().getTitolo() + "_" + dataEsecuzione + ".pdf";
+
+        pdfSrv.generatePdfiText(quest.get(), mapRisposteDate, studDir, fileName, user.getStudente().getCognome() + " "
+                + user.getStudente().getNome(), dataEsecuzione, quest.get().getTitolo());
+
+        esitoFinale.setPathPdf(studDir + fileName);
+
         esitiSrv.save(esitoFinale);
 
-        // elaborazione PDF
-        String studDir = "/" + user.getStudente().getIdStudente() + "-" + user.getStudente().getCognome();
-        String fileName = "/" + quest.get().getTitolo() + "_" + esitoFinale.getDataEsecuzione() + ".pdf";
-        pdfSrv.generatePdfiText(quest.get(), params, studDir, fileName);
+        log.info("End Elaborazione Questionario, Studente=" + user.getUsernameEmail());
 
-    }*/
+    }
 
-    public void elaborazioneQuestionarioQuery(User user, HashMap<String, String> params) {
-
-        log.info(params.toString());
-        Optional<Quest> quest = questSrv.findByID(Long.parseLong(params.get("id-quest")));
-        String tempo = params.get("tempo-quest");
-
-        // in params ci sono come chiave dom-{id} e valore ans-{id}
-        // con quest andiamo a controllare quante risposte corrette su quante
-        int contatore = 0;
-
-        HashMap<Long, Boolean> idRisposteDate = new HashMap<>();
-
+    /**
+     * Logica Controllo risposte corrette, con query su db.
+     * Se presente per RispostaQuest.idRisposta e RispostaQuest.correta allora
+     * risposta esatta
+     * 
+     * @param contRisposteCorrette, contatore per risposte corrette totali
+     * @param mapRisposteDate,      mappa di risposte date dallo studente,
+     *                              <idRisposta, true/false>
+     * @param params
+     */
+    private final void checkRisposte(int contRisposteCorrette, HashMap<Long, Boolean> mapRisposteDate,
+            HashMap<String, String> params) {
+        log.info("Controllo Risposte Date");
         boolean isPresent;
         for (HashMap.Entry<String, String> entry : params.entrySet()) {
             isPresent = false;
             if (entry.getValue().startsWith("ans")) {
 
-                if (isPresent = risposteSrv.findRispostaCorrettaById(Long.parseLong(entry.getValue().split("-")[1])).isPresent()) 
-                    contatore++;
-                idRisposteDate.put(Long.parseLong(entry.getValue().split("-")[1]), isPresent);
+                if (isPresent = risposteSrv.findRispostaCorrettaById(Long.parseLong(entry.getValue().split("-")[1]))
+                        .isPresent())
+                    contRisposteCorrette++;
+                mapRisposteDate.put(Long.parseLong(entry.getValue().split("-")[1]), isPresent);
             }
         }
 
-        EsitoQuest esitoFinale = new EsitoQuest();
-        esitoFinale.setDataEsecuzione(Date.valueOf(LocalDate.now()));
-        esitoFinale.setPunteggio(contatore + "/" + quest.get().getDomanda().size());
-        esitoFinale.setTempo(tempo);
-
-        esitoFinale.setQuest(quest.get());
-        esitoFinale.setStudente(
-                new OnlyStudente(user.getStudente().getIdStudente(), user, null, null, null, null, null,
-                        null, null, null, null));
-
-        esitiSrv.save(esitoFinale);
-
-        // elaborazione PDF
-        String studDir = "/" + user.getStudente().getIdStudente() + "-" + user.getStudente().getCognome();
-        String fileName = "/" + quest.get().getTitolo() + "_" + esitoFinale.getDataEsecuzione() + ".pdf";
-        pdfSrv.generatePdfiText(quest.get(), idRisposteDate, studDir, fileName);
-
+        log.info("Contatore Risposte Corrette: " + contRisposteCorrette);
+        log.info("Esito Mappa Risposta Date=" + mapRisposteDate.toString());
     }
 
 }

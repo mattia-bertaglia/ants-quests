@@ -1,24 +1,27 @@
 package com.gol.ants_quests.business;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.DomandaQuest;
 import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.entities.RispostaQuest;
+import com.gol.ants_quests.util.HeadFootPageEvent;
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -36,125 +39,125 @@ public class PdfService {
     @Value("${main-dir-quests}")
     private String mainDirQuests;
 
-    /*
-     * public byte[] generatePdfFromHtml(Quest quest, String studDir, String
-     * fileName) throws IOException {
-     * // htmlPath = htmlPath.replace("%2F", "/");
-     * File htmlFile = new File(templatePDF);
-     * 
-     * // TODO: come mettiamo nel template i dati del questionario appena svolto ??
-     * // parametro quest per prendere le domande del questionario svolto.
-     * 
-     * Document document = getDocument(htmlFile);
-     * String xhtmlContent = convertToXhtml(document);
-     * try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-     * ITextRenderer renderer = new ITextRenderer();
-     * String baseUrl = FileSystems.getDefault()
-     * .getPath("src/main/resources/")
-     * .toUri().toURL().toString();
-     * renderer.setDocumentFromString(xhtmlContent, baseUrl);
-     * renderer.layout();
-     * renderer.createPDF(outputStream, true);
-     * 
-     * savePdfToFile(outputStream.toByteArray(), mainDirQuests + "/" + studDir,
-     * fileName);
-     * 
-     * return outputStream.toByteArray();
-     * } catch (Exception e) {
-     * e.printStackTrace();
-     * throw new IOException("Error generating PDF from HTML", e);
-     * }
-     * }
-     * 
-     * public Document getDocument(File htmlFile) throws IOException {
-     * return Jsoup.parse(htmlFile, "UTF-8");
-     * }
-     * 
-     * 
-     * private String convertToXhtml(Document document) {
-     * document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
-     * return document.html();
-     * }
-     */
-
-    public ByteArrayInputStream generatePdfiText(Quest quest, HashMap<Long, Boolean> risposte, String dirPath,
-            String fileName) {
+    public void generatePdfiText(Quest quest, HashMap<Long, Boolean> risposte, String dirPath,
+            String fileName, String studente, String dataEsecuzione, String questName) {
+        log.info("Start Generate PDF idQuest=" + quest.getIdQst() + ", Studente=" + studente);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
         try {
-            com.itextpdf.text.Document document = new com.itextpdf.text.Document();
-            PdfWriter.getInstance(document, out);
+            log.info("Creazione Documento");
+            Document document = new Document(PageSize.A4, 50, 50, 50, 50);
+            PdfWriter.getInstance(document, out)
+                    .setPageEvent(new HeadFootPageEvent(studente, dataEsecuzione, questName));
             document.open();
+            log.info("Documento Aperto");
+
+            PdfPTable intestazione = new PdfPTable(2);
+            PdfPCell cell;
+
+            Image image = Image.getInstance(new ClassPathResource("antlogo.png").getURL());
+            image.scaleToFit(150, 100);
+            cell = new PdfPCell(image);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            intestazione.addCell(cell);
 
             Font titleFont = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
-            Paragraph title = new Paragraph(quest.getTitolo(), titleFont);
-            title.setAlignment(Element.ALIGN_CENTER);
-            document.add(title);
+            cell = new PdfPCell(new Paragraph(quest.getTitolo(), titleFont));
+            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            cell.setBorder(PdfPCell.NO_BORDER);
+            intestazione.addCell(cell);
 
-            int contatore = 0;
+            document.add(intestazione);
 
-            for (HashMap.Entry<Long, Boolean> entry : risposte.entrySet()) {
-
-                buildDomandaParagraph(document, quest.getDomanda().get(contatore), entry);
-                contatore++;
-
+            int numDom = 1;
+            for (DomandaQuest domanda : quest.getDomanda()) {
+                buildDomandaParagraph(document, domanda, risposte);
+                if (numDom % 5 == 0) {
+                    document.newPage();
+                    document.add(intestazione);
+                }
+                numDom++;
             }
 
             document.close();
+            log.info("Documento chiuso");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Creazione PDF fallita", e);
         }
 
         savePdfToFile(out.toByteArray(), dirPath, fileName);
-
-        return new ByteArrayInputStream(out.toByteArray());
+        log.info("End Generate PDF idQuest=" + quest.getIdQst() + ", Studente=" + studente);
     }
 
-    private void buildDomandaParagraph(com.itextpdf.text.Document document, DomandaQuest domanda,
-            Entry<Long, Boolean> entry) {
+    private void buildDomandaParagraph(Document document, DomandaQuest domanda,
+            HashMap<Long, Boolean> risposte) {
+        log.info("Start Creazione Blocco Domanda=" + domanda.getIdQstDet());
 
         try {
+
+            PdfPTable bloccoDomanda = new PdfPTable(1); // Una colonna
+            bloccoDomanda.setWidthPercentage(90);
+            bloccoDomanda.setSpacingBefore(30);
+
             // Aggiungi la domanda
-            Font questionFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD);
+            Font questionFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
             Paragraph questionParagraph = new Paragraph(domanda.getDomanda(), questionFont);
-            questionParagraph.setAlignment(Element.ALIGN_LEFT);
-            document.add(questionParagraph);
+            questionParagraph.setAlignment(Element.ALIGN_CENTER);
+            PdfPCell headCell = new PdfPCell(questionParagraph);
+            headCell.setPadding(10);
+            headCell.setBorderColorBottom(new BaseColor(0, 0, 0));
 
-            // Aggiungi le opzioni
-            
-            Font optionFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
-            PdfPTable table = new PdfPTable(1); // Una colonna
-            table.setWidthPercentage(100);
+            bloccoDomanda.addCell(headCell);
 
+            // Aggiungi le risposte
+
+            PdfPCell rispostaCell;
+            Font answerFont = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
             for (RispostaQuest risposta : domanda.getRisp()) {
+                log.info("Start Creazione Risposta=" + risposta.getIdAns());
 
-                PdfPCell cell = new PdfPCell(new Paragraph(risposta.getRisposta(), optionFont));
-                
+                rispostaCell = new PdfPCell(new Paragraph(risposta.getRisposta(), answerFont));
+                rispostaCell.setPadding(5);
+                rispostaCell.setPaddingLeft(20);
+                rispostaCell.setBorder(PdfPCell.NO_BORDER);
 
-                if (risposta.getIdAns() == entry.getKey() && entry.getValue()) {
-                    cell.setBackgroundColor(new BaseColor(144, 238, 144)); // Verde chiaro
-                    
-
-                } else if (risposta.getIdAns() == entry.getKey() && entry.getValue()==false) {
-                    cell.setBackgroundColor(new BaseColor(255, 182, 193));
+                if (risposte.containsKey(risposta.getIdAns())) {
+                    if (risposte.get(risposta.getIdAns())) {
+                        // Risposta Corretta Studente
+                        rispostaCell.setBackgroundColor(new BaseColor(144, 238, 144));
+                        log.info("Studente: Risposta Corretta");
+                    } else {
+                        // Risposta Errata Studente
+                        rispostaCell.setBackgroundColor(new BaseColor(255, 182, 193));
+                        log.info("Studente: Risposta Errata");
+                    }
+                } else if (risposta.getCorretta()) {
+                    // Risposta Corretta della Domanda
+                    rispostaCell.setBackgroundColor(new BaseColor(255, 255, 102));
+                    log.info("Domanda: Risposta Corretta");
                 }
 
-                cell.setBorder(PdfPCell.NO_BORDER);
-                table.addCell(cell);
+                bloccoDomanda.addCell(rispostaCell);
+                log.info("End Creazione Risposta=" + risposta.getIdAns());
             }
 
-            document.add(table);
+            document.add(bloccoDomanda);
         } catch (DocumentException e) {
-            log.error("Build Paragrafo domanda pdf", e);
+            log.error("Build Blocco Domanda fallito, idDomanda=" + domanda.getIdQstDet(), e);
         }
+
+        log.info("End Creazione Blocco Domanda=" + domanda.getIdQstDet());
 
     }
 
     private void savePdfToFile(byte[] pdfBytes, String dirPath, String filePath) {
+        log.info("Start Salvataggio PDF studenteDir= " + dirPath + filePath);
 
         String completePath = mainDirQuests + dirPath;
         File dir = new File(completePath);
         if (!dir.exists()) {
+            log.info("Cartella Studente NON presente, creazione");
             dir.mkdirs();
         }
 
@@ -162,7 +165,8 @@ public class PdfService {
         try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(pdfBytes);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Salvataggio PDF fallito", e);
         }
+        log.info("End Salvataggio PDF studenteDir= " + dirPath + filePath);
     }
 }
