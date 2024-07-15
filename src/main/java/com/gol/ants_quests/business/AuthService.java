@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Optional;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -37,7 +38,7 @@ public class AuthService {
         String password = params.get("passkey");
 
         if (email == null || password == null || userExists(email)) {
-            errorService.getToast(model, "registrationError");
+            errorService.addErrorMessageToModel(model, "registrationError");
             return;
         }
 
@@ -50,25 +51,23 @@ public class AuthService {
         // Salvataggio dell'utente con lo studente temporaneo
         User salvatoUser = userRepository.save(user);
         // popolare dati studente da form di firstTime.html
-        Studente studenteTemp = new Studente(null,
-                salvatoUser,
-                params.get("nome"),
-                params.get("cognome"),
-                Date.valueOf(params.get("dataNascita")),
-                params.get("cap"),
-                params.get("provincia"),
-                params.get("telefono"),
-                params.get("note"),
-                Date.valueOf(LocalDate.now()),
-                null,
-                null);
+        Studente studenteTemp = salvatoUser.getStudente();
+        studenteTemp.setNome(params.get("nome"));
+        studenteTemp.setCognome(params.get("cognome"));
+        studenteTemp.setDataNascita(Date.valueOf(params.get("dataNascita")));
+        studenteTemp.setCap(params.get("cap"));
+        studenteTemp.setProvincia(params.get("provincia"));
+        studenteTemp.setTelefono(params.get("telefono"));
+        studenteTemp.setNote(params.get("note"));
+        studenteTemp.setDataInserimento(Date.valueOf(LocalDate.now()));
         salvatoUser.setStudente(studHibSrv.save(studenteTemp));
 
         if (salvatoUser == null || salvatoUser.getId() == null) {
-            errorService.getToast(model, "errore di registrazione");
+            errorService.addErrorMessageToModel(model, "registrationError");
             return;
         }
 
+        errorService.addErrorMessageToSession(session, "registrationSuccess");
         setupSession(session, userRepository.save(user));
     }
 
@@ -77,7 +76,7 @@ public class AuthService {
         String password = params.get("passkey");
 
         if (email == null || password == null || !userExists(email)) {
-            errorService.getToast(model, "registrationError");
+            errorService.addErrorMessageToModel(model, "registrationError");
             return;
         }
 
@@ -98,9 +97,11 @@ public class AuthService {
         salvatoUser.setStudente(studHibSrv.save(studenteTemp));
 
         if (salvatoUser == null || salvatoUser.getId() == null) {
-            errorService.getToast(model, "errore di registrazione");
+            errorService.addErrorMessageToModel(model, "registrationError");
             return;
         }
+
+        errorService.addErrorMessageToSession(session, "registrationSuccess");
 
     }
 
@@ -165,21 +166,13 @@ public class AuthService {
         if (session.getAttribute("usrlog") != null)
             userLogged = (boolean) session.getAttribute("usrlog");
 
-        if (userLogged) {
-            return true;
-        } else {
-            return false;
-        }
+        return userLogged;
     }
 
     public boolean hasPermission(HttpSession session, Ruolo ruolo) {
         User user = (User) session.getAttribute("user");
-        if (user.getRuolo().equals(ruolo)) {
-            return true;
-        } else {
-            return false;
-        }
 
+        return user.getRuolo().equals(ruolo);
     }
 
 }
