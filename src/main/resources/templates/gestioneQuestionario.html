@@ -20,21 +20,21 @@
                     <div class="card-header">
                         Impostazioni Test
                     </div>
-                    <form action="quest/savetest" method="get">
+                    <form action="savetest" method="get">
                         <div class="card-body">
                             <label for="">Categoria</label>
-                            <select id="type" name="type" style="padding: 10px; width: 100%;">
-                                <option disabled selected> -Selezione un elemento- </option>
+                            <select id="type" name="type" style="padding: 10px; width: 100%;" required>
+                                <option value="" disabled selected> -Selezione un elemento- </option>
                                 <option th:each="categorie : ${listaCategorie}" 
-                                    <!--th:selected="${quest.categoriequest.idCat}"--
-                                    th:text="${categorie.nome}" th:value="${categorie.idCat}">
+                                    th:text="${categorie.nome}" th:value="${categorie.idCat}"
+                                    th:selected="${quest.categoriequest.idCat==categorie.idCat}">
                                 </option>
                             </select>
                         </div>
                         <div class="card-body">
                             <label for="">Titolo</label>
-                            <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}" style="padding: 10px; width: 100%;">
-                        </div>
+                            <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}" style="padding: 10px; width: 100%;" required>
+                            <input type="hidden" name="id_quest" th:value="${quest.idQst}"/></div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Salva</button>
                         </div>
@@ -63,11 +63,11 @@
                         <ul class="list-group list-group-flush" id="elenco-domande">
                             <li class="list-group-item" th:each="domanda : ${quest.domanda}" >
                                 <details>
-                                    <summary th:text="${domanda.domanda}" ></summary>
+                                    <summary th:id="${domanda.idQstDet}" th:text="${domanda.domanda}" ></summary>
                                     <div>
                                         <hr>
                                         <button class="btn btn-outline-primary" data-bs-toggle="modal"
-                                            data-bs-target="#modale-modifica-domanda">Modifica</button>
+                                            data-bs-target="#modale-modifica-domanda" th:onclick="popolaModale([[${domanda}]])">Modifica</button>
                                         <button class="btn btn-outline-danger" data-bs-toggle="modal"
                                             data-bs-target="#modale-elimina-domanda">Elimina</button>
                                         <div class="mb-3 mt-3"></div>
@@ -119,14 +119,19 @@
                         <label class="input-group-text col-5" for="mod_domanda">
                             Domanda
                         </label>
-                        <textarea class="form-control w-100"id="mod_domanda"></textarea>
+                        <textarea id="textAreaDomanda" class="form-control w-100"></textarea>
                     </div>
                     <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary btn-sm">Aggiungi Risposta</button>
+                        </div>
+                    </div>
                     <div class="mb-3 mt-3"></div>
                 </div>
                 <div class="modal-footer">
                     <div class="d-grid gap-1 col-10 mt-3 mx-auto">
-                        <button type="submit" class="btn btn-primary">Modifica</button>
+                        <button type="submit" class="btn btn-primary" onclick="modificaDomanda()">Modifica</button>
                     </div>
                     <div class="d-grid gap-2 col-10 mt-2 mx-auto">
                         <button type="reset" class="btn btn-warning">Pulisci</button>
@@ -151,6 +156,13 @@
                         </label>
                         <textarea class="form-control w-100" id="new-domanda"></textarea>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary btn-sm">Aggiungi Risposta</button>
+                        </div>
+                    </div>
+                    <div class="mb-3 mt-3"></div>
                 </div>
                 <div class="modal-footer">
                     <div class="d-grid gap-1 col-10 mt-3 mx-auto">
@@ -168,6 +180,19 @@
 
 
 
+<script>
+    
+    function popolaModale(domanda) {
+        document.getElementById('textAreaDomanda').value = domanda.domanda;
+    }
+
+
+    function modificaDomanda(){
+        document.getElementById('1').innerHTML = document.getElementById("textAreaDomanda").value;
+    }
+
+
+</script>
 
 
 

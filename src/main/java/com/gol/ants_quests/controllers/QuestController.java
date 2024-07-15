@@ -41,17 +41,16 @@ public class QuestController {
             Integer.parseInt(id_quest);
             gestSrv.findDomandeByID(id_quest,model);
         } catch (Exception error) {
-            gestSrv.empyObject(model);    
+            gestSrv.empyObject(model);   
         }
 
         return "gestioneQuestionario.html";
     }
 
     @GetMapping("/savetest")
-    public String savetest(){
-
-
-        return "redirect:";
+    public String savetest(@RequestParam HashMap<String, String> params){
+        gestSrv.saveTest(params);
+        return "redirect:/quest/lista";
     }
     
 }
