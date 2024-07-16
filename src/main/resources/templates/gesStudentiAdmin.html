@@ -21,8 +21,8 @@
     <div class="main-content">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="dropdown"><a href="/homeAdmin/">Home</a></li>
-                <li class="dropdown"><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"
+                <li class="breadcrumb-item"><a href="/homeAdmin/">Home</a></li>
+                <li class="breadcrumb-item"><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">Questionari</a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li><a href="/quest/esiti">Gestione Categorie</a></li>
@@ -31,7 +31,7 @@
                         <li><a href="/quest/esiti">Esito Ultimi Questionari</a></li>
                     </ul>
                 </li>
-                <li class="dropdown"><a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false"
+                <li class="breadcrumb-item"><a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">Corsi</a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu2">
                         <li><a href="/ges_corsi/">Elenco Corsi</a></li>
@@ -40,7 +40,7 @@
                         <li><a href="/homeAdmin/calendario">Calendario Corsi</a></li>
                     </ul>
                 </li>
-                <li><a class="dropdown" href="/homeAdmin/calendario">Calendario</a></li>
+                <li class="breadcrumb-item"><a href="/homeAdmin/calendario">Calendario</a></li>
             </ol>
         </nav>
     </div>
@@ -240,12 +240,9 @@
                         </div>
                         <div class="form-group">
                             <label>Corso</label>
-                            <select name="corso" class="form-control" required>
-                                <option disabled selected>- Seleziona un corso -</option>
-                                <option value="Gol Aprile 2024">Gol Aprile 2024</option>
-                                <option value="Gol Ottobre 2023">Gol Ottobre 2023</option>
-                                <option value="Fondo Impresa 2023">Fondo Impresa 2023</option>
-                            </select>
+
+                            <input type="text" class="form-control" name="corso" readonly>
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -259,20 +256,19 @@
 
     <script>
         function populateModal(button) {
-            document.querySelector("#modDetailModal [name=studId]").value = button.getAttribute('th:data-student-id');
-            document.querySelector("#modDetailModal [name=nome]").value = button.getAttribute('th:data-student-nome');
-            document.querySelector("#modDetailModal [name=cognome]").value = button.getAttribute('th:data-student-cognome');
-            document.querySelector("#modDetailModal [name=email]").value = button.getAttribute('th:data-student-email');
+            document.querySelector("#modDetailModal input[name=studId]").value = button.getAttribute('data-student-id');
+            document.querySelector("#modDetailModal input[name=nome]").value = button.getAttribute('data-student-nome');
+            document.querySelector("#modDetailModal input[name=cognome]").value = button.getAttribute('data-student-cognome');
+            document.querySelector("#modDetailModal input[name=email]").value = button.getAttribute('data-student-email');
 
-            const corso = button.getAttribute('th:data-student-corso') || '';
-            document.querySelector("#modDetailModal [name=corso]").value = corso;
+            const corso = button.getAttribute('data-student-corso') || '';
+            document.querySelector("#modDetailModal input[name=corso]").value = corso;
         }
     </script>
 
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
-
 </body>
 
 </html>
