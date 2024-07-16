@@ -21,8 +21,8 @@
     <div class="main-content">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="dropdown"><a href="/homeAdmin/">Home</a></li>
-                <li class="dropdown"><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"
+                <li class="breadcrumb-item"><a href="/homeAdmin/">Home</a></li>
+                <li class="breadcrumb-item"><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">Questionari</a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li><a href="/quest/esiti">Gestione Categorie</a></li>
@@ -31,7 +31,7 @@
                         <li><a href="/quest/esiti">Esito Ultimi Questionari</a></li>
                     </ul>
                 </li>
-                <li class="dropdown"><a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false"
+                <li class="breadcrumb-item"><a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">Corsi</a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu2">
                         <li><a href="/ges_corsi/">Elenco Corsi</a></li>
@@ -40,7 +40,7 @@
                         <li><a href="/homeAdmin/calendario">Calendario Corsi</a></li>
                     </ul>
                 </li>
-                <li><a class="dropdown" href="/homeAdmin/calendario">Calendario</a></li>
+                <li class="breadcrumb-item"><a href="/homeAdmin/calendario">Calendario</a></li>
             </ol>
         </nav>
     </div>
@@ -134,7 +134,8 @@
                                             th:data-student-cognome="${stud.cognome}"
                                             th:data-student-email="${stud.user.usernameEmail}"
                                             th:data-student-corso="${stud.corso != null ? stud.corso.nome : 'N/A'}"
-                                            onclick="populateModal(this)">
+                                            th:data-student-datanascita="${stud.dataNascita}"
+                                            th:data-student-ruolo="${stud.user.ruolo}" onclick="populateModal(this)">
                                             Modifica
                                         </button>
                                     </td>
@@ -196,9 +197,9 @@
                             <label>Corso</label>
                             <select name="corso" class="form-control" required>
                                 <option disabled selected>- Seleziona un corso -</option>
-                                <option value="Gol Aprile 2024">Gol Aprile 2024</option>
-                                <option value="Gol Ottobre 2023">Gol Ottobre 2023</option>
-                                <option value="Fondo Impresa 2023">Fondo Impresa 2023</option>
+                                <tr th:each="corso : ${corsi}">
+                                    <option th:value="${corso.idCorso}" th:text="${corso.nome}"></option>
+                                </tr>
                             </select>
                         </div>
                     </div>
@@ -242,14 +243,26 @@
                             <label>Corso</label>
                             <select name="corso" class="form-control" required>
                                 <option disabled selected>- Seleziona un corso -</option>
-                                <option value="Gol Aprile 2024">Gol Aprile 2024</option>
-                                <option value="Gol Ottobre 2023">Gol Ottobre 2023</option>
-                                <option value="Fondo Impresa 2023">Fondo Impresa 2023</option>
+                                <tr th:each="corso : ${corsi}">
+                                    <option th:value="${corso.idCorso}" th:text="${corso.nome}"></option>
+                                </tr>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Data di Nascita</label>
+                            <input type="date" class="form-control" name="dataNascita" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Ruolo</label>
+                            <select name="ruolo" class="form-control" required>
+                                <option value="I">Studente</option>
+                                <option value="C">Guest</option>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button type="button" class="btn btn-warning" onclick="resetCampi()">Reset</button>
                         <button type="submit" class="btn btn-primary">Salva</button>
                     </div>
                 </form>
@@ -257,22 +270,56 @@
         </div>
     </div>
 
+    <!-- Modale Conferma Reset Campi -->
+    <div class="modal fade" id="resetConfirmModal" tabindex="-1" role="dialog" aria-labelledby="resetConfirmModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resetConfirmModalLabel">Conferma Reset</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">x</button>
+                </div>
+                <div class="modal-body">
+                    Sei sicuro di voler RESETTARE TUTTI i campi?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-danger" id="confirmReset">Resetta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function populateModal(button) {
-            document.querySelector("#modDetailModal [name=studId]").value = button.getAttribute('th:data-student-id');
-            document.querySelector("#modDetailModal [name=nome]").value = button.getAttribute('th:data-student-nome');
-            document.querySelector("#modDetailModal [name=cognome]").value = button.getAttribute('th:data-student-cognome');
-            document.querySelector("#modDetailModal [name=email]").value = button.getAttribute('th:data-student-email');
-
-            const corso = button.getAttribute('th:data-student-corso') || '';
-            document.querySelector("#modDetailModal [name=corso]").value = corso;
+            document.querySelector("#modDetailModal input[name=studId]").value = button.getAttribute('data-student-id');
+            document.querySelector("#modDetailModal input[name=nome]").value = button.getAttribute('data-student-nome');
+            document.querySelector("#modDetailModal input[name=cognome]").value = button.getAttribute('data-student-cognome');
+            document.querySelector("#modDetailModal input[name=email]").value = button.getAttribute('data-student-email');
+            document.querySelector("#modDetailModal input[name=dataNascita]").value = button.getAttribute('data-student-datanascita');
+            const ruolo = button.getAttribute('data-student-ruolo') || '';
+            document.querySelector("#modDetailModal select[name=ruolo]").value = ruolo;
+            const corso = button.getAttribute('data-student-corso') || '';
+            document.querySelector("#modDetailModal select[name=corso]").value = corso;
         }
+
+        function resetCampi() {
+            $('#resetConfirmModal').modal('show');
+        }
+
+        document.getElementById('confirmReset').addEventListener('click', function () {
+            document.querySelector("#modDetailModal input[name=nome]").value = '';
+            document.querySelector("#modDetailModal input[name=cognome]").value = '';
+            document.querySelector("#modDetailModal input[name=email]").value = '';
+            document.querySelector("#modDetailModal input[name=dataNascita]").value = '';
+            document.querySelector("#modDetailModal select[name=ruolo]").selectedIndex = 0; // Reset to default
+            $('#resetConfirmModal').modal('hide'); // Chiudi il modal di conferma
+        });
     </script>
 
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
-
 </body>
 
 </html>

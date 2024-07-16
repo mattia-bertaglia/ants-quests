@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gol.ants_quests.business.GesCorsiService;
 import com.gol.ants_quests.business.GesStudentiService;
 
 import lombok.RequiredArgsConstructor;
@@ -21,10 +22,12 @@ import lombok.RequiredArgsConstructor;
 public class GesStudentiController {
 
     private final GesStudentiService studSrv;
+    private final GesCorsiService corsiSrv;
 
     @GetMapping("/")
     public String getStud(Model model) {
         model.addAttribute("studenti", studSrv.findAllStudenti());
+        model.addAttribute("corsi", corsiSrv.findAll());
         return "gesStudentiAdmin.html";
     }
 
@@ -33,11 +36,5 @@ public class GesStudentiController {
         studSrv.saveStudenteFixed(params);
         return "redirect:/ges_studenti/";
     }
-
-
-
-
-
- 
 
 }
