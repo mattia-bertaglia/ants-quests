@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.Corso;
+import com.gol.ants_quests.hibernate.entities.OnlyCorso;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.services.CorsiHibService;
 import com.gol.ants_quests.hibernate.services.StudentiHibService;
@@ -69,22 +70,37 @@ public class GesCorsiService {
         }
     }
 
+    /*
+     * params avra' potenzialmente 3 parametri:
+     * - idStudente
+     * - nome
+     * - cognome
+     * vai a chiamare
+     * studHibSrv.findByIdStudenteOrNomeOrCognomeAndCorsoId(idStudente, nome,
+     * cognome, null) chew restituisce una lista
+     * 
+     * return Lista
+     * 
+     */
+
+    /*
+     * return studHibSrv.findAll(studente);
+     */
     public List<Studente> cercaStudenti(HashMap<String, String> params) {
+        Long idStudente = null;
+        String nome = null;
+        String cognome = null;
 
-        /*
-         * params avra' potenzialmente 3 parametri:
-         * - idStudente
-         * - nome
-         * - cognome
-         * vai a chiamare
-         * studHibSrv.findByIdStudenteOrNomeOrCognomeAndCorsoId(idStudente, nome,
-         * cognome, null) chew restituisce una lista
-         * 
-         * return Lista
-         * 
-         */
-        return null;
+        if (params.get("idStudente") != null && !"".equals(params.get("idStudente")))
+            idStudente = Long.parseLong(params.get("idStudente"));
 
+        if (params.get("nome") != null && !"".equals(params.get("nome")))
+            nome = params.get("nome");
+
+        if (params.get("cognome") != null && !"".equals(params.get("cognome")))
+            cognome = params.get("cognome");
+
+        return studHibSrv.cercaStudenti(idStudente, nome, cognome);
     }
 
 }

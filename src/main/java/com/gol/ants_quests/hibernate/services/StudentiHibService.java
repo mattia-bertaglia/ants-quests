@@ -37,10 +37,8 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
 
     }
 
-    // Modificare aggiungendo anche idStudente
-    public List<Studente> findByNomeOrCognome(String nome, String cognome) {
-        return getRepository().findByNomeOrCognome(nome, cognome);
-
+    public List<Studente> cercaStudenti(Long idStudente, String nome, String cognome) {
+        return getRepository().cercaStudenti(idStudente, nome, cognome);
     }
 
     public List<Studente> findAll(Sort sort) {
