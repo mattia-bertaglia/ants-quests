@@ -40,7 +40,7 @@
                         <li><a href="/homeAdmin/calendario">Calendario Corsi</a></li>
                     </ul>
                 </li>
-                <a class="dropdown" href="/homeAdmin/calendario">Calendario</a>
+                <li><a class="dropdown" href="/homeAdmin/calendario">Calendario</a></li>
             </ol>
         </nav>
     </div>
@@ -62,16 +62,18 @@
                                             placeholder="Inserisci il nome dello studente">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="">Ruolo</label>
-                                        <select name="ruolo" class="custom-select">
+                                        <label for="ruolo">Ruolo</label>
+                                        <select name="ruolo" class="custom-select" id="ruolo"
+                                            aria-label="Seleziona il ruolo">
                                             <option disabled selected>- Seleziona un elemento -</option>
                                             <option value="I">Studente</option>
                                             <option value="C">Guest</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="">Corso</label>
-                                        <select name="corso" class="custom-select">
+                                        <label for="corso">Corso</label>
+                                        <select name="corso" class="custom-select" id="corso"
+                                            aria-label="Seleziona un corso">
                                             <option disabled selected>- Seleziona un elemento -</option>
                                             <option value="Nessuno">-Nessuno-</option>
                                             <option value="Gol Aprile 2024">Gol Aprile 2024</option>
@@ -131,7 +133,6 @@
                                             th:data-student-nome="${stud.nome}"
                                             th:data-student-cognome="${stud.cognome}"
                                             th:data-student-email="${stud.user.usernameEmail}"
-                                            th:data-student-ruolo="${stud.user.ruolo}"
                                             th:data-student-corso="${stud.corso != null ? stud.corso.nome : 'N/A'}"
                                             onclick="populateModal(this)">
                                             Modifica
