@@ -3,7 +3,6 @@ package com.gol.ants_quests.business;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -15,7 +14,9 @@ import com.gol.ants_quests.hibernate.services.CorsiHibService;
 import com.gol.ants_quests.hibernate.services.StudentiHibService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GesCorsiService {
@@ -34,10 +35,6 @@ public class GesCorsiService {
      * }
      */
 
-    public Optional<Studente> findByTelefono(String telefono) {
-        return studHibSrv.findByTelefono(telefono);
-    }
-
     public Corso saveCorso(HashMap<String, String> params) {
         Corso corso = new Corso();
 
@@ -52,87 +49,42 @@ public class GesCorsiService {
         return corsiHibSrv.save(corso);
     }
 
-    public Studente eliminaStudenteDalCorso(HashMap<String, String> params) {
+    public String eliminaStudenteDalCorso(HashMap<String, String> params) {
         if (params.get("idStudente") != null && !"".equals(params.get("idStudente"))) {
             Long idStudente = Long.parseLong(params.get("idStudente"));
-            Studente studente = studHibSrv.findById(idStudente).get();
 
-            if (studente != null) {
-                // Rimuovi l'ID del corso dallo studente
-                studente.setCorso(null);
+            log.info("Ricerca IdStudente=" + idStudente);
+            if (studHibSrv.findById(idStudente).isPresent()) {
+                log.info("Studente Trovato, eliminazione da Corso");
+                studHibSrv.modificaCorso(idStudente, null);
+                return "OK";
 
-                // Salva le modifiche
-                return studHibSrv.save(studente);
             } else {
-                // Gestisci il caso in cui lo studente non viene trovato
-                throw new RuntimeException("Studente non trovato con ID: " + idStudente);
+                log.error("Studente non trovato.");
+                return "KO";
             }
         } else {
-            // Gestisci il caso in cui l'ID dello studente non è presente nei parametri
-            throw new IllegalArgumentException("ID dello studente non fornito");
+            log.error("IdStudente non ricevuto.");
+            return "KO";
         }
     }
 
-    /*
-     * public Corso eliminaStudenteDalCorso(HashMap<String, String> params) {
-     * if (params.get("idCorso") != null && !"".equals(params.get("idCorso"))) {
-     * Long idCorso = Long.parseLong(params.get("idCorso"));
-     * 
-     * Corso corso = corsiHibSrv.findById(idCorso).get();
-     * 
-     * if (corso != null) {
-     * // Rimuovi l'ID del corso dallo studente
-     * corso.setStudenti(null);
-     * 
-     * // Salva le modifiche
-     * return corsiHibSrv.save(corso);
-     * } else {
-     * // Gestisci il caso in cui lo studente non viene trovato
-     * throw new RuntimeException("Studente non trovato con ID: " + idCorso);
-     * }
-     * } else {
-     * // Gestisci il caso in cui l'ID dello studente non è presente nei parametri
-     * throw new IllegalArgumentException("ID dello studente non fornito");
-     * }
-     * }
-     * 
-     * @Transactional
-     * public void eliminaStudenteDalCorso(Long idCorso, Long idStudente) {
-     * Corso corso = corsiHibSrv.findById(idCorso)
-     * .orElseThrow(() -> new RuntimeException("Corso non trovato con ID: " +
-     * idCorso));
-     * 
-     * // Rimuovi l'associazione con il corso
-     * corso.setStudenti(null);
-     * corsiHibSrv.save(corso);
-     * }
-     */
+    public List<Studente> cercaStudenti(HashMap<String, String> params) {
 
-    /*
-     * @Transactional
-     * public void eliminaStudenteDalCorso(Long idCorso, Long idStudente) {
-     * Studente studente = studHibSrv.findById(idStudente)
-     * .orElseThrow(() -> new RuntimeException("Studente non trovato con ID: " +
-     * idStudente));
-     * 
-     * // Rimuovi l'associazione con il corso
-     * studente.setCorso(null);
-     * studHibSrv.save(studente);
-     * }
-     */
-    /*
-     * @Transactional
-     * public void eliminaStudenteDalCorso(Long idCorso, Long idStudente) {
-     * Corso corso = corsiHibSrv.findById(idCorso)
-     * .orElseThrow(() -> new RuntimeException("Corso non trovato con ID: " +
-     * idCorso));
-     * 
-     * // Rimuovi l'associazione con il corso
-     * corso.setStudenti(null);
-     * 
-     * // Salva le modifiche
-     * corsiHibSrv.save(corso);
-     * }
-     */
+        /*
+         * params avra' potenzialmente 3 parametri:
+         * - idStudente
+         * - nome
+         * - cognome
+         * vai a chiamare
+         * studHibSrv.findByIdStudenteOrNomeOrCognomeAndCorsoId(idStudente, nome,
+         * cognome, null) chew restituisce una lista
+         * 
+         * return Lista
+         * 
+         */
+        return null;
+
+    }
 
 }

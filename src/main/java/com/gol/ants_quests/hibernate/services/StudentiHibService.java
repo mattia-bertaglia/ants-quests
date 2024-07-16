@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.repositories.StudentiRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class StudentiHibService extends GenericHibService<Studente, Long, StudentiRepository> {
 
@@ -19,11 +21,23 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
 
     }
 
+    /**
+     * Metodo che permette di modificare idCorso dello Studente
+     * 
+     * @param idStudente
+     * @param idCorso
+     */
+    @Transactional
+    public void modificaCorso(Long idStudente, Long idCorso) {
+        getRepository().modificaCorso(idStudente, idCorso);
+    }
+
     public List<Studente> findByNomeAndCognome(String nome, String cognome) {
         return getRepository().findByNomeAndCognome(nome, cognome);
 
     }
 
+    // Modificare aggiungendo anche idStudente
     public List<Studente> findByNomeOrCognome(String nome, String cognome) {
         return getRepository().findByNomeOrCognome(nome, cognome);
 
