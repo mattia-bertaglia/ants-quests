@@ -34,7 +34,8 @@
                         <div class="card-body">
                             <label for="">Titolo</label>
                             <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}" style="padding: 10px; width: 100%;" required>
-                            <input type="hidden" name="id_quest" th:value="${quest.idQst}"/></div>
+                            <input type="hidden" name="id_quest" th:value="${quest.idQst}"/>
+                        </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Salva</button>
                         </div>
@@ -53,8 +54,9 @@
                                 Elenco domande
                             </div>
                             <div class="col-md-2">
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#modale-aggiungi-domanda">Aggiungi Domanda</button>
+                                <button id="bottone_aggiungi_domanda" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#modale-aggiungi-domanda" disabled>
+                                    Aggiungi Domanda</button>
                             </div>
                         </div>
                     </div>
@@ -80,9 +82,6 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Salva</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -100,7 +99,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
-                    <button type="submit" class="btn btn-danger">Elimina</button>
+                    <form action="eliminadomanda" method="get">
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -111,32 +112,41 @@
     <div class="modal fade" id="modale-modifica-domanda">
         <div class="modal-dialog modal-dialog-centered modal-xl ">
             <div class="modal-content">
-                <div class="modal-header" style="width: 100%;">
-                    <h5 class="modal-title">Modifica Domanda</h5>
-                </div>
-                <div class="modal-body" style="background-color: aliceblue;">
-                    <div class="input-group input-group-sm mb-1">
-                        <label class="input-group-text col-5" for="mod_domanda">
-                            Domanda
-                        </label>
-                        <textarea id="textAreaDomanda" class="form-control w-100"></textarea>
+                <form action="modificadomanda" method="get">
+                    <div class="modal-header" style="width: 100%;">
+                        <h5 class="modal-title">Modifica Domanda</h5>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button class="btn btn-primary btn-sm">Aggiungi Risposta</button>
+                    <div class="modal-body" style="background-color: aliceblue;">
+                        <div class="input-group input-group-sm mb-1">
+                            <label class="input-group-text col-5" for="mod_domanda">
+                                Domanda
+                            </label>
+                            <input type="hidden" th:value="${quest.idQst}"  id="id_questionario" name="id_questionario"/>
+                            <input type="hidden" id="id_domanda" name="id_domanda"/>
+                            <textarea name="domanda_inserita" id="textAreaDomanda" class="form-control w-100"></textarea>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                            <button class="btn btn-primary btn-sm"
+                                onclick="aggiungiRisposta('elenco-risposte')">
+                                Aggiungi Risposta
+                            </button>
+                            </div>
+                        </div>
+                        <div class="mb-3 mt-3"></div>
+                        <div id="elenco-risposte">
                         </div>
                     </div>
-                    <div class="mb-3 mt-3"></div>
-                </div>
-                <div class="modal-footer">
-                    <div class="d-grid gap-1 col-10 mt-3 mx-auto">
-                        <button type="submit" class="btn btn-primary" onclick="modificaDomanda()">Modifica</button>
+                    <div class="modal-footer">
+                        <div class="d-grid gap-1 col-10 mt-3 mx-auto">
+                            <button type="submit" class="btn btn-primary">Modifica</button>
+                        </div>
+                        <div class="d-grid gap-2 col-10 mt-2 mx-auto">
+                            <button type="reset" class="btn btn-warning">Pulisci</button>
+                        </div>
                     </div>
-                    <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                        <button type="reset" class="btn btn-warning">Pulisci</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -146,32 +156,57 @@
     <div class="modal fade" id="modale-aggiungi-domanda">
         <div class="modal-dialog modal-dialog-centered modal-xl ">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Aggiungi Domanda</h5>
-                </div>
-                <div class="modal-body" style="background-color: aliceblue;">
-                    <div class="input-group input-group-sm mb-1">
-                        <label class="input-group-text col-5" for="new-domanda">
-                            Domanda
-                        </label>
-                        <textarea class="form-control w-100" id="new-domanda"></textarea>
+                <form action="savenuovadomanda" method="get">
+                    <input type="hidden" name="id_quest" th:value="${quest.idQst}"/>
+                    <div class="modal-header">
+                        <h5 class="modal-title">Aggiungi Domanda</h5>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button class="btn btn-primary btn-sm">Aggiungi Risposta</button>
+                    <div class="modal-body" style="background-color: aliceblue;">
+                        <div class="input-group input-group-sm mb-1">
+                            <label class="input-group-text col-5" for="new-domanda">
+                                Domanda
+                            </label>
+                            <textarea name="domanda_inserita" class="form-control w-100" id="new-domanda" required></textarea>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="button" class="btn btn-primary btn-sm"
+                                    onclick="aggiungiRisposta('nuovo-elenco-risposte')"
+                                    value="Aggiungi Risposta">
+                            </div>
+                        </div>
+                        <div class="mb-3 mt-3"></div>
+
+                        <div id="nuovo-elenco-risposte">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="input-group input-group-sm mb-1">
+                                        <input type="text" class="form-control col-6" name="risposta"
+                                            value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="1" name="corretta" id="corretta">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Corretta
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="d-grid gap-1 col-10 mt-3 mx-auto">
+                            <button type="submit" class="btn btn-primary" onclick="inviaCheckbox()">Aggiungi</button>
+                        </div>
+                        <div class="d-grid gap-2 col-10 mt-2 mx-auto">
+                            <button type="reset" class="btn btn-warning">Pulisci</button>
                         </div>
                     </div>
-                    <div class="mb-3 mt-3"></div>
-                </div>
-                <div class="modal-footer">
-                    <div class="d-grid gap-1 col-10 mt-3 mx-auto">
-                        <button type="submit" class="btn btn-primary">Aggiungi</button>
-                    </div>
-                    <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                        <button type="reset" class="btn btn-warning">Pulisci</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -183,12 +218,58 @@
 <script>
     
     function popolaModale(domanda) {
+        //document.getElementById('textAreaDomanda').value = domanda.domanda;
         document.getElementById('textAreaDomanda').value = domanda.domanda;
+        document.getElementById('id_domanda').value = domanda.idQstDet;
+
+        for(let i=0;i<domanda.risp.length;i++){
+            //document.getElementById('textAreaDomanda').value += domanda.risp[i].risposta;
+            
+        }
     }
 
 
-    function modificaDomanda(){
-        document.getElementById('1').innerHTML = document.getElementById("textAreaDomanda").value;
+    function aggiungiRisposta(elenco) {
+        let templateRisposta = 
+                     `<div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group input-group-sm mb-1">
+                                    <input type="text" class="form-control col-6" name="risposta"
+                                        value="" required>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" name="corretta" id="corretta">
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        Corretta
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-danger"
+                                    onclick="eliminaDomanda(this.parentNode.parentNode)">Elimina</button>
+                            </div>
+                        </div>`;
+
+        document.getElementById(elenco).insertAdjacentHTML("beforeend",templateRisposta);
+      
+    }
+    
+    window.onload = function validazione(){
+        if(document.getElementById("titolo").value != ""){
+            var button = document.getElementById("bottone_aggiungi_domanda").disabled = false;
+        }     
+    }
+
+    function eliminaDomanda(domanda) {
+        domanda.parentNode.removeChild(domanda);
+    }
+
+    function inviaCheckbox(){
+        if(document.getElementById("corretta").checked) {
+            document.getElementById('checkboxHidden').disabled = true;
+        }
     }
 
 

@@ -52,5 +52,18 @@ public class QuestController {
         gestSrv.saveTest(params);
         return "redirect:/quest/lista";
     }
+
+    @GetMapping("/savenuovadomanda")
+    public String savenuovadomanda(@RequestParam HashMap<String, String> params){
+        String idQuest = gestSrv.saveNewDomanda(params);
+        return "redirect:/quest/gestione?id_quest=" + idQuest;
+    }
+
+    @GetMapping("/modificadomanda")
+    public String modificadomanda(@RequestParam HashMap<String, String> params){
+        String idQuest = gestSrv.modificaDomanda(params);
+        return "redirect:/quest/gestione?id_quest=" + idQuest;
+    }
+
     
 }
