@@ -91,7 +91,7 @@
         </div>
     </div>
     <!-- Fine filtro ricerca -->
-    <!--    //TOGLIERE FORM DALCONTAINER PRINCIPALE -->
+
     <!-- inizio main -->
     <div class="main-content">
         <div class="custom-margin">
@@ -148,19 +148,19 @@
                                 </tr>
                             </tbody>
                         </table>
+
+
+                        <!-- Inizio pagine dinamiche   -->
+                        <div class="text-center">
+                            <button onclick="prevPage()" class="btn btn-secondary" id="btn_prev">Precedente</button>
+                            <span>Pagina <span id="page"></span> di <span id="totalPages"></span></span>
+                            <button onclick="nextPage()" class="btn btn-secondary" id="btn_next">Successivo</button>
+                        </div>
+                        <!-- fine pagine dinamiche   -->
+
                     </div>
 
-                    <!-- CONTROLLARE SE FUNZIONA DINAMICAMENTE CON JS IMPORTATO IN BASSO, IN CASO PORTARE A TUTTE LE PAGINE -->
-                    <!-- Inizio pagine dinamiche   -->
-                    <div class="clearfix">
-                        <div class="hint-text text-center">Pagina <b id="currentPage">1</b> di <b id="totalPages"></b>
-                        </div>
-                        <ul class="pagination justify-content-center" id="pagination">
-                            <li class="page-item" id="prevPage"><a href="#" class="page-link">Precedente</a></li>
-                            <li class="page-item" id="nextPage"><a href="#" class="page-link">Successiva</a></li>
-                        </ul>
-                    </div>
-                    <!-- fine pagine dinamiche   -->
+
 
                 </div>
             </div>
@@ -309,7 +309,8 @@
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
-    <script src="/bootstrap/pagine-dinamiche.js"></script>
+    <script src="/pagDinamiche-filtriRicerca.js"></script>
+    <!-- stesso JS di AQ-2024.07.08-Ges-Questionari (esitiScript.js) -->
     <script src="/bootbox.all.min.js"></script>
     <script src="/gesCorsiAdmin.js"></script>
 
