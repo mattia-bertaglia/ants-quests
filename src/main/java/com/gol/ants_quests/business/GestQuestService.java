@@ -28,14 +28,20 @@ public class GestQuestService {
 
     public void empyObject(Model model){
         Quest questionario = new Quest();
-        CategoriaQuest categoria = new CategoriaQuest();
-        questionario.setCategoriequest(categoria);
+        questionario.setCategoriequest(new CategoriaQuest());
         model.addAttribute("quest", questionario);
 
     }
 
-    public void saveTest(HashMap<String, String> params){
+
+
+
+
+    
+
+    public String saveTest(HashMap<String, String> params){
         CategoriaQuest categoria = new CategoriaQuest();
+        String id_domanda = "";
 
         if(params.get("type") != null && params.get("titolo") != null && params.get("id_quest") == ""){
             Quest questionario = new Quest();
@@ -43,13 +49,17 @@ public class GestQuestService {
             questionario.setCategoriequest(categoria);
             questionario.setTitolo(params.get("titolo"));
             qstSrv.save(questionario);
+            id_domanda = "" + questionario.getIdQst();
         }else{
             Quest questEsistente = qstSrv.findByID(Long.parseLong(params.get("id_quest"))).get();
             categoria.setIdCat(params.get("type"));
             questEsistente.setCategoriequest(categoria);
             questEsistente.setTitolo(params.get("titolo"));
             qstSrv.save(questEsistente);
+            id_domanda = params.get("id_quest");
         }
+
+        return id_domanda;
     }
 
     public String saveNewDomanda(HashMap<String, String> params){

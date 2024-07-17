@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
+    <script src="/objQuest.js"></script>
+    <script>
+        const quest = new Quest();
+        quest.idQst = '[[${ quest.idQst }]]';
+        quest.titolo = '[[${ quest.titolo }]]';
+        quest.categoria = { idCat: '[[${ quest.categoriequest.idCat }]]', nome: '[[${ quest.categoriequest.nome }]]' };
+
+        let domanda;
+        let risposta;
+    </script>
     <title>Gestione</title>
 </head>
 <body>
@@ -20,30 +30,33 @@
                     <div class="card-header">
                         Impostazioni Test
                     </div>
-                    <form action="savetest" method="get">
-                        <div class="card-body">
-                            <label for="">Categoria</label>
-                            <select id="type" name="type" style="padding: 10px; width: 100%;" required>
-                                <option value="" disabled selected> -Selezione un elemento- </option>
-                                <option th:each="categorie : ${listaCategorie}" 
-                                    th:text="${categorie.nome}" th:value="${categorie.idCat}"
-                                    th:selected="${quest.categoriequest.idCat==categorie.idCat}">
-                                </option>
-                            </select>
-                        </div>
-                        <div class="card-body">
-                            <label for="">Titolo</label>
-                            <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}" style="padding: 10px; width: 100%;" required>
-                            <input type="hidden" name="id_quest" th:value="${quest.idQst}"/>
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Salva</button>
-                        </div>
-                    </form>
+                    <div class="card-body">
+                        <label for="type">Categoria</label>
+                        <select id="type" name="type" style="padding: 10px; width: 100%;">
+                            <option value="" disabled selected> -Selezione un elemento- </option>
+                            <option th:each="categorie : ${listaCategorie}" 
+                                th:text="${categorie.nome}" th:value="${categorie.idCat}"
+                                th:selected="${quest.categoriequest.idCat==categorie.idCat}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+                        <label for="titolo">Titolo</label>
+                        <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}" 
+                        style="padding: 10px; width: 100%;">
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" 
+                        id="btn_salva_test" class="btn btn-primary" disabled>Salva</button>
+                    </div>
                 </div>
             </div>
         </div>
         <br>
+
+
+
+
         <div class="row">
             <div class="col">
                 <div class="card">
@@ -64,6 +77,11 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush" id="elenco-domande">
                             <li class="list-group-item" th:each="domanda : ${quest.domanda}" >
+                                <script>
+                                    domanda = new Domanda();
+                                    domanda.idQstDet = '[[${domanda.idQstDet}]]';
+                                    domanda.domanda = '[[${domanda.domanda}]]';
+                                </script>
                                 <details>
                                     <summary th:id="${domanda.idQstDet}" th:text="${domanda.domanda}" ></summary>
                                     <div>
@@ -74,11 +92,25 @@
                                             data-bs-target="#modale-elimina-domanda">Elimina</button>
                                         <div class="mb-3 mt-3"></div>
                                         <ol class="list-group list-group-numbered">
-                                            <li th:each="risposta : ${domanda.risp}" th:class="${risposta.corretta} ? 'list-group-item list-group-item-success' : 
-                                            'list-group-item list-group-item-danger'" th:text="${risposta.risposta}"></li>
+                                            <th:block th:each="risposta : ${domanda.risp}">
+                                                <script>
+                                                    ris = new Risposta();
+                                                    ris.idAns = '[[${risposta.idAns}]]';
+                                                    ris.risposta = '[[${risposta.risposta}]]';
+                                                    ris.corretta = '[[${risposta.corretta}]]';
+                                                    domanda.risposte.push(ris);
+                                                </script>
+                                                <li th:class="${risposta.corretta} ? 'list-group-item list-group-item-success' : 
+                                                'list-group-item list-group-item-danger'"
+                                                    th:text="${risposta.risposta}">
+                                                </li>
+                                            </th:block>
                                         </ol>
                                     </div>
                                 </details>
+                                <script>
+                                    quest.domande.push(domanda);
+                                </script>
                             </li>
                         </ul>
                     </div>
@@ -86,6 +118,33 @@
             </div>
         </div>
     </div>
+
+  
+
+
+
+
+
+
+<!-- Toasts Test Aggiunto-->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="salvaOk" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body bg-success">
+          Salvataggio eeguito correttamente
+        </div>
+      </div>
+    </div>
+<!-- Fine Toasts Test Aggiunto-->
+
+<!-- Toast Test Non Aggiunto-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="salvaErr" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body bg-danger">
+        Errore nel salvataggio
+      </div>
+    </div>
+  </div>
+<!-- Fine Toasts Test Non Aggiunto -->
 
 <!-- Modale Elimina Domanda -->
     <div class="modal fade" tabindex="-1" id="modale-elimina-domanda">
@@ -95,7 +154,7 @@
                     <h5 class="modal-title">Elimina Domanda</h5>
                 </div>
                 <div class="modal-body">
-                    <p id="del-domanda">Sei sicuro di voler eliminare la domanda?</p>
+                    <p>Sei sicuro di voler eliminare la domanda?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
@@ -118,12 +177,12 @@
                     </div>
                     <div class="modal-body" style="background-color: aliceblue;">
                         <div class="input-group input-group-sm mb-1">
-                            <label class="input-group-text col-5" for="mod_domanda">
+                            <label class="input-group-text col-5" for="textAreaDomanda">
                                 Domanda
                             </label>
+                            <textarea name="domanda_inserita" id="textAreaDomanda" class="form-control w-100"></textarea>
                             <input type="hidden" th:value="${quest.idQst}"  id="id_questionario" name="id_questionario"/>
                             <input type="hidden" id="id_domanda" name="id_domanda"/>
-                            <textarea name="domanda_inserita" id="textAreaDomanda" class="form-control w-100"></textarea>
                         </div>
                         <hr>
                         <div class="row">
@@ -163,10 +222,10 @@
                     </div>
                     <div class="modal-body" style="background-color: aliceblue;">
                         <div class="input-group input-group-sm mb-1">
-                            <label class="input-group-text col-5" for="new-domanda">
+                            <label class="input-group-text col-5" for="nuova-domanda">
                                 Domanda
                             </label>
-                            <textarea name="domanda_inserita" class="form-control w-100" id="new-domanda" required></textarea>
+                            <textarea name="domanda_inserita" class="form-control w-100" id="nuova-domanda" required></textarea>
                         </div>
                         <hr>
                         <div class="row">
@@ -188,8 +247,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="1" name="corretta" id="corretta">
-                                        <label class="form-check-label" for="flexCheckChecked">
+                                        <input class="form-check-input" type="checkbox" value="1" name="corretta" id="corretta">
+                                        <label class="form-check-label" for="corretta">
                                             Corretta
                                         </label>
                                     </div>
@@ -213,85 +272,10 @@
 <!-- FINE MODALE Aggiungi Domanda -->
 
 
-
-
-<script>
-    
-    function popolaModale(domanda) {
-        //document.getElementById('textAreaDomanda').value = domanda.domanda;
-        document.getElementById('textAreaDomanda').value = domanda.domanda;
-        document.getElementById('id_domanda').value = domanda.idQstDet;
-
-        for(let i=0;i<domanda.risp.length;i++){
-            //document.getElementById('textAreaDomanda').value += domanda.risp[i].risposta;
-            
-        }
-    }
-
-
-    function aggiungiRisposta(elenco) {
-        let templateRisposta = 
-                     `<div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control col-6" name="risposta"
-                                        value="" required>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="1" name="corretta" id="corretta">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        Corretta
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-outline-danger"
-                                    onclick="eliminaDomanda(this.parentNode.parentNode)">Elimina</button>
-                            </div>
-                        </div>`;
-
-        document.getElementById(elenco).insertAdjacentHTML("beforeend",templateRisposta);
-      
-    }
-    
-    window.onload = function validazione(){
-        if(document.getElementById("titolo").value != ""){
-            var button = document.getElementById("bottone_aggiungi_domanda").disabled = false;
-        }     
-    }
-
-    function eliminaDomanda(domanda) {
-        domanda.parentNode.removeChild(domanda);
-    }
-
-    function inviaCheckbox(){
-        if(document.getElementById("corretta").checked) {
-            document.getElementById('checkboxHidden').disabled = true;
-        }
-    }
-
-
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <script src="/jquery/jquery-3.7.1.min.js"></script>
   <script src="/bootstrap/popper.min.js"></script>
   <script src="/bootstrap/bootstrap.min.js"></script>
+  <script src="/js/gestQuest.js"></script>
 
     </body>
 </html>

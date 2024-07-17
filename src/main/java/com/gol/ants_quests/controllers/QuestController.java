@@ -4,8 +4,11 @@ import java.util.HashMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.gol.ants_quests.business.GestQuestService;
 import com.gol.ants_quests.business.QuestService;
 import lombok.RequiredArgsConstructor;
@@ -34,35 +37,30 @@ public class QuestController {
 
     @GetMapping("/gestione")
     public String gestioneQuest(@RequestParam("id_quest") String id_quest, Model model) {
-    
         showSrv.findAllCategorie(model);
-
         try {
             Integer.parseInt(id_quest);
             gestSrv.findDomandeByID(id_quest,model);
         } catch (Exception error) {
             gestSrv.empyObject(model);   
         }
-
         return "gestioneQuestionario.html";
     }
 
-    @GetMapping("/savetest")
+    @PostMapping("/savetest")
+    @ResponseBody
     public String savetest(@RequestParam HashMap<String, String> params){
-        gestSrv.saveTest(params);
-        return "redirect:/quest/lista";
+        return gestSrv.saveTest(params);
     }
 
     @GetMapping("/savenuovadomanda")
     public String savenuovadomanda(@RequestParam HashMap<String, String> params){
-        String idQuest = gestSrv.saveNewDomanda(params);
-        return "redirect:/quest/gestione?id_quest=" + idQuest;
+        return "redirect:/quest/gestione?id_quest=" + gestSrv.saveNewDomanda(params);
     }
 
     @GetMapping("/modificadomanda")
     public String modificadomanda(@RequestParam HashMap<String, String> params){
-        String idQuest = gestSrv.modificaDomanda(params);
-        return "redirect:/quest/gestione?id_quest=" + idQuest;
+        return "redirect:/quest/gestione?id_quest=" + gestSrv.modificaDomanda(params);
     }
 
     
