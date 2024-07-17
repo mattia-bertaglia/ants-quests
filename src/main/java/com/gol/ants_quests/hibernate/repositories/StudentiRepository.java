@@ -20,8 +20,11 @@ public interface StudentiRepository extends JpaRepository<Studente, Long> {
     @Query(value = "update studenti set corso_id = :idCorso where id_studente = :idStudente", nativeQuery = true)
     public void modificaCorso(@Param("idStudente") Long idStudente, @Param("idCorso") Long idCorso);
 
-    @Query(value = "select * from studenti where id_studente= :idStudente and nome= :nome and cognome= :cognome and corso_id is null", nativeQuery = true)
-    public List<Studente> cercaStudenti(@Param("idStudente") Long idStudente, @Param("nome") String nome,
+    @Query(value = "select id_studente, nome, cognome from studenti where corso_id is null and " +
+            "((id_studente = :idStudente OR :idStudente IS NULL) " +
+            "and (nome = :nome OR :nome IS NULL) " +
+            "and (cognome = :cognome OR :cognome IS NULL))", nativeQuery = true)
+    public List<Object[]> cercaStudenti(@Param("idStudente") Long idStudente, @Param("nome") String nome,
             @Param("cognome") String cognome);
 
     Optional<Studente> findById(Long idStudente);

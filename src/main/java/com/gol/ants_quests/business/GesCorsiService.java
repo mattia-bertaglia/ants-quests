@@ -1,6 +1,7 @@
 package com.gol.ants_quests.business;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,7 +10,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.Corso;
-import com.gol.ants_quests.hibernate.entities.OnlyCorso;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.services.CorsiHibService;
 import com.gol.ants_quests.hibernate.services.StudentiHibService;
@@ -70,22 +70,6 @@ public class GesCorsiService {
         }
     }
 
-    /*
-     * params avra' potenzialmente 3 parametri:
-     * - idStudente
-     * - nome
-     * - cognome
-     * vai a chiamare
-     * studHibSrv.findByIdStudenteOrNomeOrCognomeAndCorsoId(idStudente, nome,
-     * cognome, null) chew restituisce una lista
-     * 
-     * return Lista
-     * 
-     */
-
-    /*
-     * return studHibSrv.findAll(studente);
-     */
     public List<Studente> cercaStudenti(HashMap<String, String> params) {
         Long idStudente = null;
         String nome = null;
@@ -100,7 +84,41 @@ public class GesCorsiService {
         if (params.get("cognome") != null && !"".equals(params.get("cognome")))
             cognome = params.get("cognome");
 
-        return studHibSrv.cercaStudenti(idStudente, nome, cognome);
+        List<Object[]> risultati = studHibSrv.cercaStudenti(idStudente, nome, cognome);
+        List<Studente> studenti = new ArrayList<>();
+        for (Object[] riga : risultati) {
+            Studente studente = new Studente();
+            studente.setIdStudente((Long) riga[0]);
+            studente.setNome((String) riga[1]);
+            studente.setCognome((String) riga[2]);
+            studenti.add(studente);
+        }
+
+        return studenti;
+
+    }
+
+    public String aggiungiStudenteAlCorso(HashMap<String, String> params) {
+        // es elimina studente+ id corso
+        if (params.get("idStudente") != null && !"".equals(params.get("idStudente")) && params.get("idCorso") != null
+                && !"".equals(params.get("idCorso"))) {
+            Long idStudente = Long.parseLong(params.get("idStudente"));
+            Long idCorso = Long.parseLong(params.get("idCorso"));
+
+            log.info("Ricerca IdStudente=" + idStudente + "RicercaidCorso=" + idCorso);
+            if (studHibSrv.findById(idStudente).isPresent() && corsiHibSrv.findById(idCorso).isPresent()) {
+                log.info("Studente Trovato, aggiunto al Corso");
+                studHibSrv.modificaCorso(idStudente, idCorso);
+                return "OK";
+
+            } else {
+                log.error("Studente/Corso non trovato.");
+                return "KO";
+            }
+        } else {
+            log.error("IdStudente(idCorso) non ricevuto.");
+            return "KO";
+        }
     }
 
 }

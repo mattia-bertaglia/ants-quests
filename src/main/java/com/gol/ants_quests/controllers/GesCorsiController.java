@@ -49,6 +49,10 @@ public class GesCorsiController {
         return corsoService.cercaStudenti(params);
     }
 
-    // TODO: aggiungiStudenteAlCorso
+    @PostMapping("/aggiungiStudenteAlCorso")
+    @ResponseBody
+    public String aggiungiStudenteAlCorso(@RequestParam HashMap<String, String> params) {
+        return corsoService.aggiungiStudenteAlCorso(params);
+    }
 
 }

@@ -37,7 +37,7 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
 
     }
 
-    public List<Studente> cercaStudenti(Long idStudente, String nome, String cognome) {
+    public List<Object[]> cercaStudenti(Long idStudente, String nome, String cognome) {
         return getRepository().cercaStudenti(idStudente, nome, cognome);
     }
 
