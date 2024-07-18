@@ -51,18 +51,40 @@ function inviaCheckbox(){
 
 
 
-
-
-
-
 $(document).ready(function(){
 
-    window.salvaTest = function (id_quest) {
+    var elementoInput = $("#titolo");
+    var elementoOption = $("#type");
+    var bottone = $("#btn_salva_test");
+
+    elementoInput.on("input", function() {
+        controllaCampi();
+    });
+
+    elementoOption.on("change", function() {
+        controllaCampi();   
+    });
+
+    function controllaCampi() {
+        var valoreInput = elementoInput.val();
+        var valoreOption = elementoOption.val();
+
+        if (valoreInput.trim() !== "" && valoreOption.trim() !== "") {
+            bottone.prop("disabled", false);
+        } else {
+            bottone.prop("disabled", true);
+        }
+    }
+
+    const oggettoQuest = JSON.stringify(Quest);
+    
+    window.salvaTest = function () {
+        
+
         $.post("/quest/savetest", {
-            "type": document.getElementById("type").value,
-            "titolo": document.getElementById("titolo").value,
-            "id_quest": id_quest
-        }).done(function (id_nuovo_quest) {
+              jsonData: oggettoQuest
+        }).done(function () {
+            var id_nuovo_quest = "1"
 
             if (id_nuovo_quest != "") {
                 mostraToast('salvaOk');
@@ -71,10 +93,6 @@ $(document).ready(function(){
             }
         });
     }
-
-
-
-
 });
 
 function mostraToast(nomeToast){
