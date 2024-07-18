@@ -113,9 +113,9 @@
                             style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Ruolo</th>
-                                    <th>Nominativo</th>
-                                    <th>Email</th>
+                                    <th name="nome" id="myInput">Ruolo</th>
+                                    <th name="nome" id="myInput">Nominativo</th>
+                                    <th name="nome" id="myInput">Email</th>
                                     <th>Corso</th>
                                     <th class="text-center">Dettaglio</th>
                                     <th class="text-center">Questionari</th>
@@ -133,7 +133,7 @@
                                             th:data-student-nome="${stud.nome}"
                                             th:data-student-cognome="${stud.cognome}"
                                             th:data-student-email="${stud.user.usernameEmail}"
-                                            th:data-student-corso="${stud.corso != null ? stud.corso.nome : 'N/A'}"
+                                            th:data-student-corso="${stud.corso != null ? stud.corso.idCorso : ''}"
                                             th:data-student-datanascita="${stud.dataNascita}"
                                             th:data-student-ruolo="${stud.user.ruolo}" onclick="populateModal(this)">
                                             Modifica
@@ -227,17 +227,16 @@
                         <!-- ID Studente, Ruolo-->
                         <div class="form-group  row">
                             <div class="col-md-6 ">
-                            <label>ID Studente</label>
-                            <input type="text" class="form-control" name="studId" readonly>
-                            </div>  
+                                <label>ID Studente</label>
+                                <input type="text" class="form-control" name="studId" readonly>
+                            </div>
                             <div class="col-md-6">
                                 <label>Ruolo</label>
                                 <select name="ruolo" class="form-control" required>
-                                    <option value="I">Studente</option>
-                                    <option value="C">Guest</option>
+                                    <option value="studente">Studente</option>
+                                    <option value="guest">Guest</option>
                                 </select>
                             </div>
-
                         </div>
 
                         <!-- Nome, Cognome, Data di Nascita -->
@@ -252,7 +251,7 @@
                             </div>
                             <div class="col-md-4 form-group">
                                 <label for="">Data di Nascita</label>
-                                <input type="date" class="form-control" value="2000-01-01">
+                                <input type="date" class="form-control" name="dataNascita" value="2000-01-01">
                             </div>
                         </div>
 
@@ -269,7 +268,7 @@
                             <div class="col-md-4">
                                 <label>Corso</label>
                                 <select name="corso" class="form-control" required>
-                                    <option disabled selected>- Seleziona un corso -</option>
+                                    <option value="" selected>- Seleziona un corso -</option>
                                     <tr th:each="corso : ${corsi}">
                                         <option th:value="${corso.idCorso}" th:text="${corso.nome}"></option>
                                     </tr>
