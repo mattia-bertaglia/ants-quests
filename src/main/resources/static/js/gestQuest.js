@@ -78,20 +78,42 @@ $(document).ready(function(){
 
     const oggettoQuest = JSON.stringify(Quest);
     
+
+/*
     window.salvaTest = function () {
         
-
         $.post("/quest/savetest", {
-
+            jsonOggetto: JSON.stringify(oggettoQuest)
         }).done(function (id_nuovo_quest) {
-
             if (id_nuovo_quest != "") {
                 mostraToast('salvaOk');
-            }else{
+            } else {
                 mostraToast('salvaErr');
             }
+        }).fail(function () {
+            mostraToast('salvaErr');
         });
-    }
+    }*/
+
+
+        window.salvaTest = function () {
+            $.post("/quest/savetest", {
+                "type": document.getElementById("type").value,
+                "titolo": document.getElementById("titolo").value,
+                "id_quest": "1"
+            }).done(function (id_nuovo_quest) {
+    
+                if (id_nuovo_quest != "") {
+                    mostraToast('salvaOk');
+                }else{
+                    mostraToast('salvaErr');
+                }
+            });
+        }
+
+
+
+
 });
 
 function mostraToast(nomeToast){

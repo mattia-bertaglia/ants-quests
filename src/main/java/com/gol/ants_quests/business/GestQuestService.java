@@ -74,7 +74,7 @@ public class GestQuestService {
 
     }*/
 
-      /* aggiunte Ross */
+      /* aggiunte Ross 
 
       public String saveTest(String jsonOggetto) {
         // Supponiamo che il JSON contenga dati relativi a un oggetto Quest
@@ -118,9 +118,23 @@ public class GestQuestService {
         return qstSrv.save(quest);
     }
 
-    /* 
+    
     public CategoriaQuest saveCategoria(HashMap<String, String> params) {
         CategoriaQuest categoriaQuest = new CategoriaQuest();
     }
         */
+
+
+    public String saveTest(HashMap<String, String> params){
+        
+        return "";
+    }
+
+    public String gestioneDomande(Quest jsonOggetto){  
+
+    }
+
+
+
+
 }
