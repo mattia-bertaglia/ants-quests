@@ -55,17 +55,11 @@ public class QuestController {
     }
 
 
-
-
-    @GetMapping("/savenuovadomanda")
-    public String savenuovadomanda(@RequestParam HashMap<String, String> params){
-        return "redirect:/quest/gestione?id_quest=" + gestSrv.saveNewDomanda(params);
-    }
-
-    @GetMapping("/modificadomanda")
-    public String modificadomanda(@RequestParam HashMap<String, String> params){
-        return "redirect:/quest/gestione?id_quest=" + gestSrv.modificaDomanda(params);
-    }
-
-    
+    /* 
+    @PostMapping("/gestionedomande")
+    @ResponseBody
+    public String gestioneDomande(@RequestBody String jsonOggetto){
+        return gestSrv.modificaDomanda(jsonOggetto);
+    }*/
+   
 }

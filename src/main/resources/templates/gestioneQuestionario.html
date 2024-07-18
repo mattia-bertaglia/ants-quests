@@ -42,11 +42,11 @@
                     </div>
                     <div class="card-body">
                         <label for="titolo">Titolo</label>
-                        <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}" 
+                        <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}"
                         style="padding: 10px; width: 100%;">
                     </div>
                     <div class="card-footer">
-                        <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" 
+                        <button type="button" onclick="salvaTest()" 
                         id="btn_salva_test" class="btn btn-primary" disabled>Salva</button>
                     </div>
                 </div>
@@ -158,14 +158,16 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
-                    <form action="eliminadomanda" method="get">
-                        <button type="submit" class="btn btn-danger">Elimina</button>
-                    </form>
+                    <button type="submit" class="btn btn-danger">Elimina</button>
                 </div>
             </div>
         </div>
     </div>
 <!-- FINE Modale Elimina Domanda -->
+
+
+
+
 
 <!-- Modale Modifica Domanda -->
     <div class="modal fade" id="modale-modifica-domanda">
