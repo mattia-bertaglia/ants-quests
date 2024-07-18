@@ -41,31 +41,27 @@ public class QuestController {
         showSrv.findAllCategorie(model);
         try {
             Integer.parseInt(id_quest);
-            gestSrv.findDomandeByID(id_quest,model);
+            gestSrv.findDomandeByID(id_quest, model);
         } catch (Exception error) {
-            gestSrv.empyObject(model);   
+            gestSrv.empyObject(model);
         }
         return "gestioneQuestionario.html";
     }
 
     @PostMapping("/savetest")
     @ResponseBody
-    public String savetest(@RequestBody String jsonOggetto){
+    public String savetest(@RequestBody String jsonOggetto) {
         return gestSrv.saveTest(jsonOggetto);
     }
 
-
-
-
     @GetMapping("/savenuovadomanda")
-    public String savenuovadomanda(@RequestParam HashMap<String, String> params){
+    public String savenuovadomanda(@RequestParam HashMap<String, String> params) {
         return "redirect:/quest/gestione?id_quest=" + gestSrv.saveNewDomanda(params);
     }
 
     @GetMapping("/modificadomanda")
-    public String modificadomanda(@RequestParam HashMap<String, String> params){
+    public String modificadomanda(@RequestParam HashMap<String, String> params) {
         return "redirect:/quest/gestione?id_quest=" + gestSrv.modificaDomanda(params);
     }
 
-    
 }
