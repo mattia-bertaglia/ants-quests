@@ -46,34 +46,28 @@
                         style="padding: 10px; width: 100%;">
                     </div>
                     <div class="card-footer">
-                        <button type="button" onclick="salvaTest()" 
+                        <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" 
                         id="btn_salva_test" class="btn btn-primary" disabled>Salva</button>
                     </div>
                 </div>
             </div>
         </div>
         <br>
-
-
-
-
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-header">
-
                         <div class="row">
                             <div class="col-md-2">
                                 Elenco domande
                             </div>
                             <div class="col-md-2">
                                 <button id="bottone_aggiungi_domanda" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#modale-aggiungi-domanda" disabled>
+                                    data-bs-target="#modale-aggiungi-domanda" th:disabled="${quest.idQst == null}">
                                     Aggiungi Domanda</button>
                             </div>
                         </div>
                     </div>
-
                     <div class="card-body">
                         <ul class="list-group list-group-flush" id="elenco-domande">
                             <li class="list-group-item" th:each="domanda : ${quest.domanda}" >
@@ -114,23 +108,19 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary" onclick="gestisciDomande()">Salva</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-  
-
-
-
-
-
-
 <!-- Toasts Test Aggiunto-->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div id="salvaOk" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body bg-success">
-          Salvataggio eeguito correttamente
+          Salvataggio eseguito correttamente
         </div>
       </div>
     </div>
@@ -164,6 +154,66 @@
         </div>
     </div>
 <!-- FINE Modale Elimina Domanda -->
+
+<!-- Modale Aggiungi Domanda -->
+<div class="modal fade" id="modale-aggiungi-domanda">
+    <div class="modal-dialog modal-dialog-centered modal-xl ">
+        <div class="modal-content">
+            <input type="hidden" name="id_quest" th:value="${quest.idQst}"/>
+            <div class="modal-header">
+                <h5 class="modal-title">Aggiungi Domanda</h5>
+            </div>
+            <div class="modal-body" style="background-color: aliceblue;">
+                <div class="input-group input-group-sm mb-1">
+                    <label class="input-group-text col-5" for="nuova-domanda">
+                        Domanda
+                    </label>
+                    <textarea name="domanda_inserita" class="form-control w-100" id="nuova-domanda" required></textarea>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="button" class="btn btn-primary btn-sm"
+                            onclick="aggiungiRisposta('nuovo-elenco-risposte')"
+                            value="Aggiungi Risposta">
+                    </div>
+                </div>
+                <div class="mb-3 mt-3"></div>
+                <div id="nuovo-elenco-risposte">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group input-group-sm mb-1">
+                                <input type="text" class="form-control col-6" name="risposta"
+                                    value="">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="corretta" id="corretta">
+                                <label class="form-check-label" for="corretta">
+                                    Corretta
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-grid gap-1 col-10 mt-3 mx-auto">
+                    <button type="button" class="btn btn-primary">Aggiungi</button>
+                </div>
+                <div class="d-grid gap-2 col-10 mt-2 mx-auto">
+                    <button type="reset" class="btn btn-warning">Pulisci</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FINE MODALE Aggiungi Domanda -->
+
+
+
+
 
 
 
@@ -212,66 +262,6 @@
         </div>
     </div>
 <!-- FINE MODALE Modifica Domanda -->
-
-<!-- Modale Aggiungi Domanda -->
-    <div class="modal fade" id="modale-aggiungi-domanda">
-        <div class="modal-dialog modal-dialog-centered modal-xl ">
-            <div class="modal-content">
-                <form action="savenuovadomanda" method="get">
-                    <input type="hidden" name="id_quest" th:value="${quest.idQst}"/>
-                    <div class="modal-header">
-                        <h5 class="modal-title">Aggiungi Domanda</h5>
-                    </div>
-                    <div class="modal-body" style="background-color: aliceblue;">
-                        <div class="input-group input-group-sm mb-1">
-                            <label class="input-group-text col-5" for="nuova-domanda">
-                                Domanda
-                            </label>
-                            <textarea name="domanda_inserita" class="form-control w-100" id="nuova-domanda" required></textarea>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="button" class="btn btn-primary btn-sm"
-                                    onclick="aggiungiRisposta('nuovo-elenco-risposte')"
-                                    value="Aggiungi Risposta">
-                            </div>
-                        </div>
-                        <div class="mb-3 mt-3"></div>
-
-                        <div id="nuovo-elenco-risposte">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="input-group input-group-sm mb-1">
-                                        <input type="text" class="form-control col-6" name="risposta"
-                                            value="" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="1" name="corretta" id="corretta">
-                                        <label class="form-check-label" for="corretta">
-                                            Corretta
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <div class="d-grid gap-1 col-10 mt-3 mx-auto">
-                            <button type="submit" class="btn btn-primary" onclick="inviaCheckbox()">Aggiungi</button>
-                        </div>
-                        <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                            <button type="reset" class="btn btn-warning">Pulisci</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-<!-- FINE MODALE Aggiungi Domanda -->
 
 
   <script src="/jquery/jquery-3.7.1.min.js"></script>

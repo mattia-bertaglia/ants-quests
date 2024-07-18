@@ -62,6 +62,7 @@ public class GestQuestService {
 
     public String gestioneDomande(Quest jsonOggetto) {
 
+        /* 
         // Esempio di come gestire domande e risposte da jsonOggetto
         for (DomandaQuest domanda : jsonOggetto.getDomanda()) {
             // Salvataggio della domanda nel database
@@ -76,6 +77,7 @@ public class GestQuestService {
         }
 
         // Ritorna un messaggio di conferma o l'id del nuovo test salvato
-        return "Operazione completata con successo";
+        return "Operazione completata con successo";*/
+        return "";
     }
 }

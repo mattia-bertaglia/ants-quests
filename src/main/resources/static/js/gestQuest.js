@@ -95,21 +95,42 @@ $(document).ready(function(){
         });
     }*/
 
+    window.salvaTest = function (id_quest) {
+        $.post("/quest/savetest", {
+            "type": document.getElementById("type").value,
+            "titolo": document.getElementById("titolo").value,
+            "id_quest": id_quest
+        }).done(function (id_nuovo_quest) {
 
-        window.salvaTest = function () {
-            $.post("/quest/savetest", {
-                "type": document.getElementById("type").value,
-                "titolo": document.getElementById("titolo").value,
-                "id_quest": "1"
-            }).done(function (id_nuovo_quest) {
-    
-                if (id_nuovo_quest != "") {
-                    mostraToast('salvaOk');
-                }else{
-                    mostraToast('salvaErr');
-                }
-            });
-        }
+            if (id_nuovo_quest != "") {
+                mostraToast('salvaOk');
+            }else{
+                mostraToast('salvaErr');
+            }
+        }).fail(function (errore) {
+            if (errore.status != 0) {
+                mostraToast('salvaErr');
+            }
+        });
+    }
+
+
+    window.gestisciDomande = function () {
+        $.post("/quest/gestionedomande",{
+            
+        }).done(function (esito) {
+
+            if (esito == "") {
+                mostraToast('salvaOk');
+            }else{
+                mostraToast('salvaErr');
+            }
+        }).fail(function (errore) {
+            if (errore.status != 0) {
+                mostraToast('salvaErr');
+            }
+        });
+    }
 
 
 
