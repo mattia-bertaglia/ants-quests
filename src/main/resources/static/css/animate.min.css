@@ -8,6 +8,78 @@
  * Copyright (c) 2018 Daniel Eden
  */
 
+.xp-breadcrumbbar .page-title {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.breadcrumb {
+    display: inline-flex;
+    background-color: transparent;
+    margin: 0;
+    padding: 10px 0 0;
+}
+
+.breadcrumb .breadcrumb-item a {
+    color: black;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+
+
+.breadcrumb-item+.breadcrumb-item {
+    padding-left: .5rem;
+}
+
+.navbar-nav>li.show .dropdown-menu {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+    display: block;
+    visibility: visible;
+}
+
+.dropdown-menu {
+    border: 0;
+    box-shadow: 0 2px 5px 0 rgba(0 0 0 / 26%);
+    transform: translate3d(0, -20px, 0);
+    visibility: hidden;
+    position: absolute !important;
+    transition: all 150ms linear;
+    display: block;
+    min-width: 15rem;
+    right: 0;
+    left: auto;
+    opacity: 0;
+}
+
+.small-menu {
+    min-width: 10rem;
+}
+
+
+.dropdown-menu li>a {
+    font-size: 13px;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 2px;
+    font-weight: 400;
+    transition: all 150ms linear;
+}
+
+
+.dropdown-menu li>a .material-icons {
+    position: relative;
+    top: 3px;
+    color: #777;
+    margin-right: 6px;
+    font-size: 16px;
+
+}
+
 @-webkit-keyframes bounce {
 
     0%,

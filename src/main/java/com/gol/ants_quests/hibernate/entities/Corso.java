@@ -37,6 +37,8 @@ public class Corso extends GenericEntity {
     @Column(name = "data_fine")
     private Date dataFine;
 
-    @OneToMany(mappedBy = "corsoId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "corsoId", cascade = CascadeType.ALL)
     private List<OnlyStudente> studenti;
+
+    /* , orphanRemoval = true */
 }
