@@ -1,11 +1,7 @@
 /* Stile globale per il reset del CSS */
 
-:root {
-  --colore-primario: #272343;
-  --colore-secondario: #ffffff;
-  --colore-terziario: #e3f6f5;
-  --colore-quadro: #bae8e8;
-}
+@import url(root.css);
+
 * {
   padding: 0;
   margin: 0;
