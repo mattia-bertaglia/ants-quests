@@ -50,8 +50,8 @@ public class QuestController {
 
     @PostMapping("/savetest")
     @ResponseBody
-    public String savetest(){
-        return gestSrv.saveTest();
+    public String savetest(@RequestBody String jsonOggetto){
+        return gestSrv.saveTest(jsonOggetto);
     }
 
 
