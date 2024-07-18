@@ -82,9 +82,8 @@ $(document).ready(function(){
         
 
         $.post("/quest/savetest", {
-              jsonData: oggettoQuest
-        }).done(function () {
-            var id_nuovo_quest = "1"
+
+        }).done(function (id_nuovo_quest) {
 
             if (id_nuovo_quest != "") {
                 mostraToast('salvaOk');
