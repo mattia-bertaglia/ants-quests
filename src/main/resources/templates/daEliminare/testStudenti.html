@@ -11,7 +11,7 @@
 
     <form action="/studenti/savestud" method="post">
 
-        <input type="text" name="idstudente" placeholder="idStudente">
+        <input type="text" name="" placeholder="">
         <input type="text" name="nome" placeholder="nome">
         <input type="text" name="cognome" placeholder="cognome">
         <input type="date" name="datanascita">
@@ -42,7 +42,7 @@
         </thead>
         <tbody>
             <tr th:each="stud : ${studenti}">
-                <td th:text="${stud.idStudente}"></td>
+                <td th:text="${stud.}"></td>
                 <td th:text="${stud.nome}"></td>
                 <td th:text="${stud.cognome}"></td>
                 <td th:text="${stud.dataNascita}"></td>
