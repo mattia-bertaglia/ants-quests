@@ -39,7 +39,8 @@ public class GestQuestService {
 
     
 
-    public String saveTest(HashMap<String, String> params){
+    public String saveTest(String jsonOggetto){
+        /* 
         CategoriaQuest categoria = new CategoriaQuest();
         String id_domanda = "";
 
@@ -60,6 +61,7 @@ public class GestQuestService {
         }
 
         return id_domanda;
+        */        
     }
 
     public String saveNewDomanda(HashMap<String, String> params){
