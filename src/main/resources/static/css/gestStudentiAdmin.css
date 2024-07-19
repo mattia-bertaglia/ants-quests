@@ -16,7 +16,7 @@ a {
 }
 
 a:hover {
-    color: #badb73;
+    color: #7ead19;
 }
 
 /* Header */
@@ -200,7 +200,7 @@ footer {
 
 
 .btn-pdf:hover {
-    background-color: #acce91; 
+    background-color: #acce91; /* Colore di sfondo quando l'utente passa sopra il pulsante */
 }
 .btn-info.modal-body-btn-pdf {
     background-color: #373737 !important;
