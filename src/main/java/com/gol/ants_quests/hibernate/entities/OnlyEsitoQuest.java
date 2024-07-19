@@ -28,6 +28,8 @@ public class OnlyEsitoQuest extends GenericEntity {
     private String punteggio;
     private String tempo;
 
+    // TODO: salvataggio categoria e titolo questionario
+
     @Column(name = "quest_id")
     private Long questId;
 
