@@ -7,21 +7,14 @@ function vediQuest(stud) {
     tbodyEsiti.innerHTML = "";
 
     for (const esiti of stud) {
+        console.log(esiti);
 
-        // Trova il titolo corrispondente in listaCategorie
-        /*  let titolo = "";
-         for (const quest of listaCategorie) {
-             if (esiti.idEstQst == quest.idQst) {
-                 titolo = quest.titolo; // Assegna il titolo
-                 break; // Esci dal ciclo se trovato
-             }
-         } */
         const row = document.createElement('tr');
         row.id = esiti.idEstQst;
         row.innerHTML = `
 
-       <td></td>  <!-- Aggiungi il categoria(I/C) nella tabella -->
-    <td></td> <!-- Aggiungi il titolo nella tabella -->
+       <td>${esiti.categoriaQuest}</td>  <!-- Aggiungi il categoria(I/C) nella tabella, dopo database -->
+    <td>${esiti.titoloQuest}</td> <!-- Aggiungi il titolo nella tabella, dopo datbase -->
     <td>${esiti.dataEsecuzione}</td>
     <td>${esiti.punteggio}</td>
     <td>${esiti.tempo}</td>
@@ -56,16 +49,16 @@ function showPdf(pdfFile) {
 }
 
 /* SCRIPT DA RIVEDERE */
-/*  onclick="populateModal(this)" */
+
 function populateModal(button) {
     document.querySelector("#modDetailModal input[name=studId]").value = button.getAttribute('data-student-id');
     document.querySelector("#modDetailModal input[name=nome]").value = button.getAttribute('data-student-nome');
     document.querySelector("#modDetailModal input[name=cognome]").value = button.getAttribute('data-student-cognome');
     document.querySelector("#modDetailModal input[name=email]").value = button.getAttribute('data-student-email');
     document.querySelector("#modDetailModal input[name=dataNascita]").value = button.getAttribute('data-student-datanascita');
-    const ruolo = button.getAttribute('data-student-ruolo') || '';
+    const ruolo = button.getAttribute('data-student-ruolo')  '';
     document.querySelector("#modDetailModal select[name=ruolo]").value = ruolo;
-    const corso = button.getAttribute('data-student-corso') || '';
+    const corso = button.getAttribute('data-student-corso')  '';
     document.querySelector("#modDetailModal select[name=corso]").value = corso;
 }
 

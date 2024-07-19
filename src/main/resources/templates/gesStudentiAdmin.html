@@ -124,27 +124,19 @@
                             </thead>
                             <tbody>
                                 <tr th:each="stud : ${studenti}">
-                                    <td></td> <!-- th:text="${stud.user.ruolo}"-->
+                                    <td th:text="${stud.user.ruolo}"></td>
                                     <td th:text="${stud.nome + ' ' + stud.cognome}"></td>
-                                    <td></td> <!-- th:text="${stud.user.usernameEmail}"-->
+                                    <td th:text="${stud.user.usernameEmail}"> </td>
                                     <td th:text="${stud.corso != null ? stud.corso.nome : ''}"></td>
                                     <td class="d-flex justify-content-center align-items-center">
                                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                            data-bs-target="#modDetailModal" onclick="populateModal(this)"
-                                            data-student-id="${stud.idStudente}" data-student-nome="${stud.nome}"
-                                            data-student-cognome="${stud.cognome}"
-                                            data-student-email="${stud.user.usernameEmail}"
-                                            data-student-corso="${stud.corso != null ? stud.corso.idCorso : ''}"
-                                            data-student-datanascita="${stud.dataNascita}">
-                                            Modifica
-
-                                            <!--   th:data-student-id="${stud.idStudente}"
+                                            data-bs-target="#modDetailModal" th:data-student-id="${stud.idStudente}"
                                             th:data-student-nome="${stud.nome}"
                                             th:data-student-cognome="${stud.cognome}"
-                                            th:data-student-email="${stud.user.usernameEmail}"
                                             th:data-student-corso="${stud.corso != null ? stud.corso.idCorso : ''}"
                                             th:data-student-datanascita="${stud.dataNascita}"
-                                            th:data-student-ruolo="${stud.user.ruolo}"  -->
+                                            onclick="populateModal(this)">
+                                            Modifica
                                         </button>
                                     </td>
                                     <td class="text-center">
@@ -221,8 +213,8 @@
     </div>
 
     <!-- Modale Modifica Studente -->
-    <div th:each="studente : ${studenti}" class="modal fade" id="modDetailModal" tabindex="-1" role="dialog"
-        aria-labelledby="modDetailModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modDetailModal" tabindex="-1" role="dialog" aria-labelledby="modDetailModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
                 <form action="/ges_studenti/savestud" method="post">
@@ -232,7 +224,7 @@
                     </div>
                     <div class="modal-body">
                         <!-- ID Studente, Ruolo-->
-                        <div class="form-group  "><!-- row -->
+                        <div class="form-group  row"><!-- row -->
                             <div class="col-md-6 ">
                                 <label>ID Studente</label>
                                 <input type="text" readonly class="form-control-plaintext" name="studId" id="studId"
@@ -251,18 +243,15 @@
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label for="nome">Nome</label>
-                                <input type="text" class="form-control" th:value="${studente.nome}" name="nome"
-                                    id="nome">
+                                <input type="text" class="form-control" name="nome" id="nome">
                             </div>
                             <div class="col-md-4">
                                 <label for="cognome">Cognome</label>
-                                <input type="text" class="form-control" th:value="${studente.cognome}" name="cognome"
-                                    id="cognome">
+                                <input type="text" class="form-control" name="cognome" id="cognome">
                             </div>
                             <div class="col-md-4 form-group">
                                 <label for="dataNascita">Data di Nascita</label>
-                                <input type="date" class="form-control" th:value="${studente.dataNascita}"
-                                    name="dataNascita" id="dataNascita">
+                                <input type="date" class="form-control" name="dataNascita" id="dataNascita">
                             </div>
                         </div>
 
@@ -279,10 +268,10 @@
                             <div class="col-md-4">
                                 <label>Corso</label>
                                 <select name="corso" class="form-control" required>
-                                    <option th:each="corso : ${corsi}" th:value="${corso.idCorso}"
-                                        th:text="${corso.nome}"
-                                        th:selected="${studente.corso != null && studente.corso.idCorso == corso.idCorso}">
-                                    </option>
+                                    <option value="" selected>- Seleziona un corso -</option>
+                                    <tr th:each="corso : ${corsi}">
+                                        <option th:value="${corso.idCorso}" th:text="${corso.nome}"></option>
+                                    </tr>
                                 </select>
                             </div>
                         </div>
@@ -304,25 +293,22 @@
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label for="cap">CAP</label>
-                                <input type="text" class="form-control" th:value="${studente.cap}" name="cap" id="cap">
+                                <input type="text" class="form-control" name="cap" id="cap">
                             </div>
                             <div class="col-md-4">
                                 <label for="provincia">Provincia</label>
-                                <input type="text" class="form-control" th:value="${studente.provincia}"
-                                    name="provincia" id="provincia">
+                                <input type="text" class="form-control" name="provincia" id="provincia">
                             </div>
                             <div class="col-md-4">
                                 <label for="telefono">Telefono</label>
-                                <input type="text" class="form-control" th:value="${studente.telefono}" name="telefono"
-                                    id="telefono">
+                                <input type="text" class="form-control" name="telefono" id="telefono">
                             </div>
                         </div>
 
                         <!-- Note -->
                         <div class="form-group">
                             <label for="note">Note</label>
-                            <textarea class="form-control" th:value="${studente.note}" name="note" id="note"
-                                rows="2"></textarea>
+                            <textarea class="form-control" name="note" id="note" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
