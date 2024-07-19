@@ -1,17 +1,14 @@
 package com.gol.ants_quests.business;
 
 import java.util.HashMap;
-
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
 import com.gol.ants_quests.hibernate.entities.DomandaQuest;
 import com.gol.ants_quests.hibernate.entities.Quest;
-import com.gol.ants_quests.hibernate.entities.RispostaQuest;
 import com.gol.ants_quests.hibernate.services.DomandeHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
 import com.gol.ants_quests.hibernate.services.RisposteHibService;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -50,7 +47,7 @@ public class GestQuestService {
             categoria.setIdCat(params.get("type"));
             questEsistente.setCategoriequest(categoria);
             questEsistente.setTitolo(params.get("titolo"));
-            qstSrv.save(questEsistente);
+            qstSrv.save(questEsistente);    //funzione da cambiare con update
             id_domanda = params.get("id_quest");
         }
 
@@ -58,26 +55,27 @@ public class GestQuestService {
 
     }
 
-    /* aggiunte Ross */
 
-    public String gestioneDomande(Quest jsonOggetto) {
+    public String gestioneDomande(Quest oggetto) {
+       String esito = ""; 
+       
+       for(int i=0;i<oggetto.getDomanda().size();i++){
 
-        /* 
-        // Esempio di come gestire domande e risposte da jsonOggetto
-        for (DomandaQuest domanda : jsonOggetto.getDomanda()) {
-            // Salvataggio della domanda nel database
-            DomandaQuest savedDomanda = domSrv.save(domanda);
-
-            // Iterazione sulle risposte associate alla domanda
-            for (RispostaQuest risposta : domanda.getRisp()) {
-                risposta.setDomandaQuest(savedDomanda); // Imposta la domanda a cui appartiene la risposta
-                // Salvataggio della risposta nel database
-                risSrv.save(risposta);
+            if(oggetto.getDomanda().get(i).getIdQstDet() == null){
+                DomandaQuest nuovaDomanda = new DomandaQuest();
+                nuovaDomanda.setDomanda(oggetto.getDomanda().get(i).getDomanda());
+                Quest id_quest = new Quest();
+                id_quest.setIdQst(oggetto.getIdQst());
+                nuovaDomanda.setDom(id_quest);
+                domSrv.save(nuovaDomanda);
+                esito = "OK";
             }
-        }
 
-        // Ritorna un messaggio di conferma o l'id del nuovo test salvato
-        return "Operazione completata con successo";*/
-        return "";
+
+       }
+
+
+
+        return esito;
     }
 }

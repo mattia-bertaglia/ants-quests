@@ -62,7 +62,7 @@
                                 Elenco domande
                             </div>
                             <div class="col-md-2">
-                                <button id="bottone_aggiungi_domanda" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                <button id="btn_aggiungi_domanda" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#modale-aggiungi-domanda" th:disabled="${quest.idQst == null}">
                                     Aggiungi Domanda</button>
                             </div>
@@ -81,7 +81,8 @@
                                     <div>
                                         <hr>
                                         <button class="btn btn-outline-primary" data-bs-toggle="modal"
-                                            data-bs-target="#modale-modifica-domanda" th:onclick="popolaModale([[${domanda}]])">Modifica</button>
+                                            data-bs-target="#modale-modifica-domanda" th:onclick="popolaModale([[${domanda}]])">Modifica
+                                        </button>
                                         <button class="btn btn-outline-danger" data-bs-toggle="modal"
                                             data-bs-target="#modale-elimina-domanda">Elimina</button>
                                         <div class="mb-3 mt-3"></div>
@@ -92,7 +93,7 @@
                                                     ris.idAns = '[[${risposta.idAns}]]';
                                                     ris.risposta = '[[${risposta.risposta}]]';
                                                     ris.corretta = '[[${risposta.corretta}]]';
-                                                    domanda.risposte.push(ris);
+                                                    domanda.risp.push(ris);
                                                 </script>
                                                 <li th:class="${risposta.corretta} ? 'list-group-item list-group-item-success' : 
                                                 'list-group-item list-group-item-danger'"
@@ -103,13 +104,14 @@
                                     </div>
                                 </details>
                                 <script>
-                                    quest.domande.push(domanda);
+                                    quest.domanda.push(domanda);
                                 </script>
                             </li>
                         </ul>
                     </div>
                     <div class="card-footer">
-                        <button type="button" class="btn btn-primary" onclick="gestisciDomande()">Salva</button>
+                        <button type="button" class="btn btn-primary" id="btn_salva_domanda"
+                        onclick="gestisciDomande()" disabled>Salva</button>
                     </div>
                 </div>
             </div>
@@ -125,6 +127,16 @@
       </div>
     </div>
 <!-- Fine Toasts Test Aggiunto-->
+
+<!-- Toasts Errore nel DB-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="errorDB" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body bg-danger">
+        Errore interno al Database
+      </div>
+    </div>
+  </div>
+<!-- Fine Toasts Errore nel DB-->
 
 <!-- Toast Test Non Aggiunto-->
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -148,27 +160,29 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
-                    <button type="submit" class="btn btn-danger">Elimina</button>
+                    <button type="button" class="btn btn-danger">Elimina</button>
                 </div>
             </div>
         </div>
     </div>
 <!-- FINE Modale Elimina Domanda -->
 
-<!-- Modale Aggiungi Domanda -->
+<!--Modale Aggiungi Domanda -->
 <div class="modal fade" id="modale-aggiungi-domanda">
     <div class="modal-dialog modal-dialog-centered modal-xl ">
         <div class="modal-content">
-            <input type="hidden" name="id_quest" th:value="${quest.idQst}"/>
             <div class="modal-header">
                 <h5 class="modal-title">Aggiungi Domanda</h5>
+                <button type="button" class="btn btn-outline-secondary" 
+                data-bs-dismiss="modal">x</button>
             </div>
             <div class="modal-body" style="background-color: aliceblue;">
                 <div class="input-group input-group-sm mb-1">
-                    <label class="input-group-text col-5" for="nuova-domanda">
+                    <label class="input-group-text col-5" for="domanda_inserita">
                         Domanda
                     </label>
-                    <textarea name="domanda_inserita" class="form-control w-100" id="nuova-domanda" required></textarea>
+                    <textarea name="domanda_inserita" class="form-control w-100" 
+                    style="text-transform:none;" id="domanda_inserita"></textarea>
                 </div>
                 <hr>
                 <div class="row">
@@ -183,13 +197,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="input-group input-group-sm mb-1">
-                                <input type="text" class="form-control col-6" name="risposta"
-                                    value="">
+                                <input type="text" class="form-control col-6" id="risposta_inserita">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="corretta" id="corretta">
+                                <input class="form-check-input" id="corretta" type="checkbox" name="corretta">
                                 <label class="form-check-label" for="corretta">
                                     Corretta
                                 </label>
@@ -200,16 +213,25 @@
             </div>
             <div class="modal-footer">
                 <div class="d-grid gap-1 col-10 mt-3 mx-auto">
-                    <button type="button" class="btn btn-primary">Aggiungi</button>
+                <button type="button" class="btn btn-primary" 
+                    id="btn_add_domanda" onclick="addDomanda()" disabled>Aggiungi
+                </button>
                 </div>
                 <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                    <button type="reset" class="btn btn-warning">Pulisci</button>
+                    <button type="button" class="btn btn-warning">Pulisci</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- FINE MODALE Aggiungi Domanda -->
+<!--FINE MODALE Aggiungi Domanda -->
+
+
+
+
+
+
+
 
 
 
@@ -232,7 +254,8 @@
                             <label class="input-group-text col-5" for="textAreaDomanda">
                                 Domanda
                             </label>
-                            <textarea name="domanda_inserita" id="textAreaDomanda" class="form-control w-100"></textarea>
+                            <textarea name="domanda_inserita" id="textAreaDomanda" 
+                            class="form-control w-100" style="text-transform:none;"></textarea>
                             <input type="hidden" th:value="${quest.idQst}"  id="id_questionario" name="id_questionario"/>
                             <input type="hidden" id="id_domanda" name="id_domanda"/>
                         </div>
@@ -264,10 +287,18 @@
 <!-- FINE MODALE Modifica Domanda -->
 
 
+
+
+
+
+
+
+
+
   <script src="/jquery/jquery-3.7.1.min.js"></script>
   <script src="/bootstrap/popper.min.js"></script>
   <script src="/bootstrap/bootstrap.min.js"></script>
   <script src="/js/gestQuest.js"></script>
 
-    </body>
+</body>
 </html>

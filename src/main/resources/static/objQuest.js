@@ -3,7 +3,7 @@ class Quest {
         this.idQst = "";
         this.titolo = "";
         this.categoria = { idCat: "", nome: "" }; // Oggetto per categoria
-        this.domande = []; // ci andranno dentro degli oggetti di tipo Domanda
+        this.domanda = []; // ci andranno dentro degli oggetti di tipo Domanda
     }
 }
 
@@ -11,7 +11,7 @@ class Domanda {
     constructor() {
         this.idQstDet = "";
         this.domanda = "";
-        this.risposte = []; // ci andranno dentro degli oggetti di tipo Riposta
+        this.risp = []; // ci andranno dentro degli oggetti di tipo Riposta
     }
 }
 

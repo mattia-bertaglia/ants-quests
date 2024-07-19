@@ -15,21 +15,20 @@ function aggiungiRisposta(elenco) {
                  `<div class="row">
                         <div class="col-md-6">
                             <div class="input-group input-group-sm mb-1">
-                                <input type="text" class="form-control col-6" name="risposta"
-                                    value="" required>
+                                <input type="text" class="form-control col-6">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" name="corretta" id="corretta">
-                                <label class="form-check-label" for="flexCheckChecked">
+                                    <input class="form-check-input" type="checkbox" name="corretta">
+                                <label class="form-check-label" for="corretta">
                                     Corretta
                                 </label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <button class="btn btn-outline-danger"
-                                onclick="eliminaDomanda(this.parentNode.parentNode)">Elimina</button>
+                                onclick="eliminaRisposta(this.parentNode.parentNode)">Elimina</button>
                         </div>
                     </div>`;
 
@@ -37,19 +36,43 @@ function aggiungiRisposta(elenco) {
   
 }
 
-function eliminaDomanda(domanda) {
-    domanda.parentNode.removeChild(domanda);
+function eliminaRisposta(risposta) {
+    domanda.parentNode.removeChild(risposta);
 }
 
-function inviaCheckbox(){
-    if(document.getElementById("corretta").checked) {
-        document.getElementById('checkboxHidden').disabled = true;
-    }
+function addDomanda() {
+    const textareaDomanda = document.getElementById('domanda_inserita').value;
+    const lista = document.getElementById('elenco-domande');
+    
+    domanda = new Domanda();
+    domanda.domanda = textareaDomanda;
+    quest.domanda.push(domanda);
+
+    let domandaTemplate = 
+    `<li class="list-group-item">
+        <details>
+            <summary>` + textareaDomanda + `</summary>
+            <div>
+                <hr>
+                <button class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#modale-modifica-domanda">Modifica
+                </button>
+                <button class="btn btn-outline-danger" data-bs-toggle="modal"
+                    data-bs-target="#modale-elimina-domanda">Elimina
+                </button>
+                <div class="mb-3 mt-3"></div>
+                <ol class="list-group list-group-numbered">
+                </ol>
+            </div>
+        </details>
+    </li>`;
+    
+    lista.innerHTML += domandaTemplate;
+    pulisicModale()
+    const modaleAggiungi = document.getElementById('modale-aggiungi-domanda');
+    const modale = bootstrap.Modal.getInstance(modaleAggiungi);
+    modale.hide();
 }
-
-
-
-
 
 $(document).ready(function(){
 
@@ -58,14 +81,14 @@ $(document).ready(function(){
     var bottone = $("#btn_salva_test");
 
     elementoInput.on("input", function() {
-        controllaCampi();
+        controllaCampiTest();
     });
 
     elementoOption.on("change", function() {
-        controllaCampi();   
+        controllaCampiTest();   
     });
 
-    function controllaCampi() {
+    function controllaCampiTest() {
         var valoreInput = elementoInput.val();
         var valoreOption = elementoOption.val();
 
@@ -76,25 +99,21 @@ $(document).ready(function(){
         }
     }
 
-    const oggettoQuest = JSON.stringify(Quest);
+
+    $("#domanda_inserita").on("input", function() {
+        abilitaPulsanteAggiungi();
+    });
+
+    function abilitaPulsanteAggiungi() {
+        const pulsante = $("#btn_add_domanda");
     
-
-/*
-    window.salvaTest = function () {
-        
-        $.post("/quest/savetest", {
-            jsonOggetto: JSON.stringify(oggettoQuest)
-        }).done(function (id_nuovo_quest) {
-            if (id_nuovo_quest != "") {
-                mostraToast('salvaOk');
-            } else {
-                mostraToast('salvaErr');
-            }
-        }).fail(function () {
-            mostraToast('salvaErr');
-        });
-    }*/
-
+        if ($("#domanda_inserita").val().trim() !== "") {
+            pulsante.prop("disabled", false);
+        } else {
+            pulsante.prop("disabled", true);
+        }
+    }
+  
     window.salvaTest = function (id_quest) {
         $.post("/quest/savetest", {
             "type": document.getElementById("type").value,
@@ -104,38 +123,44 @@ $(document).ready(function(){
 
             if (id_nuovo_quest != "") {
                 mostraToast('salvaOk');
+                quest.idQst = id_nuovo_quest;
+                $("#btn_aggiungi_domanda").prop("disabled", false);
+                $("#btn_salva_domanda").prop("disabled", false);
             }else{
                 mostraToast('salvaErr');
             }
         }).fail(function (errore) {
             if (errore.status != 0) {
-                mostraToast('salvaErr');
+                mostraToast('errorDB');
             }
         });
     }
-
 
     window.gestisciDomande = function () {
-        $.post("/quest/gestionedomande",{
-            
-        }).done(function (esito) {
+        const oggettoQuest = JSON.stringify(quest);
 
-            if (esito == "") {
+        $.post({
+            url: "/quest/gestionedomande",
+            contentType: "application/json",
+            data: oggettoQuest
+        }).done(function (esito) {
+            if (esito == "OK") {
                 mostraToast('salvaOk');
-            }else{
+            } else{
                 mostraToast('salvaErr');
             }
         }).fail(function (errore) {
             if (errore.status != 0) {
-                mostraToast('salvaErr');
+                mostraToast('errorDB');
             }
         });
     }
 
-
-
-
 });
+
+function pulisicModale() {
+    document.getElementById('domanda_inserita').value = '';
+}
 
 function mostraToast(nomeToast){
     const toastElemento = document.getElementById(nomeToast)
@@ -146,8 +171,9 @@ function mostraToast(nomeToast){
 
 window.onload = function verificaCampiInit(){
     if(document.getElementById("titolo").value != ""){
-        var button = document.getElementById("bottone_aggiungi_domanda").disabled = false;
-        var button = document.getElementById("btn_salva_test").disabled = false;
+        document.getElementById("btn_aggiungi_domanda").disabled = false;
+        document.getElementById("btn_salva_test").disabled = false;
+        document.getElementById("btn_salva_domanda").disabled = false;
     }     
 }
 
