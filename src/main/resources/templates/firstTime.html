@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prova Login pt2</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="login-wrap">
+        <div class="login-html">
+            <img class="logo" src="ants-quests\src\main\resources\static\img\images-removebg-preview.png" alt="Logo">
+            <h2 class="registration-title">Completa Registrazione</h2>
+            <div class="login-form">
+                <div class="group">
+                    <label for="nome" class="label">Nome</label>
+                    <input id="nome" type="text" class="input" placeholder="Inserisci il tuo nome" name="nome">
+                </div>
+                <div class="group">
+                    <label for="cognome" class="label">Cognome</label>
+                    <input id="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome" name="cognome">
+                </div>
+                <div class="group">
+                    <label for="telefono" class="label">Numero di telefono</label>
+                    <input id="telefono" type="text" class="input" placeholder="Inserisci il tuo numero di telefono" name="telefono">
+                </div>
+                <div class="group cap-provincia-group">
+                    <div class="input-cap">
+                        <label for="cap" class="label">CAP</label>
+                        <input id="cap" type="text" class="input input-cap" placeholder="Inserisci il CAP" name="cap">
+                    </div>
+                    <div class="input-provincia">
+                        <label for="provincia" class="label">Provincia</label>
+                        <input id="provincia" type="text" class="input input-provincia" placeholder="Inserisci la provincia" name="provincia">
+                    </div>
+                </div>
+                <div class="group">
+                    <label for="data-nascita" class="label">Data di nascita</label>
+                    <input id="data-nascita" type="date" class="input" name="dataNascita">
+                </div>
+                <div class="group">
+                    <label for="password" class="label">Password</label>
+                    <input id="password" type="password" class="input" placeholder="Inserisci la password" name="passkey">
+                </div>
+                <div class="group">
+                    <label for="conferma-password" class="label">Conferma Password</label>
+                    <input id="conferma-password" type="password" class="input" placeholder="Conferma la password" name="confirmPasskey">
+                </div>
+                <div class="group">
+                    <input type="submit" class="button" value="Registrati">
+                </div>
+                <i id="error-pass" class="hidden error">Non accettabile, la password deve contenere:
+                    - almeno un carattere minuscolo (abc)
+                    - almeno un carattere maiuscolo (ABC)
+                    - almeno un carattere numerico (123)
+                </i>
+                <i id="correct-pass" class="hidden correct">Accettabile</i>
+                <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
+                <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
+            </div>
+        </div>
+    </div>
+    <!-- Link agli script JavaScript -->
+    <script src="path/to/your/firstTime.js"></script>
+    <script src="path/to/your/anotherScript.js"></script>
+</body>
+</html>
