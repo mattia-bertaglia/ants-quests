@@ -1,70 +1,63 @@
-// Seleziona i pulsanti e gli elementi necessari
-const signinbtn = document.querySelector('.signinbtn');
-const signupbtn = document.querySelector('.signupbtn');
-const formbox = document.querySelector('.form-box'); // Corretto da .formbox a .form-box
-const body = document.querySelector('body'); // Corretto da .body a body
+    document.addEventListener('DOMContentLoaded', function() {
+        var signupForm = document.querySelector('.sign-up-htm');
+        var emailInput = document.getElementById('email-reg');
+        var emailError = document.getElementById('error-mail');
+        var emailCorrect = document.getElementById('correct-mail');
 
-// Aggiunge un evento di click al pulsante "Registrati"
-signupbtn.onclick = function() {
-  formbox.classList.add('active');
-  body.classList.add('active');
-};
+        // Inizialmente nasconde i messaggi di errore e di successo
+        emailError.classList.add('hidden');
+        emailCorrect.classList.add('hidden');
 
-// Aggiunge un evento di click al pulsante "Accedi"
-signinbtn.onclick = function() {
-  formbox.classList.remove('active');
-  body.classList.remove('active');
-};
+        emailInput.addEventListener('input', function() {
+            var email = emailInput.value;
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-// REGISTRAZIONE
-document.addEventListener('DOMContentLoaded', function() {
-  var signupForm = document.getElementById('signupForm');
-  var emailInput = document.getElementById('mail');
+            if (email) {
+                // Controlla se la email è valida
+                if (!emailPattern.test(email)) {
+                    emailError.classList.remove('hidden');
+                    emailCorrect.classList.add('hidden');
+                } else {
+                    emailError.classList.add('hidden');
+                    emailCorrect.classList.remove('hidden');
+                }
+            } else {
+                // Nasconde i messaggi se il campo email è vuoto
+                emailError.classList.add('hidden');
+                emailCorrect.classList.add('hidden');
+            }
+        });
 
-  var emailError = document.getElementById('error-mail');
-  var emailCorrect = document.getElementById('correct-mail');
+        signupForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Impedisce il submit del form
 
-  emailInput.addEventListener('input', function() {
-      var email = emailInput.value;
-      var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!emailPattern.test(email)) {
-          emailError.classList.remove('hidden');
-          emailCorrect.classList.add('hidden');
-      } else {
-          emailError.classList.add('hidden');
-          emailCorrect.classList.remove('hidden');
-      }
-  });
+            var nome = document.getElementById('nome').value;
+            var cognome = document.getElementById('cognome').value;
+            var email = emailInput.value;
 
-  signupForm.addEventListener('submit', function(event) {
-      event.preventDefault(); // Impedisce il submit del form
+            // Controllo se tutti i campi sono completati
+            if (!nome || !cognome || !email) {
+                alert('Devi completare tutti i campi per registrarti.');
+                return;
+            }
 
-      var nome = document.querySelector('input[name="nome"]').value;
-      var cognome = document.querySelector('input[name="cognome"]').value;
-      var email = emailInput.value;
+            // Controllo validità email
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                emailError.classList.remove('hidden');
+                emailCorrect.classList.add('hidden');
+                return;
+            } else {
+                emailError.classList.add('hidden');
+                emailCorrect.classList.remove('hidden');
+            }
 
-      // Controllo se tutti i campi sono completati
-      if (!nome || !cognome || !email) {
-          alert('Devi completare tutti i campi per registrarti.');
-          return;
-      }
+            // Se tutti i controlli sono superati, procedere con la registrazione
+            alert('Registrazione avvenuta con successo!');
+            signupForm.submit(); // Invia il form
+        });
+    });
 
-      // Controllo validità email
-      var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!emailPattern.test(email)) {
-          emailError.classList.remove('hidden');
-          return;
-      } else {
-          emailError.classList.add('hidden');
-          emailCorrect.classList.remove('hidden');
-      }
-
-
-      // Se tutti i controlli sono superati, procedere con la registrazione
-      alert('Registrazione avvenuta con successo!');
-      signupForm.submit(); // Invia il form
-  });
-});
 
 
 

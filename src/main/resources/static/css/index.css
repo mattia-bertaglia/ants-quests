@@ -1,187 +1,234 @@
+/* Importa root.css */
+@import url('root.css');
+
 /* Stile globale per il reset del CSS */
-
-@import url(root.css);
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  list-style: none;
-  text-decoration: none;
-  scroll-behavior: smooth;
-  font-family: "Poppins", sans-serif;
+*,
+:after,
+:before {
+    box-sizing: border-box;
 }
 
-/* Stile per il corpo del documento */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* Corretto da min-width a min-height */
-  background: #ffa500;
-  transition: 0.5s;
+.clearfix:after,
+.clearfix:before {
+    content: '';
+    display: table;
 }
 
-/* Stile per il corpo quando è attiva */
-body.active {
-  background: #03a9f4;
+.clearfix:after {
+    clear: both;
+    display: block;
 }
 
-/* Stile per il contenitore principale */
-.container {
-  position: relative;
-  width: 800px;
-  height: 500px;
-  margin: 20px;
-}
-
-/* Stile per il background arancione */
-.orangeBG {
-  position: absolute;
-  top: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 420px;
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 5px 45px rgba(0, 0, 0, 0.15);
-}
-
-/* Stile per ogni box all'interno del background arancione */
-.orangeBG .box {
-  position: relative;
-  width: 50%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-/* Stile per il box del form */
-.form-box {
-  position: absolute;
-  background: #fff;
-  height: 100%;
-  width: 50%;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
-  transition: ease-in-out 0.5s;
-  overflow: hidden;
-}
-
-/* Stile per il box del form quando attivo */
-.form-box.active {
-  left: 50%;
-}
-
-/* Stile per il titolo dei box */
-.box h2 {
-  color: #fff;
-  font-size: 1.2em;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
-/* Stile per i pulsanti nei box */
-.orangeBG .box button {
-  padding: 10px 20px;
-  background: #fff;
-  color: black;
-  font-size: 16px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-}
-
-/* Stile per i form all'interno dei box */
-.form-box .form {
-  position: absolute;
-  width: 80%;
-  transition: 0.5s;
-  padding: 50px;
-}
-
-.form-box .signinform {
-  transition-delay: 0.25s;
-}
-
-.form-box.active .signinform {
-  left: -100%;
-  transition-delay: 0;
-}
-
-.form-box .signupform {
-  left: 100%;
-  transition-delay: 0;
-}
-
-.form-box.active .signupform {
-  left: 0;
-  transition-delay: 0.25s;
-}
-
-/* Stile per i form */
-.form-box .form form {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-}
-
-/* Stile per gli input nei form */
-.form form input {
-  margin-bottom: 20px;
-  padding: 10px;
-  outline: none;
-  border: 1px solid #333;
-}
-
-/* Stile per il titolo dei form */
-.form form h3 {
-  text-align: center;
-  font-size: 1.5em;
-  font-weight: 500;
-  margin-bottom: 20px;
-}
-
-/* Stile per il pulsante di invio nei form */
-.form form input[type="submit"] {
-  background: #ffa500;
-  border: none;
-  max-width: 100px;
-  color: #fff;
-  cursor: pointer;
-}
-
-/* Stile per il pulsante di invio nella registrazione */
-.form form input[value="Registrati"] {
-  background: #03a9f4;
-  border: none;
-  max-width: 100px;
-  color: #fff;
-  cursor: pointer;
-}
-
-/* Stile per i link */
 a {
-  color: #333;
-  font-size: 14px;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Login Wrap */
+.login-wrap {
+    width: 100%;
+    margin: 50px auto;
+    max-width: 525px;
+    min-height: 1000px;
+    position: relative;
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
+}
+
+/* Login HTML */
+.login-html {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 30px 70px 50px 70px;
+    background: #c0daad;
+}
+
+.logo {
+    display: block;
+    margin: 20px auto 30px auto;
+    width: 180px;
+}
+
+.login-html .sign-in-htm,
+.login-html .sign-up-htm {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    transition: all .4s linear;
+}
+
+.login-html .sign-in,
+.login-html .sign-up,
+.login-form .group .check {
+    display: none;
+}
+
+.login-html .tab,
+.login-form .group .label,
+.login-form .group .button {
+    text-transform: uppercase;
+}
+
+.login-html .tab {
+    font-size: 22px;
+    margin-right: 15px;
+    padding-bottom: 5px;
+    margin: 0 15px 10px 0;
+    display: inline-block;
+    border-bottom: 2px solid transparent;
+}
+
+.login-html .sign-in:checked + .tab,
+.login-html .sign-up:checked + .tab {
+    color: #629a59;
+    border-color: #373737;
+}
+
+.login-form {
+    min-height: 345px;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.login-form .group {
+    margin-bottom: 15px;
+}
+
+.login-form .group .label,
+.login-form .group .input,
+.login-form .group .button {
+    width: 100%;
+    color: #373737;
+    display: block;
+}
+
+.login-form .group .input,
+.login-form .group .button {
+    border: none;
+    padding: 15px 20px;
+    border-radius: 25px;
+    background: #f9f8f7;
+}
+
+.login-form .group input[data-type="password"] {
+    text-security: circle;
+    -webkit-text-security: circle;
+}
+
+.login-form .group .label {
+    color: #373737;
+    font-size: 12px;
+}
+
+.login-form .group .button {
+    background: #acce91;
+}
+
+.login-form .group .button:hover {
+    background: #8db986;
+}
+
+.login-form .group label .icon {
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    position: relative;
+    display: inline-block;
+    background: #acce91;
+}
+
+.login-form .group label .icon:before,
+.login-form .group label .icon:after {
+    content: '';
+    width: 10px;
+    height: 2px;
+    background: #badb73;
+    position: absolute;
+    transition: all .2s ease-in-out 0s;
+}
+
+.login-form .group label .icon:before {
+    left: 3px;
+    width: 5px;
+    bottom: 6px;
+    transform: scale(0) rotate(0);
+}
+
+.login-form .group label .icon:after {
+    top: 6px;
+    right: 0;
+    transform: scale(0) rotate(0);
+}
+
+.login-form .group .check:checked + label {
+    color: #373737;
+}
+
+.login-form .group .check:checked + label .icon {
+    background: #8db986;
+}
+
+.login-form .group .check:checked + label .icon:before {
+    transform: scale(1) rotate(45deg);
+}
+
+.login-form .group .check:checked + label .icon:after {
+    transform: scale(1) rotate(-45deg);
+}
+
+.login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm {
+    transform: rotate(0);
+}
+
+.login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
+    transform: rotate(0);
 }
 
 .hidden {
-  display: none;
-}
-
-.correct {
-  color: green;
+    display: none;
 }
 
 .error {
-  color: red;
+    color: red;
+}
+
+.correct {
+    color: green;
+}
+
+.hr {
+    height: 2px;
+    margin: 60px 0 50px 0;
+    background: #373737;
+}
+
+.foot-lnk {
+    text-align: center;
+}
+
+/* Stile per il contenitore dei campi CAP e Provincia */
+.cap-provincia-group {
+    display: flex;
+    gap: 15px; /* Spazio tra CAP e Provincia */
+}
+
+.cap-provincia-group .input-cap,
+.cap-provincia-group .input-provincia {
+    flex: 1; /* Permette ai campi di adattarsi in modo flessibile */
+}
+
+/* Specifico per il campo CAP */
+.input-cap {
+    margin-right: 15px; /* Spazio tra CAP e Provincia */
+    width: 100%; /* Assicura che il campo occupi tutta la larghezza disponibile */
+}
+
+/* Specifico per il campo Provincia */
+.input-provincia {
+    width: 100%; /* Assicura che il campo occupi tutta la larghezza disponibile */
 }
