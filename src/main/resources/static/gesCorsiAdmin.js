@@ -10,7 +10,7 @@ function dettaglioCorso(corso) {
 function vediStudenti(corso) {
     // aggiungo anche idCorso al bottone per aggiungere un nuovo studente
     document.getElementById("add-new-studente").setAttribute("data-corso", corso.idCorso);
-    document.getElementById("vedi-studs-label").innerHTML = "Studenti del Corso: <strong>" + corso.nome + "</strong>";
+    document.getElementById("vedi-studs-label").innerHTML = "Studenti del <strong>" + corso.nome + "</strong>";
 
     const tbodyStudenti = document.getElementById("lista-studenti");
     tbodyStudenti.innerHTML = "";
