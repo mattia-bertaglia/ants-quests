@@ -13,6 +13,9 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     // Metodo per trovare un utente per usernameEmail
     Optional<User> findByUsernameEmail(String usernameEmail);
 
+    // Metodo per verificare l'esistenza di un utente per usernameEmail
+    boolean existsByUsernameEmail(String usernameEmail);
+
     // Metodo per trovare tutti gli utenti con un determinato ruolo
     List<User> findByRuolo(Ruolo ruolo);
 
