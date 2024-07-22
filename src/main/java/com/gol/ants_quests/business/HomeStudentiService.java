@@ -1,5 +1,6 @@
 package com.gol.ants_quests.business;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -9,18 +10,23 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.gol.ants_quests.hibernate.entities.EsitoQuest;
 import com.gol.ants_quests.hibernate.entities.OnlyStudente;
 import com.gol.ants_quests.hibernate.entities.Quest;
+import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.hibernate.services.EsitiHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
 import com.gol.ants_quests.hibernate.services.RisposteHibService;
+import com.gol.ants_quests.hibernate.services.StudentiHibService;
+import com.gol.ants_quests.hibernate.services.UsersHibService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,8 +39,11 @@ public class HomeStudentiService {
     private final CategorieHibService categorieHibSrv;
     private final QuestsHibService questSrv;
     private final RisposteHibService risposteSrv;
-
+    private final UsersHibService authsrv;
+    private final StudentiHibService studHibSrv;
+    private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
     private final PdfService pdfSrv;
+    private final ErrorService errorService;
 
     public void findAllEsitiQuest(Model model) {
         model.addAttribute("listaEsitiQuestionari", esitiSrv.findAll());
@@ -56,14 +65,46 @@ public class HomeStudentiService {
         model.addAttribute("esiti", esitiSrv.findByStudente(idStudente));
     }
 
+    /* metodo per la modifica dello studente dal suo profilo */
+    public void modificaProfilo(HttpSession session, HashMap<String, String> params, Model model) {
+        String email = params.get("usernameEmail");
+        String password = params.get("passkey");
+
+        if (email == null || password == null || !authsrv.userExists(email)) {
+            errorService.addErrorMessageToModel(model, "registrationError");
+            return;
+        }
+
+        User user = (User) session.getAttribute("user");
+        user.setPasskey(bcrypt.encode(password));
+        user.setFirstTime(false);
+
+        User salvatoUser = authsrv.save(user);
+
+        Studente studenteTemp = salvatoUser.getStudente();
+        studenteTemp.setNome(params.get("nome"));
+        studenteTemp.setCognome(params.get("cognome"));
+        studenteTemp.setDataNascita(Date.valueOf(params.get("dataNascita")));
+        studenteTemp.setCap(params.get("cap"));
+        studenteTemp.setProvincia(params.get("provincia"));
+        studenteTemp.setTelefono(params.get("telefono"));
+        studenteTemp.setNote(params.get("note"));
+        salvatoUser.setStudente(studHibSrv.save(studenteTemp));
+
+        if (salvatoUser == null || salvatoUser.getId() == null) {
+            errorService.addErrorMessageToModel(model, "registrationError");
+            return;
+        }
+
+        errorService.addSuccessMessageToSession(session, "registrationSuccess");
+    }
+
     public void doQuestionario(Model model, Long idQuest) {
         log.info("Caricamento Questionario=" + idQuest);
         model.addAttribute("quest", questSrv.findByID(idQuest).get());
-
     }
 
     public void elaborazioneQuestionario(User user, HashMap<String, String> params) {
-
         log.info("Start Elaborazione Questionario, Studente=" + user.getUsernameEmail());
         Optional<Quest> quest = questSrv.findByID(Long.parseLong(params.get("id-quest")));
 
