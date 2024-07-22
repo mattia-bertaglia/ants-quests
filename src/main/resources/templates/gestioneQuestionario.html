@@ -70,7 +70,7 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush" id="elenco-domande">
-                            <li class="list-group-item" th:each="domanda : ${quest.domanda}" >
+                            <li class="list-group-item" th:each="domanda : ${quest.domanda}" th:id=" ${domanda.idQstDet}">
                                 <script>
                                     domanda = new Domanda();
                                     domanda.idQstDet = '[[${domanda.idQstDet}]]';
@@ -81,10 +81,10 @@
                                     <div>
                                         <hr>
                                         <button class="btn btn-outline-primary" data-bs-toggle="modal"
-                                            data-bs-target="#modale-modifica-domanda" th:onclick="popolaModale([[${domanda}]])">Modifica
+                                            data-bs-target="#modale-modifica-domanda" onclick="popolaModale(this)">Modifica
                                         </button>
                                         <button class="btn btn-outline-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modale-elimina-domanda">Elimina</button>
+                                            data-bs-target="#modale-elimina-domanda" onclick="trovaDomanda(this)">Elimina</button>
                                         <div class="mb-3 mt-3"></div>
                                         <ol class="list-group list-group-numbered">
                                             <th:block th:each="risposta : ${domanda.risp}">
@@ -160,7 +160,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
-                    <button type="button" class="btn btn-danger">Elimina</button>
+                    <button type="button" class="btn btn-danger" onclick="eliminaDomanda()">Elimina</button>
                 </div>
             </div>
         </div>
@@ -193,22 +193,24 @@
                     </div>
                 </div>
                 <div class="mb-3 mt-3"></div>
-                <div id="nuovo-elenco-risposte">
+                <div id="risposta-obbligatoria">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="input-group input-group-sm mb-1">
-                                <input type="text" class="form-control col-6" id="risposta_inserita">
+                                <input type="text" class="form-control col-6 risposta_inserita" id="risposta_inserita">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-check">
-                                <input class="form-check-input" id="corretta" type="checkbox" name="corretta">
+                                <input class="form-check-input risp_corretta" id="corretta" type="checkbox" name="corretta">
                                 <label class="form-check-label" for="corretta">
                                     Corretta
                                 </label>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div id="nuovo-elenco-risposte">
                 </div>
             </div>
             <div class="modal-footer">
@@ -218,7 +220,7 @@
                 </button>
                 </div>
                 <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                    <button type="button" class="btn btn-warning">Pulisci</button>
+                    <button type="button" class="btn btn-warning" onclick="pulisicModaleAggiungi()">Pulisci</button>
                 </div>
             </div>
         </div>
@@ -226,73 +228,49 @@
 </div>
 <!--FINE MODALE Aggiungi Domanda -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- Modale Modifica Domanda -->
-    <div class="modal fade" id="modale-modifica-domanda">
-        <div class="modal-dialog modal-dialog-centered modal-xl ">
-            <div class="modal-content">
-                <form action="modificadomanda" method="get">
-                    <div class="modal-header" style="width: 100%;">
-                        <h5 class="modal-title">Modifica Domanda</h5>
+<div class="modal fade" id="modale-modifica-domanda">
+    <div class="modal-dialog modal-dialog-centered modal-xl ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifica Domanda</h5>
+                <button type="button" class="btn btn-outline-secondary" 
+                data-bs-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body" style="background-color: aliceblue;">
+                <div class="input-group input-group-sm mb-1">
+                    <label class="input-group-text col-5" for="domanda_inserita">
+                        Domanda
+                    </label>
+                    <textarea name="domanda_inserita" class="form-control w-100" 
+                    style="text-transform:none;" id="domanda_inserita_modifica"></textarea>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="button" class="btn btn-primary btn-sm"
+                            onclick="aggiungiRisposta('elenco-risposte')"
+                            value="Aggiungi Risposta">
                     </div>
-                    <div class="modal-body" style="background-color: aliceblue;">
-                        <div class="input-group input-group-sm mb-1">
-                            <label class="input-group-text col-5" for="textAreaDomanda">
-                                Domanda
-                            </label>
-                            <textarea name="domanda_inserita" id="textAreaDomanda" 
-                            class="form-control w-100" style="text-transform:none;"></textarea>
-                            <input type="hidden" th:value="${quest.idQst}"  id="id_questionario" name="id_questionario"/>
-                            <input type="hidden" id="id_domanda" name="id_domanda"/>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-6">
-                            <button class="btn btn-primary btn-sm"
-                                onclick="aggiungiRisposta('elenco-risposte')">
-                                Aggiungi Risposta
-                            </button>
-                            </div>
-                        </div>
-                        <div class="mb-3 mt-3"></div>
-                        <div id="elenco-risposte">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="d-grid gap-1 col-10 mt-3 mx-auto">
-                            <button type="submit" class="btn btn-primary">Modifica</button>
-                        </div>
-                        <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                            <button type="reset" class="btn btn-warning">Pulisci</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
+                <div class="mb-3 mt-3"></div>
+                <div id="elenco-risposte">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-grid gap-1 col-10 mt-3 mx-auto">
+                <button type="button" class="btn btn-primary" 
+                    id="btn_mod_domanda" onclick="modDomanda()">Aggiungi
+                </button>
+                </div>
+                <div class="d-grid gap-2 col-10 mt-2 mx-auto">
+                    <button type="button" class="btn btn-warning">Pulisci</button>
+                </div>
             </div>
         </div>
     </div>
+</div>
 <!-- FINE MODALE Modifica Domanda -->
-
-
-
-
-
-
-
-
 
 
   <script src="/jquery/jquery-3.7.1.min.js"></script>

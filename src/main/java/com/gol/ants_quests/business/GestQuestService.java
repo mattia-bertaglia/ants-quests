@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
 import com.gol.ants_quests.hibernate.entities.DomandaQuest;
 import com.gol.ants_quests.hibernate.entities.Quest;
+import com.gol.ants_quests.hibernate.entities.RispostaQuest;
 import com.gol.ants_quests.hibernate.services.DomandeHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
 import com.gol.ants_quests.hibernate.services.RisposteHibService;
@@ -58,21 +59,48 @@ public class GestQuestService {
 
     public String gestioneDomande(Quest oggetto) {
        String esito = ""; 
+       DomandaQuest domanda;
        
-       for(int i=0;i<oggetto.getDomanda().size();i++){
+        for(int i=0;i<oggetto.getDomanda().size();i++){
 
-            if(oggetto.getDomanda().get(i).getIdQstDet() == null){
-                DomandaQuest nuovaDomanda = new DomandaQuest();
-                nuovaDomanda.setDomanda(oggetto.getDomanda().get(i).getDomanda());
+            if(oggetto.getDomanda().get(i).getIdQstDet() == null 
+                && oggetto.getDomanda().get(i).getDomanda() !=null ){
+                domanda = new DomandaQuest();
                 Quest id_quest = new Quest();
+
+                domanda.setDomanda(oggetto.getDomanda().get(i).getDomanda());
                 id_quest.setIdQst(oggetto.getIdQst());
-                nuovaDomanda.setDom(id_quest);
-                domSrv.save(nuovaDomanda);
-                esito = "OK";
+                domanda.setDom(id_quest);
+                domSrv.save(domanda);
+
+            }else if(oggetto.getDomanda().get(i).getIdQstDet() != null 
+                && oggetto.getDomanda().get(i).getDomanda() == ""){
+                domSrv.delete(oggetto.getDomanda().get(i).getIdQstDet());
+                return "OK";
+            }else{
+                domanda = domSrv.findByID(oggetto.getDomanda().get(i).getIdQstDet()).get();
+                //modifica domanda già esistente
             }
 
 
-       }
+            for(int y=0;y<oggetto.getDomanda().get(i).getRisp().size();y++){
+
+                if(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() ==null){
+                    RispostaQuest risposta = new RispostaQuest();
+                    risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
+                    risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
+                    risposta.setDomandaQuest(domanda);
+                    risSrv.save(risposta);
+                    esito = "OK";
+                }else{
+                    //modifica risposta già esistente
+                }
+            }
+
+
+
+
+        }
 
 
 

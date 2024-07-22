@@ -34,6 +34,7 @@ public class QuestController {
 
     @GetMapping("/lista")
     public String lista(Model model) {
+        showSrv.findAllCategorie(model);
         showSrv.findAllQuestByCategoria(model);
         return "listaQuestionari.html";
     }

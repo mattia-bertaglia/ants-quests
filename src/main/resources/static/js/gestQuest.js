@@ -1,12 +1,9 @@
-function popolaModale(domanda) {
-    //document.getElementById('textAreaDomanda').value = domanda.domanda;
-    document.getElementById('textAreaDomanda').value = domanda.domanda;
-    document.getElementById('id_domanda').value = domanda.idQstDet;
+function popolaModale(elemento) {
+    let interoElemento = elemento.closest('li');
+    trovaDomandaDaModificare(interoElemento);
+    let indiceArray = quest.domanda.findIndex(domanda => domanda.idQstDet === interoElemento.id);
+    document.getElementById('domanda_inserita_modifica').value = quest.domanda[indiceArray].domanda;
 
-    for(let i=0;i<domanda.risp.length;i++){
-        //document.getElementById('textAreaDomanda').value += domanda.risp[i].risposta;
-        
-    }
 }
 
 
@@ -15,12 +12,12 @@ function aggiungiRisposta(elenco) {
                  `<div class="row">
                         <div class="col-md-6">
                             <div class="input-group input-group-sm mb-1">
-                                <input type="text" class="form-control col-6">
+                                <input type="text" class="form-control col-6 risposta_inserita">
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="corretta">
+                                    <input class="form-check-input risp_corretta" type="checkbox">
                                 <label class="form-check-label" for="corretta">
                                     Corretta
                                 </label>
@@ -37,8 +34,35 @@ function aggiungiRisposta(elenco) {
 }
 
 function eliminaRisposta(risposta) {
-    domanda.parentNode.removeChild(risposta);
+    risposta.parentNode.removeChild(risposta);
 }
+
+
+let domandaDaEliminare = null;
+
+function trovaDomanda(elemento) {
+    domandaDaEliminare = elemento.closest('li');
+}
+
+function eliminaDomanda() {
+
+    let id = domandaDaEliminare.id;
+    if(id != ""){
+        let domanda = quest.domanda.find(domanda => domanda.idQstDet === id);
+        domanda.domanda = "";
+        domanda.risp = [];
+    }else{
+        let indiceArray = quest.domanda.indexOf(domandaDaEliminare);
+        quest.domanda.splice(indiceArray, 1);   
+    }
+
+    domandaDaEliminare.remove();
+
+    var modal = document.getElementById('modale-elimina-domanda');
+    var modalInstance = bootstrap.Modal.getInstance(modal);
+    modalInstance.hide();
+}
+
 
 function addDomanda() {
     const textareaDomanda = document.getElementById('domanda_inserita').value;
@@ -48,6 +72,26 @@ function addDomanda() {
     domanda.domanda = textareaDomanda;
     quest.domanda.push(domanda);
 
+
+    var listaRisposte = document.querySelectorAll(".risposta_inserita");
+    var listaRispCorretta = document.querySelectorAll(".risp_corretta");
+    var RisposteTemplate = "";
+
+    for (let i = 0; i < listaRisposte.length; i++) {
+
+        ris = new Risposta();
+        ris.risposta =  listaRisposte[i].value;
+        ris.corretta = listaRispCorretta[i].checked;
+        domanda.risp.push(ris);
+
+        RisposteTemplate += `
+    <li class="${ris.corretta  ? 'list-group-item list-group-item-success' : 'list-group-item list-group-item-danger'}">
+        ${ris.risposta}
+    </li>`;
+
+
+    }
+
     let domandaTemplate = 
     `<li class="list-group-item">
         <details>
@@ -55,24 +99,42 @@ function addDomanda() {
             <div>
                 <hr>
                 <button class="btn btn-outline-primary" data-bs-toggle="modal"
-                    data-bs-target="#modale-modifica-domanda">Modifica
+                    data-bs-target="#modale-modifica-domanda" onclick="popolaModale(this)">Modifica
                 </button>
                 <button class="btn btn-outline-danger" data-bs-toggle="modal"
-                    data-bs-target="#modale-elimina-domanda">Elimina
+                    data-bs-target="#modale-elimina-domanda" onclick="trovaDomanda(this)">Elimina
                 </button>
                 <div class="mb-3 mt-3"></div>
-                <ol class="list-group list-group-numbered">
-                </ol>
+                <ol class="list-group list-group-numbered">${RisposteTemplate}</ol>
             </div>
         </details>
     </li>`;
     
     lista.innerHTML += domandaTemplate;
-    pulisicModale()
+    pulisicModaleAggiungi()
     const modaleAggiungi = document.getElementById('modale-aggiungi-domanda');
     const modale = bootstrap.Modal.getInstance(modaleAggiungi);
     modale.hide();
 }
+
+
+let domandaDaModificare = null;
+
+function trovaDomandaDaModificare(elemento) {
+    domandaDaModificare = elemento;
+}
+
+function modDomanda() {
+
+    let indiceArray = quest.domanda.findIndex(domanda => domanda.idQstDet === domandaDaModificare.id);
+    quest.domanda[indiceArray].domanda = document.getElementById('domanda_inserita_modifica').value;
+    domandaDaModificare.textContent = document.getElementById('domanda_inserita_modifica').value;
+    const modaleAggiungi = document.getElementById('modale-modifica-domanda');
+    const modale = bootstrap.Modal.getInstance(modaleAggiungi);
+    modale.hide();
+}
+
+
 
 $(document).ready(function(){
 
@@ -104,10 +166,14 @@ $(document).ready(function(){
         abilitaPulsanteAggiungi();
     });
 
+    $("#risposta_inserita").on("input", function() {
+        abilitaPulsanteAggiungi();
+    });
+
     function abilitaPulsanteAggiungi() {
         const pulsante = $("#btn_add_domanda");
     
-        if ($("#domanda_inserita").val().trim() !== "") {
+        if ($("#domanda_inserita").val().trim() !== "" && $("#risposta_inserita").val().trim() !== "") {
             pulsante.prop("disabled", false);
         } else {
             pulsante.prop("disabled", true);
@@ -158,8 +224,12 @@ $(document).ready(function(){
 
 });
 
-function pulisicModale() {
+function pulisicModaleAggiungi() {
     document.getElementById('domanda_inserita').value = '';
+    document.getElementById('corretta').checked = false;
+    document.getElementById('risposta_inserita').value =  '';
+    document.getElementById("nuovo-elenco-risposte").innerHTML = '';
+    $("#btn_add_domanda").prop("disabled", true);
 }
 
 function mostraToast(nomeToast){

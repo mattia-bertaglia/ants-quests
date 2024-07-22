@@ -20,43 +20,22 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6" th:each="categorie : ${listaCategorie}">
                 <div class="card">
-                    <div class="card-header">
-                        Ingresso
-                    </div>
+                    <div class="card-header" th:text="${categorie.nome}"></div>
                     <div class="card-body">
                         <div>
                              <ul class="list-group list-group-flush">
-                                <li th:each="questionari : ${listaQuestionari}" class="list-group-item" th:if="${questionari.categoriequest.idCat}==I">
-                                    <span th:text="${questionari.titolo}"></span>
-                                    <button type="submit"  name="id_quest" th:value="${questionari.idQst}" class="btn float-end">...</button>
+                                <li class="list-group-item" th:each="listaQuestionari :${categorie.questionari}">
+                                    <span th:text="${listaQuestionari.titolo}"></span>
+                                    <button type="submit"  name="id_quest" th:value="${listaQuestionari.idQst}" class="btn float-end">...</button>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        Corso
-                    </div>
-                <div class="card-body">
-                    <div>
-                        <ul class="list-group list-group-flush">
-                            <li th:each="questionari : ${listaQuestionari}" class="list-group-item" th:if="${questionari.categoriequest.idCat}==C">
-                                <span th:text="${questionari.titolo}"></span>
-                                <button type="submit"  name="id_quest" th:value="${questionari.idQst}" class="btn float-end">...</button>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
 </form>
 
     <script src="/jquery/jquery-3.7.1.min.js"></script>
