@@ -10,6 +10,7 @@
     /* Colore al passaggio del mouse per i bottoni */
     --link-color: #373737;
     --link-hover-color: #badb73;
+    --logout-hover-color: #ff4d4d; /* Colore al passaggio del mouse per il bottone di logout */
 }
 
 /* Global Styles */
