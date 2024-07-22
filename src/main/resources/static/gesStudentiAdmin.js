@@ -29,20 +29,6 @@ function vediQuest(stud) {
 }
 /* fine script per modale vedi quest */
 
-/* inizio script reset- pulsante tolto in modifica */
-function resetCampi() {
-    $('#resetConfirmModal').modal('show');
-}
-
-document.getElementById('confirmReset').addEventListener('click', function () {
-    document.querySelector("#modDetailModal input[name=nome]").value = '';
-    document.querySelector("#modDetailModal input[name=cognome]").value = '';
-    document.querySelector("#modDetailModal input[name=email]").value = '';
-    document.querySelector("#modDetailModal input[name=dataNascita]").value = '';
-    document.querySelector("#modDetailModal select[name=ruolo]").selectedIndex = 0; // Reset to default
-    $('#resetConfirmModal').modal('hide'); // Chiudi il modal di conferma
-});
-/* fine script reset- pulsante tolto in modifica */
 
 function showPdf(pdfFile) {
     document.getElementById('pdfFrame').src = pdfFile;
@@ -50,17 +36,19 @@ function showPdf(pdfFile) {
 
 /* SCRIPT DA RIVEDERE */
 
-function populateModal(button) {
+/* function populateModal(button) {
     document.querySelector("#modDetailModal input[name=studId]").value = button.getAttribute('data-student-id');
     document.querySelector("#modDetailModal input[name=nome]").value = button.getAttribute('data-student-nome');
     document.querySelector("#modDetailModal input[name=cognome]").value = button.getAttribute('data-student-cognome');
     document.querySelector("#modDetailModal input[name=email]").value = button.getAttribute('data-student-email');
     document.querySelector("#modDetailModal input[name=dataNascita]").value = button.getAttribute('data-student-datanascita');
-    const ruolo = button.getAttribute('data-student-ruolo')  '';
-    document.querySelector("#modDetailModal select[name=ruolo]").value = ruolo;
-    const corso = button.getAttribute('data-student-corso')  '';
-    document.querySelector("#modDetailModal select[name=corso]").value = corso;
-}
+    /*  const user = button.getAttribute('data-student-user') || '';
+     document.querySelector("#modDetailModal select[name=ruolo]").value = user; */
+/*  const corso = button.getAttribute('data-student-corso') || '';
+ document.querySelector("#modDetailModal select[name=corso]").value = corso;
+}  */
+
+
 
 /* th:onclick="dettaglioStudente([[${studente}]])"*/
 function dettaglioStudente(studente) {
