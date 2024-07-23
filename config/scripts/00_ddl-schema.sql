@@ -21,6 +21,7 @@ create table antsquests.quests (
     id_qst bigint primary key auto_increment,
     categoria_id varchar(1) not null,
     titolo varchar(50) not null,
+    attivo tinyint not null default true,
     foreign key (categoria_id) references antsquests.quests_categories(id_cat)
 );
 
@@ -36,7 +37,7 @@ create table antsquests.answers_qsts (
     quest_detail_id bigint not null,
     risposta varchar(100) not null,
     corretta tinyint not null default false,
-    foreign key (quest_detail_id) references antsquests.quests_details(id_qst_det)
+    foreign key (quest_detail_id) references antsquests.quests_details(id_qst_det) on delete cascade
 );
 
 create table antsquests.corsi (
@@ -64,6 +65,8 @@ create table antsquests.studenti (
 create table antsquests.esiti_quests (
     id_est_qst bigint primary key auto_increment,
     quest_id bigint not null,
+    cetagoriaQuest varchar(50) not null,
+    titoloQuest varchar(50) not null,
     studente_id bigint not null,
     data_esecuzione timestamp not null,
     punteggio varchar(7) not null,
