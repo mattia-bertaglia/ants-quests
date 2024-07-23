@@ -26,4 +26,16 @@ public class ErrorService {
     public void addErrorMessageToModel(Model model, String code) {
         model.addAttribute("errorMessage", getErrorMessage(code));
     }
+
+    public String getSuccessMessage(String code) {
+        return errorMessage.get(code); // Assumendo che i messaggi di successo siano gestiti allo stesso modo
+    }
+
+    public void addSuccessMessageToSession(HttpSession session, String code) {
+        session.setAttribute("successMessage", getSuccessMessage(code));
+    }
+
+    public void addSuccessMessageToModel(Model model, String code) {
+        model.addAttribute("successMessage", getSuccessMessage(code));
+    }
 }

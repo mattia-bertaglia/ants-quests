@@ -1,47 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Impostazioni Utente</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+        .container {
+            margin: auto;
+            width: 1000px;
+        }
+        nav {
+            background: #0ca0d6;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 10px;
+            border-bottom: 3px solid transparent;
+            transition: all .3s ease;
+        }
+        nav a:hover {
+            color: #444;
+            border-bottom: 3px solid #444;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group .form-control {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .form-control-plaintext {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+        }
         .hidden {
             display: none;
         }
-
-        .error {
+        .error, .correct {
             color: red;
+            display: none;
         }
-
         .correct {
             color: green;
         }
+        .btn-group {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btn-group button {
+            margin-left: 10px;
+        }
     </style>
-
 </head>
-
 <body>
-
-    <navbar class="navbar navbar-expand">
-        <a href="/homeStud/" class="btn btn-primary">Home</a>
-        <a href="/auth/logout" class="btn btn-warning">Logout</a>
-    </navbar>
-
+    <nav>
+        <ul class="container">
+            <li><a href='/homeStud/'>Home</a></li>
+            <li><a href="/auth/logout" class="btn btn-warning">Logout</a></li>
+        </ul>
+    </nav>
+   
     <div class="container">
-        <div class="card">
+        <div class="card mt-4">
             <div class="card-header">
-                <h3>Profilo Utente</h3>
+                <h3>Impostazioni Utente</h3>
             </div>
             <div class="card-body">
-
-                <div class="container">
-                    <form id="profilo-form" action="/homeStud/modificaProfilo" method="POST">
-
+                <form id="profilo-form" action="/homeStud/modificaProfilo" method="POST">
+                    <div class="form-group">
+                        <label for="usernameEmail">La tua email</label>
                         <input type="email" readonly class="form-control form-control-plaintext" name="usernameEmail"
                             th:value="${session.user.usernameEmail}" required>
+                           
+                    </div>
+                    <div class="form-group">
+                        <label for="pass">La tua password</label>
                         <input id="pass" type="password" readonly class="form-control form-control-plaintext"
                             name="passkey" placeholder="Password" required>
                         <i id="error-pass" class="hidden error">
@@ -49,77 +109,116 @@
                             maiuscolo (ABC), almeno un carattere numerico (123)
                         </i>
                         <i id="correct-pass" class="hidden correct">Accettabile</i>
+                    </div>
+                    <div class="form-group hidden" id="confirm-pass-group">
+                        <label for="checkpass">Conferma la tua password</label>
                         <input id="checkpass" type="password" readonly class="form-control form-control-plaintext"
                             name="confirmPasskey" placeholder="Conferma Password" required>
                         <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
                         <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
-
-                        <hr>
-
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <label for="nome">Il tuo nome</label>
                         <input type="text" readonly class="form-control form-control-plaintext" name="nome"
                             th:value="${session.user.studente.nome}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cognome">Il tuo cognome</label>
                         <input type="text" readonly class="form-control form-control-plaintext" name="cognome"
                             th:value="${session.user.studente.cognome}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dataNascita">La tua data di nascita</label>
                         <input type="date" readonly class="form-control form-control-plaintext" id="dataNascita"
                             name="dataNascita" th:value="${session.user.studente.dataNascita}" required>
                         <i id="error-dataNascita" class="hidden error">La data di nascita non può essere oggi o in
                             futuro</i>
+                    </div>
+                    <div class="form-group">
+                        <label for="cap">Il tuo CAP</label>
                         <input id="cap" type="text" readonly class="form-control form-control-plaintext" name="cap"
                             maxlength="5" th:value="${session.user.studente.cap}" required>
                         <i id="error-cap" class="hidden error">CAP non valido</i>
+                    </div>
+                    <div class="form-group">
+                        <label for="provincia">La tua provincia</label>
                         <input type="text" readonly class="form-control form-control-plaintext" name="provincia"
                             th:value="${session.user.studente.provincia}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Il tuo numero di telefono</label>
                         <input id="phone" type="text" readonly class="form-control form-control-plaintext"
                             name="telefono" maxlength="10" th:value="${session.user.studente.telefono}" required>
                         <i id="error-phone" class="hidden error">Numero di telefono non valido</i>
-                        <textarea name="note" placeholder="Note" rows="4" class="form-control-plaintext"
-                            th:value="${session.user.studente.note}"></textarea>
-
-                        <input id="submit-btn" type="submit" class="btn btn-primary" value="Salva Modifiche" hidden
-                            disabled>
-                    </form>
-                </div>
-
-            </div>
-            <div class="card-footer">
-                <button id="btn-mod-profilo" class="btn btn-outline-primary">Modifica</button>
-                <button id="btn-close-mod" class="btn btn-outline-danger" hidden>Annulla</button>
-
+                    </div>
+                    <div class="form-group">
+                        <label for="note">Note</label>
+                        <textarea name="note" placeholder="Note" rows="4" class="form-control form-control-plaintext"
+                            th:text="${session.user.studente.note}"></textarea>
+                    </div>
+                    <div class="btn-group">
+                        <button id="btn-mod-profilo" type="button" class="btn btn-outline-primary">Modifica</button>
+                        <button id="btn-close-mod" type="button" class="btn btn-outline-danger hidden">Annulla</button>
+                        <input id="submit-btn" type="submit" class="btn btn-primary hidden" value="Salva Modifiche" disabled>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
-    <script src="/controllo-form-users.js"></script>
     <script>
         $(document).ready(function () {
+            // Mostra i campi modificabili e i pulsanti quando si clicca su "Modifica"
             $("#btn-mod-profilo").on("click", function () {
-                $("#submit-btn").removeAttr("hidden");
-                $("#btn-close-mod").removeAttr("hidden");
-                document.querySelectorAll("textarea, input.form-control-plaintext").forEach(function (input) {
-                    input.readOnly = false;
-                    input.classList.remove("form-control-plaintext");
-                    input.classList.add("form-control");
+                $("#submit-btn").removeClass("hidden").removeAttr("disabled");
+                $("#btn-close-mod").removeClass("hidden");
+                $("textarea, input.form-control-plaintext").each(function () {
+                    $(this).prop("readonly", false);
+                    $(this).removeClass("form-control-plaintext").addClass("form-control");
                 });
+                $("#confirm-pass-group").removeClass("hidden");
             });
 
+            // Nasconde i campi modificabili e i pulsanti quando si clicca su "Annulla"
             $("#btn-close-mod").on("click", function () {
-                $("#submit-btn").attr("hidden", "hidden");
-                $("#btn-close-mod").attr("hidden", "hidden");
-                document.querySelectorAll("textarea, input.form-control").forEach(function (input) {
-                    input.readOnly = true;
-                    input.classList.add("form-control-plaintext");
-                    input.classList.remove("form-control");
+                $("#submit-btn").addClass("hidden").attr("disabled", "disabled");
+                $("#btn-close-mod").addClass("hidden");
+                $("textarea, input.form-control").each(function () {
+                    $(this).prop("readonly", true);
+                    $(this).addClass("form-control-plaintext").removeClass("form-control");
                 });
+                $("#confirm-pass-group").addClass("hidden");
+            });
+
+            // Mostra le istruzioni della password quando il campo è attivo
+            $("#pass").on("focus", function () {
+                if (!$(this).is("[readonly]")) {
+                    $("#error-pass, #correct-pass").show();
+                }
+            }).on("blur", function () {
+                $("#error-pass, #correct-pass").hide();
+            });
+
+            // Confronta le password e mostra il messaggio corrispondente
+            $("#pass, #checkpass").on("keyup", function () {
+                var pass = $("#pass").val();
+                var checkPass = $("#checkpass").val();
+                if (checkPass && pass !== checkPass) {
+                    $("#error-checkpass").show();
+                    $("#correct-checkpass").hide();
+                } else if (checkPass && pass === checkPass) {
+                    $("#error-checkpass").hide();
+                    $("#correct-checkpass").show();
+                } else {
+                    $("#error-checkpass, #correct-checkpass").hide();
+                }
             });
         });
     </script>
-
-
-
 </body>
-
 </html>
+
+

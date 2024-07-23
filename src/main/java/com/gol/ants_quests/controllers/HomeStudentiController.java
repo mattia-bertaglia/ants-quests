@@ -59,6 +59,19 @@ public class HomeStudentiController {
 
     // TODO: modifica Profilo Studente
 
+    @PostMapping("/modificaProfilo")
+    public String modificaProfilo(HttpSession session, @RequestParam HashMap<String, String> params, Model model) {
+        homeStudSrv.modificaProfilo(session, params, model);
+
+        // Controlla se ci sono errori
+        if (model.containsAttribute("errorMessage")) {
+            return "modificaProfilo"; // Ritorna alla pagina di modifica se ci sono errori
+        }
+
+        // Reindirizza alla pagina del profilo studente se tutto è andato bene
+        return "redirect:/homeStud/profilo";
+    }
+
     @GetMapping("/doQuestionario")
     public String doQuestionario(HttpSession session, Model model, @RequestParam("quest-select") Long selectedValue) {
         // TODO: authSrv.checkAuthentication(session)

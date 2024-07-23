@@ -10,7 +10,6 @@ import com.gol.ants_quests.hibernate.repositories.UsersRepository;
 @Service
 public class UsersHibService extends GenericHibService<User, Long, UsersRepository> {
 
-    // RIMANE SOLO super(userRepository)
     public UsersHibService(UsersRepository userRepository) {
         super(userRepository);
     }
@@ -20,4 +19,7 @@ public class UsersHibService extends GenericHibService<User, Long, UsersReposito
         return userOptional.orElse(null);
     }
 
+    public boolean userExists(String usernameEmail) {
+        return getRepository().existsByUsernameEmail(usernameEmail);
+    }
 }
