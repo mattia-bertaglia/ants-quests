@@ -129,7 +129,7 @@ public class AuthService {
                         if (userOptional.get().isFirstTime()) {
                             params.put("root", "/auth/signup");
                         } else
-                            params.put("root", "/homeStud");
+                            params.put("root", "/homeStud/");
                         break;
                     case admin:
                         params.put("root", "/homeAdmin/");
