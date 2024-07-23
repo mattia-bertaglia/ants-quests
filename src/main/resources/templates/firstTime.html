@@ -1,44 +1,103 @@
-<!DOCTYPE html><!-- Complete 11-07-2024 -->
+<!DOCTYPE html>
 <html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prova Login pt2</title>
+    <!-- CSS personalizzato -->
     <link rel="stylesheet" href="index.css">
+    <!-- CSS bootstrap -->
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <!-- CSS personalizzato base -->
+    <link rel="stylesheet" href="root.css">
+    <!-- Includi Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-  <div class="container">
-    <h3>Completa Registrazione</h3>
-    <form id="registration-form" action="/auth/registrazione" method="POST">
-      <input type="text" name="nome" th:value="${nome}" required>
-      <input type="text" name="cognome" th:value="${cognome}" required>
-      <input type="date" id="dataNascita" name="dataNascita" placeholder="Data di nascita" required>
-      <i id="error-dataNascita" class="hidden error">La data di nascita non può essere oggi o in futuro</i>
-      <input id="cap" type="text" name="cap" placeholder="CAP" maxlength="5" required>
-      <i id="error-cap" class="hidden error">CAP non valido</i>
-      <input type="text" name="provincia" placeholder="Provincia" required>
-      <input id="phone" type="text" name="telefono" placeholder="Telefono" maxlength="10" required>
-      <i id="error-phone" class="hidden error">Numero di telefono non valido</i>
-      <textarea name="note" placeholder="Note" rows="4"></textarea>
-      <input type="email" name="usernameEmail" th:value="${usernameEmail}" required>
-      <input id="pass" type="password" name="passkey" placeholder="Password" required>
-      <i id="error-pass" class="hidden error">
-        La password deve contenere: almeno un carattere minuscolo (abc), almeno un carattere maiuscolo (ABC), almeno un
-        carattere numerico (123)
-      </i>
-      <i id="correct-pass" class="hidden correct">Accettabile</i>
-      <input id="checkpass" type="password" name="confirmPasskey" placeholder="Conferma Password" required>
-      <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
-      <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
-      <input id="submit-btn" type="submit" value="Registrati" disabled>
-    </form>
-  </div>
-
-  <script src="/check-first-time.js">
-
-  </script>
+    <div class="login-wrap">
+        <div class="login-html">
+            <img class="logo" src="logo-ant.png">
+            <h2 class="registration-title">Completa Registrazione</h2>
+            <div class="login-form">
+                <div class="group">
+                    <label for="nome" class="label">Nome</label>
+                    <input id="nome" type="text" class="input" placeholder="Inserisci il tuo nome" name="nome">
+                </div>
+                <div class="group">
+                    <label for="cognome" class="label">Cognome</label>
+                    <input id="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome" name="cognome">
+                </div>
+                <div class="group">
+                    <label for="telefono" class="label">Numero di telefono</label>
+                    <input id="telefono" type="text" class="input" placeholder="Inserisci il tuo numero di telefono"
+                        name="telefono">
+                </div>
+                <div class="group cap-provincia-group">
+                    <div class="input-cap">
+                        <label for="cap" class="label">CAP</label>
+                        <input id="cap" type="text" class="input input-cap" placeholder="Inserisci il CAP" name="cap">
+                    </div>
+                    <div class="input-provincia">
+                        <label for="provincia" class="label">Provincia</label>
+                        <input id="provincia" type="text" class="input input-provincia"
+                            placeholder="Inserisci la provincia" name="provincia">
+                    </div>
+                </div>
+                <div class="group">
+                    <label for="data-nascita" class="label">Data di nascita</label>
+                    <input id="data-nascita" type="date" class="input" name="dataNascita">
+                </div>
+                <div class="group">
+                    <label for="email" class="label">Email</label>
+                    <input id="email" type="email" class="input" placeholder="Inserisci la tua email" name="email">
+                </div>
+                <!-- Area password con bottoni e messaggi -->
+                <div class="group">
+                    <label for="password" class="label">Password</label>
+                    <div class="password-container">
+                        <input id="password" type="password" class="input input-password"
+                            placeholder="Inserisci la password" name="passkey">
+                        <span class="toggle-password">
+                            <i id="password-eye" class="fas fa-eye-slash"></i>
+                        </span>
+                    </div>
+                    <div class="group">
+                        <i id="error-pass" class="d-none text-danger">
+                            Non accettabile, la password deve contenere:
+                            <ul id="error-list">
+                                <li id="error-lowercase" class="d-none">almeno un carattere minuscolo (abc)</li>
+                                <li id="error-uppercase" class="d-none">almeno un carattere maiuscolo (ABC)</li>
+                                <li id="error-number" class="d-none">almeno un carattere numerico (123)</li>
+                                <li id="error-length" class="d-none">almeno 8 caratteri</li>
+                            </ul>
+                        </i>
+                        <i id="correct-pass" class="d-none text-success">Accettabile</i>
+                    </div>
+                </div>
+                <div class="group">
+                    <label for="conferma-password" class="label">Conferma Password</label>
+                    <div class="password-container">
+                        <input id="conferma-password" type="password" class="input input-password"
+                            placeholder="Conferma la password" name="confirmPasskey">
+                        <span class="toggle-password">
+                            <i id="confirm-eye" class="fas fa-eye-slash"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="group">
+                    <i id="error-checkpass" class="d-none text-danger">Le password non corrispondono</i>
+                    <i id="correct-checkpass" class="d-none text-success">Le password corrispondono</i>
+                </div>
+                <div class="group">
+                    <input type="submit" class="button" value="Registrati">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Link agli script JavaScript -->
+    <script src="firstTime.js"></script>
 </body>
 
 </html>

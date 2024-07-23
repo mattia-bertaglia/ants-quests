@@ -4,21 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home Admin</title>
-    <!-- bootstrap link -->
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- bootstrap link -->
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap-table.min.css">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="root.css">
 </head>
 
 <body>
-    <!-- Inizio Nav -->
     <nav>
         <ul class="container">
-            <li><a href="#">Home</a></li>
-            <li class='dropdown' id="homeSubmenu1">
-                <a href="#" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Questionari <i class="fa fa-angle-down"></i></a>
+            <li><a href='/homeAdmin'>Home</a></li>
+            <li class='dropdown'>
+                <a href='#'>Studenti <i class="fa fa-angle-down"></i></a>
+                <div class='mega-menu'>
+                    <div class="container">
+                        <div class="item">
+                            <h3>Gestione Studenti</h3>
+                            <ul>
+                                <li><a href="/ges_studenti/">Elenco Studenti</a></li>
+                                <li><a href="/ges_studenti/">Ricerca Studente</a></li>
+                                <li><a href="/ges_studenti/">Aggiungi Nuovo Studente</a></li>
+                                <li><a href="/homeAdmin/calendario">Calendario Studenti</a></li>
+                            </ul>
+                        </div><!-- /.container -->
+                    </div><!-- /.mega-menu -->
+            </li><!-- /.dropdown -->
+            <li class='dropdown'>
+                <a href='#'>Corsi <i class="fa fa-angle-down"></i></a>
+                <div class='mega-menu'>
+                    <div class="container">
+                        <div class="item">
+                            <h3>Gestione Corsi</h3>
+                            <ul>
+                                <li><a href="/ges_corsi/">Elenco Corsi</a></li>
+                                <li><a href="/ges_corsi/">Ricerca Corsi</a></li>
+                                <li><a href="/ges_corsi/">Aggiungi Nuova Corso</a></li>
+                                <li><a href="/homeAdmin/calendario">Calendario Corsi</a></li>
+                            </ul>
+                        </div> <!-- /.item -->
+                    </div><!-- /.container -->
+                </div><!-- /.mega-menu -->
+            </li><!-- /.dropdown -->
+            <li class='dropdown'>
+                <a href='#'>Questionari <i class="fa fa-angle-down"></i></a>
                 <div class='mega-menu'>
                     <div class="container">
                         <div class="item">
@@ -38,54 +66,13 @@
                     </div><!-- /.container -->
                 </div><!-- /.mega-menu -->
             </li><!-- /.dropdown -->
-            <li class='dropdown' id="homeSubmenu2">
-                <a href="#" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Studenti <i class="fa fa-angle-down"></i></a>
-                <div class='mega-menu'>
-                    <div class="container">
-                        <div class="item">
-                            <h3>Gestione Studenti</h3>
-                            <ul>
-                                <li><a href="/ges_studenti/">Elenco Studenti</a></li>
-                                <li><a href="/ges_studenti/">Ricerca Studente</a></li>
-                                <li><a href="/ges_studenti/">Aggiungi Nuovo Studente</a></li>
-                                <li><a href="/homeAdmin/calendario">Calendario Studenti</a></li>
-                            </ul>
-                        </div> <!-- /.item -->
-                    </div><!-- /.container -->
-                </div><!-- /.mega-menu -->
-            </li><!-- /.dropdown -->
-            <li class='dropdown' id="homeSubmenu3">
-                <a href="#" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Corsi <i class="fa fa-angle-down"></i></a>
-                <div class='mega-menu'>
-                    <div class="container">
-                        <div class="item">
-                            <h3>Gestione Corsi</h3>
-                            <ul>
-                                <li><a href="/ges_corsi/">Elenco Corsi</a></li>
-                                <li><a href="/ges_corsi/">Ricerca Corsi</a></li>
-                                <li><a href="/ges_corsi/">Aggiungi Nuova Corso</a></li>
-                                <li><a href="/homeAdmin/calendario">Calendario Corsi</a></li>
-                            </ul>
-                        </div> <!-- /.item -->
-                    </div><!-- /.container -->
-                </div><!-- /.mega-menu -->
-            </li><!-- /.dropdown -->
-            <li><a class="dropdown" href="/homeAdmin/calendario">Calendario</a></li>
-            <div class="ml-auto">
-                <button class="btn btn-logout" id="logoutBtn">Logout</button>
-            </div>
+            <li><a href='#'>Calendario</a></li>
+            <li><button id="logout-btn" type="submit">Logout</button></li>
         </ul><!-- .container -->
     </nav>
-    <!-- Fine Nav -->
 
-    <!-- Aggiungi qui il contenuto extra se necessario -->
-    
-    <script src="jquery/jquery-3.7.1.min.js"></script>
-    <script src="bootstrap/popper.min.js"></script>
-    <script src="bootstrap/bootstrap.min.js"></script>
-    <!-- Bootstrap JS e jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="logout.js"></script>
 </body>
 
 </html>

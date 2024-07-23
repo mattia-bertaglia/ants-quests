@@ -1,62 +1,102 @@
-<!DOCTYPE html><!-- Complete 11-07-2024 -->
+<!DOCTYPE html>
 <html lang="it">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrazione ANT</title>
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registrazione ANT</title>
+  <!-- CSS personalizzato -->
+  <link rel="stylesheet" href="index.css">
+  <!-- CSS bootstrap -->
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <!-- CSS personalizzato base -->
+  <link rel="stylesheet" href="root.css">
+  <!-- Includi Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body>
-    <div class="container">
-
-        <div class="orangeBG">
-            <div class="box signin signinbtn">
-                <h2>Hai già un account?</h2>
-                <button class="">Accedi</button>
+<body class="main-content">
+  <div class="login-wrap">
+    <div class="login-html">
+      <img class="logo" src="logo-ant.png" alt="Logo ANT">
+      <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+      <label for="tab-1" class="tab">Accedi</label>
+      <input id="tab-2" type="radio" name="tab" class="sign-up">
+      <label for="tab-2" class="tab">Registrati</label>
+      <div class="login-form">
+        <form id="loginForm" action="/auth/login" method="post">
+          <div class="sign-in-htm">
+            <div class="group">
+              <label for="user" class="label">Email</label>
+              <input id="user" type="text" class="input" placeholder="Inserisci la tua email" required>
             </div>
-            <div class="box signup signupbtn">
-                <h2>Vuoi creare un account?</h2>
-                <button class="">Registrati</button>
+            <div class="group">
+              <label for="pass" class="label">Password</label>
+              <div class="password-container">
+                <input id="pass" type="password" class="input" placeholder="Inserisci la tua password" required>
+                <span class="toggle-password">
+                  <i id="pass-eye" class="fas fa-eye-slash"></i>
+                </span>
+              </div>
             </div>
-        </div>
-
-        <div class="form-box">
-            <div class="form signinform">
-                <form id="loginForm" action="/auth/login" method="post">
-                    <h3>Accedi</h3>
-                    <input type="text" name="usernameEmail" placeholder="E-mail" required>
-                    <div>
-                        <input id="pass" type="password" name="passkey" placeholder="Password" required>
-                        <input id="toggle-eye" type="button" value="show">
-                    </div>
-
-                    <input type="submit" value="Accedi">
-                    <!-- Mostra il messaggio di errore -->
-                    <p class="error-message" th:text="${message}" style="color: red;"></p>
-
-                    <a class="btn btn-primary" href="#">Password dimenticata?</a>
-                </form>
+            <div class="group">
+              <input type="submit" class="button" value="Accedi">
             </div>
-            <div class="form signupform">
-                <form id="signupForm" action="/auth/signup" method="get">
-                    <h3>Registrati</h3>
-                    <input type="text" name="nome" placeholder="Nome">
-                    <input type="text" name="cognome" placeholder="Cognome">
-                    <input id="mail" type="email" name="usernameEmail" placeholder="Indirizzo email">
-                    <input type="submit" value="Registrati">
-                </form>
+            <div class="hr"></div>
+            <div class="foot-lnk">
+              <a href="#forgot">Password dimenticata?</a>
             </div>
-        </div>
+          </div>
+        </form>
+
+        <form action="auth/signup" method="post">
+          <div class="sign-up-htm">
+            <div class="group">
+              <label for="nome" class="label">Nome</label>
+              <input id="nome" type="text" class="input" placeholder="Inserisci il tuo nome" required>
+            </div>
+            <div class="group">
+              <label for="cognome" class="label">Cognome</label>
+              <input id="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome" required>
+            </div>
+            <div class="group">
+              <label for="email-reg" class="label">Email</label>
+              <input id="email-reg" type="email" class="input" placeholder="Inserisci la tua email" required>
+              <i id="error-mail" class="d-none text-danger">Inserire una e-mail valida</i>
+              <i id="correct-mail" class="d-none text-success">Accettabile</i>
+            </div>
+            <div class="group">
+              <input type="submit" class="button" value="Continua Registrazione">
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
-    <script src="jquery/jquery-3.7.1.min.js"></script>
-    <script src="bootstrap/popper.min.js"></script>
-    <script src="bootstrap/bootstrap.min.js"></script>
-    <script src="js/index.js"></script>
+  </div>
 
+  <script src="jquery/jquery-3.7.1.min.js"></script>
+  <script src="bootstrap/popper.min.js"></script>
+  <script src="bootstrap/bootstrap.min.js"></script>
+  <script src="index.js"></script>
 
+  <script>
+    // Funzione per cambiare il min-height di .login-wrap
+    function modificaMinHeight() {
+      // Seleziona l'elemento con la classe 'login-wrap'
+      const loginWrap = document.querySelector('.login-wrap');
+
+      // Verifica se l'elemento esiste
+      if (loginWrap) {
+        // Modifica il valore di min-height
+        loginWrap.style.minHeight = '700px';
+      } else {
+        console.error('Elemento con classe "login-wrap" non trovato.');
+      }
+    }
+
+    // Chiama la funzione quando la pagina è completamente caricata
+    document.addEventListener('DOMContentLoaded', modificaMinHeight);
+  </script>
 </body>
 
 </html>
