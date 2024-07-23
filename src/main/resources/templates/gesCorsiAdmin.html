@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="It">
+<!-- Ross & Nassim -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corsi</title>
+    <!-- bootstrap link -->
+    <link rel="stylesheet" href="/css/gestStudentiAdmin.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+    <!-- Bottone di logout -->
+    <div class="d-flex justify-content-end">
+        <form action="/auth/logout" method="get">
+            <button type="submit" id="logoutBtn">Logout</button>
+        </form>
+    </div>
+
+    <!-- Inizio Nav -->
+    <div class="main-content">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/homeAdmin/">Home</a></li>
+                <li class="breadcrumb-item">
+                    <a href="#homeSubmenu1" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        Questionari
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li><a href="/quest/esiti">Gestione Categorie</a></li>
+                        <li><a href="/quest/esiti">Gestione Questionari</a></li>
+                        <li><a href="/quest/esiti">Esito Questionari</a></li>
+                        <li><a href="/quest/esiti">Esito Ultimi Questionari</a></li>
+                    </ul>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#homeSubmenu2" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        Studenti
+                    </a>
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu2">
+                        <li><a href="/ges_studenti/">Elenco Studenti</a></li>
+                        <li><a href="/ges_studenti/">Ricerca Studente</a></li>
+                        <li><a href="/ges_studenti/">Aggiungi Nuovo Studente</a></li>
+                        <li><a href="/homeAdmin/calendario">Calendario Studenti</a></li>
+                    </ul>
+                </li>
+                <li class="breadcrumb-item"><a href="/homeAdmin/calendario">Calendario</a></li>
+            </ol>
+        </nav>
+    </div>
+    <!-- Fine Nav -->
+
+    <!-- Inizio filtro ricerca -->
+    <div class="main-content">
+        <div class="custom-margin">
+            <div class="table-wrapper">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Filtri Ricerca</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="/ges_corsi/" id="searchForm">
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="nome">Nome Corso</label>
+                                        <input type="text" class="form-control" name="nome" id="myInput"
+                                            onkeyup="myFunction()" placeholder="Inserisci il nome del corso">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dataInizio">Data Inizio</label>
+                                        <input type="date" class="form-control" name="dataInizio" id="inizio"
+                                            onkeyup="myFunction1()">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dataFine">Data Fine</label>
+                                        <input type="date" class="form-control" name="dataFine" id="fine"
+                                            onkeyup="myFunction2()">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fine filtro ricerca -->
+
+    <!-- inizio main -->
+    <div class="main-content">
+        <div class="custom-margin">
+            <div class="table-wrapper">
+                <div class="card">
+                    <div class="table-title">
+                        <div class="row">
+                            <div>
+                                <h2 class="card-header">Elenco Corsi</h2>
+                                <br>
+                            </div>
+
+                            <!-- Pulsante per attivare il modale -->
+                            <div>
+                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#new-corso">
+                                    <i class="material-icon">&#xE147;</i>
+                                    <span>Aggiungi nuovo corso</span> </button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="card-body">
+                        <table id="myTable" class="table" style="width: 100%;" data-toggle="table" data-locale="it-IT">
+                            <thead>
+                                <tr>
+                                    <th name="nome" id="myInput">Corso</th>
+                                    <th name="dataInizio" id="inizio">Inizio</th>
+                                    <th name="dataFine" id="fine">Fine</th>
+                                    <th class="text-center">Dettaglio</th>
+                                    <th class="text-center">Studenti</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="corso : ${corsi}">
+                                    <td th:text="${corso.nome}"></td>
+                                    <td th:text="${corso.dataInizio}"> </td>
+                                    <td th:text="${corso.dataFine}"></td>
+                                    <td class="text-center">
+                                        <button class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#dett-corso" th:onclick="dettaglioCorso([[${corso}]])">
+                                            Modifica
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-secondary" data-bs-toggle="modal"
+                                            data-bs-target="#vedi-studs" th:onclick="vediStudenti([[${corso}]])">
+                                            Vedi
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <!-- Inizio pagine dinamiche   -->
+                        <div class="text-center">
+                            <button onclick="prevPage()" class="btn btn-secondary" id="btn_prev">Precedente</button>
+                            <span>Pagina <span id="page"></span> di <span id="totalPages"></span></span>
+                            <button onclick="nextPage()" class="btn btn-secondary" id="btn_next">Successivo</button>
+                        </div>
+                        <!-- fine pagine dinamiche   -->
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inizio footer   -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="footer-in pagination justify-content-center">
+                <p class="mb-0">&copy 2024 Rete Artigianato Digitale.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Fine footer   -->
+
+
+
+
+    <!-- Inizio modale aggiungi -->
+    <div class="modal fade" id="new-corso" tabindex="-1" role="dialog" aria-labelledby="new-corso-label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div class="modal-content">
+                <form action="/ges_corsi/savecorso" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="new-corso-label">Aggiungi Corso</h5>
+                        <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body px-5">
+                        <div class="form-group">
+                            <label for="nome">Nome del Corso</label>
+                            <input type="text" class="form-control" id="nome" name="nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dataInizio">Data Inizio</label>
+                            <input type="date" class="form-control" id="dataInizio" name="datainizio" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dataFine">Data Fine</label>
+                            <input type="date" class="form-control" id="dataFine" name="datafine" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                        <button type="submit" class="btn btn-success">Aggiungi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Fine modale aggiungi -->
+
+    <!-- inizio Modale Dettaglio/Modifica-->
+    <div class="modal fade" id="dett-corso" tabindex="-1" role="dialog" aria-labelledby="dett-corso-label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <form action="/ges_corsi/savecorso" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="dett-corso-label">Modifica Corso</h5>
+                        <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body px-5">
+                        <div class="form-group">
+                            <label for="idCorso" class="form-label">ID Corso</label>
+                            <input type="text" readonly class="form-control-plaintext" id="idCorso" name="idcorso">
+                        </div>
+                        <div class="form-group">
+                            <label for="courseName" class="form-label">Nome Corso</label>
+                            <input type="text" class="form-control" id="courseName" name="nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate" class="form-label">Data Inizio</label>
+                            <input type="date" class="form-control" id="startDate" name="datainizio">
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate" class="form-label">Data Fine</label>
+                            <input type="date" class="form-control" id="endDate" name="datafine">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                        <button type="submit" class="btn btn-success">Salva Modifiche</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Fine Modale Dettaglio/Modifica -->
+
+    <!-- Modale Vedi Studenti -->
+    <div class="modal fade" id="vedi-studs" tabindex="-1" role="dialog" aria-labelledby="vedi-studs-label"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="vedi-studs-label"></h5>
+                    <button class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="container px-5" id="add-studente">
+                        <div class="input-group mb-2">
+                            <span class="input-group-text" id="search-id-studente">ID Studente</span>
+                            <input type="text" name="id-studente" class="form-control" aria-label="ID Studente"
+                                aria-describedby="search-id-studente">
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Nominativo</span>
+                            <input type="text" name="nome" aria-label="Nome" class="form-control" placeholder="Nome">
+                            <input type="text" name="cognome" aria-label="Cognome" class="form-control"
+                                placeholder="Cognome">
+                        </div>
+
+                        <button id="add-new-studente" class="btn btn-success">Cerca e Aggiungi</button>
+                    </div>
+
+                    <hr>
+
+                    <div class="container px-5">
+                        <table id="tab-last-quest" class="table table-striped table-bordered table-sm"
+                            style="width: 100%;" data-toggle="table" data-locale="it-IT">
+                            <thead>
+                                <tr>
+                                    <th>ID Studente</th>
+                                    <th>Nominativo</th>
+                                    <th class="text-center">Elimina</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lista-studenti"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button onclick="location.reload()" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fine modale vedi studente -->
+
+    <script src="/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/bootstrap/popper.min.js"></script>
+    <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="/pagDinamiche-filtriRicerca.js"></script>
+    <!-- stesso JS di AQ-2024.07.08-Ges-Questionari (esitiScript.js) -->
+    <script src="/bootbox.all.min.js"></script>
+    <script src="/gesCorsiAdmin.js"></script>
+
+
+
+</body>
+
+</html>

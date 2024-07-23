@@ -7,7 +7,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,7 +31,14 @@ public class OnlyEsitoQuest extends GenericEntity {
     private String punteggio;
     private String tempo;
 
-    // TODO: salvataggio categoria e titolo questionario
+    /* TODO: nel salvataggio esito aggiungere questi 2 campi */
+
+    /* aggiungere colonne database */
+
+    @Transient
+    private String categoriaQuest;
+    @Transient
+    private String titoloQuest;
 
     @Column(name = "quest_id")
     private Long questId;

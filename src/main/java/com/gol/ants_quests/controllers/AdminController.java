@@ -41,4 +41,8 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/calendario")
+    public String calendario(Model model) {
+        return "calendario.html";
+    }
 }

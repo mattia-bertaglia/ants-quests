@@ -4,6 +4,7 @@ package com.gol.ants_quests.hibernate.entities;
 import java.sql.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +37,8 @@ public class Corso extends GenericEntity {
     @Column(name = "data_fine")
     private Date dataFine;
 
-    @OneToMany(mappedBy = "corsoId")
+    @OneToMany(mappedBy = "corsoId", cascade = CascadeType.ALL)
     private List<OnlyStudente> studenti;
+
+    /* , orphanRemoval = true */
 }

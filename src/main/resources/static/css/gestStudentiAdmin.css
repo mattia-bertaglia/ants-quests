@@ -1,0 +1,209 @@
+@import url('root.css');
+@import url(animate.min.css);
+
+/* Global Styles */
+body {
+    background-color: #f9f8f7;
+    color: #373737;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #373737;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #7ead19;
+}
+
+/* Header */
+header {
+    background-color: #f9f8f7;
+    padding: 15px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    color: #373737;
+}
+
+/* Navigation */
+nav {
+    background-color: #373737;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+nav a {
+    color: #373737;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background-color: #badb73;
+    color: #373737;
+}
+
+/* Main Content */
+.main-content {
+    padding: 20px;
+    background-color: #f9f8f7;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+/* Buttons */
+button {
+    background-color: #acce91;
+    border: none;
+    color: #373737;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #8db986;
+}
+
+/* Specific Button Colors */
+.btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/*  Buttons */
+.modal-footer .btn {
+    background-color: #acce91;
+    border: none;
+    color: #373737;
+}
+
+.modal-footer .btn:hover {
+    background-color: #8db986;
+}
+
+/* aggiungi novo studente */
+.table-title .btn-secondary {
+    background-color: #373737;
+    color: #fff;
+}
+
+.table-title .btn-secondary:hover {
+    background-color: #acce91;
+}
+
+/* Forms */
+form {
+    background-color: #f9f8f7;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #373737;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #acce91;
+    border-radius: 5px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #f9f8f7;
+    border-radius: 10px;
+    overflow: hidden;
+    color: #373737;
+}
+
+table th,
+table td {
+    padding: 15px;
+    border-bottom: 1px solid #e2e2e1;
+    text-align: left;
+}
+
+table th {
+    background-color: #acce91;
+    color: #373737;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #e2e2e1;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #f9f8f7;
+}
+
+/* Footer */
+footer {
+    background-color: #373737;
+    color: #f9f8f7;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Custom Styles for Modals */
+.modal-header,
+.modal-footer {
+    background-color: #f9f8f7;
+    border-bottom: 1px solid #e2e2e1;
+    border-top: 1px solid #e2e2e1;
+}
+
+.modal-title {
+    color: #373737;
+}
+
+.modal-body {
+    background-color: #f9f8f7;
+}
+
+/* Stile specifico per il pulsante PDF */
+.modal-body-btn-pdf {
+    background-color: #373737; 
+    color: #fff; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+   
+}
+
+
+.btn-pdf:hover {
+    background-color: #acce91; /* Colore di sfondo quando l'utente passa sopra il pulsante */
+}
+.btn-info.modal-body-btn-pdf {
+    background-color: #373737 !important;
+    color: #fff;
+    border: none;
+}
