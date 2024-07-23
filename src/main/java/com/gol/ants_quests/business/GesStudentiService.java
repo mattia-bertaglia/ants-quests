@@ -2,11 +2,10 @@ package com.gol.ants_quests.business;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -14,9 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.dto.StudenteDTO;
-import com.gol.ants_quests.hibernate.entities.Corso;
 import com.gol.ants_quests.hibernate.entities.OnlyCorso;
-
+import com.gol.ants_quests.hibernate.entities.OnlyEsitoQuest;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.hibernate.services.CorsiHibService;
@@ -45,53 +43,43 @@ public class GesStudentiService {
     /* inizio per StudenteDTO */
     public List<StudenteDTO> findAllStudentiDTO() {
         List<Studente> studenti = studHibSrv.findAll(Sort.by(Sort.Direction.DESC, "dataInserimento"));
-        List<Corso> corsi = corsiHibSrv.findAll(Sort.by(Sort.Direction.DESC, "dataInizio"));
-        List<User> users = usersSrv.findAll();
+        List<StudenteDTO> result = new ArrayList<StudenteDTO>();
+        for (Studente stud : studenti) {
+            result.add(convertDto(stud));
+        }
 
-        Map<String, List<?>> result = new HashMap<>();
-        result.put("studenti", studenti);
-        result.put("corsi", corsi);
-        result.put("users", users);
-
-        return result.values().stream().flatMap(List::stream).map(this::convertToDTO).collect(Collectors.toList());
+        return result;
     }
 
-    private StudenteDTO convertToDTO(Object obj) {
-        StudenteDTO studenteDTO = new StudenteDTO(null, null, null, null,
-                null, null, null, null,
-                null, null, null,
-                null, null,
-                false, null, null,
-                null, null);
+    public StudenteDTO convertDto(Studente stud) {
+        StudenteDTO studenteDTO = new StudenteDTO();
+        studenteDTO.setIdStudente(stud.getIdStudente());
+        studenteDTO.setNome(stud.getNome());
+        studenteDTO.setCognome(stud.getCognome());
+        studenteDTO.setDataNascita(stud.getDataNascita());
+        studenteDTO.setCap(stud.getCap());
+        studenteDTO.setProvincia(stud.getProvincia());
+        studenteDTO.setTelefono(stud.getTelefono());
+        studenteDTO.setNote(stud.getNote());
+        studenteDTO.setDataInserimento(stud.getDataInserimento());
 
-        if (obj instanceof Studente) {
-            Studente studente = (Studente) obj;
-            studenteDTO.setIdStudente(studente.getIdStudente());
-            studenteDTO.setNome(studente.getNome());
-            studenteDTO.setCognome(studente.getCognome());
-            studenteDTO.setDataNascita(studente.getDataNascita());
-            studenteDTO.setCap(studente.getCap());
-            studenteDTO.setProvincia(studente.getProvincia());
-            studenteDTO.setTelefono(studente.getTelefono());
-            studenteDTO.setNote(studente.getNote());
-            studenteDTO.setDataInserimento(studente.getDataInserimento());
-        } else if (obj instanceof Corso) {
-            Corso corso = (Corso) obj;
-            studenteDTO.setCorsoId(corso.getIdCorso());
-            studenteDTO.setNomeCorso(corso.getNome());
-            studenteDTO.setDataInizio(corso.getDataInizio());
-            studenteDTO.setDataFine(corso.getDataFine());
-        } else if (obj instanceof User) {
-            User user = (User) obj;
-            studenteDTO.setUserId(user.getId());
-            studenteDTO.setUsernameEmail(user.getUsernameEmail());
-            studenteDTO.setPasskey(user.getPasskey());
-            studenteDTO.setRuolo(user.getRuolo());
-            studenteDTO.setFirstTime(user.isFirstTime());
+        studenteDTO.setUserId(stud.getUser().getId());
+        studenteDTO.setUsernameEmail(stud.getUser().getUsernameEmail());
+        studenteDTO.setPasskey(stud.getUser().getPasskey());
+        studenteDTO.setRuolo(stud.getUser().getRuolo().toString());
+        studenteDTO.setFirstTime(stud.getUser().isFirstTime());
 
+        studenteDTO.setCorsoId(stud.getCorso().getIdCorso());
+        studenteDTO.setNomeCorso(stud.getCorso().getNome());
+        studenteDTO.setDataInizio(stud.getCorso().getDataInizio());
+        studenteDTO.setDataFine(stud.getCorso().getDataFine());
+
+        for (OnlyEsitoQuest esiti : stud.getEsquestionari()) {
+            // studenteDTO.setEsquestionario.add(esiti.convert)
         }
 
         return studenteDTO;
+
     }
 
     /* fine per StudenteDTO */
