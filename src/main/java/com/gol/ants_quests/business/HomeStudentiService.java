@@ -59,7 +59,7 @@ public class HomeStudentiService {
     }
 
     public void openHomeStud(Model model, Long idStudente) {
-        log.info("Caricamento Categorie e Questioanari");
+        log.info("Caricamento Categorie e Questionari");
         model.addAttribute("questionari", categorieHibSrv.findAll(Sort.by(Direction.DESC, "nome")));
         log.info("Caricamento esiti Studente: " + idStudente);
         model.addAttribute("esiti", esitiSrv.findByStudente(idStudente));
@@ -76,27 +76,45 @@ public class HomeStudentiService {
         }
 
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            errorService.addErrorMessageToModel(model, "userNotLoggedInError");
+            return;
+        }
+
         user.setPasskey(bcrypt.encode(password));
         user.setFirstTime(false);
 
         User salvatoUser = authsrv.save(user);
-
-        Studente studenteTemp = salvatoUser.getStudente();
-        studenteTemp.setNome(params.get("nome"));
-        studenteTemp.setCognome(params.get("cognome"));
-        studenteTemp.setDataNascita(Date.valueOf(params.get("dataNascita")));
-        studenteTemp.setCap(params.get("cap"));
-        studenteTemp.setProvincia(params.get("provincia"));
-        studenteTemp.setTelefono(params.get("telefono"));
-        studenteTemp.setNote(params.get("note"));
-        salvatoUser.setStudente(studHibSrv.save(studenteTemp));
-
         if (salvatoUser == null || salvatoUser.getId() == null) {
             errorService.addErrorMessageToModel(model, "registrationError");
             return;
         }
 
-        errorService.addSuccessMessageToSession(session, "registrationSuccess");
+        Studente studenteTemp = salvatoUser.getStudente();
+        if (studenteTemp == null) {
+            errorService.addErrorMessageToModel(model, "studentNotFoundError");
+            return;
+        }
+
+        aggiornaDettagliStudente(studenteTemp, params);
+
+        salvatoUser.setStudente(studHibSrv.save(studenteTemp));
+        if (salvatoUser.getStudente() == null) {
+            errorService.addErrorMessageToModel(model, "studentUpdateError");
+            return;
+        }
+
+        errorService.addSuccessMessageToModel(model, "registrationSuccess");
+    }
+
+    private void aggiornaDettagliStudente(Studente studente, HashMap<String, String> params) {
+        studente.setNome(params.get("nome"));
+        studente.setCognome(params.get("cognome"));
+        studente.setDataNascita(Date.valueOf(params.get("dataNascita")));
+        studente.setCap(params.get("cap"));
+        studente.setProvincia(params.get("provincia"));
+        studente.setTelefono(params.get("telefono"));
+        studente.setNote(params.get("note"));
     }
 
     public void doQuestionario(Model model, Long idQuest) {
