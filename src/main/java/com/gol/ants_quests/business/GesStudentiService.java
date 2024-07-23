@@ -2,10 +2,10 @@ package com.gol.ants_quests.business;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.dto.StudenteDTO;
 import com.gol.ants_quests.hibernate.entities.OnlyCorso;
-
+import com.gol.ants_quests.hibernate.entities.OnlyEsitoQuest;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.entities.User;
-
+import com.gol.ants_quests.hibernate.services.CorsiHibService;
 import com.gol.ants_quests.hibernate.services.StudentiHibService;
 import com.gol.ants_quests.hibernate.services.UsersHibService;
 import com.gol.ants_quests.util.Ruolo;
@@ -32,6 +32,7 @@ public class GesStudentiService {
 
     private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
     private final StudentiHibService studHibSrv;
+    private final CorsiHibService corsiHibSrv;
 
     private final UsersHibService usersSrv;
 
@@ -42,35 +43,43 @@ public class GesStudentiService {
     /* inizio per StudenteDTO */
     public List<StudenteDTO> findAllStudentiDTO() {
         List<Studente> studenti = studHibSrv.findAll(Sort.by(Sort.Direction.DESC, "dataInserimento"));
-        return studenti.stream().map(this::convertToDTO).collect(Collectors.toList());
+        List<StudenteDTO> result = new ArrayList<StudenteDTO>();
+        for (Studente stud : studenti) {
+            result.add(convertDto(stud));
+        }
+
+        return result;
     }
 
-    private StudenteDTO convertToDTO(Studente studente) {
-        StudenteDTO dto = new StudenteDTO(null, null, null, null, null,
-                null, null, null, null,
-                null, null, null, null,
-                false, null, null,
-                null, null);
-        dto.setIdStudente(studente.getIdStudente());
-        dto.setNome(studente.getNome());
-        dto.setCognome(studente.getCognome());
-        dto.setDataNascita(studente.getDataNascita());
-        dto.setCap(studente.getCap());
-        dto.setProvincia(studente.getProvincia());
-        dto.setTelefono(studente.getTelefono());
-        dto.setNote(studente.getNote());
-        dto.setDataInserimento(studente.getDataInserimento());
-        dto.setUserId(studente.getUser());
-        dto.setUsernameEmail(studente.getUser().getUsernameEmail());
-        dto.setPasskey(studente.getUser().getPasskey());
-        dto.setRuolo(studente.getUser().getRuolo());
-        dto.setFirstTime(studente.getUser().isFirstTime());
-        dto.setCorsoId(studente.getCorso().getIdCorso());
-        dto.setNomeCorso(studente.getCorso().getNome());
-        dto.setDataInizio(studente.getCorso().getDataInizio());
-        dto.setDataFine(studente.getCorso().getDataFine());
+    public StudenteDTO convertDto(Studente stud) {
+        StudenteDTO studenteDTO = new StudenteDTO();
+        studenteDTO.setIdStudente(stud.getIdStudente());
+        studenteDTO.setNome(stud.getNome());
+        studenteDTO.setCognome(stud.getCognome());
+        studenteDTO.setDataNascita(stud.getDataNascita());
+        studenteDTO.setCap(stud.getCap());
+        studenteDTO.setProvincia(stud.getProvincia());
+        studenteDTO.setTelefono(stud.getTelefono());
+        studenteDTO.setNote(stud.getNote());
+        studenteDTO.setDataInserimento(stud.getDataInserimento());
 
-        return dto;
+        studenteDTO.setUserId(stud.getUser().getId());
+        studenteDTO.setUsernameEmail(stud.getUser().getUsernameEmail());
+        studenteDTO.setPasskey(stud.getUser().getPasskey());
+        studenteDTO.setRuolo(stud.getUser().getRuolo().toString());
+        studenteDTO.setFirstTime(stud.getUser().isFirstTime());
+
+        studenteDTO.setCorsoId(stud.getCorso().getIdCorso());
+        studenteDTO.setNomeCorso(stud.getCorso().getNome());
+        studenteDTO.setDataInizio(stud.getCorso().getDataInizio());
+        studenteDTO.setDataFine(stud.getCorso().getDataFine());
+
+        for (OnlyEsitoQuest esiti : stud.getEsquestionari()) {
+            // studenteDTO.setEsquestionario.add(esiti.convert)
+        }
+
+        return studenteDTO;
+
     }
 
     /* fine per StudenteDTO */

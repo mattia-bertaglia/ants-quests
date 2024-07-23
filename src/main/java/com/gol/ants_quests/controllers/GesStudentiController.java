@@ -5,7 +5,6 @@ import java.util.HashMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,8 +27,8 @@ public class GesStudentiController {
 
     @GetMapping("/")
     public String getStud(Model model) {
-        model.addAttribute("studenti", studSrv.findAllStudenti());
         model.addAttribute("corsi", corsiSrv.findAll());
+        model.addAttribute("studenti", studSrv.findAllStudentiDTO());
         questSrv.findAll(model);
 
         return "gesStudentiAdmin.html";
