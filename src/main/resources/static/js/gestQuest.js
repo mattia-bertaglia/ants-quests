@@ -51,8 +51,10 @@ function aggiungiRisposta(elenco) {
 
 function eliminaRisposta(risposta) {
     risposta.parentNode.removeChild(risposta);
+    let indiceArray = quest.domanda.indexOf(risposta);
+    
+    quest.domanda[0].risp.splice(indiceArray, 1);
 }
-
 
 let domandaDaEliminare = null;
 
@@ -145,22 +147,46 @@ function modDomanda() {
     let indiceArray = quest.domanda.findIndex(domanda => domanda.idQstDet === domandaDaModificare.id);
     quest.domanda[indiceArray].domanda = document.getElementById('domanda_inserita_modifica').value;
     let summaryElement = domandaDaModificare.querySelector('summary');
+    let olElement =domandaDaModificare.querySelector('ol');
     summaryElement.textContent = document.getElementById('domanda_inserita_modifica').value;
     
     let risposte = document.querySelectorAll('.risposta_inserita');
+    let checkbox = document.querySelectorAll('.risp_corretta');
+    let liElement = domandaDaModificare.querySelectorAll('li');
 
     for (let i = 0; i < risposte.length-1; i++) {
 
         if(quest.domanda[indiceArray].risp[i] != null){
             quest.domanda[indiceArray].risp[i].risposta = risposte[i+1].value;
+            liElement[i].textContent = risposte[i+1].value;
+            liElement[i].classList.remove('list-group-item-success');
+            liElement[i].classList.remove('list-group-item-danger');
+
+            if(checkbox[i+1].checked){
+                quest.domanda[indiceArray].risp[i].corretta = "true";
+                liElement[i].classList.add('list-group-item-success');
+                
+            }else{
+                quest.domanda[indiceArray].risp[i].corretta = "false";
+                liElement[i].classList.add('list-group-item-danger');
+            }
+
+        }else{
+            ris = new Risposta();
+            ris.risposta = risposte[i+1].value;
+
+            if(checkbox[i+1].checked){
+                ris.corretta = "true"
+            }
+            quest.domanda[indiceArray].risp.push(ris);
+
+            let domandaTemplate = 
+             `<li class="` + (checkbox[i+1].checked ? 'list-group-item list-group-item-success' 
+                : 'list-group-item list-group-item-danger') + `">` + ris.risposta + `</li>`;
+
+            olElement.innerHTML += domandaTemplate;
         }
-
     }
-
-
-
-
-
 
     const modaleAggiungi = document.getElementById('modale-modifica-domanda');
     const modale = bootstrap.Modal.getInstance(modaleAggiungi);
