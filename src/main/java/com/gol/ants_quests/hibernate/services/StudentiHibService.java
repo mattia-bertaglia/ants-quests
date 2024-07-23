@@ -46,7 +46,7 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
         return getRepository().findAll(Sort.by(Direction.DESC, "dataInserimento"));
     }
 
-    public List<StudenteDTO> findAllStudentiDTO(Sort sort) {
+    public List<StudenteDTO> findAllStudentiDTO() {
         return getRepository().findAllStudentiDTO();
     }
 

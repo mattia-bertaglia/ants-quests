@@ -124,14 +124,14 @@
                             </thead>
                             <tbody>
                                 <tr th:each="stud : ${studenti}">
-                                    <td></td>
+                                    <td th:text="${stud.ruolo}"></td>
                                     <td th:text="${stud.nome + ' ' + stud.cognome}"></td>
-                                    <td></td>
+                                    <td th:text="${stud.usernameEmail}"></td>
                                     <td th:text="${stud.nomeCorso != null ? stud.nomeCorso : ''}"></td>
                                     <td class="text-center">
                                         <button class="btn btn-secondary" data-bs-toggle="modal"
                                             data-bs-target="#modDetailModal"
-                                            th:onclick="dettaglioStudente()">Modifica</button>
+                                            th:onclick="dettaglioStudente([[${stud}]])">Modifica</button>
                                     </td>
 
                                     <td class="text-center">
@@ -143,9 +143,7 @@
                             </tbody>
                         </table>
 
-                        <!-- th:text="${stud.user.ruolo}"
-                         th:text="${stud.user.usernameEmail}" 
-                          th:data-student-user="${stud.user != null ? stud.user.ruolo : ''}"-->
+
                         <!-- Inizio pagine dinamiche   -->
                         <div class="text-center">
                             <button onclick="prevPage()" class="btn btn-secondary" id="btn_prev">Precedente</button>
@@ -195,7 +193,7 @@
                         </div>
                         <div class="form-group">
                             <label>Corso</label>
-                            <select name="idcorso" class="form-control" required>
+                            <select name="corso" class="form-control" required>
                                 <option disabled selected>- Seleziona un corso -</option>
                                 <option th:each="corso : ${corsi}" th:value="${corso.idCorso}" th:text="${corso.nome}">
                                 </option>
@@ -266,11 +264,12 @@
                             </div>
                             <div class="col-md-4">
                                 <label>Corso</label>
-                                <select name="corso" class="form-control" required>
-                                    <option id="corso" value="" selected>- Seleziona un corso -</option>
-                                    <tr th:each="corso : ${corsi}">
-                                        <option th:value="${corso.idCorso}" th:text="${corso.nome}"></option>
-                                    </tr>
+                                <select class="form-control" required name="corso" id="corso">
+                                    <option value="" selected></option>
+                                    <!-- Itera sui corsi per creare un'opzione per ciascun corso -->
+                                    <option th:each="corso : ${corsi}" th:value="${corso.idCorso}"
+                                        th:text="${corso.nome}">
+                                    </option>
                                 </select>
                             </div>
                         </div>

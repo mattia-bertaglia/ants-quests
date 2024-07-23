@@ -61,8 +61,8 @@ function dettaglioStudente(studente) {
     document.getElementById('telefono').value = studente.telefono;
     document.getElementById('note').value = studente.note;
 
-    document.getElementById('corso').value = studente.corso.nome;
+    document.getElementById('corso').value = studente.nomeCorso;
 
-    document.getElementById('email').value = studente.user.usernameEmail;
-    document.getElementById('ruolo').value = studente.user.ruolo;
+    document.getElementById('email').value = studente.usernameEmail;
+    document.getElementById('ruolo').value = studente.ruolo;
 }
