@@ -27,7 +27,8 @@
                                 <label for="">Categoria</label><br>
                                 <select name="type" style="padding: 10px; width: 50%;" id="categorySelect">
                                     <option disabled="" selected=""> -Selezione un elemento- </option>
-                                    <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}" th:value="${categorie.nome}"></option>
+                                    <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}"
+                                        th:value="${categorie.nome}"></option>
                                 </select>
                             </div>
 
@@ -52,11 +53,13 @@
 
                             <div class="form-group text-center">
                                 <label for="area">Utente</label>
-                                <input type="text" id="stringa" name="area" class="form-control" placeholder="Nome e Cognome"><br>
+                                <input type="text" id="stringa" name="area" class="form-control"
+                                    placeholder="Nome e Cognome"><br>
                             </div>
 
                             <div class="form-group text-center">
-                                <button type="button" class="btn btn-secondary w-75 mt-2" id="removeFiltersButton">Rimuovi Filtri</button>
+                                <button type="button" class="btn btn-secondary w-75 mt-2"
+                                    id="removeFiltersButton">Rimuovi Filtri</button>
                             </div>
                         </form>
                     </div>
@@ -78,9 +81,11 @@
                     </div>
                     <div class="card-body">
                         <div id="noResultsMessage" class="alert alert-danger" style="display: none;">
-                            Non posso farti vedere dei questionari dove nel filtro la data di inizio sia maggiore della data di fine.
+                            Non posso farti vedere dei questionari dove nel filtro la data di inizio sia maggiore della
+                            data di fine.
                         </div>
-                        <table id="myTable" class="table table-striped table-bordered table-sm" style="width: 100%;" data-toggle="table" data-locale="it-IT">
+                        <table id="myTable" class="table table-striped table-bordered table-sm" style="width: 100%;"
+                            data-toggle="table" data-locale="it-IT">
                             <thead>
                                 <tr>
                                     <th>Categoria</th>
@@ -101,7 +106,8 @@
                                     <td th:text="${questionari.tempo}"></td>
                                     <td th:text="|${questionari.studente.nome} ${questionari.studente.cognome}|"></td>
                                     <td class="text-center">
-                                        <button name="id_quest" type="submit" class="btn btn-primary w-75" th:value="${questionari.idEstQst}">Vedi</button>
+                                        <button name="id_quest" type="submit" class="btn btn-primary w-75"
+                                            th:value="${questionari.idEstQst}">Vedi</button>
                                     </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(listaEsitiQuestionari)}">
@@ -123,7 +129,8 @@
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
-    <script src="/js/esitiScript.js"></script>  <!--Link al file esitiScript.js -->
+    <script src="/js/pagDinamiche-filtriRicerca.js"></script> <!--Link al file esitiScript.js -->
 
 </body>
+
 </html>

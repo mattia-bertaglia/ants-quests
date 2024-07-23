@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrazione ANT</title>
   <!-- CSS personalizzato -->
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="/css/index.css">
   <!-- CSS bootstrap -->
-  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
   <!-- CSS personalizzato base -->
-  <link rel="stylesheet" href="root.css">
+  <link rel="stylesheet" href="/css/root.css">
   <!-- Includi Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -18,7 +18,7 @@
 <body class="main-content">
   <div class="login-wrap">
     <div class="login-html">
-      <img class="logo" src="logo-ant.png" alt="Logo ANT">
+      <img class="logo" src="/img/antlogo.png" alt="Logo ANT">
       <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
       <label for="tab-1" class="tab">Accedi</label>
       <input id="tab-2" type="radio" name="tab" class="sign-up">
@@ -28,12 +28,14 @@
           <div class="sign-in-htm">
             <div class="group">
               <label for="user" class="label">Email</label>
-              <input id="user" type="text" class="input" placeholder="Inserisci la tua email" required>
+              <input id="user" name="usernameEmail" type="text" class="input" placeholder="Inserisci la tua email"
+                required>
             </div>
             <div class="group">
               <label for="pass" class="label">Password</label>
               <div class="password-container">
-                <input id="pass" type="password" class="input" placeholder="Inserisci la tua password" required>
+                <input id="pass" name="passkey" type="password" class="input" placeholder="Inserisci la tua password"
+                  required>
                 <span class="toggle-password">
                   <i id="pass-eye" class="fas fa-eye-slash"></i>
                 </span>
@@ -74,10 +76,10 @@
     </div>
   </div>
 
-  <script src="jquery/jquery-3.7.1.min.js"></script>
-  <script src="bootstrap/popper.min.js"></script>
-  <script src="bootstrap/bootstrap.min.js"></script>
-  <script src="index.js"></script>
+  <script src="/jquery/jquery-3.7.1.min.js"></script>
+  <script src="/bootstrap/popper.min.js"></script>
+  <script src="/bootstrap/bootstrap.min.js"></script>
+  <script src="/js/index.js"></script>
 
   <script>
     // Funzione per cambiare il min-height di .login-wrap

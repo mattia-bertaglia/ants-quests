@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="bootstrap-table.min.css">
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="root.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/root.css">
 </head>
 
 <body>
     <nav>
         <ul class="container">
-            <li><a href='/homeAdmin'>Home</a></li>
+            <li><a>Home</a></li>
             <li class='dropdown'>
                 <a href='#'>Studenti <i class="fa fa-angle-down"></i></a>
                 <div class='mega-menu'>
@@ -22,9 +22,8 @@
                             <h3>Gestione Studenti</h3>
                             <ul>
                                 <li><a href="/ges_studenti/">Elenco Studenti</a></li>
-                                <li><a href="/ges_studenti/">Ricerca Studente</a></li>
                                 <li><a href="/ges_studenti/">Aggiungi Nuovo Studente</a></li>
-                                <li><a href="/homeAdmin/calendario">Calendario Studenti</a></li>
+                                <!-- pensare se fare un modale per aggiungere fast un nuovo studente -->
                             </ul>
                         </div><!-- /.container -->
                     </div><!-- /.mega-menu -->
@@ -37,9 +36,6 @@
                             <h3>Gestione Corsi</h3>
                             <ul>
                                 <li><a href="/ges_corsi/">Elenco Corsi</a></li>
-                                <li><a href="/ges_corsi/">Ricerca Corsi</a></li>
-                                <li><a href="/ges_corsi/">Aggiungi Nuova Corso</a></li>
-                                <li><a href="/homeAdmin/calendario">Calendario Corsi</a></li>
                             </ul>
                         </div> <!-- /.item -->
                     </div><!-- /.container -->
@@ -52,27 +48,22 @@
                         <div class="item">
                             <h3>Gestione</h3>
                             <ul>
-                                <li><a href="/quest/esiti">Gestione Categorie</a></li>
-                                <li><a href="/quest/esiti">Gestione Questionari</a></li>
+                                <li><a href="/quest/lista">Gestione Questionari</a></li>
                             </ul>
                         </div> <!-- /.item -->
                         <div class="item">
                             <h3>Esiti</h3>
                             <ul>
                                 <li><a href="/quest/esiti">Esito Questionari</a></li>
-                                <li><a href="/quest/esiti">Esito Ultimi Questionari</a></li>
                             </ul>
                         </div> <!-- /.item -->
                     </div><!-- /.container -->
                 </div><!-- /.mega-menu -->
             </li><!-- /.dropdown -->
-            <li><a href='#'>Calendario</a></li>
-            <li><button id="logout-btn" type="submit">Logout</button></li>
+            <li><a href="/auth/logout">logout</a></li>
         </ul><!-- .container -->
     </nav>
 
-
-    <script src="logout.js"></script>
 </body>
 
 </html>
