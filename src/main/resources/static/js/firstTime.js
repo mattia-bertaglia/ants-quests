@@ -1,128 +1,166 @@
-// REGISTRAZIONE
-document.addEventListener('DOMContentLoaded', function() {
-    var signupForm = document.getElementById("registration-form"); // Correggi l'id del form
+document.addEventListener('DOMContentLoaded', function () {
+    var signupForm = document.getElementById('signupForm');
+    var passwordInput = document.getElementById('password');
+    var confirmPasswordInput = document.getElementById('conferma-password');
 
-    signupForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Impedisce il submit del form
-        
+    var passwordError = document.getElementById('error-pass');
+    var errorList = document.getElementById('error-list');
+    var lowercaseError = document.getElementById('error-lowercase');
+    var uppercaseError = document.getElementById('error-uppercase');
+    var numberError = document.getElementById('error-number');
+    var lengthError = document.getElementById('error-length');
+    var passwordCorrect = document.getElementById('correct-pass');
+    var confirmPasswordError = document.getElementById('error-checkpass');
+    var confirmPasswordCorrect = document.getElementById('correct-checkpass');
 
-        if(true){
+    function checkPasswordComplexity() {
+        var password = passwordInput.value;
+        var hasLowercase = /[a-z]/.test(password);
+        var hasUppercase = /[A-Z]/.test(password);
+        var hasNumber = /\d/.test(password);
+        var isLengthValid = password.length >= 8;
 
+        if (password === "") {
+            passwordError.classList.add('d-none');
+            passwordCorrect.classList.add('d-none');
+            lowercaseError.classList.add('d-none');
+            uppercaseError.classList.add('d-none');
+            numberError.classList.add('d-none');
+            lengthError.classList.add('d-none');
         } else {
-            
+            var showError = false;
+
+            if (!hasLowercase) {
+                lowercaseError.classList.remove('d-none');
+                showError = true;
+            } else {
+                lowercaseError.classList.add('d-none');
+            }
+
+            if (!hasUppercase) {
+                uppercaseError.classList.remove('d-none');
+                showError = true;
+            } else {
+                uppercaseError.classList.add('d-none');
+            }
+
+            if (!hasNumber) {
+                numberError.classList.remove('d-none');
+                showError = true;
+            } else {
+                numberError.classList.add('d-none');
+            }
+
+            if (!isLengthValid) {
+                lengthError.classList.remove('d-none');
+                showError = true;
+            } else {
+                lengthError.classList.add('d-none');
+            }
+
+            if (showError) {
+                passwordError.classList.remove('d-none');
+                passwordCorrect.classList.add('d-none');
+            } else {
+                passwordError.classList.add('d-none');
+                passwordCorrect.classList.remove('d-none');
+            }
         }
-    
+    }
+
+    function checkPasswordMatch() {
+        var password = passwordInput.value;
+        var confirmPassword = confirmPasswordInput.value;
+        if (password === "" || confirmPassword === "") {
+            confirmPasswordError.classList.add('d-none');
+            confirmPasswordCorrect.classList.add('d-none');
+        } else if (password !== confirmPassword) {
+            confirmPasswordError.classList.remove('d-none');
+            confirmPasswordCorrect.classList.add('d-none');
+        } else {
+            confirmPasswordError.classList.add('d-none');
+            confirmPasswordCorrect.classList.remove('d-none');
+        }
+    }
+
+    passwordInput.addEventListener('input', function () {
+        checkPasswordComplexity();
+        checkPasswordMatch();
     });
 
-    var passwordInput = document.getElementById("pass");
-    var confirmPasswordInput = document.getElementById("checkpass");
-    var errorPass = document.getElementById("error-pass");
-    var correctPass = document.getElementById("correct-pass");
-    var errorCheckPass = document.getElementById("error-checkpass");
-    var correctCheckPass = document.getElementById("correct-checkpass");
+    confirmPasswordInput.addEventListener('input', checkPasswordMatch);
 
-    confirmPasswordInput.addEventListener('input', function() {
+    signupForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Impedisce il submit del form
+
         var password = passwordInput.value;
         var confirmPassword = confirmPasswordInput.value;
 
-        // Controllo corrispondenza password
-        if (password !== confirmPassword) {
-            errorCheckPass.classList.remove("hidden");
-            correctCheckPass.classList.add("hidden");
-        } else {
-            errorCheckPass.classList.add("hidden");
-            correctCheckPass.classList.remove("hidden");
+        if (!password || !confirmPassword) {
+            alert('Devi completare tutti i campi per registrarti.');
+            return;
         }
-    });
 
-    signupForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Impedisce il submit del form
+        var hasLowercase = /[a-z]/.test(password);
+        var hasUppercase = /[A-Z]/.test(password);
+        var hasNumber = /\d/.test(password);
+        var isLengthValid = password.length >= 8;
 
-        var password = passwordInput.value;
-
-        // Controllo complessità password
-        var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-        if (!passwordPattern.test(password)) {
-            errorPass.classList.remove("hidden");
-            correctPass.classList.add("hidden");
+        if (!hasLowercase || !hasUppercase || !hasNumber || !isLengthValid) {
+            passwordError.classList.remove('d-none');
             return;
         } else {
-            errorPass.classList.add("hidden");
-            correctPass.classList.remove("hidden");
+            passwordError.classList.add('d-none');
+            passwordCorrect.classList.remove('d-none');
         }
 
-        var confirmPassword = confirmPasswordInput.value;
-
-        // Controllo corrispondenza password
         if (password !== confirmPassword) {
-            errorCheckPass.classList.remove("hidden");
-            correctCheckPass.classList.add("hidden");
+            confirmPasswordError.classList.remove('d-none');
             return;
         } else {
-            errorCheckPass.classList.add("hidden");
-            correctCheckPass.classList.remove("hidden");
+            confirmPasswordError.classList.add('d-none');
+            confirmPasswordCorrect.classList.remove('d-none');
         }
 
-        // Se tutti i controlli sono superati, procedere con la registrazione
         alert('Registrazione avvenuta con successo!');
         signupForm.submit(); // Invia il form
     });
 });
 
 
+// Occhietto show/hide password
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Funzione per mostrare la password
+    function showPassword(id) {
+        var passwordInput = document.getElementById(id);
+        var eyeIcon = document.getElementById(id === 'password' ? 'password-eye' : 'confirm-eye');
 
-// CONTROLLO DATI PERSONALI DELL'UTENTE
-
-
-
-// controllo del cap inserito
-
-const cap = document.getElementById("cap");
-const caperror = document.getElementById("cap-error");
-const capcorrect = document.getElementById("cap-correct");
-
-
-cap.addEventListener("onchange", function(){
-    const capRegex = /^(0?[1-9]{5})$/;
-
-    if(capRegex.test(cap)){
-        caperror.classList.add("hidden");
-        capcorrect.classList.remove("hidden");
-
-    } else {
-        caperror.classList.remove("hidden");
-        capcorrect.classList.add("hidden");
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
     }
 
-});
+    // Funzione per nascondere la password
+    function hidePassword(id) {
+        var passwordInput = document.getElementById(id);
+        var eyeIcon = document.getElementById(id === 'password' ? 'password-eye' : 'confirm-eye');
 
-
-
-// controllo del numero di telefono
-
-const phone = document.getElementById("");
-const phoneerror = document.getElementById("");
-const phonecorrect = document.getElementById("");
-
-phone.addEventListener("onchage", function(){
-    
-    const phoneRegex = /^[1-9]{10}$/;
-
-    if(phoneRegex.test(phone)){
-        phoneerror.classList.add("hidden");
-        phonecorrect.classList.remove("hidden");
-    } else {
-        phoneerror.classList.remove("hidden");
-        phonecorrect.classList.add("hidden");
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
     }
 
+    // Aggiungi eventi ai toggle per la password
+    document.querySelectorAll('.toggle-password').forEach(function (toggle) {
+        toggle.addEventListener('mouseover', function () {
+            var inputId = this.previousElementSibling.id;
+            showPassword(inputId);
+        });
 
+        toggle.addEventListener('mouseout', function () {
+            var inputId = this.previousElementSibling.id;
+            hidePassword(inputId);
+        });
+    });
 });
-
-
-
-
-
-
-

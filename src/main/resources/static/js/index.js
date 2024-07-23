@@ -1,74 +1,87 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const signinbtn = document.querySelector('.signinbtn');
-    const signupbtn = document.querySelector('.signupbtn');
-    const formbox = document.querySelector('.form-box');
-    const body = document.querySelector('body');
-    const signInContainer = document.querySelector('.box.signin');
-    const signUpContainer = document.querySelector('.box.signup');
-    const signInForm = document.querySelector('.signinform');
-    const signUpForm = document.querySelector('.signupform');
-    const signupForm = document.getElementById('signupForm');
-    const emailInput = document.getElementById('mail');
-    const emailError = document.getElementById('error-mail');
-    const emailCorrect = document.getElementById('correct-mail');
+document.addEventListener('DOMContentLoaded', function () {
+    const emailInput = document.getElementById('email-reg');
+    const errorMail = document.getElementById('error-mail');
+    const correctMail = document.getElementById('correct-mail');
+    const signupForm = document.querySelector('.sign-up-htm'); // Aggiungi questa riga per il controllo del form
 
-    // Evento click sul pulsante "Accedi"
-    signinbtn.addEventListener('click', function() {
-        formbox.classList.remove('active');
-        body.classList.remove('active');
-    });
+    emailInput.addEventListener('input', function () {
+        const emailValue = emailInput.value;
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Semplice regex per email
 
-    // Evento click sul pulsante "Registrati"
-    signupbtn.addEventListener('click', function() {
-        formbox.classList.add('active');
-        body.classList.add('active');
-    });
-
-    // Evento click sul div contenente il form "Accedi"
-    signInContainer.addEventListener('click', function(e) {
-        if (!e.target.closest('.signinbtn')) {
-            formbox.classList.remove('active');
-            body.classList.remove('active');
+        if (emailValue === '') {
+            // Campo email vuoto
+            errorMail.classList.add('d-none');
+            correctMail.classList.add('d-none');
+        } else if (emailPattern.test(emailValue)) {
+            // Email valida
+            errorMail.classList.add('d-none');
+            correctMail.classList.remove('d-none');
+        } else {
+            // Email non valida
+            errorMail.classList.remove('d-none');
+            correctMail.classList.add('d-none');
         }
     });
 
-    // Evento click sul div contenente il form "Registrati"
-    signUpContainer.addEventListener('click', function(e) {
-        if (!e.target.closest('.signupbtn')) {
-            formbox.classList.remove('active');
-            body.classList.remove('active');
+    signupForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Impedisce il submit del form
+
+        var nome = document.getElementById('nome').value;
+        var cognome = document.getElementById('cognome').value;
+        var email = emailInput.value;
+
+        // Controllo se tutti i campi sono completati
+        if (!nome || !cognome || !email) {
+            alert('Devi completare tutti i campi per registrarti.');
+            return;
         }
+
+        // Controllo validità email
+        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email)) {
+            errorMail.classList.remove('d-none');
+            correctMail.classList.add('d-none');
+            return;
+        } else {
+            errorMail.classList.add('d-none');
+            correctMail.classList.remove('d-none');
+        }
+
+        // Se tutti i controlli sono superati, procedere con la registrazione
+        alert('Registrazione avvenuta con successo!');
+        signupForm.submit(); // Invia il form
     });
 
-      // Controllo se tutti i campi sono completati
-      if (!nome || !cognome || !email) {
-          alert('Devi completare tutti i campi per registrarti.');
-          return;
-      }
-      // se tutti i campi sono stati compilati invia il form
-      signupForm.submit();
-  });
+    // Funzione per mostrare la password
+    function showPassword(id) {
+        var passwordInput = document.getElementById(id);
+        var eyeIcon = document.getElementById(id + '-eye');
 
+        passwordInput.type = 'text';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+    }
 
+    // Funzione per nascondere la password
+    function hidePassword(id) {
+        var passwordInput = document.getElementById(id);
+        var eyeIcon = document.getElementById(id + '-eye');
 
+        passwordInput.type = 'password';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+    }
 
+    // Aggiungi eventi ai toggle per la password
+    document.querySelectorAll('.toggle-password').forEach(function (toggle) {
+        toggle.addEventListener('mouseover', function () {
+            var inputId = this.previousElementSibling.id;
+            showPassword(inputId);
+        });
 
-// LOGIN
-
-
-
-// cazzatine
-
-// cambio da password a text per visualizzare la password
-let pass = document.getElementById("pass");
-const showPassword = document.getElementById("toggle-eye");
-
-showPassword.addEventListener('mouseover', function(){
-    showPassword.setAttribute("value", "hide");
-    pass.setAttribute("type", "text");
-});
-
-showPassword.addEventListener('mouseout', function(){
-    showPassword.setAttribute("value", "show");
-    pass.setAttribute("type", "password");
+        toggle.addEventListener('mouseout', function () {
+            var inputId = this.previousElementSibling.id;
+            hidePassword(inputId);
+        });
+    });
 });
