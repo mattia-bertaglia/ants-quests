@@ -4,12 +4,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.Corso;
+import com.gol.ants_quests.hibernate.entities.OnlyCorso;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.services.CorsiHibService;
 import com.gol.ants_quests.hibernate.services.StudentiHibService;
@@ -121,4 +123,19 @@ public class GesCorsiService {
         }
     }
 
+    /* per associare idcorso a studente nel modale aggiungi */
+    public OnlyCorso findById(Long id) {
+        // Implementare il metodo per trovare il corso per ID, restituendo un'istanza di
+        // OnlyCorso
+        Optional<Corso> optionalCorso = corsiHibSrv.findById(id);
+        if (optionalCorso.isPresent()) {
+            Corso corso = optionalCorso.get();
+            OnlyCorso onlyCorso = new OnlyCorso();
+            onlyCorso.setIdCorso(corso.getIdCorso());
+            onlyCorso.setNome(corso.getNome());
+            return onlyCorso;
+        } else {
+            throw new RuntimeException("Corso non trovato");
+        }
+    }
 }
