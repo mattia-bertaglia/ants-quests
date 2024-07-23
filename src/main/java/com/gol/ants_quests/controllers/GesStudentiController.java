@@ -30,6 +30,7 @@ public class GesStudentiController {
     public String getStud(Model model) {
         model.addAttribute("studenti", studSrv.findAllStudenti());
         model.addAttribute("corsi", corsiSrv.findAll());
+        model.addAttribute("studentiDTO", studSrv.findAllStudentiDTO());
         questSrv.findAll(model);
 
         return "gesStudentiAdmin.html";

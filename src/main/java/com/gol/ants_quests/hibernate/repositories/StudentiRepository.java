@@ -34,7 +34,16 @@ public interface StudentiRepository extends JpaRepository<Studente, Long> {
 
         List<Studente> findAll(Sort sort);
 
-        List<StudenteDTO> findAllStudentiDTO(Sort sort);
+        /* List<StudenteDTO> findAllStudentiDTO(); */
+
+        @Query("SELECT new com.gol.ants_quests.dto.StudenteDTO(s.idStudente, s.nome, s.cognome, s.dataNascita, s.cap, s.provincia, s.telefono, s.note, s.dataInserimento, "
+                        +
+                        "u.id, u.usernameEmail, u.passkey, u.ruolo, u.firstTime, " +
+                        "c.idCorso, c.nome, c.dataInizio, c.dataFine) " +
+                        "FROM Studente s " +
+                        "LEFT JOIN s.user u " +
+                        "LEFT JOIN s.corso c ")
+        public List<StudenteDTO> findAllStudentiDTO();
 
         Studente findByDataNascita(Date dataNascita);
 

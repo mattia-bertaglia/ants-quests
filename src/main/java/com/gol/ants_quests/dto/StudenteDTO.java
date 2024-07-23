@@ -2,7 +2,6 @@ package com.gol.ants_quests.dto;
 
 import java.util.Date;
 
-import com.gol.ants_quests.hibernate.entities.User;
 import com.gol.ants_quests.util.Ruolo;
 
 public class StudenteDTO {
@@ -123,8 +122,8 @@ public class StudenteDTO {
         this.dataInserimento = dataInserimento;
     }
 
-    public User setUserId(User userId) {
-        return userId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getUserId() {
