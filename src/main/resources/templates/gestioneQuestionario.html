@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
+    <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
+    <script src="/objQuest.js"></script>
+    <script>
+        const quest = new Quest();
+        quest.idQst = '[[${ quest.idQst }]]';
+        quest.titolo = '[[${ quest.titolo }]]';
+        quest.categoria = { idCat: '[[${ quest.categoriequest.idCat }]]', nome: '[[${ quest.categoriequest.nome }]]' };
+
+        let domanda;
+        let risposta;
+    </script>
+    <title>Gestione</title>
+</head>
+<body>
+
+    <nav></nav><br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        Impostazioni Test
+                    </div>
+                    <div class="card-body">
+                        <label for="type">Categoria</label>
+                        <select id="type" name="type" style="padding: 10px; width: 100%;">
+                            <option value="" disabled selected> -Selezione un elemento- </option>
+                            <option th:each="categorie : ${listaCategorie}" 
+                                th:text="${categorie.nome}" th:value="${categorie.idCat}"
+                                th:selected="${quest.categoriequest.idCat==categorie.idCat}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+                        <label for="titolo">Titolo</label>
+                        <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}"
+                        style="padding: 10px; width: 100%;">
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" 
+                        id="btn_salva_test" class="btn btn-primary" disabled>Salva</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-2">
+                                Elenco domande
+                            </div>
+                            <div class="col-md-2">
+                                <button id="btn_aggiungi_domanda" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#modale-aggiungi-domanda" th:disabled="${quest.idQst == null}">
+                                    Aggiungi Domanda</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush" id="elenco-domande">
+                            <li class="list-group-item" th:each="domanda : ${quest.domanda}" th:id=" ${domanda.idQstDet}">
+                                <script>
+                                    domanda = new Domanda();
+                                    domanda.idQstDet = '[[${domanda.idQstDet}]]';
+                                    domanda.domanda = '[[${domanda.domanda}]]';
+                                </script>
+                                <details>
+                                    <summary th:id="${domanda.idQstDet}" th:text="${domanda.domanda}" ></summary>
+                                    <div>
+                                        <hr>
+                                        <button class="btn btn-outline-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modale-modifica-domanda" onclick="popolaModale(this)">Modifica
+                                        </button>
+                                        <button class="btn btn-outline-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modale-elimina-domanda" onclick="trovaDomanda(this)">Elimina</button>
+                                        <div class="mb-3 mt-3"></div>
+                                        <ol class="list-group list-group-numbered">
+                                            <th:block th:each="risposta : ${domanda.risp}">
+                                                <script>
+                                                    ris = new Risposta();
+                                                    ris.idAns = '[[${risposta.idAns}]]';
+                                                    ris.risposta = '[[${risposta.risposta}]]';
+                                                    ris.corretta = '[[${risposta.corretta}]]';
+                                                    domanda.risp.push(ris);
+                                                </script>
+                                                <li th:class="${risposta.corretta} ? 'list-group-item list-group-item-success' : 
+                                                'list-group-item list-group-item-danger'"
+                                                    th:text="${risposta.risposta}">
+                                                </li>
+                                            </th:block>
+                                        </ol>
+                                    </div>
+                                </details>
+                                <script>
+                                    quest.domanda.push(domanda);
+                                </script>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" class="btn btn-primary" id="btn_salva_domanda"
+                        onclick="gestisciDomande()" disabled>Salva</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Toasts Test Aggiunto-->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div id="salvaOk" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body bg-success">
+          Salvataggio eseguito correttamente
+        </div>
+      </div>
+    </div>
+<!-- Fine Toasts Test Aggiunto-->
+
+<!-- Toasts Errore nel DB-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="errorDB" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body bg-danger">
+        Errore interno al Database
+      </div>
+    </div>
+  </div>
+<!-- Fine Toasts Errore nel DB-->
+
+<!-- Toast Test Non Aggiunto-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="salvaErr" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-body bg-danger">
+        Errore nel salvataggio
+      </div>
+    </div>
+  </div>
+<!-- Fine Toasts Test Non Aggiunto -->
+
+<!-- Modale Elimina Domanda -->
+    <div class="modal fade" tabindex="-1" id="modale-elimina-domanda">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Elimina Domanda</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Sei sicuro di voler eliminare la domanda?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <button type="button" class="btn btn-danger" onclick="eliminaDomanda()">Elimina</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- FINE Modale Elimina Domanda -->
+
+<!--Modale Aggiungi Domanda -->
+<div class="modal fade" id="modale-aggiungi-domanda">
+    <div class="modal-dialog modal-dialog-centered modal-xl ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Aggiungi Domanda</h5>
+                <button type="button" class="btn btn-outline-secondary" 
+                data-bs-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body" style="background-color: aliceblue;">
+                <div class="input-group input-group-sm mb-1">
+                    <label class="input-group-text col-5" for="domanda_inserita">
+                        Domanda
+                    </label>
+                    <textarea name="domanda_inserita" class="form-control w-100" 
+                    style="text-transform:none;" id="domanda_inserita"></textarea>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="button" class="btn btn-primary btn-sm"
+                            onclick="aggiungiRisposta('nuovo-elenco-risposte')"
+                            value="Aggiungi Risposta">
+                    </div>
+                </div>
+                <div class="mb-3 mt-3"></div>
+                <div id="risposta-obbligatoria">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group input-group-sm mb-1">
+                                <input type="text" class="form-control col-6 risposta_inserita" id="risposta_inserita">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-check">
+                                <input class="form-check-input risp_corretta" id="corretta" type="checkbox" name="corretta">
+                                <label class="form-check-label" for="corretta">
+                                    Corretta
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="nuovo-elenco-risposte">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-grid gap-1 col-10 mt-3 mx-auto">
+                <button type="button" class="btn btn-primary" 
+                    id="btn_add_domanda" onclick="addDomanda()" disabled>Aggiungi
+                </button>
+                </div>
+                <div class="d-grid gap-2 col-10 mt-2 mx-auto">
+                    <button type="button" class="btn btn-warning" onclick="pulisicModaleAggiungi()">Pulisci</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--FINE MODALE Aggiungi Domanda -->
+
+<!-- Modale Modifica Domanda -->
+<div class="modal fade" id="modale-modifica-domanda">
+    <div class="modal-dialog modal-dialog-centered modal-xl ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modifica Domanda</h5>
+                <button type="button" class="btn btn-outline-secondary" 
+                data-bs-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body" style="background-color: aliceblue;">
+                <div class="input-group input-group-sm mb-1">
+                    <label class="input-group-text col-5" for="domanda_inserita">
+                        Domanda
+                    </label>
+                    <textarea name="domanda_inserita" class="form-control w-100" 
+                    style="text-transform:none;" id="domanda_inserita_modifica"></textarea>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="button" class="btn btn-primary btn-sm"
+                            onclick="aggiungiRisposta('elenco-risposte')"
+                            value="Aggiungi Risposta">
+                    </div>
+                </div>
+                <div class="mb-3 mt-3"></div>
+                <div id="elenco-risposte">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-grid gap-1 col-10 mt-3 mx-auto">
+                <button type="button" class="btn btn-primary" 
+                    id="btn_mod_domanda" onclick="modDomanda()">Modifica
+                </button>
+                </div>
+                <div class="d-grid gap-2 col-10 mt-2 mx-auto">
+                    <button type="button" class="btn btn-warning" onclick="pulisicDomandeModifica(),
+                     aggiungiRispostaObbligatoria('elenco-risposte')">Pulisci</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FINE MODALE Modifica Domanda -->
+
+
+  <script src="/jquery/jquery-3.7.1.min.js"></script>
+  <script src="/bootstrap/popper.min.js"></script>
+  <script src="/bootstrap/bootstrap.min.js"></script>
+  <script src="/js/gestQuest.js"></script>
+
+</body>
+</html>

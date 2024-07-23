@@ -1,64 +1,65 @@
 package com.gol.ants_quests.controllers;
 
+import java.util.HashMap;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.gol.ants_quests.business.GestQuestService;
+import com.gol.ants_quests.business.QuestService;
+import com.gol.ants_quests.hibernate.entities.Quest;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
-/* @RequiredArgsConstructor */
+@RequiredArgsConstructor
 @RequestMapping("/quest")
 public class QuestController {
 
     private final QuestService showSrv;
+    private final GestQuestService gestSrv;
 
     @GetMapping("/esiti")
     public String esiti(@RequestParam HashMap<String, String> params, Model model) {
-
-        if (params.containsKey("data_inizio") && params.containsKey("data_fine")) {
-            if (!params.get("data_inizio").isEmpty() && !params.get("data_fine").isEmpty()) {
-                showSrv.findByData(model, params.get("data_inizio"), params.get("data_fine"));
-
-            } else
-                showSrv.findAllEsitiQuest(model);
-
-        } else {
-            showSrv.findAllEsitiQuest(model);
-        }
-
+        showSrv.findAllCategorie(model);
+        showSrv.findAllEsitiQuest(model);
+        showSrv.findAllQuestByCategoria(model);
         return "esitiQuestionari.html";
     }
 
     @GetMapping("/lista")
-    public String gestione(Model model) {
-
+    public String lista(Model model) {
+        showSrv.findAllCategorie(model);
         showSrv.findAllQuestByCategoria(model);
-
         return "listaQuestionari.html";
     }
 
-    /////////////////////////////////
-
-    private final GestQuestService gestQuestService;
-
-    @GetMapping("/nuovaQuest")
-    public String showQuestForm(Model model) {
-        gestQuestService.findAll(model);
-        return "newquest.html";
+    @PostMapping("/gestione")
+    public String gestioneQuest(@RequestParam("id_quest") String id_quest, Model model) {
+        showSrv.findAllCategorie(model);
+        try {
+            Integer.parseInt(id_quest);
+            gestSrv.findDomandeByID(id_quest, model);
+        } catch (Exception error) {
+            gestSrv.empyObject(model);
+        }
+        return "gestioneQuestionario.html";
     }
 
-    @GetMapping("/inserisciQuest")
-    public String inserisciQuest(
-            @RequestParam String titolo,
-            @RequestParam String categoriaId,
-            @RequestBody List<Map<String, Object>> domande) {
-        // gestQuestService.createQuestWithDomandeERisposte(titolo, categoriaId,
-        // domande);
-        return "redirect:/nuovaQuest";
+    @PostMapping("/gestionedomande")
+    @ResponseBody
+    public String gestioneDomande(@RequestBody Quest jsonOggetto) {
+        return gestSrv.gestioneDomande(jsonOggetto);
     }
 
-    @GetMapping("/categorie")
-    public String categorie(Model model) {
-        gestQuestService.findAll(model);
-        return "newquest.html";
+    @PostMapping("/savetest")
+    @ResponseBody
+    public String saveTest(@RequestParam HashMap<String, String> params){
+        return gestSrv.saveTest(params);
     }
-
 }

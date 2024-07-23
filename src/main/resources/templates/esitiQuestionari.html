@@ -4,72 +4,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Esiti</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="icon" type="image/x-icon" href="img/RAD_Favicon.webp">
+    <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
+    <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
+    <title>Esiti</title>
 </head>
+
 <body>
-
-
-    <div>
-        <form action="esiti" method="get" id="form1">
-
-            <select name="type">
-                <option disabled selected> -Selezione un elemento- </option>
-                <option value="I"> Ingresso </option>
-                <option value="C"> Corso </option>
-            </select>
-
-            <label for="data_inizio">Data Inizio</label>
-            <input type="date" id="data_inizio" name="data_inizio">
-
-            <label for="data_fine">Data Fine</label>
-            <input type="date" id="data_fine" name="data_fine">
-
-            <label for="area">Nome-Cognome</label>
-            <input type="text" id="stringa" name="area">
-
-        </form>  
-        <button type="submit" form="form1" value="Submit">Submit</button>
-    </div>
     <br>
+    <nav></nav>
 
-    <div>
-    <h1>Lista</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Filtri Ricerca</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="filterForm">
+                            <div class="form-group text-center">
+                                <label for="">Categoria</label><br>
+                                <select name="type" style="padding: 10px; width: 50%;" id="categorySelect">
+                                    <option disabled="" selected=""> -Selezione un elemento- </option>
+                                    <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}" th:value="${categorie.nome}"></option>
+                                </select>
+                            </div>
 
+                            <div class="form-group text-center">
+                                <label for="">Titolo</label><br>
+                                <input type="text" id="titolo" class="form-control" placeholder="Inserisci titolo">
+                            </div>
 
+                            <div class="form-group text-center">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="data_inizio">Data Inizio</label>
+                                        <input type="date" id="data_inizio" name="data_inizio" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="data_fine">Data Fine</label>
+                                        <input type="date" id="data_fine" name="data_fine" class="form-control">
+                                        <small id="dateError" class="text-danger"></small>
+                                    </div>
+                                </div>
+                            </div>
 
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>Tipo</th>
-                <th>Titolo</th>
-                <th>Data</th>
-                <th>Punteggio</th>
-                <th>Tempo</th>
-                <th>Utente</th>
-                <th>Questionario</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="questionari : ${listaEsitiQuestionari}">
-                <td th:text="${questionari.Quest.categoriequest.nome}"></td>
-                <td th:text="${questionari.Quest.titolo}"></td>
-                <td th:text="${questionari.dataEsecuzione}"></td>
-                <td th:text="${questionari.punteggio}"></td>
-                <td th:text="${questionari.tempo}"></td>
-                <td th:text="|${questionari.studente.nome} ${questionari.studente.cognome}|"></td>
-                <td ><button type="button" class="btn btn-primary  w-75">Vedi</button></td>
-            </tr>
-        </tbody>
-    </table>
+                            <div class="form-group text-center">
+                                <label for="area">Utente</label>
+                                <input type="text" id="stringa" name="area" class="form-control" placeholder="Nome e Cognome"><br>
+                            </div>
 
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-secondary w-75 mt-2" id="removeFiltersButton">Rimuovi Filtri</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <br>
 
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h5>Elenco Questionari</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="noResultsMessage" class="alert alert-danger" style="display: none;">
+                            Non posso farti vedere dei questionari dove nel filtro la data di inizio sia maggiore della data di fine.
+                        </div>
+                        <table id="myTable" class="table table-striped table-bordered table-sm" style="width: 100%;" data-toggle="table" data-locale="it-IT">
+                            <thead>
+                                <tr>
+                                    <th>Categoria</th>
+                                    <th>Titolo</th>
+                                    <th>Data</th>
+                                    <th>Punteggio</th>
+                                    <th>Tempo</th>
+                                    <th>Utente</th>
+                                    <th class="text-center">Questionario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="questionari : ${listaEsitiQuestionari}">
+                                    <td th:text="${questionari.Quest.categoriequest.nome}"></td>
+                                    <td th:text="${questionari.Quest.titolo}"></td>
+                                    <td th:text="${#dates.format(questionari.dataEsecuzione, 'dd-MM-yyyy')}"></td>
+                                    <td th:text="${questionari.punteggio}"></td>
+                                    <td th:text="${questionari.tempo}"></td>
+                                    <td th:text="|${questionari.studente.nome} ${questionari.studente.cognome}|"></td>
+                                    <td class="text-center">
+                                        <button name="id_quest" type="submit" class="btn btn-primary w-75" th:value="${questionari.idEstQst}">Vedi</button>
+                                    </td>
+                                </tr>
+                                <tr th:if="${#lists.isEmpty(listaEsitiQuestionari)}">
+                                    <td class="text-center" colspan="7">Nessun Elemento</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <button onclick="prevPage()" class="btn btn-secondary" id="btn_prev">Precedente</button>
+                            <span>Pagina <span id="page"></span> di <span id="totalPages"></span></span>
+                            <button onclick="nextPage()" class="btn btn-secondary" id="btn_next">Successivo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script src="jquery/jquery-3.7.1.min.js"></script>
-    <script src="bootstrap/popper.min.js"></script>
-    <script src="bootstrap/bootstrap.min.js"></script>
-    <script src="js/index.js"></script>
+    <script src="/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/bootstrap/popper.min.js"></script>
+    <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/esitiScript.js"></script>  <!--Link al file esitiScript.js -->
+
 </body>
 </html>

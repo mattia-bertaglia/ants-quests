@@ -1,12 +1,9 @@
 package com.gol.ants_quests.hibernate.services;
 
-import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
 import com.gol.ants_quests.hibernate.entities.EsitoQuest;
 import com.gol.ants_quests.hibernate.repositories.EsitiQuestsRepository;
 
