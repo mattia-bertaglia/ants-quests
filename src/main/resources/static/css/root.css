@@ -117,8 +117,7 @@ a:hover {
 }
 
 /* Main Content */
-/* Classe per spostare il contenuto principale */
-.main-content-offset {
+.main-content {
     margin-left: 8rem;
     /* Distanza tra navbar e contenuto della pagina */
 }
