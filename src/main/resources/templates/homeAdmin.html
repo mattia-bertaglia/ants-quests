@@ -4,65 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/css/root.css">
 </head>
 
 <body>
-    <nav>
-        <ul class="container">
-            <li><a>Home</a></li>
-            <li class='dropdown'>
-                <a href='#'>Studenti <i class="fa fa-angle-down"></i></a>
-                <div class='mega-menu'>
-                    <div class="container">
-                        <div class="item">
-                            <h3>Gestione Studenti</h3>
-                            <ul>
-                                <li><a href="/ges_studenti/">Elenco Studenti</a></li>
-                                <li><a href="/ges_studenti/">Aggiungi Nuovo Studente</a></li>
-                                <!-- pensare se fare un modale per aggiungere fast un nuovo studente -->
-                            </ul>
-                        </div><!-- /.container -->
-                    </div><!-- /.mega-menu -->
-            </li><!-- /.dropdown -->
-            <li class='dropdown'>
-                <a href='#'>Corsi <i class="fa fa-angle-down"></i></a>
-                <div class='mega-menu'>
-                    <div class="container">
-                        <div class="item">
-                            <h3>Gestione Corsi</h3>
-                            <ul>
-                                <li><a href="/ges_corsi/">Elenco Corsi</a></li>
-                            </ul>
-                        </div> <!-- /.item -->
-                    </div><!-- /.container -->
-                </div><!-- /.mega-menu -->
-            </li><!-- /.dropdown -->
-            <li class='dropdown'>
-                <a href='#'>Questionari <i class="fa fa-angle-down"></i></a>
-                <div class='mega-menu'>
-                    <div class="container">
-                        <div class="item">
-                            <h3>Gestione</h3>
-                            <ul>
-                                <li><a href="/quest/lista">Gestione Questionari</a></li>
-                            </ul>
-                        </div> <!-- /.item -->
-                        <div class="item">
-                            <h3>Esiti</h3>
-                            <ul>
-                                <li><a href="/quest/esiti">Esito Questionari</a></li>
-                            </ul>
-                        </div> <!-- /.item -->
-                    </div><!-- /.container -->
-                </div><!-- /.mega-menu -->
-            </li><!-- /.dropdown -->
-            <li><a href="/auth/logout">logout</a></li>
-        </ul><!-- .container -->
+    <nav class="navbar">
+        <ul class="navbar__menu">
+            <li class="navbar__item">
+                <a href="/homeAdmin" class="navbar__link">Home</a>
+            </li>
+            <li class="navbar__item">
+                <a href="/ges_studenti/" class="navbar__link">Studenti</a>
+            </li>
+            <li class="navbar__item">
+                <a href="/ges_corsi/" class="navbar__link">Corsi</a>
+            </li>
+            <li class="navbar__item">
+                <a href="/quest/lista" class="navbar__link">Questionari</a>
+            </li>
+            <li class="navbar__item">
+                <a href="/quest/esiti" class="navbar__link">Esiti</a>
+            </li>
+            <li class="navbar__item">
+                <a href="#" class="navbar__link">Calendario</a>
+            </li>
+            <li class="navbar__item">
+                <button id="logout-btn">Log Out</button>
+            </li>
+        </ul>
     </nav>
+    <div class="main-content main-content-offset">
+        <h2>Home Admin</h2>
+
+    </div>
 
 </body>
 
