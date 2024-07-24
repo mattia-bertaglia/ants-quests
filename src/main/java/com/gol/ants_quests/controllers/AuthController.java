@@ -44,20 +44,17 @@ public class AuthController {
         String cognome = "";
         String usernameEmail = "";
         if (!authService.isLogged(session) && authService.userExists(params.get("usernameEmail"))) {
-
-            errorService.addErrorMessageToSession(session, "usernameExists"); // Username già esistente
-            return "redirect:/"; // Rimani sulla pagina di registrazione con messaggio di errore
+            errorService.addErrorMessageToSession(session, "usernameExists");
+            return "redirect:/";
         } else if (!authService.isLogged(session) && !authService.userExists(params.get("usernameEmail"))) {
             nome = params.get("nome");
             cognome = params.get("cognome");
             usernameEmail = params.get("usernameEmail");
-
         } else if (authService.isLogged(session)) {
             User user = (User) session.getAttribute("user");
             usernameEmail = user.getUsernameEmail();
             nome = user.getStudente().getNome();
             cognome = user.getStudente().getCognome();
-
         }
 
         model.addAttribute("nome", nome);
@@ -73,7 +70,6 @@ public class AuthController {
         } else {
             authService.registerUser(session, params, model);
         }
-
         return "redirect:/homeStud";
     }
 
