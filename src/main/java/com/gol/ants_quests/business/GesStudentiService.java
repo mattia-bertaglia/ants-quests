@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.dto.EsitoQuestDTO;
 import com.gol.ants_quests.dto.StudenteDTO;
-import com.gol.ants_quests.hibernate.entities.Corso;
+
 import com.gol.ants_quests.hibernate.entities.OnlyCorso;
 import com.gol.ants_quests.hibernate.entities.OnlyEsitoQuest;
 import com.gol.ants_quests.hibernate.entities.Studente;
@@ -22,19 +22,21 @@ import com.gol.ants_quests.hibernate.entities.User;
 
 import com.gol.ants_quests.hibernate.services.StudentiHibService;
 import com.gol.ants_quests.hibernate.services.UsersHibService;
+
 import com.gol.ants_quests.util.Ruolo;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /* aggregatore */
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GesStudentiService {
 
     private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
     private final StudentiHibService studHibSrv;
-
     private final UsersHibService usersSrv;
 
     public List<Studente> findAllStudenti() {
@@ -54,7 +56,7 @@ public class GesStudentiService {
 
     public StudenteDTO convertDto(Studente stud) {
         if (stud == null) {
-            throw new IllegalArgumentException("Lo Studente non può essere null");
+            log.error("Lo Studente non può essere null");
         }
 
         StudenteDTO studenteDTO = new StudenteDTO();
@@ -95,14 +97,14 @@ public class GesStudentiService {
         } else {
             // Imposta valori predefiniti se `Corso` è null
             studenteDTO.setCorsoId(null);
-            studenteDTO.setNomeCorso("");
+            studenteDTO.setNomeCorso("ciao");
             studenteDTO.setDataInizio(null);
             studenteDTO.setDataFine(null);
         }
 
         // Gestione EsitoQuest
         List<EsitoQuestDTO> esitoQuestDTOList = new ArrayList<>();
-        if (stud.getEsquestionari() != null) {
+        if (stud.getEsquestionari() != null && !stud.getEsquestionari().isEmpty()) {
             for (OnlyEsitoQuest esiti : stud.getEsquestionari()) {
                 EsitoQuestDTO esitoQuestDTO = new EsitoQuestDTO();
                 esitoQuestDTO.setIdEstQst(esiti.getIdEstQst());
@@ -120,24 +122,6 @@ public class GesStudentiService {
 
         return studenteDTO;
     }
-
-    /*
-     * List<EsitoQuestDTO> esitoQuestDTOList = new ArrayList<>();
-     * for (OnlyEsitoQuest esiti : stud.getEsquestionari()) {
-     * EsitoQuestDTO esitoQuestDTO = new EsitoQuestDTO();
-     * esitoQuestDTO.setIdEstQst(esiti.getIdEstQst());
-     * esitoQuestDTO.setDataEsecuzione(esiti.getDataEsecuzione());
-     * esitoQuestDTO.setPunteggio(esiti.getPunteggio());
-     * esitoQuestDTO.setTempo(esiti.getTempo());
-     * esitoQuestDTO.setCategoriaQuest(esiti.getCategoriaQuest());
-     * esitoQuestDTO.setTitoloQuest(esiti.getTitoloQuest());
-     * esitoQuestDTO.setQuestId(esiti.getQuestId());
-     * esitoQuestDTO.setStudenteId(esiti.getStudenteId());
-     * 
-     * esitoQuestDTOList.add(esitoQuestDTO);
-     * }
-     * studenteDTO.setEsquestionari(esitoQuestDTOList);
-     */
 
     /* fine per StudenteDTO */
 
@@ -169,9 +153,9 @@ public class GesStudentiService {
     }
 
     public void saveStudenteFixed(HashMap<String, String> params) {
-        // esempio
+
         User user = new User();
-        user.setUsernameEmail(params.get("email")); // params.get
+        user.setUsernameEmail(params.get("emailstudente"));
         user.setPasskey(bcrypt.encode("123"));
         user.setRuolo(Ruolo.studente);
         user.setFirstTime(true);
@@ -181,24 +165,59 @@ public class GesStudentiService {
         // popolare dati studente da form di firstTime.html
         Studente studenteTemp = new Studente(null,
                 salvatoUser,
-                params.get("nome"),
-                params.get("cognome"),
+                params.get("nomestudente"),
+                params.get("cognomestudente"),
                 null,
                 null,
                 null,
                 null,
                 null,
                 Date.valueOf(LocalDate.now()),
-                null,
-                null);
+                null, null);
 
-        /*
-         * if (params.get("idcorso") != null && !"".equals("idcorso"))
-         * stud.setCorso(new OnlyCorso(Long.parseLong(params.get("idcorso")), null,
-         * null, null));
-         */
         salvatoUser.setStudente(studHibSrv.save(studenteTemp));
-        // fine esempio
+
+    }
+
+    public void updateStudenteFixed(HashMap<String, String> params) {
+
+        // ti vai a prendere lo studente per params.studId
+        Studente stud = new Studente(); // studHibSrv.findByID
+        if (params.get("idstudente") != null && !"".equals(params.get("idstudente")))
+            stud.setIdStudente(Long.parseLong(params.get("idstudente")));
+
+        User user = stud.getUser();
+        /*
+         * if (params.get("user") != null && !"".equals(params.get("user")))
+         * stud.setUser(user); CONTINUA A NON TROVARE USER, PROVARE IN DEBUG
+         */
+        user.setUsernameEmail(params.get("email"));
+        if (params.get("password") != null && !"".equals(params.get("password")))
+            user.setPasskey(params.get("password")); // se e' presente
+        user.setRuolo("studente".equals(params.get("ruolo")) ? Ruolo.studente : Ruolo.guest); // OKAY
+
+        // partiamo a settare i dati di user
+        // ti prendi params.ruolo - params.email - controlli params.password e' presente
+        // setti di stud.getUser() questi campi
+        // chiami hib di user e ai il .save(stud.getUser())
+
+        // Salvataggio dell'utente con lo studente temporaneo
+        stud.setUser(usersSrv.save(user));
+
+        // Popolare dati studente da form di firstTime.html
+        stud.setNome(params.get("nome"));
+        stud.setCognome(params.get("cognome"));
+        stud.setDataNascita(Date.valueOf(params.get("dataNascita")));
+        stud.setCap(params.get("cap"));
+        stud.setProvincia(params.get("provincia"));
+        stud.setTelefono(params.get("telefono"));
+        stud.setNote(params.get("note"));
+
+        // Aggiorna l'ID corso associato
+        if (params.get("corsofrequentato") != null && !"".equals("corsofrequentato"))
+            stud.setCorso(new OnlyCorso(Long.parseLong(params.get("corsofrequentato")), null, null, null));
+
+        studHibSrv.save(stud);
 
     }
 

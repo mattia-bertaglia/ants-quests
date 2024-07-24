@@ -8,7 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.gol.ants_quests.dto.StudenteDTO;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.repositories.StudentiRepository;
 
@@ -38,6 +37,12 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
 
     }
 
+    /*
+     * public Optional<Studente> findByCorsoId(Long corsoId) {
+     * return getRepository().findByCorsoId(corsoId);
+     * }
+     */
+
     public List<Object[]> cercaStudenti(Long idStudente, String nome, String cognome) {
         return getRepository().cercaStudenti(idStudente, nome, cognome);
     }
@@ -46,9 +51,11 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
         return getRepository().findAll(Sort.by(Direction.DESC, "dataInserimento"));
     }
 
-    public List<StudenteDTO> findAllStudentiDTO() {
-        return getRepository().findAllStudentiDTO();
-    }
+    /*
+     * public List<StudenteDTO> findAllStudentiDTO() {
+     * return getRepository().findAllStudentiDTO();
+     * }
+     */
 
     public Optional<Studente> findById(Long idStudente) {
         return getRepository().findById(idStudente);

@@ -40,12 +40,10 @@ public class GesStudentiController {
         return "redirect:/ges_studenti/";
     }
 
-    /*
-     * @PostMapping("/savestud2")
-     * public String saveStud2(@RequestParam HashMap<String, String> params) {
-     * studSrv.saveStudente(params);
-     * return "redirect:/ges_studenti/";
-     * }
-     */
+    @PostMapping("/updatestud")
+    public String updateStud(@RequestParam HashMap<String, String> params) {
+        studSrv.updateStudenteFixed(params);
+        return "redirect:/ges_studenti/";
+    }
 
 }
