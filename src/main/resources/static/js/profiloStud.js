@@ -113,6 +113,13 @@ $(document).ready(function () {
             $("#error-provincia").hide();
         }
 
+        if (!isValid) {
+            $("#general-error-message").removeClass("hidden");
+            $('html, body').animate({ scrollTop: 0 }, 'slow');
+        } else {
+            $("#general-error-message").addClass("hidden");
+        }
+
         $("#submit-btn").prop("disabled", !isValid);
     }
 
