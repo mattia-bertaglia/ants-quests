@@ -240,6 +240,7 @@ insert into antsquests.studenti(user_id, nome, cognome, data_nascita, cap, provi
 /*
 -- Query: SELECT * FROM antsquests.esiti_quests
 */
+/* 
 INSERT INTO antsquests.esiti_quests (id_est_qst,quest_id,data_esecuzione,punteggio,tempo,studente_id) VALUES (1,1,'2024-05-01','12','10',1);
 INSERT INTO antsquests.esiti_quests (id_est_qst,quest_id,data_esecuzione,punteggio,tempo,studente_id) VALUES (2,1,'2024-06-01','9','10',1);
 INSERT INTO antsquests.esiti_quests (id_est_qst,quest_id,data_esecuzione,punteggio,tempo,studente_id) VALUES (3,2,'2024-07-01','20','10',2);
@@ -343,3 +344,4 @@ insert into antsquests.esiti_quests (quest_id, studente_id, punteggio, data_esec
 insert into antsquests.esiti_quests (quest_id, studente_id, punteggio, data_esecuzione, tempo) values (1, 23, '4/10', '1992-09-21', 30);
 insert into antsquests.esiti_quests (quest_id, studente_id, punteggio, data_esecuzione, tempo) values (1, 84, '9/10', '1994-09-04', 20);
 insert into antsquests.esiti_quests (quest_id, studente_id, punteggio, data_esecuzione, tempo) values (2, 81, '7/10', '1999-08-05', 50);
+ */
