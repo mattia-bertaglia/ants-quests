@@ -23,11 +23,13 @@
             <div class="login-form">
                 <div class="group">
                     <label for="nome" class="label">Nome</label>
-                    <input id="nome" type="text" class="input" placeholder="Inserisci il tuo nome" name="nome">
+                    <input id="nome" type="text" class="input" th:value="${nome}" placeholder="Inserisci il tuo nome"
+                        name="nome" required>
                 </div>
                 <div class="group">
                     <label for="cognome" class="label">Cognome</label>
-                    <input id="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome" name="cognome">
+                    <input id="cognome" type="text" class="input" th:value="${cognome}"
+                        placeholder="Inserisci il tuo cognome" name="cognome" required>
                 </div>
                 <div class="group">
                     <label for="telefono" class="label">Numero di telefono</label>
@@ -51,12 +53,13 @@
                 </div>
                 <div class="group">
                     <label for="email" class="label">Email</label>
-                    <input id="email" type="email" class="input" placeholder="Inserisci la tua email" name="email">
+                    <input id="email" type="email" class="input" th:value="${usernameEmail}"
+                        placeholder="Inserisci la tua email" name="email">
                 </div>
                 <!-- Area password con bottoni e messaggi -->
                 <div class="group">
-                    <label for="password" class="label">Password</label>
                     <div class="password-container">
+                        <label for="password" class="label">Password</label>
                         <input id="password" type="password" class="input input-password"
                             placeholder="Inserisci la password" name="passkey">
                         <span class="toggle-password">
