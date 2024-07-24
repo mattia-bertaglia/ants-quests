@@ -1,3 +1,27 @@
+// Controllo Telefono
+
+document.getElementById('telefono').addEventListener('input', function () {
+    const telefonoInput = this.value;
+    const errorPhone = document.getElementById('error-phone');
+    const correctPhone = document.getElementById('correct-phone');
+
+    // Verifica se il numero è composto esattamente da 10 caratteri numerici
+    const isValidPhone = /^\d{10}$/.test(telefonoInput);
+
+    if (isValidPhone) {
+        // Mostra il messaggio di successo e nasconde quello di errore
+        correctPhone.classList.remove('d-none');
+        errorPhone.classList.add('d-none');
+    } else {
+        // Mostra il messaggio di errore e nasconde quello di successo
+        errorPhone.classList.remove('d-none');
+        correctPhone.classList.add('d-none');
+    }
+});
+
+
+
+
 
 // Controllo della password
 
@@ -7,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var confirmPasswordInput = document.getElementById('conferma-password');
 
     var passwordError = document.getElementById('error-pass');
-    var errorList = document.getElementById('error-list');
     var lowercaseError = document.getElementById('error-lowercase');
     var uppercaseError = document.getElementById('error-uppercase');
     var numberError = document.getElementById('error-number');
@@ -102,6 +125,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var confirmPassword = confirmPasswordInput.value;
 
         // To-Do aggiungere controllo per tutti i campi di firstTime
+
+
 
         if (!password || !confirmPassword) {
             alert('Devi completare tutti i campi per registrarti.');
