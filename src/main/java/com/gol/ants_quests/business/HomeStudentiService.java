@@ -67,8 +67,10 @@ public class HomeStudentiService {
 
     /* metodo per la modifica dello studente dal suo profilo */
     public void modificaProfilo(HttpSession session, HashMap<String, String> params, Model model) {
+        log.info("Inizio modifica profilo");
         String email = params.get("usernameEmail");
         String password = params.get("passkey");
+        log.info("Email: " + email + ", Password: " + password);
 
         if (email == null || password == null || !authsrv.userExists(email)) {
             errorService.addErrorMessageToModel(model, "registrationError");
@@ -105,6 +107,7 @@ public class HomeStudentiService {
         }
 
         errorService.addSuccessMessageToModel(model, "registrationSuccess");
+        log.info("Profilo modificato con successo");
     }
 
     private void aggiornaDettagliStudente(Studente studente, HashMap<String, String> params) {
