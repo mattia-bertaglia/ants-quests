@@ -77,8 +77,8 @@ public class AuthService {
             return;
         }
 
-        String password = params.get("passkey");
-        if (password != null && !password.isEmpty()) {
+        String password = params.get("passkey"); // Nuova password
+        if (password != null && !password.trim().isEmpty()) {
             user.setPasskey(bcrypt.encode(password));
         }
 
