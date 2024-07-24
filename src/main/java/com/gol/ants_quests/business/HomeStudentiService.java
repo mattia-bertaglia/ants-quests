@@ -19,6 +19,7 @@ import com.gol.ants_quests.hibernate.entities.OnlyStudente;
 import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.entities.User;
+import com.gol.ants_quests.hibernate.repositories.UsersRepository;
 import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.hibernate.services.EsitiHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
@@ -40,6 +41,7 @@ public class HomeStudentiService {
     private final QuestsHibService questSrv;
     private final RisposteHibService risposteSrv;
     private final UsersHibService authsrv;
+    private final UsersRepository userRepository;
     private final StudentiHibService studHibSrv;
     private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
     private final PdfService pdfSrv;
@@ -69,7 +71,8 @@ public class HomeStudentiService {
     public void modificaProfilo(HttpSession session, HashMap<String, String> params, Model model) {
         log.info("Inizio modifica profilo");
         String email = params.get("usernameEmail");
-        String password = params.get("passkey");
+        String password = params.get("passkey"); // Nuova password
+
         log.info("Email: " + email + ", Password: " + password);
 
         if (email == null || password == null || !authsrv.userExists(email)) {
@@ -83,10 +86,12 @@ public class HomeStudentiService {
             return;
         }
 
-        user.setPasskey(bcrypt.encode(password));
-        user.setFirstTime(false);
+        // Se una nuova password è fornita, aggiorna la password dell'utente
+        if (password != null && !password.trim().isEmpty()) {
+            user.setPasskey(bcrypt.encode(password));
+        }
 
-        User salvatoUser = authsrv.save(user);
+        User salvatoUser = userRepository.save(user);
         if (salvatoUser == null || salvatoUser.getId() == null) {
             errorService.addErrorMessageToModel(model, "registrationError");
             return;
