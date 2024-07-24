@@ -67,41 +67,48 @@ public class AuthService {
         }
 
         errorService.addErrorMessageToSession(session, "registrationSuccess");
-        setupSession(session, userRepository.save(user));
+        setupSession(session, salvatoUser);
     }
 
     public void updateUser(HttpSession session, HashMap<String, String> params, Model model) {
-        String email = params.get("usernameEmail");
-        String password = params.get("passkey");
-
-        if (email == null || password == null || !userExists(email)) {
-            errorService.addErrorMessageToModel(model, "registrationError");
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            errorService.addErrorMessageToModel(model, "userNotFoundError");
             return;
         }
 
-        User user = (User) session.getAttribute("user");
-        user.setPasskey(bcrypt.encode(password));
-        user.setFirstTime(false);
+        String password = params.get("passkey");
+        if (password != null && !password.isEmpty()) {
+            user.setPasskey(bcrypt.encode(password));
+        }
 
+        // Aggiorna i dati dello studente
+        Studente studenteTemp = user.getStudente();
+        if (studenteTemp != null) {
+            studenteTemp.setNome(params.get("nome"));
+            studenteTemp.setCognome(params.get("cognome"));
+            studenteTemp.setDataNascita(Date.valueOf(params.get("dataNascita")));
+            studenteTemp.setCap(params.get("cap"));
+            studenteTemp.setProvincia(params.get("provincia"));
+            studenteTemp.setTelefono(params.get("telefono"));
+            studenteTemp.setNote(params.get("note"));
+
+            // Salva lo studente aggiornato
+            studenteTemp = studHibSrv.save(studenteTemp);
+            user.setStudente(studenteTemp);
+        }
+
+        // Salva l'utente aggiornato
         User salvatoUser = userRepository.save(user);
-
-        Studente studenteTemp = salvatoUser.getStudente();
-        studenteTemp.setNome(params.get("nome"));
-        studenteTemp.setCognome(params.get("cognome"));
-        studenteTemp.setDataNascita(Date.valueOf(params.get("dataNascita")));
-        studenteTemp.setCap(params.get("cap"));
-        studenteTemp.setProvincia(params.get("provincia"));
-        studenteTemp.setTelefono(params.get("telefono"));
-        studenteTemp.setNote(params.get("note"));
-        salvatoUser.setStudente(studHibSrv.save(studenteTemp));
 
         if (salvatoUser == null || salvatoUser.getId() == null) {
             errorService.addErrorMessageToModel(model, "registrationError");
             return;
         }
 
+        // Aggiorna la sessione con i nuovi dati
+        setupSession(session, salvatoUser);
         errorService.addErrorMessageToSession(session, "registrationSuccess");
-
     }
 
     public boolean userExists(String usernameEmail) {
@@ -162,5 +169,4 @@ public class AuthService {
         User user = (User) session.getAttribute("user");
         return user.getRuolo().equals(ruolo);
     }
-
 }
