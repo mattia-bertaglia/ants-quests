@@ -220,8 +220,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="note">Note</label>
-                                <textarea name="note" placeholder="Note" rows="4" class="form-control"
-                                    th:value="${session.user.studente.note}"></textarea>
+                                <textarea id="note" name="note" rows="4" class="form-control"
+                                    th:text="${session.user.studente.note}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -236,14 +236,14 @@
                     <div class="row">
                         <div class="col-md-6 hidden" id="new-pass-group">
                             <div class="form-group">
-                                <label for="newpass">Nuova password</label>
-                                <input id="newpass" type="password" class="form-control form-control-plaintext"
-                                    name="newpass" placeholder="Nuova Password">
-                                <i id="error-newpass" class="hidden error">
+                                <label for="passkey">Nuova password</label>
+                                <input id="passkey" type="password" class="form-control form-control-plaintext"
+                                    name="passkey" placeholder="Nuova Password">
+                                <i id="error-passkey" class="hidden error">
                                     La password deve contenere: almeno un carattere minuscolo (abc), almeno un carattere
                                     maiuscolo (ABC), almeno un carattere numerico (123)
                                 </i>
-                                <i id="correct-newpass" class="hidden correct">La password soddisfa i criteri</i>
+                                <i id="correct-passkey" class="hidden correct">La password soddisfa i criteri</i>
                             </div>
                         </div>
                         <div class="col-md-6 hidden" id="confirm-pass-group">
@@ -362,22 +362,22 @@
             });
 
             // Mostra le istruzioni della password quando il campo è attivo
-            $("#newpass").on("focus", function () {
+            $("#passkey").on("focus", function () {
                 if (!$(this).is("[readonly]")) {
-                    $("#error-newpass, #correct-newpass").show();
+                    $("#error-passkey, #correct-passkey").show();
                 }
             }).on("blur", function () {
-                $("#error-newpass, #correct-newpass").hide();
+                $("#error-passkey, #correct-passkey").hide();
             });
 
             // Confronta le password e mostra il messaggio corrispondente
-            $("#newpass, #checkpass").on("keyup", function () {
-                var newPass = $("#newpass").val();
+            $("#passkey, #checkpass").on("keyup", function () {
+                var passkey = $("#passkey").val();
                 var checkPass = $("#checkpass").val();
-                if (checkPass && newPass !== checkPass) {
+                if (checkPass && passkey !== checkPass) {
                     $("#error-checkpass").show();
                     $("#correct-checkpass").hide();
-                } else if (checkPass && newPass === checkPass) {
+                } else if (checkPass && passkey === checkPass) {
                     $("#error-checkpass").hide();
                     $("#correct-checkpass").show();
                 } else {
@@ -400,11 +400,7 @@
                 }
 
                 // Abilita o disabilita il pulsante di salvataggio
-                if (isValid) {
-                    $("#submit-btn").removeAttr("disabled");
-                } else {
-                    $("#submit-btn").attr("disabled", "disabled");
-                }
+                $("#submit-btn").prop("disabled", !isValid);
             }
         });
     </script>
