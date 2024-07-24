@@ -30,6 +30,9 @@ public class EsitoQuest extends GenericEntity {
     private String tempo;
     private String pathPdf;
 
+    private String categoriaQuest;
+    private String titoloQuest;
+
     @ManyToOne
     @JoinColumn(name = "quest_id")
     private Quest quest;
