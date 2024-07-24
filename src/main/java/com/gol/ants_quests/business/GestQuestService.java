@@ -116,8 +116,15 @@ public class GestQuestService {
                         esito = esito && true;
                     } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
                             !oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
-                        // modifica risposta già esistente
-                    } else {
+                        RispostaQuest risposta = risSrv.findByID(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns()).get();
+                        risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
+                        risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
+                        risSrv.save(risposta); //cambiare con update
+                    } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
+                    oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
+                        risSrv.delete(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns());
+                        esito = esito && true;
+                    }else{
                         esito = esito && false;
                     }
                 }
