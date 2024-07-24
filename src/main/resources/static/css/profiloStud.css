@@ -75,10 +75,12 @@ nav a:hover {
 
 .error {
     color: red;
+    font-size: 12px;
 }
 
 .correct {
     color: green;
+    font-size: 12px;
 }
 
 .btn-group {
