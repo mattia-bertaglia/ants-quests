@@ -1,3 +1,5 @@
+// Controllo e-mail per messaggi di errore
+
 document.addEventListener('DOMContentLoaded', function () {
     const emailInput = document.getElementById('email-reg');
     const errorMail = document.getElementById('error-mail');

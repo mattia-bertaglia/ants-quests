@@ -1,3 +1,6 @@
+
+// Controllo della password
+
 document.addEventListener('DOMContentLoaded', function () {
     var signupForm = document.getElementById('signupForm');
     var passwordInput = document.getElementById('password');
@@ -29,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
             lengthError.classList.add('d-none');
         } else {
             var showError = false;
+
+            // Messaggi di errore per password
 
             if (!hasLowercase) {
                 lowercaseError.classList.remove('d-none');
@@ -95,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var password = passwordInput.value;
         var confirmPassword = confirmPasswordInput.value;
+
+        // To-Do aggiungere controllo per tutti i campi di firstTime
 
         if (!password || !confirmPassword) {
             alert('Devi completare tutti i campi per registrarti.');

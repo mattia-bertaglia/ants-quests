@@ -1,3 +1,5 @@
+// Metodo per bottone di Logout
+
 document.addEventListener('DOMContentLoaded', (event) => {
     const logoutBtn = document.getElementById('logout-btn');
 
