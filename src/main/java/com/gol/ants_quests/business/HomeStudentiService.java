@@ -139,7 +139,8 @@ public class HomeStudentiService {
         esitoFinale.setTempo(params.get("tempo-quest"));
 
         esitoFinale.setQuest(quest.get());
-        // TODO: salvare anche categoria e titolo questionario in esito
+        esitoFinale.setCategoriaQuest(quest.get().getCategoriequest().getNome());
+        esitoFinale.setTitoloQuest(quest.get().getTitolo());
         esitoFinale.setStudente(
                 new OnlyStudente(user.getStudente().getIdStudente(), user, null, null, null, null, null,
                         null, null, null, null));
