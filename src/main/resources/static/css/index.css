@@ -11,6 +11,16 @@
     display: block;
 }
 
+/*  lo sfondo all'intera pagina */
+body {
+    background :linear-gradient(rgba(198, 198, 198, 0.2),#414f37), url('/img/smartphone-laptop-near-notebook-wooden-desk.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+}
+
 /* Login Wrap */
 .login-wrap {
     width: 100%;
@@ -20,8 +30,10 @@
     border-radius: 4%;
     /* Usa 700px per login/signup */
     position: relative;
-    box-shadow: 0 12px 15px rgba(0, 0, 0, 0.24), 0 17px 50px rgba(0, 0, 0, 0.19);
+    box-shadow: 0 12px 15px rgba(0, 0, 0, 0.375), 0 17px 50px rgba(0, 0, 0, 0.452);
+
 }
+
 
 /* Login HTML */
 .login-html {
