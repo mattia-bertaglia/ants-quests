@@ -22,6 +22,10 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
 
     }
 
+    public Studente save(Studente studente) {
+        return getRepository().save(studente);
+    }
+
     /**
      * Metodo che permette di modificare idCorso dello Studente
      * 
