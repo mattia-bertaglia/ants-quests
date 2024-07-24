@@ -35,21 +35,29 @@
                     <label for="telefono" class="label">Numero di telefono</label>
                     <input id="telefono" type="text" class="input" placeholder="Inserisci il tuo numero di telefono"
                         name="telefono">
+                    <i id="error-phone" class="d-none text-danger">Inserisci un numero di telefono</i>
+                    <i id="correct-phone" class="d-none text-success">Accettabile</i>
                 </div>
                 <div class="group cap-provincia-group">
                     <div class="input-cap">
                         <label for="cap" class="label">CAP</label>
                         <input id="cap" type="text" class="input input-cap" placeholder="Inserisci il CAP" name="cap">
+                        <i class="d-none text-danger">Inserisci un CAP</i>
+                        <i class="d-none text-success">Accettabile</i>
                     </div>
                     <div class="input-provincia">
                         <label for="provincia" class="label">Provincia</label>
                         <input id="provincia" type="text" class="input input-provincia"
                             placeholder="Inserisci la provincia" name="provincia">
+                        <i class="d-none text-danger">l'abbreviazione di una provincia</i>
+                        <i class="d-none text-success">Accettabile</i>
                     </div>
                 </div>
                 <div class="group">
                     <label for="data-nascita" class="label">Data di nascita</label>
                     <input id="data-nascita" type="date" class="input" name="dataNascita">
+                    <i class="d-none text-danger">Inserisci una data di nascita</i>
+                    <i class="d-none text-success">Accettabile</i>
                 </div>
                 <div class="group">
                     <label for="email" class="label">Email</label>
