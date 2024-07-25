@@ -40,7 +40,7 @@ function showPdf(pdfFile) {
 
 function dettaglioStudente(studente) {
     document.getElementById('mod-studId').value = studente.idStudente;
-    document.getElementById('mod-userId').value = studente.userId;
+
     document.getElementById('mod-ruolo').value = studente.ruolo;
     document.getElementById('mod-nome').value = studente.nome;
     document.getElementById('mod-cognome').value = studente.cognome;

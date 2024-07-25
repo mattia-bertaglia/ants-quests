@@ -124,10 +124,10 @@
                             </thead>
                             <tbody>
                                 <tr th:each="stud : ${studenti}">
-                                    <td class="text-center" th:text="${stud.ruolo}"></td>
-                                    <td class="text-center" th:text="${stud.nome + ' ' + stud.cognome}"></td>
-                                    <td class="text-center" th:text="${stud.usernameEmail}"></td>
-                                    <td class="text-center" th:text="${stud.nomeCorso != null ? stud.nomeCorso : ''}">
+                                    <td th:text="${stud.ruolo}"></td>
+                                    <td th:text="${stud.nome + ' ' + stud.cognome}"></td>
+                                    <td th:text="${stud.usernameEmail}"></td>
+                                    <td th:text="${stud.nomeCorso != null ? stud.nomeCorso : ''}">
                                     </td>
                                     <td class="text-center">
                                         <button class="btn btn-secondary" data-bs-toggle="modal"
@@ -181,17 +181,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="nomeStudente">Nome Studente</label>
-                            <input type="text" class="form-control" name="nomestudente" id="nomeStudente" required>
+                            <label for="nome">Nome Studente</label>
+                            <input type="text" class="form-control" name="nome" id="nomeStudente" required>
                         </div>
                         <div class="form-group">
-                            <label for="cognomeStudente">Cognome Studente</label>
-                            <input type="text" class="form-control" name="cognomestudente" id="cognomeStudente"
-                                required>
+                            <label for="cognome">Cognome Studente</label>
+                            <input type="text" class="form-control" name="cognome" id="cognomeStudente" required>
                         </div>
                         <div class="form-group">
-                            <label for="emailStudente">Email Studente</label>
-                            <input type="email" class="form-control" name="emailstudente" id="emailStudente" required>
+                            <label for="email">Email Studente</label>
+                            <input type="email" class="form-control" name="email" id="emailStudente" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -203,14 +202,7 @@
         </div>
     </div>
 
-    <!--   <div class="form-group">
-                            <label for="corsoFrequentato">Corso</label>
-                            <select class="form-control" required name="corsofrequentato" id="corsoFrequentato">
-                                <option disabled selected>- Seleziona un corso -</option>
-                                <option th:each="corso : ${corsi}" th:value="${corso.idCorso}" th:text="${corso.nome}">
-                                </option>
-                            </select>
-                        </div> -->
+
 
     <!-- Modale Modifica Studente -->
     <div class="modal fade" id="modDetailModal" tabindex="-1" role="dialog" aria-labelledby="modDetailModalLabel"
@@ -229,11 +221,7 @@
                                 <input type="text" readonly class="form-control-plaintext" name="studId" id="mod-studId"
                                     required>
                             </div>
-                            <div class="col-md-6 ">
-                                <label>ID Utente</label>
-                                <input type="text" readonly class="form-control-plaintext" name="userId" id="mod-userId"
-                                    required>
-                            </div>
+
                             <div class="col-md-6">
                                 <label>Ruolo</label>
                                 <select name="ruolo" id="mod-ruolo" class="form-control" required>
@@ -305,11 +293,6 @@
         </div>
     </div>
 
-    <!--   <div class="col-md-6 ">
-                                <label>ID Utente</label>
-                                <input type="text" readonly class="form-control-plaintext" name="userId" id="mod-userId"
-                                    required>
-                            </div> -->
 
     <!-- Modale  Vedi Questionari -->
     <div class="modal fade" id="questionariModal" tabindex="-1" role="dialog" aria-labelledby="questionariModalLabel"
@@ -343,8 +326,7 @@
             </div>
         </div>
     </div>
-    <!--   <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#pdfModal"
-                                        onclick="showPdf('questionario1.pdf')">PDF</button> -->
+
     <!-- Fine modale vedi questionari -->
 
     <!-- Modale PDF -->

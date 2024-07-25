@@ -45,7 +45,7 @@ public class GesStudentiService {
 
     /* inizio per StudenteDTO */
     public List<StudenteDTO> findAllStudentiDTO() {
-        List<Studente> studenti = studHibSrv.findAll(Sort.by(Sort.Direction.DESC, "dataInserimento"));
+        List<Studente> studenti = studHibSrv.findAll(Sort.by(Sort.Direction.DESC, "idStudente"));
         List<StudenteDTO> result = new ArrayList<StudenteDTO>();
         for (Studente stud : studenti) {
             result.add(convertDto(stud));
@@ -97,7 +97,7 @@ public class GesStudentiService {
         } else {
             // Imposta valori predefiniti se `Corso` è null
             studenteDTO.setCorsoId(null);
-            studenteDTO.setNomeCorso("- NESSUN CORSO-");
+            studenteDTO.setNomeCorso("");
             studenteDTO.setDataInizio(null);
             studenteDTO.setDataFine(null);
         }
@@ -144,10 +144,6 @@ public class GesStudentiService {
         if (params.get("idcorso") != null && !"".equals("idcorso"))
             stud.setCorso(new OnlyCorso(Long.parseLong(params.get("idcorso")), null, null, null));
 
-        /*
-         * Attenzione se oggetto studente che passo al save ha un id gia presente a db
-         * lo aggiorna, altrimenti fa un insert
-         */
         return studHibSrv.save(stud);
 
     }
@@ -155,18 +151,16 @@ public class GesStudentiService {
     public void saveStudenteFixed(HashMap<String, String> params) {
 
         User user = new User();
-        user.setUsernameEmail(params.get("emailstudente"));
+        user.setUsernameEmail(params.get("email"));
         user.setPasskey(bcrypt.encode("123"));
         user.setRuolo(Ruolo.studente);
         user.setFirstTime(true);
-
-        // Salvataggio dell'utente con lo studente temporaneo
         User salvatoUser = usersSrv.save(user);
-        // popolare dati studente da form di firstTime.html
+
         Studente studenteTemp = new Studente(null,
                 salvatoUser,
-                params.get("nomestudente"),
-                params.get("cognomestudente"),
+                params.get("nome"),
+                params.get("cognome"),
                 null,
                 null,
                 null,
@@ -181,47 +175,57 @@ public class GesStudentiService {
 
     public void updateStudenteFixed(HashMap<String, String> params) {
 
-        // ti vai a prendere lo studente per params.studId
-        Studente stud = new Studente(); // studHibSrv.findByID
-        if (params.get("idstudente") != null && !"".equals(params.get("idstudente")))
-            stud.setIdStudente(Long.parseLong(params.get("idstudente")));
+        if (params.containsKey("studId") && !params.get("studId").isEmpty()) {
 
-        User user = stud.getUser();
-        /*
-         * if (params.get("user") != null && !"".equals(params.get("user")))
-         * stud.setUser(user); CONTINUA A NON TROVARE USER, PROVARE IN DEBUG
-         * FARE OGNI CONTROLLO SE E PRESENTE PASSWORD PRENDILA O SOVRASVRIVI DEFAUEL123
-         * SE NON C'è, STESSA COSA EMAIL SE C
-         * OK ALTIMENRTI CAMBIA, VEDERE STORICO CHAT CPT
-         */
-        user.setUsernameEmail(params.get("email"));
-        if (params.get("password") != null && !"".equals(params.get("password")))
-            user.setPasskey(params.get("password")); // se e' presente
-        user.setRuolo("studente".equals(params.get("ruolo")) ? Ruolo.studente : Ruolo.guest); // OKAY
+            Long idStudente = Long.parseLong(params.get("studId"));
+            log.info("Ricerca IdStudente=" + idStudente);
+            Optional<Studente> optionalStudente = studHibSrv.findByID(idStudente);
+            if (optionalStudente.isPresent()) {
 
-        // partiamo a settare i dati di user
-        // ti prendi params.ruolo - params.email - controlli params.password e' presente
-        // setti di stud.getUser() questi campi
-        // chiami hib di user e ai il .save(stud.getUser())
+                Studente stud = optionalStudente.get();
 
-        // Salvataggio dell'utente con lo studente temporaneo
-        stud.setUser(usersSrv.save(user));
+                User user = stud.getUser();
+                if (params.containsKey("email")) {
+                    user.setUsernameEmail(params.get("email"));
+                }
+                if (params.containsKey("password") && !params.get("password").isEmpty()) {
+                    user.setPasskey(bcrypt.encode(params.get("password")));
+                }
+                if (params.containsKey("ruolo")) {
+                    user.setRuolo("studente".equals(params.get("ruolo")) ? Ruolo.studente : Ruolo.guest);
+                }
+                usersSrv.save(user);
 
-        // Popolare dati studente da form di firstTime.html
-        stud.setNome(params.get("nome"));
-        stud.setCognome(params.get("cognome"));
-        stud.setDataNascita(Date.valueOf(params.get("dataNascita")));
-        stud.setCap(params.get("cap"));
-        stud.setProvincia(params.get("provincia"));
-        stud.setTelefono(params.get("telefono"));
-        stud.setNote(params.get("note"));
+                if (params.containsKey("nome")) {
+                    stud.setNome(params.get("nome"));
+                }
+                if (params.containsKey("cognome")) {
+                    stud.setCognome(params.get("cognome"));
+                }
+                if (params.containsKey("dataNascita") && params.get("dataNascita") != null) {
+                    stud.setDataNascita(Date.valueOf(params.get("dataNascita")));
+                }
+                if (params.containsKey("cap")) {
+                    stud.setCap(params.get("cap"));
+                }
+                if (params.containsKey("provincia")) {
+                    stud.setProvincia(params.get("provincia"));
+                }
+                if (params.containsKey("telefono")) {
+                    stud.setTelefono(params.get("telefono"));
+                }
+                if (params.containsKey("note")) {
+                    stud.setNote(params.get("note"));
+                }
+                if (params.containsKey("corsofrequentato") && !params.get("corsofrequentato").isEmpty()) {
+                    stud.setCorso(
+                            new OnlyCorso(Long.parseLong(params.get("corsofrequentato")), null, null, null));
+                }
 
-        // Aggiorna l'ID corso associato
-        if (params.get("corsofrequentato") != null && !"".equals("corsofrequentato"))
-            stud.setCorso(new OnlyCorso(Long.parseLong(params.get("corsofrequentato")), null, null, null));
+                studHibSrv.save(stud);
 
-        studHibSrv.save(stud);
-
+            }
+        }
     }
 
     public Optional<Studente> findByTelefono(String telefono) {

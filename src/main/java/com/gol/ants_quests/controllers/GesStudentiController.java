@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gol.ants_quests.business.GesCorsiService;
 import com.gol.ants_quests.business.GesStudentiService;
-import com.gol.ants_quests.business.GestQuestService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,13 +22,13 @@ public class GesStudentiController {
 
     private final GesStudentiService studSrv;
     private final GesCorsiService corsiSrv;
-    private final GestQuestService questSrv;
+    /* private final GestQuestService questSrv; */
 
     @GetMapping("/")
     public String getStud(Model model) {
         model.addAttribute("corsi", corsiSrv.findAll());
         model.addAttribute("studenti", studSrv.findAllStudentiDTO());
-        questSrv.findAll(model);
+        /* questSrv.findAll(model); */
 
         return "gesStudentiAdmin.html";
     }

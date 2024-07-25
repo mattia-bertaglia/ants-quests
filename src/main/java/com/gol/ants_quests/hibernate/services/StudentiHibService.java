@@ -31,31 +31,21 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
     public void modificaCorso(Long idStudente, Long idCorso) {
         getRepository().modificaCorso(idStudente, idCorso);
     }
+    /*
+     * @Transactional
+     * public void modificaStudente(Long idStudente, Long id) {
+     * getRepository().modificaStudente(idStudente, id);
+     * }
+     */
 
     public List<Studente> findByNomeAndCognome(String nome, String cognome) {
         return getRepository().findByNomeAndCognome(nome, cognome);
 
     }
 
-    /*
-     * public Optional<Studente> findByCorsoId(Long corsoId) {
-     * return getRepository().findByCorsoId(corsoId);
-     * }
-     */
-
     public List<Object[]> cercaStudenti(Long idStudente, String nome, String cognome) {
         return getRepository().cercaStudenti(idStudente, nome, cognome);
     }
-
-    public List<Studente> findAll(Sort sort) {
-        return getRepository().findAll(Sort.by(Direction.DESC, "dataInserimento"));
-    }
-
-    /*
-     * public List<StudenteDTO> findAllStudentiDTO() {
-     * return getRepository().findAllStudentiDTO();
-     * }
-     */
 
     public Optional<Studente> findById(Long idStudente) {
         return getRepository().findById(idStudente);
