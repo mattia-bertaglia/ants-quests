@@ -7,44 +7,34 @@
     <title>Studenti</title>
     <link rel="stylesheet" href="/css/gestStudentiAdmin.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-
+    <link rel="stylesheet" href="/css/root.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
 
 <body>
-    <div class="d-flex justify-content-end">
-        <form action="/auth/logout" method="get">
-            <button type="submit" id="logoutBtn">Logout</button>
-        </form>
-    </div>
-
-    <div class="main-content">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/homeAdmin/">Home</a></li>
-                <li class="breadcrumb-item"><a href="#homeSubmenu1" data-bs-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Questionari</a>
-                    <ul class="collapse list-unstyled menu" id="homeSubmenu1">
-                        <li><a href="/quest/esiti">Gestione Categorie</a></li>
-                        <li><a href="/quest/esiti">Gestione Questionari</a></li>
-                        <li><a href="/quest/esiti">Esito Questionari</a></li>
-                        <li><a href="/quest/esiti">Esito Ultimi Questionari</a></li>
-                    </ul>
-                </li>
-                <li class="breadcrumb-item"><a href="#homeSubmenu2" data-bs-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle">Corsi</a>
-                    <ul class="collapse list-unstyled menu" id="homeSubmenu2">
-                        <li><a href="/ges_corsi/">Elenco Corsi</a></li>
-                        <li><a href="/ges_corsi/">Ricerca Corsi</a></li>
-                        <li><a href="/ges_corsi/">Aggiungi Nuovo Corso</a></li>
-                        <li><a href="/homeAdmin/calendario">Calendario Corsi</a></li>
-                    </ul>
-                </li>
-                <li class="breadcrumb-item"><a href="/homeAdmin/calendario">Calendario</a></li>
-            </ol>
-        </nav>
-    </div>
+    <nav class="navbar">
+        <ul class="navbar__menu">
+            <li class="navbar__item">
+                <a href="/homeAdmin" class="navbar__link" id="home-link">Home</a>
+            </li>
+            <li class="navbar__item">
+                <a href="/ges_studenti/" class="navbar__link" id="studenti-link">Studenti</a>
+            </li>
+            <li class="navbar__item">
+                <a href="/ges_corsi/" class="navbar__link" id="corsi-link">Corsi</a>
+            </li>
+            <li class="navbar__item">
+                <a href="/quest/lista" class="navbar__link" id="questionari-link">Questionari</a>
+            </li>
+            <li class="navbar__item">
+                <a href="/quest/esiti" class="navbar__link" id="esiti-link">Esiti</a>
+            </li>
+            <li class="navbar__item">
+                <a id="logout-btn" href="/auth/logout">Log Out</a>
+            </li>
+        </ul>
+    </nav>
 
     <div class="main-content">
         <div class="custom-margin">
@@ -161,13 +151,6 @@
 
 
 
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="footer-in pagination justify-content-center">
-                <p class="mb-0">&copy; 2024 Rete Artigianato Digitale.</p>
-            </div>
-        </div>
-    </footer>
 
     <!-- Modale Aggiungi Studente -->
     <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModal"
@@ -356,8 +339,8 @@
     <script src="/js/pagDinamiche-filtriRicerca.js"></script>
     <!-- stesso JS di AQ-2024.07.08-Ges-Questionari (esitiScript.js) -->
     <script src="/js/bootbox.all.min.js"></script>
-    <script src="/js/gesStudentiAdmin.js"></script>
-
+    <!-- <script src="/js/gesStudentiAdmin.js"></script> -->
+    <script src="/js/admin-GesCorsiA-GesStudA.js"></script>
 </body>
 
 </html>

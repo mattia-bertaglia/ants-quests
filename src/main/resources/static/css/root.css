@@ -7,6 +7,10 @@
     --button-hover-color: #8db986;
     --link-hover-color: #588a50;
     --logout-hover-color: #ff4d4d;
+    --active-link-color: #8db986;
+    --navbar-bg-color: #373737;
+    --logout-button-color: #123d12;
+    --accent-color: #198754;
 }
 
 /* Global Styles */
@@ -16,6 +20,10 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+}
+
+.radio-color {
+    accent-color: var(--accent-color);
 }
 
 a {
@@ -30,20 +38,17 @@ a:hover {
 /* Navbar styles */
 .navbar {
     position: fixed;
-    top: 1rem;
-    left: 0.5rem;
-    background: var(--text-color);
-    /* Navbar background color */
-    color: var(--background-color);
-    /* Text color for the navbar items */
-    border-radius: 10px;
+    /* color: var(--background-color); */
     padding: 1rem 0.5rem;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
-    height: calc(100vh - 4rem);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* Distribute space between items */
+    top: 0;
+    left: 0;
+    /*  border-radius: 0 10px 10px 0; */
+    height: 100vh;
+    width: 200px;
+    background: var(--navbar-bg-color);
 }
 
 .navbar__menu {
@@ -53,7 +58,6 @@ a:hover {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    /* Allow menu items to take up remaining space */
 }
 
 .navbar__item {
@@ -65,24 +69,35 @@ a:hover {
     align-items: center;
     justify-content: center;
     height: 3.5rem;
-    width: 5.5rem;
     color: var(--background-color);
-    /* Text color of navbar items */
     text-decoration: none;
-    transition: color 250ms ease;
-    /* Change only text color on hover */
-    background: var(--text-color);
-    /* Background color of navbar items */
+    width: 100%;
+    transition: background-color 250ms ease, color 250ms ease;
+    background: var(--navbar-bg-color);
+    margin-bottom: 0.2rem;
+
 }
 
-.navbar__link:hover {
-    color: var(--button-color);
-    /* Change text color on hover */
+.navbar__link:hover,
+.navbar__link.active {
+    color: var(--background-color);
+    background-color: var(--active-link-color);
+    border-radius: 0;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: 100%;
+
+
+    /*  
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+ */
+
 }
 
 .navbar__item:last-child {
     margin-top: auto;
-    /* Push the last item to the bottom */
+
 }
 
 .navbar__item:last-child:before {
@@ -102,23 +117,25 @@ a:hover {
 
 /* Logout button */
 #logout-btn {
-    background-color: var(--button-color);
-    color: var(--text-color);
+    background-color: var(--logout-button-color);
+    color: var(--background-color);
     padding: 10px 20px;
     border: none;
     border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 1.5px;
+
 }
 
 #logout-btn:hover {
     background-color: var(--logout-hover-color);
 }
 
+
 /* Main Content */
 .main-content {
-    margin-left: 8rem;
+    margin-left: 200px;
+    padding: 2rem;
     /* Distanza tra navbar e contenuto della pagina */
 }
 
@@ -136,6 +153,11 @@ button {
 
 button:hover {
     background-color: var(--button-hover-color);
+    /* padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; */
 }
 
 /* Form */
@@ -183,16 +205,7 @@ table tbody tr:nth-child(odd) {
     background-color: var(--background-color);
 }
 
-/* Footer */
-footer {
-    background-color: var(--text-color);
-    color: var(--background-color);
-    text-align: center;
-    padding: 15px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
+
 
 .foot-lnk {
     background-color: transparent;
