@@ -101,7 +101,7 @@ public class AuthService {
         }
 
         errorService.addErrorMessageToSession(session, "registrationSuccess");
-
+        setupSession(session, userRepository.save(salvatoUser));
     }
 
     public boolean userExists(String usernameEmail) {

@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.gol.ants_quests.dto.StudenteDTO;
 import com.gol.ants_quests.hibernate.entities.Studente;
 
 @Repository
@@ -20,6 +19,16 @@ public interface StudentiRepository extends JpaRepository<Studente, Long> {
         @Modifying
         @Query(value = "update studenti set corso_id = :idCorso where id_studente = :idStudente", nativeQuery = true)
         public void modificaCorso(@Param("idStudente") Long idStudente, @Param("idCorso") Long idCorso);
+
+        /*
+         * @Modifying
+         * 
+         * @Query(value =
+         * "update studenti set user_id = :id where id_studente = :idStudente",
+         * nativeQuery = true)
+         * public void modificaStudente(@Param("idStudente") Long
+         * idStudente, @Param("id") Long id);
+         */
 
         @Query(value = "select id_studente, nome, cognome from studenti where corso_id is null and " +
                         "((id_studente = :idStudente OR :idStudente IS NULL) " +
@@ -33,17 +42,6 @@ public interface StudentiRepository extends JpaRepository<Studente, Long> {
         List<Studente> findByNomeAndCognome(String nome, String cognome);
 
         List<Studente> findAll(Sort sort);
-
-        /* List<StudenteDTO> findAllStudentiDTO(); */
-
-        @Query("SELECT new com.gol.ants_quests.dto.StudenteDTO(s.idStudente, s.nome, s.cognome, s.dataNascita, s.cap, s.provincia, s.telefono, s.note, s.dataInserimento, "
-                        +
-                        "u.id, u.usernameEmail, u.passkey, u.ruolo, u.firstTime, " +
-                        "c.idCorso, c.nome, c.dataInizio, c.dataFine) " +
-                        "FROM Studente s " +
-                        "LEFT JOIN s.user u " +
-                        "LEFT JOIN s.corso c ")
-        public List<StudenteDTO> findAllStudentiDTO();
 
         Studente findByDataNascita(Date dataNascita);
 

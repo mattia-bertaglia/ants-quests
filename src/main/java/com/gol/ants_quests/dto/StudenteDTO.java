@@ -1,6 +1,7 @@
 package com.gol.ants_quests.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,5 +32,7 @@ public class StudenteDTO {
     private String nomeCorso;
     private Date dataInizio;
     private Date dataFine;
+
+    private List<EsitoQuestDTO> esquestionari;
 
 }

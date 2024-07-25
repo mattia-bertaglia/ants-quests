@@ -124,10 +124,10 @@ public class GesCorsiService {
     }
 
     /* per associare idcorso a studente nel modale aggiungi */
-    public OnlyCorso findById(Long id) {
+    public OnlyCorso findById(Long idCorso) {
         // Implementare il metodo per trovare il corso per ID, restituendo un'istanza di
         // OnlyCorso
-        Optional<Corso> optionalCorso = corsiHibSrv.findById(id);
+        Optional<Corso> optionalCorso = corsiHibSrv.findById(idCorso);
         if (optionalCorso.isPresent()) {
             Corso corso = optionalCorso.get();
             OnlyCorso onlyCorso = new OnlyCorso();

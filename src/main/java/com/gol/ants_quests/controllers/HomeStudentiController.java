@@ -35,7 +35,7 @@ public class HomeStudentiController {
         log.info("Start Open Home Page Studente ...");
 
         // TODO: authSrv.checkAuthentication(session)
-        if (session.getAttribute("usrlog") != null) {
+        if (authSrv.isLogged(session)) {
             User user = (User) session.getAttribute("user");
             homeStudSrv.openHomeStud(model, user.getStudente().getIdStudente());
 
