@@ -1,7 +1,9 @@
 /* inizio script per modale vedi quest */
 function vediQuest(stud) {
 
-    document.getElementById("questionariModalLabel").innerHTML = "Esiti questionari";
+    document.getElementById("questionariModalLabel").innerHTML = "Esiti questionari <strong>" + stud.ruolo + "</strong>";
+
+
 
     const tbodyEsiti = document.getElementById("lista-esiti");
     tbodyEsiti.innerHTML = "";
@@ -13,8 +15,8 @@ function vediQuest(stud) {
         row.id = esiti.idEstQst;
         row.innerHTML = `
 
-       <td>${esiti.categoriaQuest}</td>  <!-- Aggiungi il categoria(I/C) nella tabella, dopo database -->
-    <td>${esiti.titoloQuest}</td> <!-- Aggiungi il titolo nella tabella, dopo datbase -->
+       <td>${esiti.categoriaQuest}</td>  
+    <td>${esiti.titoloQuest}</td> 
     <td>${esiti.dataEsecuzione}</td>
     <td>${esiti.punteggio}</td>
     <td>${esiti.tempo}</td>
@@ -34,35 +36,21 @@ function showPdf(pdfFile) {
     document.getElementById('pdfFrame').src = pdfFile;
 }
 
-/* SCRIPT DA RIVEDERE */
-
-/* function populateModal(button) {
-    document.querySelector("#modDetailModal input[name=studId]").value = button.getAttribute('data-student-id');
-    document.querySelector("#modDetailModal input[name=nome]").value = button.getAttribute('data-student-nome');
-    document.querySelector("#modDetailModal input[name=cognome]").value = button.getAttribute('data-student-cognome');
-    document.querySelector("#modDetailModal input[name=email]").value = button.getAttribute('data-student-email');
-    document.querySelector("#modDetailModal input[name=dataNascita]").value = button.getAttribute('data-student-datanascita');
-    /*  const user = button.getAttribute('data-student-user') || '';
-     document.querySelector("#modDetailModal select[name=ruolo]").value = user; */
-/*  const corso = button.getAttribute('data-student-corso') || '';
- document.querySelector("#modDetailModal select[name=corso]").value = corso;
-}  */
 
 
-
-/* th:onclick="dettaglioStudente([[${studente}]])"*/
 function dettaglioStudente(studente) {
-    document.getElementById('studId').value = studente.idStudente;
-    document.getElementById('nome').value = studente.nome;
-    document.getElementById('cognome').value = studente.cognome;
-    document.getElementById('dataNascita').value = studente.dataNascita;
-    document.getElementById('cap').value = studente.cap;
-    document.getElementById('provincia').value = studente.provincia;
-    document.getElementById('telefono').value = studente.telefono;
-    document.getElementById('note').value = studente.note;
+    document.getElementById('mod-studId').value = studente.idStudente;
 
-    document.getElementById('corso').value = studente.corso.nome;
+    document.getElementById('mod-ruolo').value = studente.ruolo;
+    document.getElementById('mod-nome').value = studente.nome;
+    document.getElementById('mod-cognome').value = studente.cognome;
+    document.getElementById('mod-dataNascita').value = studente.dataNascita;
+    document.getElementById('mod-email').value = studente.usernameEmail;
+    document.getElementById('mod-corso').value = studente.corsoId != null ? studente.corsoId : '';
+    document.getElementById('mod-cap').value = studente.cap;
+    document.getElementById('mod-provincia').value = studente.provincia;
+    document.getElementById('mod-telefono').value = studente.telefono;
+    document.getElementById('mod-note').value = studente.note;
 
-    document.getElementById('email').value = studente.user.usernameEmail;
-    document.getElementById('ruolo').value = studente.user.ruolo;
+
 }

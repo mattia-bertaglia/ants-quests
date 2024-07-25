@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gol.ants_quests.business.GesCorsiService;
 import com.gol.ants_quests.business.GesStudentiService;
-import com.gol.ants_quests.business.GestQuestService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,13 +22,13 @@ public class GesStudentiController {
 
     private final GesStudentiService studSrv;
     private final GesCorsiService corsiSrv;
-    private final GestQuestService questSrv;
+    /* private final GestQuestService questSrv; */
 
     @GetMapping("/")
     public String getStud(Model model) {
         model.addAttribute("corsi", corsiSrv.findAll());
         model.addAttribute("studenti", studSrv.findAllStudentiDTO());
-        questSrv.findAll(model);
+        /* questSrv.findAll(model); */
 
         return "gesStudentiAdmin.html";
     }
@@ -40,12 +39,10 @@ public class GesStudentiController {
         return "redirect:/ges_studenti/";
     }
 
-    /*
-     * @PostMapping("/savestud2")
-     * public String saveStud2(@RequestParam HashMap<String, String> params) {
-     * studSrv.saveStudente(params);
-     * return "redirect:/ges_studenti/";
-     * }
-     */
+    @PostMapping("/updatestud")
+    public String updateStud(@RequestParam HashMap<String, String> params) {
+        studSrv.updateStudenteFixed(params);
+        return "redirect:/ges_studenti/";
+    }
 
 }
