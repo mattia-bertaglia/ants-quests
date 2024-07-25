@@ -134,11 +134,13 @@ public class GestQuestService {
             }
 
             if (modificaRisposte) {
+                RispostaQuest risposta;
                 for (int y = 0; y < oggetto.getDomanda().get(i).getRisp().size(); y++) {
 
+                    
                     if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() == null &&
                             !oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
-                        RispostaQuest risposta = new RispostaQuest();
+                        risposta = new RispostaQuest();
                         risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
                         risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
                         risposta.setDomandaQuest(domanda);
@@ -146,11 +148,15 @@ public class GestQuestService {
                         esito = esito && true;
                     } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
                             !oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
-                        RispostaQuest risposta = risSrv
+
+                        
+                        risposta = risSrv
                                 .findByID(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns()).get();
                         risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
                         risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
-                        risSrv.save(risposta); // cambiare con update
+                        risSrv.save(risposta); // cambiare con update*/
+
+
                     } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
                             oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
                         risSrv.delete(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns());
