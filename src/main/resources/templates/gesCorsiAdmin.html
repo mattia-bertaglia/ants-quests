@@ -131,9 +131,9 @@
                             </thead>
                             <tbody>
                                 <tr th:each="corso : ${corsi}">
-                                    <td th:text="${corso.nome}"></td>
-                                    <td th:text="${corso.dataInizio}"> </td>
-                                    <td th:text="${corso.dataFine}"></td>
+                                    <td class="text-center" th:text="${corso.nome}"></td>
+                                    <td class="text-center" th:text="${corso.dataInizio}"> </td>
+                                    <td class="text-center" th:text="${corso.dataFine}"></td>
                                     <td class="text-center">
                                         <button class="btn btn-secondary" data-bs-toggle="modal"
                                             data-bs-target="#dett-corso" th:onclick="dettaglioCorso([[${corso}]])">

@@ -124,10 +124,10 @@
                             </thead>
                             <tbody>
                                 <tr th:each="stud : ${studenti}">
-                                    <td th:text="${stud.ruolo}"></td>
-                                    <td th:text="${stud.nome + ' ' + stud.cognome}"></td>
-                                    <td th:text="${stud.usernameEmail}"></td>
-                                    <td th:text="${stud.nomeCorso != null ? stud.nomeCorso : ''}">
+                                    <td class="text-center" th:text="${stud.ruolo}"></td>
+                                    <td class="text-center" th:text="${stud.nome + ' ' + stud.cognome}"></td>
+                                    <td class="text-center" th:text="${stud.usernameEmail}"></td>
+                                    <td class="text-center" th:text="${stud.nomeCorso != null ? stud.nomeCorso : ''}">
                                     </td>
                                     <td class="text-center">
                                         <button class="btn btn-secondary" data-bs-toggle="modal"
@@ -229,7 +229,11 @@
                                 <input type="text" readonly class="form-control-plaintext" name="studId" id="mod-studId"
                                     required>
                             </div>
-
+                            <div class="col-md-6 ">
+                                <label>ID Utente</label>
+                                <input type="text" readonly class="form-control-plaintext" name="userId" id="mod-userId"
+                                    required>
+                            </div>
                             <div class="col-md-6">
                                 <label>Ruolo</label>
                                 <select name="ruolo" id="mod-ruolo" class="form-control" required>
@@ -303,7 +307,7 @@
 
     <!--   <div class="col-md-6 ">
                                 <label>ID Utente</label>
-                                <input type="text" readonly class="form-control-plaintext" name="userId" id="userId"
+                                <input type="text" readonly class="form-control-plaintext" name="userId" id="mod-userId"
                                     required>
                             </div> -->
 

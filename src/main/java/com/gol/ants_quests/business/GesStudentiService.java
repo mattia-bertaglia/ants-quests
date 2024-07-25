@@ -97,7 +97,7 @@ public class GesStudentiService {
         } else {
             // Imposta valori predefiniti se `Corso` è null
             studenteDTO.setCorsoId(null);
-            studenteDTO.setNomeCorso("ciao");
+            studenteDTO.setNomeCorso("- NESSUN CORSO-");
             studenteDTO.setDataInizio(null);
             studenteDTO.setDataFine(null);
         }
@@ -190,6 +190,9 @@ public class GesStudentiService {
         /*
          * if (params.get("user") != null && !"".equals(params.get("user")))
          * stud.setUser(user); CONTINUA A NON TROVARE USER, PROVARE IN DEBUG
+         * FARE OGNI CONTROLLO SE E PRESENTE PASSWORD PRENDILA O SOVRASVRIVI DEFAUEL123
+         * SE NON C'è, STESSA COSA EMAIL SE C
+         * OK ALTIMENRTI CAMBIA, VEDERE STORICO CHAT CPT
          */
         user.setUsernameEmail(params.get("email"));
         if (params.get("password") != null && !"".equals(params.get("password")))
