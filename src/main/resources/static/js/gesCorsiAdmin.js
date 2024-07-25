@@ -47,7 +47,12 @@ $(document).ready(function () {
                 bootbox.alert({
                     title: 'Successo !!',
                     message: 'Studente rimosso dal Corso !!',
-                    className: 'rubberBand animated'
+                    className: 'rubberBand animated',
+                    buttons: {
+                        ok: {
+                            className: 'btn-success'
+                        }
+                    }
                 });
 
                 // Rimuovi visivamente la riga visivamente qui in caso di successo 
@@ -57,7 +62,12 @@ $(document).ready(function () {
                 bootbox.alert({
                     title: 'OPS !!',
                     message: 'Qualcosa è andato storto, Studente NON rimosso dal Corso !!',
-                    className: 'shake animated'
+                    className: 'shake animated',
+                    buttons: {
+                        ok: {
+                            className: 'btn-success'
+                        }
+                    }
                 });
             }
         });
@@ -79,12 +89,17 @@ $(document).ready(function () {
                 bootbox.alert({
                     title: 'OPS !!',
                     message: 'Nessuno Studente trovato o già presente in un Corso !!',
-                    className: 'shake animated'
+                    className: 'shake animated',
+                    buttons: {
+                        ok: {
+                            className: 'btn-success'
+                        }
+                    }
                 });
             } else {
                 let promptText = [];
                 for (const stud of data) {
-                    promptText.push({ text: stud.idStudente + " | " + stud.cognome + "  " + stud.nome, value: stud.idStudente });
+                    promptText.push({ text: stud.idStudente + " | " + stud.cognome + "  " + stud.nome, value: stud.idStudente, className: 'radio-color' });
                 }
 
                 bootbox.prompt({
@@ -120,14 +135,24 @@ $(document).ready(function () {
                                     bootbox.alert({
                                         title: 'Successo !!',
                                         message: 'Studente aggiunto al Corso !!',
-                                        className: 'rubberBand animated'
+                                        className: 'rubberBand animated',
+                                        buttons: {
+                                            ok: {
+                                                className: 'btn-success'
+                                            }
+                                        }
                                     });
 
                                 } else if (data2 == "KO") {
                                     bootbox.alert({
                                         title: 'OPS !!',
                                         message: 'Qualcosa è andato storto, Studente NON aggiunto al Corso !!',
-                                        className: 'shake animated'
+                                        className: 'shake animated',
+                                        buttons: {
+                                            ok: {
+                                                className: 'btn-success'
+                                            }
+                                        }
                                     });
                                 }
                             });

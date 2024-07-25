@@ -25,7 +25,12 @@ $(document).ready(function () {
                 title: 'ATTENZIONE !!',
                 message: 'Non hai risposto a tutte le domande !!',
                 centerVertical: true,
-                className: 'tada animated'
+                className: 'tada animated',
+                buttons: {
+                    ok: {
+                        className: 'btn-success'
+                    }
+                }
             });
 
             $('.legenda-domande').children().each(function () {
