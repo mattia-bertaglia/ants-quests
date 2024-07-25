@@ -8,7 +8,7 @@
     <!-- CSS personalizzato -->
     <link rel="stylesheet" href="/css/index.css">
     <!-- CSS bootstrap -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <!-- CSS personalizzato base -->
     <link rel="stylesheet" href="/css/root.css">
     <!-- Includi Font Awesome -->
@@ -18,28 +18,34 @@
 <body>
     <div class="login-wrap">
         <div class="login-html">
-            <img class="logo" src="logo-ant.png">
+            <img class="logo" src="/img/antlogo.png">
             <h2 class="registration-title">Completa Registrazione</h2>
             <div class="login-form">
-                <div class="group">
-                    <label for="nome" class="label">Nome</label>
-                    <input id="nome" type="text" class="input" placeholder="Inserisci il tuo nome" name="nome">
-                </div>
-                <div class="group">
-                    <label for="cognome" class="label">Cognome</label>
-                    <input id="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome" name="cognome">
+                <form action="/auth/registrazione"></form>
+                <div class="row-group">
+
+                    <div class="group">
+                        <label for="nome" class="label">Nome</label>
+                        <input id="nome" type="text" class="input" placeholder="Inserisci il tuo nome" name="nome"
+                            th:value="${nome}">
+                    </div>
+                    <div class="group">
+                        <label for="cognome" class="label">Cognome</label>
+                        <input id="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome"
+                            name="cognome" th:value="${cognome}">
+                    </div>
                 </div>
                 <div class="group">
                     <label for="telefono" class="label">Numero di telefono</label>
                     <input id="telefono" type="text" class="input" placeholder="Inserisci il tuo numero di telefono"
                         name="telefono">
                 </div>
-                <div class="group cap-provincia-group">
-                    <div class="input-cap">
+                <div class="group row-group">
+                    <div>
                         <label for="cap" class="label">CAP</label>
                         <input id="cap" type="text" class="input input-cap" placeholder="Inserisci il CAP" name="cap">
                     </div>
-                    <div class="input-provincia">
+                    <div>
                         <label for="provincia" class="label">Provincia</label>
                         <input id="provincia" type="text" class="input input-provincia"
                             placeholder="Inserisci la provincia" name="provincia">
@@ -51,7 +57,8 @@
                 </div>
                 <div class="group">
                     <label for="email" class="label">Email</label>
-                    <input id="email" type="email" class="input" placeholder="Inserisci la tua email" name="email">
+                    <input id="email" type="email" class="input" placeholder="Inserisci la tua email" name="email"
+                        th:value="${usernameEmail}">
                 </div>
                 <!-- Area password con bottoni e messaggi -->
                 <div class="group">

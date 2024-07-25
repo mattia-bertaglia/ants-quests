@@ -43,14 +43,17 @@ public class AuthController {
         String nome = "";
         String cognome = "";
         String usernameEmail = "";
-        if (!authService.isLogged(session) && authService.userExists(params.get("usernameEmail"))) {
-            errorService.addErrorMessageToSession(session, "usernameExists");
-            return "redirect:/";
-        } else if (!authService.isLogged(session) && !authService.userExists(params.get("usernameEmail"))) {
-            nome = params.get("nome");
-            cognome = params.get("cognome");
-            usernameEmail = params.get("usernameEmail");
-        } else if (authService.isLogged(session)) {
+
+        if (!authService.isLogged(session)) {
+            if (authService.userExists(params.get("usernameEmail"))) {
+                errorService.addErrorMessageToSession(session, "usernameExists");
+                return "redirect:/";
+            } else {
+                nome = params.get("nome");
+                cognome = params.get("cognome");
+                usernameEmail = params.get("usernameEmail");
+            }
+        } else {
             User user = (User) session.getAttribute("user");
             usernameEmail = user.getUsernameEmail();
             nome = user.getStudente().getNome();
@@ -60,7 +63,7 @@ public class AuthController {
         model.addAttribute("nome", nome);
         model.addAttribute("cognome", cognome);
         model.addAttribute("usernameEmail", usernameEmail);
-        return "firstTime";
+        return "firstTime.html";
     }
 
     @PostMapping("/registrazione")
@@ -70,7 +73,7 @@ public class AuthController {
         } else {
             authService.registerUser(session, params, model);
         }
-        return "redirect:/homeStud";
+        return "redirect:/homeStud/";
     }
 
     @GetMapping("/logout")
