@@ -33,9 +33,9 @@ public class OnlyEsitoQuest extends GenericEntity {
 
     /* aggiungere colonne database */
 
-    @Transient
+    /* @Transient */
     private String categoriaQuest;
-    @Transient
+    /* @Transient */
     private String titoloQuest;
 
     @Column(name = "quest_id")
