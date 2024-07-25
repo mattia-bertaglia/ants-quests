@@ -15,8 +15,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-<body class="main-content">
-  <div class="login-wrap">
+<body>
+  <div class="login-wrap" style="min-height: 650px;">
     <div class="login-html">
       <img class="logo" src="/img/antlogo.png" alt="Logo ANT">
       <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
@@ -27,12 +27,12 @@
         <form id="loginForm" action="/auth/login" method="post">
           <div class="sign-in-htm">
             <div class="group">
-              <label for="user" class="label">Email</label>
+              <label for="user" class="label_index">Email</label>
               <input id="user" name="usernameEmail" type="text" class="input" placeholder="Inserisci la tua email"
                 required>
             </div>
             <div class="group">
-              <label for="pass" class="label">Password</label>
+              <label for="pass" class="label_index">Password</label>
               <div class="password-container">
                 <input id="pass" name="passkey" type="password" class="input" placeholder="Inserisci la tua password"
                   required>
@@ -55,17 +55,20 @@
 
         <form action="auth/signup" method="get">
           <div class="sign-up-htm">
+            
             <div class="group">
-              <label for="nome" class="label">Nome</label>
+              <label for="nome" class="label_index">Nome</label>
               <input id="nome" name="nome" type="text" class="input" placeholder="Inserisci il tuo nome" required>
             </div>
+            
             <div class="group">
-              <label for="cognome" class="label">Cognome</label>
+              <label for="cognome" class="label_index">Cognome</label>
               <input id="cognome" name="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome"
                 required>
             </div>
+            
             <div class="group">
-              <label for="email-reg" class="label">Email</label>
+              <label for="email-reg" class="label_index">Email</label>
               <input id="email-reg" name="usernameEmail" type="email" class="input" placeholder="Inserisci la tua email"
                 required>
               <i id="error-mail" class="d-none text-danger">Inserire una e-mail valida</i>
