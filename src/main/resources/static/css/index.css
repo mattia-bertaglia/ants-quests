@@ -23,9 +23,8 @@ body {
 
 /* Login Wrap */
 .login-wrap {
-    width: 100%;
+    width: 50%;
     margin: 100px auto;
-    max-width: 525px;
     min-height: 1150px;
     border-radius: 4%;
     /* Usa 700px per login/signup */
@@ -171,30 +170,10 @@ form select {
 }
 
 /* Stile per il contenitore dei campi CAP e Provincia */
-.cap-provincia-group {
+.row-group {
     display: flex;
     gap: 15px;
     /* Spazio tra CAP e Provincia */
-}
-
-.cap-provincia-group .input-cap,
-.cap-provincia-group .input-provincia {
-    flex: 1;
-    /* Permette ai campi di adattarsi in modo flessibile */
-}
-
-/* Specifico per il campo CAP */
-.input-cap {
-    margin-right: 15px;
-    /* Spazio tra CAP e Provincia */
-    width: 100%;
-    /* Assicura che il campo occupi tutta la larghezza disponibile */
-}
-
-/* Specifico per il campo Provincia */
-.input-provincia {
-    width: 100%;
-    /* Assicura che il campo occupi tutta la larghezza disponibile */
 }
 
 .password-container {
