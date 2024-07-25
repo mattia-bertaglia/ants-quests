@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impostazioni Utente</title>
+    <title>Generalità Studente</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <style>
         body {
@@ -77,6 +77,23 @@
         .btn-group button {
             margin-left: 10px;
         }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .col-md-6, .col-md-12 {
+            padding: 10px;
+        }
+        .col-md-6 {
+            width: 50%;
+        }
+        .col-md-12 {
+            width: 100%;
+        }
+        .email-center {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -90,72 +107,113 @@
     <div class="container">
         <div class="card mt-4">
             <div class="card-header">
-                <h3>Impostazioni Utente</h3>
+                <h3>Benvenuto <span th:text="${session.user.studente.nome}">Nome Utente</span>, 
+                    <br>qui potrai visualizzare e modificare i tuoi dati: </h3>
             </div>
             <div class="card-body">
                 <form id="profilo-form" action="/homeStud/modificaProfilo" method="POST">
-                    <div class="form-group">
-                        <label for="usernameEmail">La tua email</label>
-                        <input type="email" readonly class="form-control form-control-plaintext" name="usernameEmail"
-                            th:value="${session.user.usernameEmail}" required>
-                           
+                    <div class="row email-center">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="usernameEmail">Username</label>
+                                <input type="email" readonly class="form-control form-control-plaintext" name="usernameEmail"
+                                    th:value="${session.user.usernameEmail}" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="pass">La tua password</label>
-                        <input id="pass" type="password" readonly class="form-control form-control-plaintext"
-                            name="passkey" placeholder="Password" required>
-                        <i id="error-pass" class="hidden error">
-                            La password deve contenere: almeno un carattere minuscolo (abc), almeno un carattere
-                            maiuscolo (ABC), almeno un carattere numerico (123)
-                        </i>
-                        <i id="correct-pass" class="hidden correct">Accettabile</i>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" readonly class="form-control form-control-plaintext" name="nome"
+                                    th:value="${session.user.studente.nome}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="cognome">Cognome</label>
+                                <input type="text" readonly class="form-control form-control-plaintext" name="cognome"
+                                    th:value="${session.user.studente.cognome}" required>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group hidden" id="confirm-pass-group">
-                        <label for="checkpass">Conferma la tua password</label>
-                        <input id="checkpass" type="password" readonly class="form-control form-control-plaintext"
-                            name="confirmPasskey" placeholder="Conferma Password" required>
-                        <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
-                        <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="dataNascita">Data di Nascita</label>
+                                <input type="date" readonly class="form-control form-control-plaintext" id="dataNascita"
+                                    name="dataNascita" th:value="${session.user.studente.dataNascita}" required>
+                                <i id="error-dataNascita" class="hidden error">La data di nascita non può essere oggi o in
+                                    futuro</i>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="cap">CAP</label>
+                                <input id="cap" type="text" readonly class="form-control form-control-plaintext" name="cap"
+                                    maxlength="5" th:value="${session.user.studente.cap}" required>
+                                <i id="error-cap" class="hidden error">CAP non valido</i>
+                            </div>
+                        </div>
                     </div>
-                    <hr>
-                    <div class="form-group">
-                        <label for="nome">Il tuo nome</label>
-                        <input type="text" readonly class="form-control form-control-plaintext" name="nome"
-                            th:value="${session.user.studente.nome}" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="provincia">Provincia</label>
+                                <input type="text" readonly class="form-control form-control-plaintext" name="provincia"
+                                    th:value="${session.user.studente.provincia}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="telefono">Telefono</label>
+                                <input id="phone" type="text" readonly class="form-control form-control-plaintext"
+                                    name="telefono" maxlength="10" th:value="${session.user.studente.telefono}" required>
+                                <i id="error-phone" class="hidden error">Numero di telefono non valido</i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="cognome">Il tuo cognome</label>
-                        <input type="text" readonly class="form-control form-control-plaintext" name="cognome"
-                            th:value="${session.user.studente.cognome}" required>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="note">Note</label>
+                                <textarea name="note" placeholder="Note" rows="4" class="form-control form-control-plaintext"
+                                    th:text="${session.user.studente.note}"></textarea>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="dataNascita">La tua data di nascita</label>
-                        <input type="date" readonly class="form-control form-control-plaintext" id="dataNascita"
-                            name="dataNascita" th:value="${session.user.studente.dataNascita}" required>
-                        <i id="error-dataNascita" class="hidden error">La data di nascita non può essere oggi o in
-                            futuro</i>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr>
+                                <p>
+                                    <h5>N.B:<h5>
+                                    <br>
+                                    <h6>Per modificare la propria password cliccare su modifica</h6></p>
+                            <hr>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="cap">Il tuo CAP</label>
-                        <input id="cap" type="text" readonly class="form-control form-control-plaintext" name="cap"
-                            maxlength="5" th:value="${session.user.studente.cap}" required>
-                        <i id="error-cap" class="hidden error">CAP non valido</i>
-                    </div>
-                    <div class="form-group">
-                        <label for="provincia">La tua provincia</label>
-                        <input type="text" readonly class="form-control form-control-plaintext" name="provincia"
-                            th:value="${session.user.studente.provincia}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Il tuo numero di telefono</label>
-                        <input id="phone" type="text" readonly class="form-control form-control-plaintext"
-                            name="telefono" maxlength="10" th:value="${session.user.studente.telefono}" required>
-                        <i id="error-phone" class="hidden error">Numero di telefono non valido</i>
-                    </div>
-                    <div class="form-group">
-                        <label for="note">Note</label>
-                        <textarea name="note" placeholder="Note" rows="4" class="form-control form-control-plaintext"
-                            th:text="${session.user.studente.note}"></textarea>
+                    <div class="row">
+                        <div class="col-md-6 hidden" id="new-pass-group">
+                            <div class="form-group">
+                                <label for="newpass">Nuova password</label>
+                                <input id="newpass" type="password" readonly class="form-control form-control-plaintext"
+                                    name="newpass" placeholder="Nuova Password">
+                                <i id="error-newpass" class="hidden error">
+                                    La password deve contenere: almeno un carattere minuscolo (abc), almeno un carattere
+                                    maiuscolo (ABC), almeno un carattere numerico (123)
+                                </i>
+                                <i id="correct-newpass" class="hidden correct">Accettabile</i>
+                            </div>
+                        </div>
+                        <div class="col-md-6 hidden" id="confirm-pass-group">
+                            <div class="form-group">
+                                <label for="checkpass">Conferma la tua password</label>
+                                <input id="checkpass" type="password" readonly class="form-control form-control-plaintext"
+                                    name="checkpass" placeholder="Conferma Password">
+                                <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
+                                <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
+                            </div>
+                        </div>
                     </div>
                     <div class="btn-group">
                         <button id="btn-mod-profilo" type="button" class="btn btn-outline-primary">Modifica</button>
@@ -175,41 +233,43 @@
             $("#btn-mod-profilo").on("click", function () {
                 $("#submit-btn").removeClass("hidden").removeAttr("disabled");
                 $("#btn-close-mod").removeClass("hidden");
+                $("#btn-mod-profilo").addClass("hidden");
                 $("textarea, input.form-control-plaintext").each(function () {
                     $(this).prop("readonly", false);
                     $(this).removeClass("form-control-plaintext").addClass("form-control");
                 });
-                $("#confirm-pass-group").removeClass("hidden");
+                $("#new-pass-group, #confirm-pass-group").removeClass("hidden");
             });
 
             // Nasconde i campi modificabili e i pulsanti quando si clicca su "Annulla"
             $("#btn-close-mod").on("click", function () {
                 $("#submit-btn").addClass("hidden").attr("disabled", "disabled");
                 $("#btn-close-mod").addClass("hidden");
+                $("#btn-mod-profilo").removeClass("hidden");
                 $("textarea, input.form-control").each(function () {
                     $(this).prop("readonly", true);
                     $(this).addClass("form-control-plaintext").removeClass("form-control");
                 });
-                $("#confirm-pass-group").addClass("hidden");
+                $("#new-pass-group, #confirm-pass-group").addClass("hidden");
             });
 
             // Mostra le istruzioni della password quando il campo è attivo
-            $("#pass").on("focus", function () {
+            $("#newpass").on("focus", function () {
                 if (!$(this).is("[readonly]")) {
-                    $("#error-pass, #correct-pass").show();
+                    $("#error-newpass, #correct-newpass").show();
                 }
             }).on("blur", function () {
-                $("#error-pass, #correct-pass").hide();
+                $("#error-newpass, #correct-newpass").hide();
             });
 
             // Confronta le password e mostra il messaggio corrispondente
-            $("#pass, #checkpass").on("keyup", function () {
-                var pass = $("#pass").val();
+            $("#newpass, #checkpass").on("keyup", function () {
+                var newPass = $("#newpass").val();
                 var checkPass = $("#checkpass").val();
-                if (checkPass && pass !== checkPass) {
+                if (checkPass && newPass !== checkPass) {
                     $("#error-checkpass").show();
                     $("#correct-checkpass").hide();
-                } else if (checkPass && pass === checkPass) {
+                } else if (checkPass && newPass === checkPass) {
                     $("#error-checkpass").hide();
                     $("#correct-checkpass").show();
                 } else {
@@ -220,5 +280,3 @@
     </script>
 </body>
 </html>
-
-

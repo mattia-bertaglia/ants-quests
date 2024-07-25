@@ -124,14 +124,15 @@
                             </thead>
                             <tbody>
                                 <tr th:each="stud : ${studenti}">
-                                    <td></td>
+                                    <td th:text="${stud.ruolo}"></td>
                                     <td th:text="${stud.nome + ' ' + stud.cognome}"></td>
-                                    <td></td>
-                                    <td th:text="${stud.nomeCorso != null ? stud.nomeCorso : ''}"></td>
+                                    <td th:text="${stud.usernameEmail}"></td>
+                                    <td th:text="${stud.nomeCorso != null ? stud.nomeCorso : ''}">
+                                    </td>
                                     <td class="text-center">
                                         <button class="btn btn-secondary" data-bs-toggle="modal"
                                             data-bs-target="#modDetailModal"
-                                            th:onclick="dettaglioStudente()">Modifica</button>
+                                            th:onclick="dettaglioStudente([[${stud}]])">Modifica</button>
                                     </td>
 
                                     <td class="text-center">
@@ -143,9 +144,7 @@
                             </tbody>
                         </table>
 
-                        <!-- th:text="${stud.user.ruolo}"
-                         th:text="${stud.user.usernameEmail}" 
-                          th:data-student-user="${stud.user != null ? stud.user.ruolo : ''}"-->
+
                         <!-- Inizio pagine dinamiche   -->
                         <div class="text-center">
                             <button onclick="prevPage()" class="btn btn-secondary" id="btn_prev">Precedente</button>
@@ -173,33 +172,25 @@
     <!-- Modale Aggiungi Studente -->
     <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModal"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content">
                 <form action="/ges_studenti/savestud" method="post">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addStudentModalLabel">Aggiungi Studente</h5>
+                        <h5 class="modal-title" id="addStudentModalLabel">Aggiungi Studente al Corso</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">x</button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Nome</label>
-                            <input type="text" class="form-control" name="nome" required>
+                            <label for="nome">Nome Studente</label>
+                            <input type="text" class="form-control" name="nome" id="nomeStudente" required>
                         </div>
                         <div class="form-group">
-                            <label>Cognome</label>
-                            <input type="text" class="form-control" name="cognome" required>
+                            <label for="cognome">Cognome Studente</label>
+                            <input type="text" class="form-control" name="cognome" id="cognomeStudente" required>
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" class="form-control" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Corso</label>
-                            <select name="idcorso" class="form-control" required>
-                                <option disabled selected>- Seleziona un corso -</option>
-                                <option th:each="corso : ${corsi}" th:value="${corso.idCorso}" th:text="${corso.nome}">
-                                </option>
-                            </select>
+                            <label for="email">Email Studente</label>
+                            <input type="email" class="form-control" name="email" id="emailStudente" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -211,90 +202,86 @@
         </div>
     </div>
 
+
+
     <!-- Modale Modifica Studente -->
     <div class="modal fade" id="modDetailModal" tabindex="-1" role="dialog" aria-labelledby="modDetailModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
             <div class="modal-content">
-                <form action="/ges_studenti/savestud" method="post">
+                <form action="/ges_studenti/updatestud" method="post">
                     <div class="modal-header">
                         <h5 class="modal-title" id="modDetailModalLabel">Modifica Studente</h5>
                         <button type="reset" class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
                     </div>
                     <div class="modal-body">
-                        <!-- ID Studente, Ruolo-->
-                        <div class="form-group  row"><!-- row -->
+                        <div class="form-group  row">
                             <div class="col-md-6 ">
                                 <label>ID Studente</label>
-                                <input type="text" readonly class="form-control-plaintext" name="studId" id="studId"
+                                <input type="text" readonly class="form-control-plaintext" name="studId" id="mod-studId"
                                     required>
                             </div>
+
                             <div class="col-md-6">
                                 <label>Ruolo</label>
-                                <select name="ruolo" class="form-control" required>
+                                <select name="ruolo" id="mod-ruolo" class="form-control" required>
                                     <option value="studente">Studente</option>
                                     <option value="guest">Guest</option>
                                 </select>
                             </div>
                         </div>
-
-                        <!-- Nome, Cognome, Data di Nascita -->
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label>Nome</label>
-                                <input type="text" class="form-control" name="nome" id="nome">
+                                <input type="text" class="form-control" name="nome" id="mod-nome">
                             </div>
                             <div class="col-md-4">
                                 <label>Cognome</label>
-                                <input type="text" class="form-control" name="cognome" id="cognome">
+                                <input type="text" class="form-control" name="cognome" id="mod-cognome">
                             </div>
                             <div class="col-md-4 form-group">
                                 <label>Data di Nascita</label>
-                                <input type="date" class="form-control" name="dataNascita" id="dataNascita">
+                                <input type="date" class="form-control" name="dataNascita" id="mod-dataNascita">
                             </div>
                         </div>
-
-                        <!-- Email, Password, Corso -->
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label>Email</label>
-                                <input type="email" class="form-control" name="email" id="email" required>
+                                <input type="email" class="form-control" name="email" id="mod-email" required>
                             </div>
                             <div class="col-md-4">
-                                <label>Password</label>
-                                <input type="password" class="form-control" name="password" id="password">
+                                <label for="mod-password">Password</label>
+                                <input type="password" class="form-control" name="password" id="mod-password"
+                                    placeholder="Inserisci per Modificare">
                             </div>
                             <div class="col-md-4">
-                                <label>Corso</label>
-                                <select name="corso" class="form-control" required>
-                                    <option id="corso" value="" selected>- Seleziona un corso -</option>
-                                    <tr th:each="corso : ${corsi}">
-                                        <option th:value="${corso.idCorso}" th:text="${corso.nome}"></option>
-                                    </tr>
+                                <label for="mod-corso">Corso</label>
+                                <select class="form-control" name="corsofrequentato" id="mod-corso">
+                                    <option value="" disabled selected>- Seleziona un corso -</option>
+                                    <option th:each="corso : ${corsi}" th:value="${corso.idCorso}"
+                                        th:text="${corso.nome}">
+                                    </option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- CAP, Provincia, Telefono -->
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label>CAP</label>
-                                <input type="text" class="form-control" name="cap" id="cap">
+                                <input type="text" class="form-control" name="cap" id="mod-cap">
                             </div>
                             <div class="col-md-4">
                                 <label>Provincia</label>
-                                <input type="text" class="form-control" name="provincia" id="provincia">
+                                <input type="text" class="form-control" name="provincia" id="mod-provincia">
                             </div>
                             <div class="col-md-4">
                                 <label>Telefono</label>
-                                <input type="text" class="form-control" name="telefono" id="telefono">
+                                <input type="text" class="form-control" name="telefono" id="mod-telefono">
                             </div>
                         </div>
-
-                        <!-- Note -->
                         <div class="form-group">
                             <label>Note</label>
-                            <textarea class="form-control" name="note" id="note" rows="2"></textarea>
+                            <textarea class="form-control" name="note" id="mod-note" rows="2"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -307,14 +294,13 @@
     </div>
 
 
-
     <!-- Modale  Vedi Questionari -->
     <div class="modal fade" id="questionariModal" tabindex="-1" role="dialog" aria-labelledby="questionariModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="questionariModalLabel">Dettagli Questionari</h5>
+                    <h5 class="modal-title" id="questionariModalLabel"></h5>
                     <button class="close" data-bs-dismiss="modal" aria-label="Close">X</button>
                 </div>
                 <div class="modal-body">
@@ -331,11 +317,6 @@
                             </tr>
                         </thead>
                         <tbody id="lista-esiti"></tbody>
-
-                        <!--   <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#pdfModal"
-                                        onclick="showPdf('questionario1.pdf')">PDF</button> -->
-
-
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -345,6 +326,7 @@
             </div>
         </div>
     </div>
+
     <!-- Fine modale vedi questionari -->
 
     <!-- Modale PDF -->
