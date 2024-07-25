@@ -2,6 +2,8 @@ package com.gol.ants_quests.business;
 
 import java.util.HashMap;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -9,33 +11,61 @@ import com.gol.ants_quests.hibernate.entities.CategoriaQuest;
 import com.gol.ants_quests.hibernate.entities.DomandaQuest;
 import com.gol.ants_quests.hibernate.entities.Quest;
 import com.gol.ants_quests.hibernate.entities.RispostaQuest;
+import com.gol.ants_quests.hibernate.services.CategorieHibService;
 import com.gol.ants_quests.hibernate.services.DomandeHibService;
+import com.gol.ants_quests.hibernate.services.EsitiHibService;
 import com.gol.ants_quests.hibernate.services.QuestsHibService;
 import com.gol.ants_quests.hibernate.services.RisposteHibService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GestQuestService {
 
+    private final EsitiHibService esitiSrv;
+
+    private final CategorieHibService catSrv;
     private final QuestsHibService qstSrv;
     private final DomandeHibService domSrv;
     private final RisposteHibService risSrv;
 
+    private void findAllCategorie(Model model) {
+        log.info("Caricamento Categorie e Questionari ...");
+        model.addAttribute("listaCategorie", catSrv.findAll(Sort.by(Direction.DESC, "nome")));
+    }
+
+    // done
+    public void openEsiti(Model model) {
+        findAllCategorie(model);
+        log.info("Caricamento Esiti ...");
+        model.addAttribute("listaEsitiQuestionari", esitiSrv.findAll());
+    }
+
+    // done
+    public void openLista(Model model) {
+        findAllCategorie(model);
+    }
+
+    // done
+    public void openGestione(String idQuest, Model model) {
+        findAllCategorie(model);
+        try {
+            log.info("Caricamento Quest=" + idQuest);
+            model.addAttribute("quest", qstSrv.findByID(Long.parseLong(idQuest)).get());
+        } catch (NumberFormatException e) {
+            log.info("Caricamento Quest Vuoto");
+            Quest questionario = new Quest();
+            questionario.setCategoriequest(new CategoriaQuest());
+            model.addAttribute("quest", questionario);
+        }
+    }
+
+    // change with findAllCategorie
     public void findAll(Model model) {
         model.addAttribute("listaCategorie", qstSrv.findAll());
-    }
-
-    public void findDomandeByID(String domanda_id, Model model) {
-        model.addAttribute("quest", qstSrv.findByID(Long.parseLong(domanda_id)).get());
-    }
-
-    public void empyObject(Model model) {
-        Quest questionario = new Quest();
-        questionario.setCategoriequest(new CategoriaQuest());
-        model.addAttribute("quest", questionario);
-
     }
 
     public String saveTest(HashMap<String, String> params) {
@@ -116,15 +146,16 @@ public class GestQuestService {
                         esito = esito && true;
                     } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
                             !oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
-                        RispostaQuest risposta = risSrv.findByID(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns()).get();
+                        RispostaQuest risposta = risSrv
+                                .findByID(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns()).get();
                         risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
                         risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
-                        risSrv.save(risposta); //cambiare con update
+                        risSrv.save(risposta); // cambiare con update
                     } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
-                    oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
+                            oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
                         risSrv.delete(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns());
                         esito = esito && true;
-                    }else{
+                    } else {
                         esito = esito && false;
                     }
                 }

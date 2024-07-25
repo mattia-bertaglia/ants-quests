@@ -34,7 +34,18 @@
 
                             <div class="form-group text-center">
                                 <label for="titolo">Titolo</label><br>
-                                <input type="text" name="titolo" id="titolo" class="form-control" placeholder="Inserisci titolo">
+                                <!-- <input type="text" name="titolo" id="titolo" class="form-control" placeholder="Inserisci titolo"> -->
+                                <select name="titolo" id="titolo" class="form-select">
+                                    <th:block th:each="categoria : ${listaCategorie}">
+                                        <optgroup th:label="${categoria.nome}">
+                                            <option th:each="questionario : ${categoria.questionari}"
+                                                th:value="|${categoria.nome}-${questionario.titolo}|"
+                                                th:text="${questionario.titolo}">
+                                            </option>
+                                        </optgroup>
+                                    </th:block>
+                                </select>
+
                             </div>
 
                             <div class="form-group text-center">
@@ -53,8 +64,7 @@
 
                             <div class="form-group text-center">
                                 <label for="stringa">Utente</label>
-                                <input type="text" id="stringa" class="form-control"
-                                    placeholder="Nome e Cognome"><br>
+                                <input type="text" id="stringa" class="form-control" placeholder="Nome e Cognome"><br>
                             </div>
 
                             <div class="form-group text-center">
@@ -106,11 +116,11 @@
                                     <td th:text="${questionari.tempo}"></td>
                                     <td th:text="|${questionari.studente.nome} ${questionari.studente.cognome}|"></td>
                                     <td class="text-center">
-                                    <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#pdfModal"
-                                        th:onclick="showPdf([[${questionari.pathPdf}]])">
-                                        
-                                        PDF
-                                    </button>
+                                        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#pdfModal"
+                                            th:onclick="showPdf([[${questionari.pathPdf}]])">
+
+                                            PDF
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr th:if="${#lists.isEmpty(listaEsitiQuestionari)}">
