@@ -11,28 +11,24 @@
     display: block;
 }
 
-/*  lo sfondo all'intera pagina */
+/* Lo sfondo all'intera pagina */
 body {
-    background :linear-gradient(rgba(198, 198, 198, 0.2),#414f37), url('/img/smartphone-laptop-near-notebook-wooden-desk.jpg');
+    background: linear-gradient(rgba(198, 198, 198, 0.2), #414f37), url('/img/smartphone-laptop-near-notebook-wooden-desk.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    
 }
 
 /* Login Wrap */
 .login-wrap {
     width: 50%;
     margin: 100px auto;
-    min-height: 1150px;
+    min-height: 850px; /* Aumentato per dare più altezza */
     border-radius: 4%;
-    /* Usa 700px per login/signup */
     position: relative;
     box-shadow: 0 12px 15px rgba(0, 0, 0, 0.375), 0 17px 50px rgba(0, 0, 0, 0.452);
-
 }
-
 
 /* Login HTML */
 .login-html {
@@ -42,13 +38,21 @@ body {
     position: absolute;
     padding: 50px 70px 50px 70px;
     background: #c0daad;
-    /* Colore di sfondo originale della box */
+    
 }
 
 .logo {
     display: block;
     margin: 0px auto 30px auto;
     width: 180px;
+}
+
+.registration-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: #373737; /* Colore del testo, puoi cambiarlo come preferisci */
+    margin-bottom: 30px; /* Spazio sotto il titolo */
 }
 
 .login-html .sign-in-htm,
@@ -85,19 +89,19 @@ body {
 }
 
 /* Colore e bordo per la scheda selezionata */
-.login-html .sign-in:checked+.tab,
-.login-html .sign-up:checked+.tab {
+.login-html .sign-in:checked + .tab,
+.login-html .sign-up:checked + .tab {
     color: #588a50;
     border-color: #373737;
 }
 
 /* Contenuto della scheda di accesso */
-.login-html .sign-in:checked+.tab+.sign-up+.tab+.login-form .sign-in-htm {
+.login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm {
     transform: rotate(0);
 }
 
 /* Contenuto della scheda di registrazione */
-.login-html .sign-up:checked+.tab+.login-form .sign-up-htm {
+.login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
     transform: rotate(0);
 }
 
@@ -144,6 +148,13 @@ body {
 /* Stili per il contenitore della password e il pulsante per mostrare/nascondere la password */
 .password-container {
     position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex: 1;
+    padding-right: 40px; /* Spazio per l'icona */
 }
 
 .toggle-password {
@@ -169,28 +180,25 @@ form select {
     border-radius: 5px;
 }
 
-/* Stile per il contenitore dei campi CAP e Provincia */
+/* Stile per il contenitore dei campi elementi su una riga */
 .row-group {
     display: flex;
-    gap: 15px;
-    /* Spazio tra CAP e Provincia */
+    gap: 15px; /* Spazio tra elementi su una riga */
+    flex-wrap: wrap; /* Permette ai campi di andare a capo se necessario */
 }
 
-.password-container {
-    position: relative;
-     
+.group {
+    flex: 1;
 }
 
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    
+.label_etichetta_ft {
+    margin-left: 20px; 
+    display: block;
+    font-weight: bold; 
 }
 
-.toggle-password i {
-    font-size: 18px;
-    color: #373737;
+.label_index {
+    display: block;
+    font-weight: bold;
+    margin-left: 20px; 
 }

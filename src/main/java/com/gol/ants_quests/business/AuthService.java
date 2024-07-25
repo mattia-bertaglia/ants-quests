@@ -33,7 +33,7 @@ public class AuthService {
     }
 
     public void registerUser(HttpSession session, HashMap<String, String> params, Model model) {
-        String email = params.get("usernameEmail");
+        String email = params.get("email");
         String password = params.get("passkey");
 
         if (email == null || password == null || userExists(email)) {
@@ -50,7 +50,7 @@ public class AuthService {
         // Salvataggio dell'utente con lo studente temporaneo
         User salvatoUser = userRepository.save(user);
         // popolare dati studente da form di firstTime.html
-        Studente studenteTemp = salvatoUser.getStudente();
+        Studente studenteTemp = new Studente();
         studenteTemp.setNome(params.get("nome"));
         studenteTemp.setCognome(params.get("cognome"));
         studenteTemp.setDataNascita(Date.valueOf(params.get("dataNascita")));
@@ -59,6 +59,7 @@ public class AuthService {
         studenteTemp.setTelefono(params.get("telefono"));
         studenteTemp.setNote(params.get("note"));
         studenteTemp.setDataInserimento(Date.valueOf(LocalDate.now()));
+        studenteTemp.setUser(salvatoUser);
         salvatoUser.setStudente(studHibSrv.save(studenteTemp));
 
         if (salvatoUser == null || salvatoUser.getId() == null) {
@@ -67,11 +68,11 @@ public class AuthService {
         }
 
         errorService.addErrorMessageToSession(session, "registrationSuccess");
-        setupSession(session, userRepository.save(user));
+        setupSession(session, salvatoUser);
     }
 
     public void updateUser(HttpSession session, HashMap<String, String> params, Model model) {
-        String email = params.get("usernameEmail");
+        String email = params.get("email");
         String password = params.get("passkey");
 
         if (email == null || password == null || !userExists(email)) {
@@ -101,7 +102,7 @@ public class AuthService {
         }
 
         errorService.addErrorMessageToSession(session, "registrationSuccess");
-        setupSession(session, userRepository.save(salvatoUser));
+        setupSession(session, salvatoUser);
     }
 
     public boolean userExists(String usernameEmail) {

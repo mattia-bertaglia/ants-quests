@@ -22,93 +22,91 @@
             <h2 class="registration-title">Completa Registrazione</h2>
             <div class="login-form">
                 <form action="/auth/registrazione" method="post">
-                <div class="row-group">
+                    <div class="row-group">
+                        <div class="group">
+                            <label for="nome" class="label_etichetta_ft">Nome</label>
+                            <input id="nome" type="text" class="input" placeholder="Inserisci il tuo nome" name="nome" th:value="${nome}">
+                        </div>
+                        <div class="group">
+                            <label for="cognome" class="label_etichetta_ft">Cognome</label>
+                            <input id="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome" name="cognome" th:value="${cognome}">
+                        </div>
+                    </div>
+                    
+                    <div class="row-group">
+                        <div class="group">
+                            <label for="telefono" class="label_etichetta_ft">Numero di telefono</label>
+                            <input id="telefono" type="text" class="input" placeholder="Inserisci il tuo numero di telefono" name="telefono">
+                            <i id="error-phone" class="d-none text-danger">Inserisci un numero di telefono</i>
+                            <i id="correct-phone" class="d-none text-success">Accettabile</i>
+                        </div>
+                        <div class="group">
+                            <label for="data-nascita" class="label_etichetta_ft">Data di nascita</label>
+                            <input id="data-nascita" type="date" class="input" name="dataNascita">
+                            <i class="d-none text-danger">Inserisci una data di nascita</i>
+                            <i class="d-none text-success">Accettabile</i>
+                        </div>
+                    </div>
+                    
+                    <div class="row-group">
+                        <div class="group">
+                            <label for="cap" class="label_etichetta_ft">CAP</label>
+                            <input id="cap" type="text" class="input input-cap" placeholder="Inserisci il CAP" name="cap">
+                            <i class="d-none text-danger">Inserisci un CAP</i>
+                            <i class="d-none text-success">Accettabile</i>
+                        </div>
+                        <div class="group">
+                            <label for="provincia" class="label_etichetta_ft">Provincia</label>
+                            <input id="provincia" type="text" class="input input-provincia" placeholder="Inserisci la provincia" name="provincia">
+                            <i class="d-none text-danger">l'abbreviazione di una provincia</i>
+                            <i class="d-none text-success">Accettabile</i>
+                        </div>
+                    </div>
 
                     <div class="group">
-                        <label for="nome" class="label">Nome</label>
-                        <input id="nome" type="text" class="input" placeholder="Inserisci il tuo nome" name="nome"
-                            th:value="${nome}">
+                        <label for="email" class="label_etichetta_ft">Email</label>
+                        <input id="email" type="email" class="input" placeholder="Inserisci la tua email" name="email" th:value="${usernameEmail}">
+                        <i id="error-email" class="d-none text-danger">Inserisci una email valida</i>
+                        <i id="correct-email" class="d-none text-success">Accettabile</i>
                     </div>
+                    
+                    <div class="row-group">
+                        <div class="group">
+                            <label for="password" class="label_etichetta_ft">Password</label>
+                            <div class="password-container">
+                                <input id="password" type="password" class="input input-password" placeholder="Inserisci la password" name="passkey">
+                                <span class="toggle-password">
+                                    <i id="password-eye" class="fas fa-eye-slash"></i>
+                                </span>
+                            </div>
+                            <i id="error-pass" class="d-none text-danger">
+                                Non accettabile, la password deve contenere:
+                                <ul id="error-list">
+                                    <li id="error-lowercase" class="d-none">almeno un carattere minuscolo (abc)</li>
+                                    <li id="error-uppercase" class="d-none">almeno un carattere maiuscolo (ABC)</li>
+                                    <li id="error-number" class="d-none">almeno un carattere numerico (123)</li>
+                                    <li id="error-length" class="d-none">almeno 8 caratteri</li>
+                                </ul>
+                            </i>
+                            <i id="correct-pass" class="d-none text-success">Accettabile</i>
+                        </div>
+                        <div class="group">
+                            <label for="conferma-password" class="label_etichetta_ft">Conferma Password</label>
+                            <div class="password-container">
+                                <input id="conferma-password" type="password" class="input input-password" placeholder="Conferma la password" name="confirmPasskey">
+                                <span class="toggle-password">
+                                    <i id="confirm-eye" class="fas fa-eye-slash"></i>
+                                </span>
+                            </div>
+                            <i id="error-checkpass" class="d-none text-danger">Le password non corrispondono</i>
+                            <i id="correct-checkpass" class="d-none text-success">Le password corrispondono</i>
+                        </div>
+                    </div>
+                    
                     <div class="group">
-                        <label for="cognome" class="label">Cognome</label>
-                        <input id="cognome" type="text" class="input" placeholder="Inserisci il tuo cognome"
-                            name="cognome" th:value="${cognome}">
+                        <input type="submit" class="button" value="Registrati">
                     </div>
-                </div>
-                <div class="group">
-                    <label for="telefono" class="label">Numero di telefono</label>
-                    <input id="telefono" type="text" class="input" placeholder="Inserisci il tuo numero di telefono"
-                        name="telefono">
-                    <i id="error-phone" class="d-none text-danger">Inserisci un numero di telefono</i>
-                    <i id="correct-phone" class="d-none text-success">Accettabile</i>
-                </div>
-                <div class="group row-group">
-                    <div>
-                        <label for="cap" class="label">CAP</label>
-                        <input id="cap" type="text" class="input input-cap" placeholder="Inserisci il CAP" name="cap">
-                        <i class="d-none text-danger">Inserisci un CAP</i>
-                        <i class="d-none text-success">Accettabile</i>
-                    </div>
-                    <div>
-                        <label for="provincia" class="label">Provincia</label>
-                        <input id="provincia" type="text" class="input input-provincia"
-                            placeholder="Inserisci la provincia" name="provincia">
-                        <i class="d-none text-danger">l'abbreviazione di una provincia</i>
-                        <i class="d-none text-success">Accettabile</i>
-                    </div>
-                </div>
-                <div class="group">
-                    <label for="data-nascita" class="label">Data di nascita</label>
-                    <input id="data-nascita" type="date" class="input" name="dataNascita">
-                    <i class="d-none text-danger">Inserisci una data di nascita</i>
-                    <i class="d-none text-success">Accettabile</i>
-                </div>
-                <div class="group">
-                    <label for="email" class="label">Email</label>
-                    <input id="email" type="email" class="input" placeholder="Inserisci la tua email" name="email"
-                        th:value="${usernameEmail}">
-                </div>
-                <!-- Area password con bottoni e messaggi -->
-                <div class="group">
-                    <label for="password" class="label">Password</label>
-                     <div class="password-container">
-                         <input id="password" type="password" class="input input-password"
-                            placeholder="Inserisci la password" name="passkey">
-                        <span class="toggle-password">
-                            <i id="password-eye" class="fas fa-eye-slash"></i>
-                        </span>
-                     </div>
-                    <div class="group">
-                        <i id="error-pass" class="d-none text-danger">
-                            Non accettabile, la password deve contenere:
-                            <ul id="error-list">
-                                <li id="error-lowercase" class="d-none">almeno un carattere minuscolo (abc)</li>
-                                <li id="error-uppercase" class="d-none">almeno un carattere maiuscolo (ABC)</li>
-                                <li id="error-number" class="d-none">almeno un carattere numerico (123)</li>
-                                <li id="error-length" class="d-none">almeno 8 caratteri</li>
-                            </ul>
-                        </i>
-                        <i id="correct-pass" class="d-none text-success">Accettabile</i>
-                    </div>
-                </div>
-                <div class="group">
-                    <label for="conferma-password" class="label">Conferma Password</label>
-                    <div class="password-container">
-                        <input id="conferma-password" type="password" class="input input-password"
-                            placeholder="Conferma la password" name="confirmPasskey">
-                        <span class="toggle-password">
-                            <i id="confirm-eye" class="fas fa-eye-slash"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="group">
-                    <i id="error-checkpass" class="d-none text-danger">Le password non corrispondono</i>
-                    <i id="correct-checkpass" class="d-none text-success">Le password corrispondono</i>
-                </div>
-                <div class="group">
-                    <input type="submit" class="button" value="Registrati">
-                </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
@@ -117,3 +115,4 @@
 </body>
 
 </html>
+
