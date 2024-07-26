@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,18 +27,12 @@ public class OnlyEsitoQuest extends GenericEntity {
     private Date dataEsecuzione;
     private String punteggio;
     private String tempo;
-
-    /* TODO: nel salvataggio esito aggiungere questi 2 campi */
-
-    /* aggiungere colonne database */
-
-    /* @Transient */
-    private String categoriaQuest;
-    /* @Transient */
-    private String titoloQuest;
+    private String pathPdf;
 
     @Column(name = "quest_id")
     private Long questId;
+    private String categoriaQuest;
+    private String titoloQuest;
 
     @Column(name = "studente_id")
     private Long studenteId;

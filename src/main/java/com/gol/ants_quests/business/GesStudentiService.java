@@ -12,17 +12,12 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.gol.ants_quests.dto.EsitoQuestDTO;
 import com.gol.ants_quests.dto.StudenteDTO;
-
 import com.gol.ants_quests.hibernate.entities.OnlyCorso;
-import com.gol.ants_quests.hibernate.entities.OnlyEsitoQuest;
 import com.gol.ants_quests.hibernate.entities.Studente;
 import com.gol.ants_quests.hibernate.entities.User;
-
 import com.gol.ants_quests.hibernate.services.StudentiHibService;
 import com.gol.ants_quests.hibernate.services.UsersHibService;
-
 import com.gol.ants_quests.util.Ruolo;
 
 import lombok.RequiredArgsConstructor;
@@ -48,79 +43,10 @@ public class GesStudentiService {
         List<Studente> studenti = studHibSrv.findAll(Sort.by(Sort.Direction.DESC, "idStudente"));
         List<StudenteDTO> result = new ArrayList<StudenteDTO>();
         for (Studente stud : studenti) {
-            result.add(convertDto(stud));
+            result.add(new StudenteDTO().convertDto(stud));
         }
 
         return result;
-    }
-
-    public StudenteDTO convertDto(Studente stud) {
-        if (stud == null) {
-            log.error("Lo Studente non può essere null");
-        }
-
-        StudenteDTO studenteDTO = new StudenteDTO();
-        studenteDTO.setIdStudente(stud.getIdStudente());
-        studenteDTO.setNome(stud.getNome());
-        studenteDTO.setCognome(stud.getCognome());
-        studenteDTO.setDataNascita(stud.getDataNascita());
-        studenteDTO.setCap(stud.getCap());
-        studenteDTO.setProvincia(stud.getProvincia());
-        studenteDTO.setTelefono(stud.getTelefono());
-        studenteDTO.setNote(stud.getNote());
-        studenteDTO.setDataInserimento(stud.getDataInserimento());
-
-        // Gestione User
-        if (stud.getUser() != null) {
-            User user = stud.getUser();
-            studenteDTO.setUserId(user.getId());
-            studenteDTO.setUsernameEmail(user.getUsernameEmail() != null ? user.getUsernameEmail() : "");
-            studenteDTO.setPasskey(user.getPasskey() != null ? user.getPasskey() : "");
-            studenteDTO.setRuolo(user.getRuolo() != null ? user.getRuolo().toString() : "");
-            studenteDTO.setFirstTime(user.isFirstTime());
-        } else {
-            // Imposta valori predefiniti se `User` è null
-            studenteDTO.setUserId(null);
-            studenteDTO.setUsernameEmail("");
-            studenteDTO.setPasskey("");
-            studenteDTO.setRuolo("");
-            studenteDTO.setFirstTime(false);
-        }
-
-        // Gestione Corso
-        if (stud.getCorso() != null) {
-            OnlyCorso corso = stud.getCorso();
-            studenteDTO.setCorsoId(corso.getIdCorso());
-            studenteDTO.setNomeCorso(corso.getNome() != null ? corso.getNome() : "");
-            studenteDTO.setDataInizio(corso.getDataInizio());
-            studenteDTO.setDataFine(corso.getDataFine());
-        } else {
-            // Imposta valori predefiniti se `Corso` è null
-            studenteDTO.setCorsoId(null);
-            studenteDTO.setNomeCorso("");
-            studenteDTO.setDataInizio(null);
-            studenteDTO.setDataFine(null);
-        }
-
-        // Gestione EsitoQuest
-        List<EsitoQuestDTO> esitoQuestDTOList = new ArrayList<>();
-        if (stud.getEsquestionari() != null && !stud.getEsquestionari().isEmpty()) {
-            for (OnlyEsitoQuest esiti : stud.getEsquestionari()) {
-                EsitoQuestDTO esitoQuestDTO = new EsitoQuestDTO();
-                esitoQuestDTO.setIdEstQst(esiti.getIdEstQst());
-                esitoQuestDTO.setDataEsecuzione(esiti.getDataEsecuzione());
-                esitoQuestDTO.setPunteggio(esiti.getPunteggio());
-                esitoQuestDTO.setTempo(esiti.getTempo());
-                esitoQuestDTO.setCategoriaQuest(esiti.getCategoriaQuest());
-                esitoQuestDTO.setTitoloQuest(esiti.getTitoloQuest());
-                esitoQuestDTO.setQuestId(esiti.getQuestId());
-                esitoQuestDTO.setStudenteId(esiti.getStudenteId());
-                esitoQuestDTOList.add(esitoQuestDTO);
-            }
-        }
-        studenteDTO.setEsquestionari(esitoQuestDTOList);
-
-        return studenteDTO;
     }
 
     /* fine per StudenteDTO */
