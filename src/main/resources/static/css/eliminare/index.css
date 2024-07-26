@@ -24,7 +24,8 @@ body {
 .login-wrap {
     width: 50%;
     margin: 100px auto;
-    min-height: 850px; /* Aumentato per dare più altezza */
+    min-height: 850px;
+    /* Aumentato per dare più altezza */
     border-radius: 4%;
     position: relative;
     box-shadow: 0 12px 15px rgba(0, 0, 0, 0.375), 0 17px 50px rgba(0, 0, 0, 0.452);
@@ -38,7 +39,7 @@ body {
     position: absolute;
     padding: 50px 70px 50px 70px;
     background: #c0daad;
-    
+
 }
 
 .logo {
@@ -51,8 +52,10 @@ body {
     text-align: center;
     font-weight: bold;
     font-size: 24px;
-    color: #373737; /* Colore del testo, puoi cambiarlo come preferisci */
-    margin-bottom: 30px; /* Spazio sotto il titolo */
+    color: #373737;
+    /* Colore del testo, puoi cambiarlo come preferisci */
+    margin-bottom: 30px;
+    /* Spazio sotto il titolo */
 }
 
 .login-html .sign-in-htm,
@@ -89,19 +92,19 @@ body {
 }
 
 /* Colore e bordo per la scheda selezionata */
-.login-html .sign-in:checked + .tab,
-.login-html .sign-up:checked + .tab {
+.login-html .sign-in:checked+.tab,
+.login-html .sign-up:checked+.tab {
     color: #588a50;
     border-color: #373737;
 }
 
 /* Contenuto della scheda di accesso */
-.login-html .sign-in:checked + .tab + .sign-up + .tab + .login-form .sign-in-htm {
+.login-html .sign-in:checked+.tab+.sign-up+.tab+.login-form .sign-in-htm {
     transform: rotate(0);
 }
 
 /* Contenuto della scheda di registrazione */
-.login-html .sign-up:checked + .tab + .login-form .sign-up-htm {
+.login-html .sign-up:checked+.tab+.login-form .sign-up-htm {
     transform: rotate(0);
 }
 
@@ -154,7 +157,8 @@ body {
 
 .password-container input {
     flex: 1;
-    padding-right: 40px; /* Spazio per l'icona */
+    padding-right: 40px;
+    /* Spazio per l'icona */
 }
 
 .toggle-password {
@@ -183,8 +187,10 @@ form select {
 /* Stile per il contenitore dei campi elementi su una riga */
 .row-group {
     display: flex;
-    gap: 15px; /* Spazio tra elementi su una riga */
-    flex-wrap: wrap; /* Permette ai campi di andare a capo se necessario */
+    gap: 15px;
+    /* Spazio tra elementi su una riga */
+    flex-wrap: wrap;
+    /* Permette ai campi di andare a capo se necessario */
 }
 
 .group {
@@ -192,13 +198,13 @@ form select {
 }
 
 .label_etichetta_ft {
-    margin-left: 20px; 
+    margin-left: 20px;
     display: block;
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 .label_index {
     display: block;
     font-weight: bold;
-    margin-left: 20px; 
+    margin-left: 20px;
 }
