@@ -34,8 +34,8 @@
 
                             <div class="form-group text-center">
                                 <label for="titolo">Titolo</label><br>
-                                <!-- <input type="text" name="titolo" id="titolo" class="form-control" placeholder="Inserisci titolo"> -->
                                 <select name="titolo" id="titolo" class="form-select">
+                                    <option value="" disabled selected>Selezione un Questionario</option>
                                     <th:block th:each="categoria : ${listaCategorie}">
                                         <optgroup th:label="${categoria.nome}">
                                             <option th:each="questionario : ${categoria.questionari}"

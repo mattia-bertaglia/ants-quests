@@ -41,7 +41,7 @@ public class GestQuestService {
     public void openEsiti(Model model) {
         findAllCategorie(model);
         log.info("Caricamento Esiti ...");
-        model.addAttribute("listaEsitiQuestionari", esitiSrv.findAll());
+        model.addAttribute("listaEsitiQuestionari", esitiSrv.findAll(Sort.by(Direction.DESC, "idEstQst")));
     }
 
     // done
@@ -137,7 +137,6 @@ public class GestQuestService {
                 RispostaQuest risposta;
                 for (int y = 0; y < oggetto.getDomanda().get(i).getRisp().size(); y++) {
 
-                    
                     if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() == null &&
                             !oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
                         risposta = new RispostaQuest();
@@ -149,13 +148,11 @@ public class GestQuestService {
                     } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
                             !oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
 
-                        
                         risposta = risSrv
                                 .findByID(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns()).get();
                         risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
                         risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
                         risSrv.save(risposta); // cambiare con update*/
-
 
                     } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
                             oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
