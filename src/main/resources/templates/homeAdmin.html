@@ -14,7 +14,7 @@
     <nav class="navbar">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <a href="/homeAdmin" class="navbar__link">Home</a>
+                <a href="/homeAdmin/" class="navbar__link">Home</a>
             </li>
             <li class="navbar__item">
                 <a href="/ges_studenti/" class="navbar__link">Studenti</a>
@@ -29,15 +29,65 @@
                 <a href="/quest/esiti" class="navbar__link">Esiti</a>
             </li>
             <li class="navbar__item">
-                <a href="#" class="navbar__link">Calendario</a>
-            </li>
-            <li class="navbar__item">
                 <a id="logout-btn" href="/auth/logout">Log Out</a>
             </li>
         </ul>
     </nav>
+
     <div class="main-content main-content-offset">
-        <h2>Home Admin</h2>
+
+        <div class="container">
+            <h2>Home Admin</h2>
+            <hr>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Ultimi Studenti</h3>
+                </div>
+                <div class="card-body">
+                    <table id="myTable" class="table" style="width: 100%;" data-toggle="table" data-locale="it-IT">
+                        <thead style="--bs-table-bg: #588a50;">
+                            <tr>
+                                <th>Ruolo</th>
+                                <th>Nominativo</th>
+                                <th>Email</th>
+                                <th>Corso</th>
+                                <th class="text-center">Dettaglio</th>
+                                <th class="text-center">Questionari</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Ultimi Questionari</h3>
+                </div>
+                <div class="card-body">
+                    <table id="myTable" class="table" style="width: 100%;" data-toggle="table" data-locale="it-IT">
+                        <thead style="--bs-table-bg: #588a50;">
+                            <tr>
+                                <th>Ruolo</th>
+                                <th>Nominativo</th>
+                                <th>Email</th>
+                                <th>Corso</th>
+                                <th class="text-center">Dettaglio</th>
+                                <th class="text-center">Questionari</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
 
     </div>
 
