@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questionari</title>
-    
+
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/homeStud.css">
+    <!-- CONTROLLARE SE ROOT.CSS E' OK, SE SI ELIMINARE HOMESTUD.CSS -->
+    <!--  <link rel="stylesheet" href="/css/homeStud.css"> -->
+    <link rel="stylesheet" href="/css/root.css">
 </head>
+
 <body>
     <navbar class="navbar navbar-expand">
         <div class="container">
@@ -18,7 +21,7 @@
             </div>
         </div>
     </navbar>
-    
+
     <div class="container">
         <div class="card-body form-group d-flex flex-column align-items-center my-4">
             <div class="row mb-3 w-100">
@@ -48,7 +51,7 @@
                     </div>
                 </form>
             </div>
-        </div> 
+        </div>
 
         <div class="card-body form-group d-flex flex-column align-items-center my-4">
             <div class="row mb-3 w-100">
@@ -58,7 +61,8 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tab-last-quest" class="table table-striped table-bordered table-sm" style="width: 100%;">
+                            <table id="tab-last-quest" class="table table-striped table-bordered table-sm"
+                                style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>Titolo</th>
@@ -66,6 +70,7 @@
                                         <th>Tempo</th>
                                         <th>Data</th>
                                         <th>Azioni</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -75,7 +80,9 @@
                                         <td th:text="${record.tempo}"></td>
                                         <td th:text="${record.dataEsecuzione}"></td>
                                         <td>
-                                            <button class="btn btn-primary view-pdf-btn" data-toggle="modal" data-target="#pdfModal" th:data-pdf-url="|/pdf/open?pathFile=${record.pathPdf}|">Vedi</button>
+                                            <button class="btn btn-primary view-pdf-btn" data-toggle="modal"
+                                                data-target="#pdfModal"
+                                                th:data-pdf-url="|/pdf/open?pathFile=${record.pathPdf}|">PDF</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -87,7 +94,7 @@
         </div>
     </div>
 
-        
+
     </div>
     <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel"
         aria-hidden="true">
