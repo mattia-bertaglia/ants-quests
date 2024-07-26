@@ -24,30 +24,30 @@ body {
 
 
 
-.navbar {
+.navbar2 {
     display: flex;
     justify-content: flex-end;
     padding: 10px;
 }
 
-.navbar a {
+.navbar2 a {
     margin-left: 10px;
 }
 
-.navbar a.btn-primary {
+.navbar2 a.btn-primary {
     background-color: var(--button-color);
     border: none;
 }
 
-.navbar a.btn-primary:hover {
+.navbar2 a.btn-primary:hover {
     background-color: var(--button-hover-color);
 }
 
-.navbar a.btn-warning {
+.navbar2 a.btn-warning {
     border: none;
 }
 
-.navbar a.btn-warning:hover {
+.navbar2 a.btn-warning:hover {
     background-color: var(--logout-hover-color);
 }
 

@@ -3,6 +3,13 @@
 
 /* Define color variables */
 :root {
+    --navbar-bg-color: #8db986;
+    --navbar-text-color: black;
+    --navbar-hover-bg-color: #373737;
+    --navbar-hover-text-color: white;
+
+
+
     --background-color: #f9f8f7;
     --text-color: #373737;
     --table-divider-color: #e2e2e1;
@@ -11,9 +18,13 @@
     --link-hover-color: #588a50;
     --logout-hover-color: #ff4d4d;
     --active-link-color: #8db986;
-    --navbar-bg-color: #373737;
     --logout-button-color: #123d12;
+    --font-size-menu: 18px;
     --accent-color: #198754;
+
+
+    --verde-primario: #8db986;
+
 }
 
 /* Global Styles */
@@ -23,6 +34,9 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 /* background-color: var(--background-color);
@@ -47,8 +61,11 @@ a:hover {
     color: var(--link-hover-color);
 }
 
+
+
 /* Navbar styles */
-.navbar {
+.navbar,
+nav {
     position: fixed;
     /* color: var(--background-color); */
     padding: 1rem 0.5rem;
@@ -63,7 +80,8 @@ a:hover {
     background: var(--navbar-bg-color);
 }
 
-.navbar__menu {
+.navbar__menu,
+.nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -82,7 +100,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     height: 3.5rem;
-    color: var(--background-color);
+    color: var(--navbar-text-color);
     text-decoration: none;
     width: 100%;
     transition: background-color 250ms ease, color 250ms ease;
@@ -92,10 +110,12 @@ a:hover {
 
 }
 
+.nav a,
+.nav a:hover,
 .navbar__link:hover,
 .navbar__link.active {
-    color: var(--background-color);
-    background-color: var(--active-link-color);
+    color: var(--navbar-hover-text-color);
+    background-color: var(--navbar-hover-bg-color);
     border-radius: 0;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
@@ -228,7 +248,7 @@ table tbody tr:nth-child(odd) {
     text-align: center;
 }
 
-/* pagina index - NON TOCCARE */
+/* index.html - NON TOCCARE */
 
 /* Stile Globale */
 .clearfix:after,
@@ -432,3 +452,205 @@ form select {
 }
 
 /* fine index.html */
+
+/* profiloStud.html NON TOCCARE */
+/* .container {
+    margin: auto;
+    width: 1000px;
+} */
+
+
+nav ul li {
+    margin: 0 15px;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group .form-control {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-control-plaintext {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+}
+
+/* .hidden {
+    display: none;
+} */
+
+.error,
+.correct {
+    color: red;
+    display: none;
+}
+
+.correct {
+    color: green;
+}
+
+/* .btn-group {
+    display: flex;
+    justify-content: flex-end;
+} */
+
+/* .btn-group button {
+    margin-left: 10px;
+} */
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* 
+.col-md-6,
+.col-md-12 {
+    padding: 10px;
+} */
+
+.col-md-6 {
+    width: 50%;
+    padding: 10px;
+}
+
+.col-md-12 {
+    width: 100%;
+    padding: 10px;
+}
+
+.email-center {
+    display: flex;
+    justify-content: center;
+}
+
+/* fine profiloStud.html */
+
+/* doQuest.html inizio - NON TOCCARE */
+.navbar2 {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.navbar2 a {
+    margin-left: 10px;
+}
+
+.navbar2 a.btn-primary {
+    background-color: var(--button-color);
+    border: none;
+}
+
+.navbar2 a.btn-primary:hover {
+    background-color: var(--button-hover-color);
+}
+
+.navbar2 a.btn-warning {
+    border: none;
+}
+
+.navbar2 a.btn-warning:hover {
+    background-color: var(--logout-hover-color);
+}
+
+.card {
+    margin-top: 20px;
+    border: 1px solid var(--table-divider-color);
+}
+
+.card-header {
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--table-divider-color);
+}
+
+.card-header h2 {
+    color: var(--text-color);
+}
+
+.card-body {
+    background-color: var(--background-color);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: rgba(252, 252, 254, 0.5) !important;
+}
+
+.carousel-control-prev svg,
+.carousel-control-next svg {
+    fill: black;
+}
+
+.card-footer {
+    background-color: var(--background-color);
+    border-top: 1px solid var(--table-divider-color);
+    text-align: center;
+}
+
+.card-footer .btn-primary {
+    background-color: var(--button-color);
+    border: none;
+}
+
+.card-footer .btn-primary:hover {
+    background-color: var(--button-hover-color);
+}
+
+.card-footer .btn-outline-secondary {
+    border-color: var(--button-color);
+    color: var(--button-color);
+}
+
+.card-footer .btn-outline-secondary:hover {
+    background-color: var(--button-hover-color);
+    color: #fff;
+}
+
+.form-check .form-radio-input {
+    margin-right: 10px;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+}
+
+.form-check .form-radio-label {
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+#chronometer {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.btn-vuoto-primary {
+    border-color: var(--button-color);
+    color: var(--button-color);
+}
+
+.btn-vuoto-primary.active {
+    border-color: black;
+    --text-color: white;
+    color: var(--text-color);
+    background-color: #6f6f6f;
+}
+
+.btn-vuoto-primary:hover {
+    background-color: var(--button-hover-color);
+    color: #fff;
+}
+
+/* fine doQuest.html  - NON TOCCARE */

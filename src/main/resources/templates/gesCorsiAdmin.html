@@ -8,7 +8,6 @@
     <title>Corsi</title>
     <!-- bootstrap link -->
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
     <link rel="stylesheet" href="/css/gestStudentiAdmin.css">
     <!-- <link rel="stylesheet" href="/css/root.css"> -->
 </head>
@@ -16,6 +15,11 @@
 <body>
     <nav class="navbar">
         <ul class="navbar__menu">
+            <hr>
+            <li class="navbar__item">
+                <img src="/img/antlogo.png" width="70%">
+            </li>
+            <hr>
             <li class="navbar__item">
                 <a href="/homeAdmin/" class="navbar__link" id="home-link">Home</a>
             </li>
@@ -31,8 +35,9 @@
             <li class="navbar__item">
                 <a href="/quest/esiti" class="navbar__link" id="esiti-link">Esiti</a>
             </li>
+            <hr>
             <li class="navbar__item">
-                <a id="logout-btn" href="/auth/logout">Log Out</a>
+                <a href="/auth/logout" class="navbar__link">Log Out</a>
             </li>
         </ul>
     </nav>
