@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studenti</title>
-    <link rel="stylesheet" href="/css/gestStudentiAdmin.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/root.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/css/gestStudentiAdmin.css">
+    <!-- <link rel="stylesheet" href="/css/root.css">-->
+
+
 
 </head>
 
@@ -16,7 +18,7 @@
     <nav class="navbar">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <a href="/homeAdmin" class="navbar__link" id="home-link">Home</a>
+                <a href="/homeAdmin/" class="navbar__link" id="home-link">Home</a>
             </li>
             <li class="navbar__item">
                 <a href="/ges_studenti/" class="navbar__link" id="studenti-link">Studenti</a>
@@ -36,6 +38,7 @@
         </ul>
     </nav>
 
+    <!-- Inizio filtro ricerca -->
     <div class="main-content">
         <div class="custom-margin">
             <div class="table-wrapper">
@@ -80,28 +83,34 @@
             </div>
         </div>
     </div>
+    <!-- Fine filtro ricerca -->
 
+    <!-- inizio main -->
     <div class="main-content">
         <div class="custom-margin">
             <div class="table-wrapper">
-                <div class="table-wrapper">
+                <div class="card">
                     <div class="table-title">
                         <div class="row">
-                            <div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+                            <div>
                                 <h2 class="card-header">Elenco Studenti</h2>
+                                <br>
                             </div>
-                            <div class="col-sm-12 p-0 flex justify-content-lg-start justify-content-center">
+                            <!-- Pulsante per attivare il modale aggiungi Studente-->
+                            <div>
                                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                     data-bs-target="#addStudentModal">
                                     <i class="material-icon">&#xE147;</i>
-                                    <span>Aggiungi nuovo studente</span>
-                                </button>
+                                    <span>Aggiungi nuovo studente</span></button>
                             </div>
+                            <!-- fine Pulsante per attivare il modale aggiungi Studente-->
                         </div>
                     </div>
                     <br><br>
+
                     <div class="card-body">
-                        <table id="myTable" class="table" style="width: 100%;" data-toggle="table" data-locale="it-IT">
+                        <table id="myTable" class="table" style="width: 100%;" data-bs-toggle="table"
+                            data-locale="it-IT">
                             <thead>
                                 <tr>
                                     <th>Ruolo</th>
@@ -336,11 +345,11 @@
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/bootbox.all.min.js"></script>
     <script src="/js/pagDinamiche-filtriRicerca.js"></script>
     <!-- stesso JS di AQ-2024.07.08-Ges-Questionari (esitiScript.js) -->
-    <script src="/js/bootbox.all.min.js"></script>
-    <!-- <script src="/js/gesStudentiAdmin.js"></script> -->
-    <script src="/js/admin-GesCorsiA-GesStudA.js"></script>
+    <script src="/js/gesStudentiAdmin.js"></script>
+    <script src="/js/admin.js"></script>
 </body>
 
 </html>
