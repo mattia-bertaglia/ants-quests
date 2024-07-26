@@ -1,6 +1,6 @@
 package com.gol.ants_quests.dto;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import com.gol.ants_quests.hibernate.entities.OnlyEsitoQuest;
 
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class EsitoQuestDTO {
 
     private Long idEstQst;
-    private Date dataEsecuzione;
+    private Timestamp dataEsecuzione;
     private String punteggio;
     private String tempo;
     private String pathPdf;
