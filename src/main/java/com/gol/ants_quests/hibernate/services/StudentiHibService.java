@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gol.ants_quests.hibernate.entities.Studente;
@@ -45,6 +43,10 @@ public class StudentiHibService extends GenericHibService<Studente, Long, Studen
 
     public List<Object[]> cercaStudenti(Long idStudente, String nome, String cognome) {
         return getRepository().cercaStudenti(idStudente, nome, cognome);
+    }
+
+    public List<Studente> findLastStuds() {
+        return getRepository().findLastStuds();
     }
 
     public Optional<Studente> findById(Long idStudente) {

@@ -25,4 +25,8 @@ public class EsitiHibService extends GenericHibService<EsitoQuest, Long, EsitiQu
     public List<EsitoQuest> findByStudente(Long idStudente) {
         return getRepository().findByStudenteIdStudente(idStudente, Sort.by(Direction.DESC, "idEstQst"));
     }
+
+    public List<EsitoQuest> findLastEsiti() {
+        return getRepository().findLastEsiti();
+    }
 }
