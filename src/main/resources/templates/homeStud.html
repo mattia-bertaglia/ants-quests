@@ -94,14 +94,13 @@
         </div>
     </div>
 
-
-    </div>
+    <!-- Modale Frame PDF -->
     <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl" style="max-width: 85% !important; height: 100% !important;" role="document">
             <div class="modal-content" style="height: 90%;">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="pdfModalLabel">PDF del Questionario Svolto</h5>
+                    <h5 class="modal-title" id="pdfModalLabel">PDF Questionario</h5>
                     <svg data-bs-dismiss="modal" aria-label="Close" width="25" height="25" fill="red"
                         class="bi bi-x-square" viewBox="0 0 16 16">
                         <path
@@ -115,8 +114,7 @@
                     <iframe src="" id="pdfIframe" style="width: 100%; height: 100%;" frameborder="0"></iframe>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary"
-                        onclick="$('#pdfModal').modal('hide');">Chiudi</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                 </div>
             </div>
         </div>

@@ -37,6 +37,9 @@ public interface StudentiRepository extends JpaRepository<Studente, Long> {
         public List<Object[]> cercaStudenti(@Param("idStudente") Long idStudente, @Param("nome") String nome,
                         @Param("cognome") String cognome);
 
+        @Query(value = "select * from studenti where data_inserimento > adddate(current_date(), interval -1 month) order by id_studente desc", nativeQuery = true)
+        public List<Studente> findLastStuds();
+
         Optional<Studente> findById(Long idStudente);
 
         List<Studente> findByNomeAndCognome(String nome, String cognome);
