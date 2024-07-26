@@ -35,7 +35,7 @@ function applyFilters() {
         let questionari = tr[i].children;
 
         if (filters.title) {
-            if (!questionari[1].innerText.toUpperCase().includes(filters.title.toUpperCase())) {
+            if (!questionari[0].innerText.includes(filters.category) || !questionari[1].innerText.toUpperCase().includes(filters.title.toUpperCase())) {
                 display = false;
             }
         }
@@ -69,7 +69,7 @@ function applyFilters() {
 }
 
 // Aggiungi event listener agli elementi del modulo
-document.getElementById("titolo").addEventListener("keyup", changeVisibility);
+document.getElementById("titolo").addEventListener("change", changeVisibility);
 document.getElementById("categorySelect").addEventListener("change", function () {
     filters.category = this.value;
     applyFilters();
@@ -81,7 +81,8 @@ document.getElementById("removeFiltersButton").addEventListener("click", removeF
 
 // Funzione per cambiare la visibilità in base al titolo
 function changeVisibility() {
-    filters.title = document.getElementById("titolo").value;
+    filters.category = document.getElementById("titolo").value.split("-")[0];
+    filters.title = document.getElementById("titolo").value.split("-")[1];
     applyFilters();
 }
 
