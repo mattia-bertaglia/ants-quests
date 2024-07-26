@@ -1,10 +1,12 @@
 let indiceDomandaGlobal;
 
 function popolaModale(elemento) {
+    listaRispDaEliminare = [];
     pulisicDomandeModifica();
     let interoElemento = elemento.closest('li');
     trovaDomandaDaModificare(interoElemento);
-    let indiceArray = quest.domanda.findIndex(domanda => domanda.idQstDet === interoElemento.id);
+    let idDomanda = interoElemento.getAttribute('id');
+    let indiceArray = quest.domanda.findIndex(domanda => domanda.idQstDet === idDomanda);
     document.getElementById('domanda_inserita_modifica').value = quest.domanda[indiceArray].domanda;
     let risposte;
     let checkbox;
@@ -12,7 +14,7 @@ function popolaModale(elemento) {
     indiceDomandaGlobal = quest.domanda[indiceArray].idQstDet;
 
     for(let i=0;i<quest.domanda[indiceArray].risp.length;i++){
-      // if(quest.domanda[indiceArray].risp[i].risposta != ""){
+      if(quest.domanda[indiceArray].risp[i].risposta != null){
             aggiungiRisposta('elenco-risposte', quest.domanda[indiceArray].risp[i].idAns);
             risposte = document.querySelectorAll('.risposta_inserita');
             checkbox = document.querySelectorAll('.risp_corretta');
@@ -22,7 +24,7 @@ function popolaModale(elemento) {
             if (corretta == "true") {
                 checkbox[checkbox.length - 1].checked = true;
             }
-      //  }
+      }
     }
 
 }
@@ -30,10 +32,14 @@ function popolaModale(elemento) {
 let contrisp = 0;
 function aggiungiRisposta(elenco, idRisposta) {
     let tmpIdRisp;
-    let tmpIdDom;
+
     if(idRisposta) {
         tmpIdRisp = `data-id-risp="${idRisposta}"`;
     } else {
+        let ris = new Risposta();
+        ris.idAns = "t"+contrisp;
+        let indiceArray = quest.domanda.findIndex(domanda => domanda.idQstDet === indiceDomandaGlobal);
+        quest.domanda[indiceArray].risp.push(ris);
         tmpIdRisp = `data-id-risp="t${contrisp++}"`;
     }
 
@@ -47,9 +53,7 @@ function aggiungiRisposta(elenco, idRisposta) {
                         <div class="col-md-2">
                             <div class="form-check">
                                     <input class="form-check-input risp_corretta" name="corretta" type="checkbox">
-                                <label class="form-check-label" for="corretta">
                                     Corretta
-                                </label>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -62,25 +66,16 @@ function aggiungiRisposta(elenco, idRisposta) {
   
 }
 
+
+let listaRispDaEliminare = [];
 function eliminaRisposta(button) {
 
     const row = button.closest("div.row");
 
     let idRisposta = row.getAttribute('data-id-risp');
-    
-    let idDomanda = quest.domanda.findIndex(indiceDom => indiceDom.idQstDet === indiceDomandaGlobal);
-
-
-    
-    let indiceArray = quest.domanda[idDomanda].risp.find(indice => indice.idAns === idRisposta);
-
-    let indiceNumerico = quest.domanda[idDomanda].risp.findIndex(indice => indice.idAns === indiceArray.idAns);
-    quest.domanda[idDomanda].risp[indiceNumerico].risposta = "";
-        
-
+    listaRispDaEliminare.push(idRisposta);
     row.parentNode.removeChild(row);
-
-    
+  
 }
 
 
@@ -94,10 +89,10 @@ function trovaDomanda(elemento) {
 function eliminaDomanda() {
 
     let id = domandaDaEliminare.id;
-    if(id != ""){
+    if(!id.startsWith("t")){
         let domanda = quest.domanda.find(domanda => domanda.idQstDet === id);
-        domanda.domanda = "";
-        domanda.risp = [];
+        domanda.domanda = null;
+        domanda.risp = null;
     }else{
         let indiceArray = quest.domanda.indexOf(domandaDaEliminare);
         quest.domanda.splice(indiceArray, 1);   
@@ -111,36 +106,46 @@ function eliminaDomanda() {
 }
 
 
+let contDom = 0;
+function creaIdDomanda(){
+    let domanda = new Domanda();
+    domanda.idQstDet = "t"+ contDom++;
+    quest.domanda.push(domanda);
+    indiceDomandaGlobal = domanda.idQstDet;
+
+}
+
 function addDomanda() {
     const textareaDomanda = document.getElementById('domanda_inserita').value;
     const lista = document.getElementById('elenco-domande');
     
-    domanda = new Domanda();
-    domanda.domanda = textareaDomanda;
-    quest.domanda.push(domanda);
     risposteTemplate = ""
 
-
+    let idDomanda = quest.domanda.findIndex(indiceDom => indiceDom.idQstDet === indiceDomandaGlobal);
+    quest.domanda[idDomanda].domanda = textareaDomanda;
+    
     var modaleElement = document.getElementById('modale-aggiungi-domanda');
     var listaRisposte = modaleElement.querySelectorAll(".risposta_inserita");
     var listaRispCorretta = modaleElement.querySelectorAll(".risp_corretta");
 
     for (let i = 0; i < listaRisposte.length; i++) {
 
-        ris = new Risposta();
-        ris.risposta =  listaRisposte[i].value;
-        ris.corretta = listaRispCorretta[i].checked;
-        domanda.risp.push(ris);
+        //ris = new Risposta();
+        quest.domanda[idDomanda].risp[i].risposta =  listaRisposte[i].value;
+       quest.domanda[idDomanda].risp[i].corretta = listaRispCorretta[i].checked;
+        //quest.domanda[idDomanda].risp.push(ris);
 
         risposteTemplate += `
-             <li class="${ris.corretta  ? 'list-group-item list-group-item-success' 
+             <li class="${listaRispCorretta[i].checked  ? 'list-group-item list-group-item-success' 
                 : 'list-group-item list-group-item-danger'}">
-             ${ris.risposta}
+             ${listaRisposte[i].value}
             </li>`;
     }
 
+    let tmpIdDom = 'id="'+indiceDomandaGlobal+'"';
+
     let domandaTemplate = 
-    `<li class="list-group-item">
+    `<li class="list-group-item" ${tmpIdDom}>
         <details>
             <summary>` + textareaDomanda + `</summary>
             <div>
@@ -179,64 +184,56 @@ function modDomanda() {
     let summaryElement = domandaDaModificare.querySelector('summary');
     let olElement =domandaDaModificare.querySelector('ol');
     summaryElement.textContent = document.getElementById('domanda_inserita_modifica').value;
-    let modaleModificaId = document.getElementById("modale-modifica-domanda");
+    let modaleModifica = document.getElementById("modale-modifica-domanda");
 
-    
-        let risposte = document.querySelectorAll('.risposta_inserita');
-        let checkbox = document.querySelectorAll('.risp_corretta');
-        let idRisposte = modaleModificaId.querySelectorAll('[data-id-risp]');;
+    listaRispDaEliminare.forEach((elemento) => {
+        let index = quest.domanda[indiceArray].risp.find(indice => indice.idAns === elemento);
 
-        for (let i = 0; i < risposte.length-1; i++) {
+        let indiceNumerico = quest.domanda[indiceArray].risp.findIndex(indice => indice.idAns === index.idAns)
+        if((quest.domanda[indiceArray].risp[indiceNumerico].idAns).startsWith("t")){
+            quest.domanda[indiceArray].risp.splice(indiceNumerico, 1);
+        }else{
+            quest.domanda[indiceArray].risp[indiceNumerico].risposta = null;
+            quest.domanda[indiceArray].risp[indiceNumerico].corretta = null;
+        }
+      });
 
-            if(quest.domanda[indiceArray].risp[i] != null){
+      let risposte = modaleModifica.querySelectorAll('.risposta_inserita');
+      let checkbox = modaleModifica.querySelectorAll('.risp_corretta');
 
-                ris.idAns = idRisposte[i].getAttribute('data-id-risp');
-                quest.domanda[indiceArray].risp[i].risposta = risposte[i+1].value;
+      let indiceRisposteElemento = 0;
+
+        for (let i = 0; i < quest.domanda[indiceArray].risp.length; i++) {
+
+                if(quest.domanda[indiceArray].risp[i].risposta != null){
+                    if(risposte[indiceRisposteElemento].value !=  null){
+                        quest.domanda[indiceArray].risp[i].risposta = risposte[indiceRisposteElemento].value;
+            
+                    if(checkbox[indiceRisposteElemento].checked){
+                        quest.domanda[indiceArray].risp[i].corretta = "true";
         
-                if(checkbox[i+1].checked){
-                    quest.domanda[indiceArray].risp[i].corretta = "true";
- 
-                }else{
-                    quest.domanda[indiceArray].risp[i].corretta = "false";
-                }
+                    }else{
+                        quest.domanda[indiceArray].risp[i].corretta = "false";
+                    }
+                    indiceRisposteElemento++;
 
+                    }else{
+                        indiceRisposteElemento = indiceRisposteElemento+i;
+                    }
                 
-            }else{
-                ris = new Risposta();
-                ris.idAns = idRisposte[i].getAttribute('data-id-risp');
-                ris.risposta = risposte[i+1].value;
-                if(checkbox[i+1].checked){
-                    ris.corretta = "true"
-                }else{
-                    ris.corretta = "false"
                 }
-                quest.domanda[indiceArray].risp.push(ris);
-
-            }
         }
  
-        let idRisposta; 
-        for(let i=0;i<quest.domanda.length;i++){
-            for(let y=0;y<quest.domanda[i].risp.length;y++){
-
-                if ((quest.domanda[i].risp[y].idAns).startsWith("t")) {
-                    quest.domanda[i].risp[y].idAns = "";
-                       
-                }
-            }
-        }
-
-
-
         olElement.innerHTML = "";
         for(let i = 0; i < quest.domanda[indiceArray].risp.length; i++){
-            //if(quest.domanda[indiceArray].risp[i].risposta != ""){        
+
+            if(quest.domanda[indiceArray].risp[i].risposta != null){        
                 let domandaTemplate = 
                 `<li class="` + (quest.domanda[indiceArray].risp[i].corretta == 'true' ? 'list-group-item list-group-item-success' 
                         : 'list-group-item list-group-item-danger') + `">` + quest.domanda[indiceArray].risp[i].risposta + `</li>`
         
                olElement.innerHTML += domandaTemplate;
-            //}
+            }
         }
 
     const modaleAggiungi = document.getElementById('modale-modifica-domanda');
@@ -275,14 +272,11 @@ $(document).ready(function(){
         abilitaPulsanteAggiungi();
     });
 
-    $("#risposta_inserita").on("input", function() {
-        abilitaPulsanteAggiungi();
-    });
 
     function abilitaPulsanteAggiungi() {
         const pulsante = $("#btn_add_domanda");
     
-        if ($("#domanda_inserita").val().trim() !== "" && $("#risposta_inserita").val().trim() !== "") {
+        if ($("#domanda_inserita").val().trim() !== "") {
             pulsante.prop("disabled", false);
         } else {
             pulsante.prop("disabled", true);
@@ -311,7 +305,7 @@ $(document).ready(function(){
         });
     }
 
-    window.gestisciDomande = function () {
+    window.salvaDomande = function () {
         const oggettoQuest = JSON.stringify(quest);
 
         $.post({
@@ -333,22 +327,46 @@ $(document).ready(function(){
 
 });
 
+function gestisciDomande(){
+    for(let i=0;i<quest.domanda.length;i++){
+
+        if ((quest.domanda[i].idQstDet).startsWith("t")) {
+            quest.domanda[i].idQstDet = null;
+        }
+
+        if(quest.domanda[i].risp != null){
+            for(let y=0;y<quest.domanda[i].risp.length;y++){
+
+                if ((quest.domanda[i].risp[y].idAns).startsWith("t")) {
+                    quest.domanda[i].risp[y].idAns = null;
+                }
+            }
+        }
+    }
+
+    salvaDomande()
+}
+
 function pulisicModaleAggiungi() {
+    /*
     document.getElementById('domanda_inserita').value = '';
     document.getElementById('corretta').checked = false;
     document.getElementById('risposta_inserita').value =  '';
     document.getElementById("nuovo-elenco-risposte").innerHTML = '';
-    $("#btn_add_domanda").prop("disabled", true);
+    $("#btn_add_domanda").prop("disabled", true);*/
 }
 
+/*
 function disabilitaBottone(bottone){
     $('#'+bottone).prop("disabled", true);
-}
+}*/
 
 function pulisicDomandeModifica(){
     document.getElementById('domanda_inserita_modifica').value = '';
     document.getElementById('elenco-risposte').innerHTML = "";
+    //l'elenco risposte nell'oggetto javascript deve essere svuotato
 }
+
 
 function mostraToast(nomeToast){
     const toastElemento = document.getElementById(nomeToast)
@@ -362,33 +380,6 @@ window.onload = function verificaCampiInit(){
         document.getElementById("btn_aggiungi_domanda").disabled = false;
         document.getElementById("btn_salva_test").disabled = false;
         document.getElementById("btn_salva_domanda").disabled = false;
+        document.getElementById("btn_elimina_test").disabled = false;
     }     
 }
-
-function aggiungiRispostaObbligatoria(elenco) {
-    let templateRisposta = 
-                 `<div class="row">
-                        <div class="col-md-6">
-                            <div class="input-group input-group-sm mb-1">
-                                <input type="text" class="form-control col-6 risposta_inserita">
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-check">
-                                    <input class="form-check-input risp_corretta" type="checkbox">
-                                <label class="form-check-label" for="corretta">
-                                    Corretta
-                                </label>
-                            </div>
-                        </div>
-                    </div>`;
-
-    document.getElementById(elenco).insertAdjacentHTML("beforeend",templateRisposta); 
-}
-
-
-
-
-
-
-

@@ -49,6 +49,10 @@
                     <div class="card-footer">
                         <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" id="btn_salva_test"
                             class="btn btn-primary" disabled>Salva</button>
+                        <button type="button" class="btn btn-primary" id="btn_elimina_test" data-bs-toggle="modal"
+                        data-bs-target="#modale-elimina-test" disabled>
+                            Elimina Test
+                        </button>
                     </div>
                 </div>
             </div>
@@ -64,7 +68,8 @@
                             </div>
                             <div class="col-md-2">
                                 <button id="btn_aggiungi_domanda" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#modale-aggiungi-domanda" th:disabled="${quest.idQst == null}">
+                                    data-bs-target="#modale-aggiungi-domanda" th:disabled="${quest.idQst == null}"
+                                    onclick="creaIdDomanda()">
                                     Aggiungi Domanda</button>
                             </div>
                         </div>
@@ -171,6 +176,25 @@
     </div>
     <!-- FINE Modale Elimina Domanda -->
 
+    <!-- Modale Elimina Domanda -->
+        <div class="modal fade" tabindex="-1" id="modale-elimina-test">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Elimina Test</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Sei sicuro di voler eliminare questo Test? <br> L'azione è irreversibile.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
+                        <button type="button" class="btn btn-danger">Elimina</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- FINE Modale Elimina Domanda -->
+
     <!--Modale Aggiungi Domanda -->
     <div class="modal fade" id="modale-aggiungi-domanda">
         <div class="modal-dialog modal-dialog-centered modal-xl ">
@@ -195,25 +219,6 @@
                         </div>
                     </div>
                     <div class="mb-3 mt-3"></div>
-                    <div id="risposta-obbligatoria">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control col-6 risposta_inserita"
-                                        id="risposta_inserita">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-check">
-                                    <input class="form-check-input risp_corretta" id="corretta" type="checkbox"
-                                        name="corretta">
-                                    <label class="form-check-label" for="corretta">
-                                        Corretta
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div id="nuovo-elenco-risposte">
                     </div>
                 </div>
@@ -266,8 +271,7 @@
                         </button>
                     </div>
                     <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                        <button type="button" class="btn btn-warning" onclick="pulisicDomandeModifica(),
-                     aggiungiRispostaObbligatoria('elenco-risposte'),disabilitaBottone('btn_mod_domanda')">Pulisci</button>
+                        <button type="button" class="btn btn-warning" onclick="pulisicDomandeModifica()">Pulisci</button>
                     </div>
                 </div>
             </div>

@@ -102,9 +102,20 @@ public class GestQuestService {
 
             modificaRisposte = true;
 
-            if (oggetto.getDomanda().get(i).getIdQstDet() == null
-                    && oggetto.getDomanda().get(i).getDomanda() != null) {
 
+            if(oggetto.getDomanda().get(i).getIdQstDet() != null){
+                if(oggetto.getDomanda().get(i).getDomanda() != null){
+                    domanda = domSrv.findByID(oggetto.getDomanda().get(i).getIdQstDet()).get();
+                    domanda.setDomanda(oggetto.getDomanda().get(i).getDomanda());
+                    domSrv.save(domanda); // da cambiare con update
+                    esito = esito && true;
+                }else{
+                    domSrv.delete(oggetto.getDomanda().get(i).getIdQstDet());
+                    esito = esito && true;
+                    modificaRisposte = false;
+                }
+
+            }else{
                 domanda = new DomandaQuest();
                 Quest id_quest = new Quest();
                 domanda.setDomanda(oggetto.getDomanda().get(i).getDomanda());
@@ -112,59 +123,34 @@ public class GestQuestService {
                 domanda.setDom(id_quest);
                 domSrv.save(domanda);
                 esito = esito && true;
-
-            } else if (oggetto.getDomanda().get(i).getIdQstDet() != null
-                    && oggetto.getDomanda().get(i).getDomanda() == "") {
-
-                domSrv.delete(oggetto.getDomanda().get(i).getIdQstDet());
-                esito = esito && true;
-                modificaRisposte = false;
-
-            } else if (oggetto.getDomanda().get(i).getIdQstDet() != null
-                    && oggetto.getDomanda().get(i).getDomanda() != "") {
-
-                domanda = domSrv.findByID(oggetto.getDomanda().get(i).getIdQstDet()).get();
-                domanda.setDomanda(oggetto.getDomanda().get(i).getDomanda());
-                domSrv.save(domanda); // da cambiare con update
-                esito = esito && true;
-
-            } else {
-                modificaRisposte = false;
-                esito = esito && false;
             }
 
             if (modificaRisposte) {
                 RispostaQuest risposta;
-                for (int y = 0; y < oggetto.getDomanda().get(i).getRisp().size(); y++) {
 
-                    
-                    if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() == null &&
-                            !oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
+                for (int y = 0; y < oggetto.getDomanda().get(i).getRisp().size(); y++) {
+                    if(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null){
+                        if(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta()!= null){
+                            risposta = risSrv
+                            .findByID(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns()).get();
+                            risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
+                            risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
+                            risSrv.save(risposta); // cambiare con update
+                        }else{
+                            risSrv.delete(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns());
+                            esito = esito && true;
+                        }
+
+                    }else{
                         risposta = new RispostaQuest();
                         risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
                         risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
                         risposta.setDomandaQuest(domanda);
                         risSrv.save(risposta);
                         esito = esito && true;
-                    } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
-                            !oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
-
-                        
-                        risposta = risSrv
-                                .findByID(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns()).get();
-                        risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
-                        risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
-                        risSrv.save(risposta); // cambiare con update*/
-
-
-                    } else if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null &&
-                            oggetto.getDomanda().get(i).getRisp().get(y).getRisposta().equals("")) {
-                        risSrv.delete(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns());
-                        esito = esito && true;
-                    } else {
-                        esito = esito && false;
                     }
                 }
+
             }
         }
 
