@@ -257,6 +257,14 @@ button:hover {
 
 }
 
+.delete-btn {
+    background-color: var(--logout-hover-color);
+}
+
+.delete-btn:hover {
+    background-color: #ff1a1a;
+}
+
 .btn-container {
     text-align: right;
     margin-left: auto;
