@@ -8,14 +8,16 @@
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
 </head>
+
 <body>
-    
+
     <nav></nav>
 
     <form action="/quest/gestione" method="post">
         <div class="row d-flex justify-content-center">
             <div class="col-md-6">
-                <button type="submit"  name="id_quest" value="new" class="btn btn-lg btn-primary w-100">Nuovo Questionario</button>
+                <button type="submit" name="id_quest" value="new" class="btn btn-lg btn-primary w-100">Nuovo
+                    Questionario</button>
             </div>
         </div>
         <br>
@@ -25,10 +27,13 @@
                     <div class="card-header" th:text="${categorie.nome}"></div>
                     <div class="card-body">
                         <div>
-                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item" th:each="listaQuestionari :${categorie.questionari}">
-                                    <span th:text="${listaQuestionari.titolo}"></span>
-                                    <button type="submit"  name="id_quest" th:value="${listaQuestionari.idQst}" class="btn float-end">...</button>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item" th:each="quest :${categorie.questionari}">
+                                    <span th:if="${quest.attivo}" class="badge badge-attivo">Attivo</span>
+                                    <span th:if="!${quest.attivo}" class="badge badge-disattivo">Non Attivo</span>
+                                    <span th:text="${quest.titolo}"></span>
+                                    <button type="submit" name="id_quest" th:value="${quest.idQst}"
+                                        class="btn float-end">...</button>
                                 </li>
                             </ul>
                         </div>
@@ -36,10 +41,11 @@
                 </div>
             </div>
         </div>
-</form>
+    </form>
 
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
 </body>
+
 </html>

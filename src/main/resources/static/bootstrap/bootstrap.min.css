@@ -5516,6 +5516,16 @@ fieldset:disabled .btn {
     border-radius: var(--bs-badge-border-radius)
 }
 
+.badge-attivo {
+    color: white;
+    background-color: green;
+}
+
+.badge-disattivo {
+    color: white;
+    background-color: red;
+}
+
 .badge:empty {
     display: none
 }
