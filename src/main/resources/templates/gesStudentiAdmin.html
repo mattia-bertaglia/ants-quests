@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studenti</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <!--  <link rel="stylesheet" href="/css/gestStudentiAdmin.css"> -->
     <link rel="stylesheet" href="/css/root.css">
 
 
@@ -17,8 +16,8 @@
     <nav class="navbar">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <!--    <img src="/img/antlogo.png" width="90%"> -->
-                <div class="logo"></div> <!-- Elemento per il logo -->
+
+                <div class="logo"></div>
                 <hr>
             </li>
 
@@ -156,9 +155,11 @@
 
                         <!-- Inizio pagine dinamiche   -->
                         <div class="text-center">
-                            <button onclick="prevPage()" class="btn btn-secondary" id="btn_prev">Precedente</button>
+                            <button onclick="prevPage()" class="btn btn-secondary-page"
+                                id="btn_prev">Precedente</button>
                             <span>Pagina <span id="page"></span> di <span id="totalPages"></span></span>
-                            <button onclick="nextPage()" class="btn btn-secondary" id="btn_next">Successivo</button>
+                            <button onclick="nextPage()" class="btn btn-secondary-page"
+                                id="btn_next">Successivo</button>
                         </div>
                         <!-- fine pagine dinamiche   -->
 
