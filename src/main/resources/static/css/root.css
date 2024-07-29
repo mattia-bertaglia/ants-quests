@@ -236,9 +236,32 @@ nav {
 
 
 .main-content {
-    margin-left: 200px;
-    padding: 20px;
+    margin-left: 220px;
+    padding: 1rem;
 
+}
+
+.btn-custom {
+    background-color: var(--button-color);
+    border-color: var(--button-color);
+    color: var(--background-color);
+}
+
+.btn-custom:hover {
+    background-color: var(--button-hover-color);
+    border-color: var(--button-hover-color);
+}
+
+.btn.float-end {
+    background-color: var(--button-color);
+    border-color: var(--button-color);
+    color: var(--background-color);
+    transition: background-color 0.3s ease;
+}
+
+.btn.float-end:hover {
+    background-color: var(--button-hover-color);
+    border-color: var(--button-hover-color);
 }
 
 
