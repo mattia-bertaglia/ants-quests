@@ -66,6 +66,10 @@ body {
     background-color: var(--button-hover-color);
 }
 
+.bth-pdf{
+    background-color: #8a507b;
+}
+
 .table {
     width: 100%;
     margin-bottom: 1rem;

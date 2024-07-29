@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esiti</title>
-    <link rel="stylesheet" href="/css/esitiQuestionar.css">
+    <!-- <link rel="stylesheet" href="/css/esitiQuestionar.css"> -->
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
@@ -17,6 +17,10 @@
 
     <nav class="navbar">
         <ul class="navbar__menu">
+            <li class="navbar__item">
+                <img src="/img/antlogo.png" width="90%">
+                <hr>
+            </li>
             <li class="navbar__item">
                 <a href="/homeAdmin" class="navbar__link" id="home-link">Home</a>
             </li>
@@ -33,7 +37,8 @@
                 <a href="/quest/esiti" class="navbar__link" id="esiti-link">Esiti</a>
             </li>
             <li class="navbar__item">
-                <a id="logout-btn" href="/auth/logout">Log Out</a>
+                <hr>
+                <a href="/auth/logout" class="navbar__link navbar__link--bold">Log Out</a>
             </li>
         </ul>
     </nav>
@@ -144,7 +149,7 @@
                                         <td th:text="|${questionari.studente.nome} ${questionari.studente.cognome}|">
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-primary view-pdf-btn" data-toggle="modal"
+                                            <button class="btn btn-success view-pdf-btn" data-toggle="modal"
                                                 data-target="#pdfModal"
                                                 th:data-pdf-url="|/pdf/open?pathFile=${questionari.pathPdf}|">PDF</button>
                                     </tr>
