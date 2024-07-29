@@ -75,13 +75,17 @@ nav {
     height: 100vh;
     width: 200px;
     background: var(--navbar-bg-color);
+    align-items: center;
+    /* Allinea orizzontalmente gli elementi */
+    padding: 0;
+    margin: 0;
 }
 
 .navbar__menu,
 .nav ul {
-    /* align-items: center; */
+    align-items: center;
     justify-content: space-between;
-    list-style-type: none;
+    list-style: none;
     padding: 0;
     margin: 0;
     height: 100vh;
@@ -107,6 +111,16 @@ nav {
     width: 100%;
     text-align: center;
     margin: 10px 0;
+}
+
+.navbar__menu hr {
+    width: 100%;
+    /* Imposta la larghezza dell'hr al 100% del contenitore */
+    border: 0;
+    border-top: 1px solid;
+    /* Colore e stile del bordo orizzontale */
+    margin: 20px 0;
+    /* Spazio superiore e inferiore per l'hr */
 }
 
 .navbar__link {
@@ -449,15 +463,28 @@ table tbody tr:nth-child(odd) {
 }
 
 .logo {
-    /* display: block;
-    margin: 0px auto 30px auto;
-    width: 180px; */
+    width: 85%;
+    height: 150px;
+    max-width: 550px;
+    background-image: url('/img/antlogo.png');
+    /* Imposta l'immagine di sfondo */
+    background-size: contain;
+    /* Ridimensiona l'immagine per adattarla all'elemento */
+    background-repeat: no-repeat;
+    /* Evita che l'immagine si ripeta */
+    background-position: center;
+    /* Centra l'immagine all'interno dell'elemento */
+    /*  margin-bottom: 20px; */
+    margin: 0 auto;
+}
 
-    width: 100%;
-    height: auto;
-    max-width: 200px;
-    /* Imposta una larghezza massima per il logo */
-    margin-bottom: 20px;
+@media (max-width: 768px) {
+    .logo {
+        height: 80px;
+        /* Riduce l'altezza su dispositivi più piccoli */
+        max-width: 150px;
+        /* Riduce la larghezza massima su dispositivi più piccoli */
+    }
 }
 
 .registration-title {
