@@ -132,7 +132,18 @@ public class HomeStudentiService {
         EsitoQuest esitoFinale = new EsitoQuest();
         esitoFinale.setDataEsecuzione(Timestamp.valueOf(LocalDateTime.now()));
         esitoFinale.setPunteggio(contRisposteCorrette + "/" + quest.get().getDomanda().size());
-        esitoFinale.setTempo(params.get("tempo-quest"));
+
+        long milliseconds = Long.parseLong(params.get("tempo-quest"));
+
+        // Converti i millisecondi in minuti e secondi
+        long totalSeconds = milliseconds / 1000;
+        long minutes = totalSeconds / 60;
+        long seconds = totalSeconds % 60;
+
+        // Format the output string
+        String formattedTime = String.format("%02d min %02d sec", minutes, seconds);
+
+        esitoFinale.setTempo(formattedTime);
 
         esitoFinale.setQuest(quest.get());
         esitoFinale.setCategoriaQuest(quest.get().getCategoriequest().getNome());

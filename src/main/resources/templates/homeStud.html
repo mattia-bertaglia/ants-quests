@@ -21,8 +21,11 @@
                 <div class="logo"></div>
                 <hr>
             </li>
-            <li>
-                <button class="prof-btn"><a class="prof-link" href="/homeStud/profilo">Profilo</a></button>
+            <li class="navbar__item">
+                <a href="/homeStud/" class="navbar__link">Home</a>
+            </li>
+            <li class="navbar__item">
+                <a class="navbar__link" href="/homeStud/profilo">Profilo</a>
             </li>
             <li class="navbar__item">
                 <hr>
@@ -54,13 +57,12 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 col-sm-12">
-                                        <input class="btn btn-primary w-100" type="submit"
-                                            value="Inizia il questionario">
+                                        <input class="btn-quest w-100" type="submit" value="Inizia il questionario">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                </div>
                 </form>
             </div>
         </div>
@@ -92,7 +94,7 @@
                                         <td th:text="${record.tempo}"></td>
                                         <td th:text="${record.dataEsecuzione}"></td>
                                         <td>
-                                            <button class="btn btn-primary view-pdf-btn" data-toggle="modal"
+                                            <button class="btn-quest view-pdf-btn" data-toggle="modal"
                                                 data-target="#pdfModal"
                                                 th:data-pdf-url="|/pdf/open?pathFile=${record.pathPdf}|">PDF</button>
                                         </td>
