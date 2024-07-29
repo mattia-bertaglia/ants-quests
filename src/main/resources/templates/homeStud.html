@@ -13,16 +13,23 @@
 </head>
 
 <body>
-    <navbar class="navbar navbar-expand">
-        <div class="container">
-            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
+    <nav class="navbar">
+
+        <ul class="navbar__menu">
+            <li class="navbar__item">
+
+                <div class="logo"></div>
+                <hr>
+            </li>
+            <li>
                 <button class="prof-btn"><a class="prof-link" href="/homeStud/profilo">Profilo</a></button>
-            </div>
-            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
-                <a href="/auth/logout" id="logout-btn">Logout</a>
-            </div>
-        </div>
-    </navbar>
+            </li>
+            <li class="navbar__item">
+                <hr>
+                <a href="/auth/logout" class="navbar__link navbar__link--bold">Log Out</a>
+            </li>
+        </ul>
+    </nav>
     <div class="main-content">
         <div class="container">
             <div class="card-body form-group d-flex flex-column align-items-center my-4">
