@@ -2,7 +2,6 @@ $(document).ready(function () {
 
     // Memorizza ora apertura pagina
     const startTime = Date.now();
-    let elapsedSeconds;
 
     let seconds = 0;
     let minutes = 0;
@@ -22,8 +21,6 @@ $(document).ready(function () {
     }
 
     let interval = setInterval(updateChronometer, 1000);
-
-
 
     $('button[data-target]').on('click', function () {
         var targetIndex = $(this).data('target');
@@ -45,8 +42,6 @@ $(document).ready(function () {
     });
 
     $('#testForm').on('submit', function (event) {
-
-
 
         let countDom = $(this).data('count-dom') + 2;
         const formValues = $(this).serializeArray();
@@ -82,12 +77,10 @@ $(document).ready(function () {
         }
 
         // Calcola il tempo trascorso in millisecondi
-        var elapsedTime = Date.now() - startTime;
-        // Converti in secondi
-        elapsedSeconds = elapsedTime / 1000;
         clearInterval(interval);
+        var elapsedTime = Date.now() - startTime;
+        $('#tempo-quest').val(elapsedTime);
 
-        $('#tempo-quest').val(elapsedSeconds);
         bootbox.dialog({
             title: '<strong class="text-center">Congratulazioni !!</strong>',
             message: '<img src="/img/loading.gif" alt="Loading..." />' +
