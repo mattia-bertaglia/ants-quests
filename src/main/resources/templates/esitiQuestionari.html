@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esiti</title>
-    <!-- <link rel="stylesheet" href="/css/esitiQuestionar.css"> -->
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
@@ -18,7 +17,8 @@
     <nav class="navbar">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <img src="/img/antlogo.png" width="90%">
+
+                <div class="logo"></div>
                 <hr>
             </li>
             <li class="navbar__item">
@@ -158,7 +158,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            
+
                             <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog"
                                 aria-labelledby="pdfModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-xl"
@@ -196,6 +196,8 @@
         <script src="/bootstrap/popper.min.js"></script>
         <script src="/bootstrap/bootstrap.min.js"></script>
         <script src="/js/pagDinamiche-filtriRicerca.js"></script> <!--Link al file esitiScript.js -->
+
+        <script src="/js/admin.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', (event) => {
                 document.querySelectorAll('.view-pdf-btn').forEach(button => {
