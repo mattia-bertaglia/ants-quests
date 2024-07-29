@@ -2,6 +2,7 @@ class Quest {
     constructor() {
         this.idQst = "";
         this.titolo = "";
+        this.attivo = false;
         this.categoria = { idCat: "", nome: "" }; // Oggetto per categoria
         this.domanda = []; // ci andranno dentro degli oggetti di tipo Domanda
     }

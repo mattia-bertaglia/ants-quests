@@ -78,6 +78,7 @@ public class GestQuestService {
             categoria.setIdCat(params.get("type"));
             questionario.setCategoriequest(categoria);
             questionario.setTitolo(params.get("titolo"));
+            questionario.setAttivo(true);
             qstSrv.save(questionario);
             id_domanda = "" + questionario.getIdQst();
         } else {
@@ -102,20 +103,19 @@ public class GestQuestService {
 
             modificaRisposte = true;
 
-
-            if(oggetto.getDomanda().get(i).getIdQstDet() != null){
-                if(oggetto.getDomanda().get(i).getDomanda() != null){
+            if (oggetto.getDomanda().get(i).getIdQstDet() != null) {
+                if (oggetto.getDomanda().get(i).getDomanda() != null) {
                     domanda = domSrv.findByID(oggetto.getDomanda().get(i).getIdQstDet()).get();
                     domanda.setDomanda(oggetto.getDomanda().get(i).getDomanda());
                     domSrv.save(domanda); // da cambiare con update
                     esito = esito && true;
-                }else{
+                } else {
                     domSrv.delete(oggetto.getDomanda().get(i).getIdQstDet());
                     esito = esito && true;
                     modificaRisposte = false;
                 }
 
-            }else{
+            } else {
                 domanda = new DomandaQuest();
                 Quest id_quest = new Quest();
                 domanda.setDomanda(oggetto.getDomanda().get(i).getDomanda());
@@ -129,19 +129,19 @@ public class GestQuestService {
                 RispostaQuest risposta;
 
                 for (int y = 0; y < oggetto.getDomanda().get(i).getRisp().size(); y++) {
-                    if(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null){
-                        if(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta()!= null){
+                    if (oggetto.getDomanda().get(i).getRisp().get(y).getIdAns() != null) {
+                        if (oggetto.getDomanda().get(i).getRisp().get(y).getRisposta() != null) {
                             risposta = risSrv
-                            .findByID(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns()).get();
+                                    .findByID(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns()).get();
                             risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
                             risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
                             risSrv.save(risposta); // cambiare con update
-                        }else{
+                        } else {
                             risSrv.delete(oggetto.getDomanda().get(i).getRisp().get(y).getIdAns());
                             esito = esito && true;
                         }
 
-                    }else{
+                    } else {
                         risposta = new RispostaQuest();
                         risposta.setRisposta(oggetto.getDomanda().get(i).getRisp().get(y).getRisposta());
                         risposta.setCorretta(oggetto.getDomanda().get(i).getRisp().get(y).getCorretta());
@@ -160,5 +160,9 @@ public class GestQuestService {
             return "";
         }
 
+    }
+
+    public void attivaDisattivaQuest(Long idQuest) {
+        qstSrv.attivaDisattivaQuest(idQuest);
     }
 }
