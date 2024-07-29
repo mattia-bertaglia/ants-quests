@@ -18,6 +18,7 @@
     --logout-button-color: #123d12;
     --font-size-menu: 18px;
     --accent-color: #198754;
+    --table-header: #8db986;
 
 
     --verde-primario: #8db986;
@@ -341,6 +342,16 @@ table tbody tr:nth-child(odd) {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+/* aggiungi nuovo studente */
+.table-title .btn-secondary {
+    background-color: #373737;
+    color: #fff;
+}
+
+.table-title .btn-secondary:hover {
+    background-color: #acce91;
 }
 
 .foot-lnk {
@@ -745,14 +756,14 @@ nav ul li {
 }
 
 .card-header {
-    background-color: var(--background-color);
+    background-color: var(table-header);
     border-bottom: 1px solid var(--table-divider-color);
     font-size: 1.5em;
     margin: 0;
 }
 
 .card-header h2 {
-    color: var(--text-color);
+    color: var(table-header);
 }
 
 .card-body {

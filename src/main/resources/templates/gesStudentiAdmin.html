@@ -79,11 +79,10 @@
                                         <label for="corso">Corso</label>
                                         <select name="corso" class="custom-select" id="corso"
                                             aria-label="Seleziona un corso">
-                                            <option disabled selected>- Seleziona un elemento -</option>
-                                            <option value="Nessuno">-Nessuno-</option>
-                                            <option value="Gol Aprile 2024">Gol Aprile 2024</option>
-                                            <option value="Gol Ottobre 2023">Gol Ottobre 2023</option>
-                                            <option value="Fondo Impresa 2023">Fondo Impresa 2023</option>
+                                            <option value="" disabled selected>- Seleziona un corso -</option>
+                                            <option th:each="corso : ${corsi}" th:value="${corso.idCorso}"
+                                                th:text="${corso.nome}">
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
