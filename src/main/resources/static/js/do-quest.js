@@ -2,6 +2,28 @@ $(document).ready(function () {
 
     // Memorizza ora apertura pagina
     const startTime = Date.now();
+    let elapsedSeconds;
+
+    let seconds = 0;
+    let minutes = 0;
+    const chronometerDisplay = $("#chronometer");
+
+    function updateChronometer() {
+        seconds++;
+        if (seconds >= 60) {
+            seconds = 0;
+            minutes++;
+        }
+
+        chronometerDisplay.text(
+            (minutes < 10 ? "0" + minutes : minutes) + ":" +
+            (seconds < 10 ? "0" + seconds : seconds)
+        );
+    }
+
+    let interval = setInterval(updateChronometer, 1000);
+
+
 
     $('button[data-target]').on('click', function () {
         var targetIndex = $(this).data('target');
@@ -15,7 +37,16 @@ $(document).ready(function () {
         $('#btn-' + activeIndex).addClass('active');
     });
 
+    $("#concludi-test").on("click", function () {
+
+
+
+
+    });
+
     $('#testForm').on('submit', function (event) {
+
+
 
         let countDom = $(this).data('count-dom') + 2;
         const formValues = $(this).serializeArray();
@@ -52,11 +83,20 @@ $(document).ready(function () {
 
         // Calcola il tempo trascorso in millisecondi
         var elapsedTime = Date.now() - startTime;
-
         // Converti in secondi
-        var elapsedSeconds = elapsedTime / 1000;
+        elapsedSeconds = elapsedTime / 1000;
+        clearInterval(interval);
 
         $('#tempo-quest').val(elapsedSeconds);
+        bootbox.dialog({
+            title: '<strong class="text-center">Congratulazioni !!</strong>',
+            message: '<img src="/img/loading.gif" alt="Loading..." />' +
+                '<br><h4><strong>Test Concluso, attendi per i risultati.</strong></h4>',
+            centerVertical: true,
+            className: 'tada animated text-center',
+        });
+
+
     });
 
     $('#testForm').on('reset', function () {
