@@ -40,7 +40,7 @@ create table antsquests.quests (
 create table antsquests.quests_details (
     id_qst_det bigint primary key auto_increment,
     quest_id bigint not null,
-    domanda varchar(50) not null,
+    domanda varchar(100) not null,
     foreign key (quest_id) references antsquests.quests (id_qst)
 );
 
