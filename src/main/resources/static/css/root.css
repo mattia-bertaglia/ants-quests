@@ -1,7 +1,6 @@
 @import url(animate.min.css);
 /* verificare se animate.min.css modifica qualcosa */
 
-/* Define color variables */
 :root {
     --navbar-bg-color: #8db986;
     --navbar-text-color: black;
@@ -25,7 +24,6 @@
 
 }
 
-/* Global Styles */
 body {
     background: linear-gradient(rgba(198, 198, 198, 0.2), #414f37), url('/img/smartphone-laptop-near-notebook-wooden-desk.jpg');
     background-size: cover;
@@ -52,8 +50,6 @@ a:hover {
 }
 
 
-
-/* Navbar styles */
 .navbar,
 nav {
     position: fixed;
@@ -161,28 +157,63 @@ nav {
     opacity: 10;
 }
 
-/* .btn-close {
+.btn-close {
 
     background-color: transparent;
-    /* Sfondo trasparente */
-border: none;
-/* Nessun bordo */
-color: black;
-/* Colore del testo nero */
-padding: 10px 20px;
-/* Spaziatura interna */
-cursor: pointer;
-/* Indicatore del cursore */
-border-radius: 5px;
-/* Bordo arrotondato */
-transition: background-color 0.3s ease;
-/* Transizione del colore di sfondo */
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 
 }
 
-*/
 
-/* Logout button */
+.prof-link {
+    color: white;
+}
+
+.prof-link:hover {
+    color: white;
+}
+
+.prof-btn {
+    background-color: #123d12;
+}
+
+.prof-btn:hover {
+    background-color: #373737;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex: 1;
+    padding-right: 40px;
+
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 0 0 15px;
+}
+
+.toggle-password i {
+    font-size: 18px;
+    color: #333;
+    line-height: 1;
+}
+
+
 #logout-btn {
     background-color: var(--logout-button-color);
     color: var(--background-color);
@@ -200,19 +231,17 @@ transition: background-color 0.3s ease;
 
 .navbar__link--bold {
     font-weight: bold;
-    /* Rende il testo in grassetto */
+
 }
 
 
-/* Main Content */
 .main-content {
     margin-left: 200px;
     padding: 20px;
-    /* Distanza tra navbar e contenuto della pagina */
+
 }
 
 
-/* Buttons */
 button {
     background-color: var(--button-color);
     border: none;
@@ -232,11 +261,8 @@ button:hover {
     text-align: right;
     margin-left: auto;
     margin-right: 20px;
-    /* Aggiunge spazio a destra del contenitore del pulsante */
-    /* Oppure usa padding-right per regolare ulteriormente */
     padding-right: 65px;
 
-    /* Posiziona il pulsante rispetto al contenitore */
 
 
 }
@@ -246,12 +272,10 @@ button:hover {
 
 .material-icon {
     margin-right: 10px;
-    /* Aumenta lo spazio tra l'icona e il testo */
     margin-left: -10px;
-    /* Sposta l'icona più a sinistra */
+
 }
 
-/* Form */
 input::placeholder {
     color: #aaa;
     font-size: 15px;
@@ -286,7 +310,6 @@ input::placeholder {
 
     width: 100%;
     border: 1px solid;
-    /* Modifica il colore del bordo se necessario */
     margin: 10px 0
 }
 
@@ -343,7 +366,7 @@ table tbody tr:nth-child(odd) {
     justify-content: space-between;
 }
 
-/* aggiungi nuovo studente */
+/* aggiungi nuovo studente/corso span */
 .table-title .btn-secondary {
     background-color: #373737;
     color: #fff;
@@ -359,9 +382,8 @@ table tbody tr:nth-child(odd) {
     text-align: center;
 }
 
-/* index.html - NON TOCCARE */
+/* index.html */
 
-/* Stile Globale */
 .clearfix:after,
 .clearfix:before {
     content: "";
@@ -373,12 +395,10 @@ table tbody tr:nth-child(odd) {
     display: block;
 }
 
-/* Login Wrap */
 .login-wrap {
     width: 50%;
     margin: 100px auto;
     min-height: 850px;
-    /* Aumentato per dare più altezza */
     border-radius: 4%;
     position: relative;
     box-shadow: 0 12px 15px rgba(0, 0, 0, 0.375), 0 17px 50px rgba(0, 0, 0, 0.452);
@@ -387,28 +407,21 @@ table tbody tr:nth-child(odd) {
 .login-wrap-ft {
     width: 100%;
     margin: auto;
-    /*  max-width: 525px; */
     min-height: 1200px;
     border-radius: 25px;
     position: relative;
     background: var(--background-color);
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
-
-
     max-width: 800px;
-    /* Aumenta la larghezza massima per rendere il div più largo */
-
     margin: auto;
-    /* Centra il div orizzontalmente nel suo contenitore */
+
 }
 
 .body-log-sign {
     padding: 50px 0;
-    /* Spazio sopra e sotto il box di login */
+
 }
 
-
-/* Login HTML */
 .login-html {
     width: 100%;
     height: 100%;
@@ -481,7 +494,7 @@ table tbody tr:nth-child(odd) {
     margin-bottom: 15px;
 }
 
-/* Stili per le etichette, input e bottoni */
+
 .login-form .group .label,
 .login-form .group .input,
 .login-form .group .button {
@@ -499,12 +512,12 @@ table tbody tr:nth-child(odd) {
     background: #f9f8f7;
 }
 
-/* Stili per il bottone */
+
 .login-form .group .button {
     background: #acce91;
 }
 
-/* Colore di hover per il bottone */
+
 .login-form .group .button:hover {
     background: #8db986;
 }
@@ -514,18 +527,12 @@ table tbody tr:nth-child(odd) {
     height: 150px;
     max-width: 550px;
     background-image: url('/img/antlogo.png');
-    /* Imposta l'immagine di sfondo */
     background-size: contain;
-    /* Ridimensiona l'immagine per adattarla all'elemento */
     background-repeat: no-repeat;
-    /* Evita che l'immagine si ripeta */
     background-position: center;
-    /* Centra l'immagine all'interno dell'elemento */
-    /*  margin-bottom: 20px; */
     margin: 0 auto;
 }
 
-/* Logo Sign Styles */
 .logo-log-sign {
     text-align: center;
     margin-bottom: 30px;
@@ -548,9 +555,8 @@ table tbody tr:nth-child(odd) {
 @media (max-width: 768px) {
     .logo {
         height: 80px;
-        /* Riduce l'altezza su dispositivi più piccoli */
         max-width: 150px;
-        /* Riduce la larghezza massima su dispositivi più piccoli */
+
     }
 }
 
@@ -559,12 +565,11 @@ table tbody tr:nth-child(odd) {
     font-weight: bold;
     font-size: 24px;
     color: #373737;
-    /* Colore del testo, puoi cambiarlo come preferisci */
     margin-bottom: 30px;
-    /* Spazio sotto il titolo */
+
 }
 
-/* Stili per il contenitore della password e il pulsante per mostrare/nascondere la password */
+
 .password-container {
     position: relative;
     display: flex;
@@ -574,7 +579,7 @@ table tbody tr:nth-child(odd) {
 .password-container input {
     flex: 1;
     padding-right: 40px;
-    /* Spazio per l'icona */
+
 }
 
 .toggle-password {
@@ -590,7 +595,7 @@ table tbody tr:nth-child(odd) {
     color: #333;
 }
 
-/* Specifico per i campi di input e pulsanti */
+
 form input,
 form select {
     width: 100%;
@@ -600,13 +605,11 @@ form select {
     border-radius: 5px;
 }
 
-/* Stile per il contenitore dei campi elementi su una riga */
 .row-group {
     display: flex;
     gap: 15px;
-    /* Spazio tra elementi su una riga */
     flex-wrap: wrap;
-    /* Permette ai campi di andare a capo se necessario */
+
 }
 
 .group {
@@ -627,12 +630,7 @@ form select {
 
 /* fine index.html */
 
-/* profiloStud.html NON TOCCARE */
-/* .container {
-    margin: auto;
-    width: 1000px;
-} */
-
+/* profiloStud.html */
 
 nav ul li {
     margin: 0 15px;
@@ -662,9 +660,15 @@ nav ul li {
     border: 1px solid #ddd;
 }
 
-/* .hidden {
-    display: none;
-} */
+.btn-quest {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    border-radius: 25px;
+}
+
+.btn-quest:hover {
+    background-color: var(--button-hover-color);
+}
 
 .error,
 .correct {
@@ -676,25 +680,12 @@ nav ul li {
     color: green;
 }
 
-/* .btn-group {
-    display: flex;
-    justify-content: flex-end;
-} */
-
-/* .btn-group button {
-    margin-left: 10px;
-} */
 
 .row {
     display: flex;
     flex-wrap: wrap;
 }
 
-/* 
-.col-md-6,
-.col-md-12 {
-    padding: 10px;
-} */
 
 .col-md-6 {
     width: 50%;
@@ -713,7 +704,7 @@ nav ul li {
 
 /* fine profiloStud.html */
 
-/* doQuest.html inizio - NON TOCCARE */
+/* doQuest.html inizio  */
 .navbar2 {
     display: flex;
     justify-content: flex-end;
@@ -742,7 +733,7 @@ nav ul li {
 }
 
 .card {
-    /*  margin-top: 20px; */
+
     border: 1px solid var(--table-divider-color);
     border-radius: 5px;
     padding: 20px;
@@ -833,4 +824,4 @@ nav ul li {
     color: #fff;
 }
 
-/* fine doQuest.html  - NON TOCCARE */
+/* fine doQuest.html */
