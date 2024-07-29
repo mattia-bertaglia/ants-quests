@@ -17,6 +17,11 @@
     <nav class="navbar">
         <ul class="navbar__menu">
             <li class="navbar__item">
+                <img src="/img/antlogo.png" width="90%">
+                <hr>
+            </li>
+
+            <li class="navbar__item">
                 <a href="/homeAdmin/" class="navbar__link" id="home-link">Home</a>
             </li>
             <li class="navbar__item">
@@ -31,8 +36,10 @@
             <li class="navbar__item">
                 <a href="/quest/esiti" class="navbar__link" id="esiti-link">Esiti</a>
             </li>
+
             <li class="navbar__item">
-                <a id="logout-btn" href="/auth/logout">Log Out</a>
+                <hr>
+                <a href="/auth/logout" class="navbar__link navbar__link--bold">Log Out</a>
             </li>
         </ul>
     </nav>
@@ -57,7 +64,7 @@
 
 
                                     <div class="col-md-6">
-                                        <br>
+
                                         <label for="ruolo">Ruolo</label>
                                         <select name="ruolo" class="custom-select" id="ruolo"
                                             aria-label="Seleziona il ruolo">
@@ -67,7 +74,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <br>
+
                                         <label for="corso">Corso</label>
                                         <select name="corso" class="custom-select" id="corso"
                                             aria-label="Seleziona un corso">
@@ -95,12 +102,12 @@
                 <div class="card">
                     <div class="table-title">
                         <div class="row">
-                            <div>
-                                <h2 class="card-header">Elenco Studenti</h2>
-                                <br>
+                            <div class="col-8">
+                                <h2>Elenco Studenti</h2>
+                                <!-- <br> -->
                             </div>
                             <!-- Pulsante per attivare il modale aggiungi Studente-->
-                            <div>
+                            <div class="col-4 text-end btn-container">
                                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                     data-bs-target="#addStudentModal">
                                     <i class="material-icon">&#xE147;</i>
@@ -109,7 +116,7 @@
                             <!-- fine Pulsante per attivare il modale aggiungi Studente-->
                         </div>
                     </div>
-                    <br><br>
+
 
                     <div class="card-body">
                         <table id="myTable" class="table" style="width: 100%;" data-bs-toggle="table"

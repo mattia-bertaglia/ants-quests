@@ -7,9 +7,6 @@
     --navbar-text-color: black;
     --navbar-hover-bg-color: #373737;
     --navbar-hover-text-color: white;
-
-
-
     --background-color: #f9f8f7;
     --text-color: #373737;
     --table-divider-color: #e2e2e1;
@@ -71,7 +68,7 @@ nav {
     padding: 1rem 0.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     top: 0;
     left: 0;
     /*  border-radius: 0 10px 10px 0; */
@@ -82,21 +79,38 @@ nav {
 
 .navbar__menu,
 .nav ul {
-    list-style: none;
+    /* align-items: center; */
+    justify-content: space-between;
+    list-style-type: none;
     padding: 0;
     margin: 0;
+    height: 100vh;
+
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    /* width: 70%; */
+    width: 100%;
+}
+
+.navbar__menu li:first-child {
+    margin-bottom: auto;
+    /* Spinge i link verso il centro */
+}
+
+.navbar__menu li:last-child {
+    margin-top: auto;
+    /* Spinge il link "Log Out" verso il basso */
 }
 
 .navbar__item {
     position: relative;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
 }
 
 .navbar__link {
-    display: flex;
+    /*  display: flex; */
     align-items: center;
     justify-content: center;
     height: 3.5rem;
@@ -106,7 +120,13 @@ nav {
     transition: background-color 250ms ease, color 250ms ease;
     background: var(--navbar-bg-color);
     margin-bottom: 0.2rem;
+    font-size: 1.2em;
     /*  border-radius: 10px; */
+
+    display: block;
+    padding: 10px 0;
+
+
 
 }
 
@@ -150,6 +170,7 @@ nav {
     opacity: 10;
 }
 
+
 /* Logout button */
 #logout-btn {
     background-color: var(--logout-button-color);
@@ -166,11 +187,17 @@ nav {
     background-color: var(--logout-hover-color);
 }
 
+.navbar__link--bold {
+    font-weight: bold;
+    /* Rende il testo in grassetto */
+}
+
 
 /* Main Content */
 .main-content {
     margin-left: 200px;
-    padding: 2rem;
+    /* padding: 2rem; */
+    padding: 20px;
     /* Distanza tra navbar e contenuto della pagina */
 }
 
@@ -195,6 +222,30 @@ button:hover {
     transition: background-color 0.3s ease; */
 }
 
+.btn-container {
+    text-align: right;
+    margin-left: auto;
+    margin-right: 20px;
+    /* Aggiunge spazio a destra del contenitore del pulsante */
+    /* Oppure usa padding-right per regolare ulteriormente */
+    padding-right: 85px;
+    /*  position: absolute; */
+    /* Posiziona il pulsante rispetto al contenitore */
+    /* top: 20px; */
+    /* Sposta il pulsante verso l'alto; regola il valore come necessario */
+
+}
+
+
+
+
+.material-icon {
+    margin-right: 5px;
+    /* Riduce il margine destro */
+    margin-left: -10px;
+    /* Aggiunge un margine sinistro negativo per spostare l'icona più a sinistra */
+}
+
 /* Form */
 input::placeholder {
     color: #aaa;
@@ -205,8 +256,17 @@ input::placeholder {
 /* Hr */
 .hr {
     height: 2px;
-    margin: 60px 0 50px 0;
+    /* margin: 60px 0 50px 0; */
     background-color: var(--text-color);
+
+    width: 100%;
+    border: 1px solid;
+    /* Modifica il colore del bordo se necessario */
+    margin: 10px 0
+}
+
+.custom-margin {
+    margin: 5px 0;
 }
 
 /* Table */
@@ -240,7 +300,21 @@ table tbody tr:nth-child(odd) {
     background-color: var(--background-color);
 }
 
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 auto;
+}
 
+.table-title {
+    margin-bottom: 15px;
+}
+
+.table-title .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
 .foot-lnk {
     background-color: transparent;
@@ -375,9 +449,15 @@ table tbody tr:nth-child(odd) {
 }
 
 .logo {
-    display: block;
+    /* display: block;
     margin: 0px auto 30px auto;
-    width: 180px;
+    width: 180px; */
+
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    /* Imposta una larghezza massima per il logo */
+    margin-bottom: 20px;
 }
 
 .registration-title {
@@ -568,13 +648,19 @@ nav ul li {
 }
 
 .card {
-    margin-top: 20px;
+    /*  margin-top: 20px; */
     border: 1px solid var(--table-divider-color);
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
     background-color: var(--background-color);
     border-bottom: 1px solid var(--table-divider-color);
+    font-size: 1.5em;
+    margin: 0;
 }
 
 .card-header h2 {
