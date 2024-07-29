@@ -126,9 +126,8 @@ public class HomeStudentiService {
         log.info("Start Elaborazione Questionario, Studente=" + user.getUsernameEmail());
         Optional<Quest> quest = questSrv.findByID(Long.parseLong(params.get("id-quest")));
 
-        int contRisposteCorrette = 0;
         HashMap<Long, Boolean> mapRisposteDate = new HashMap<Long, Boolean>();
-        checkRisposte(contRisposteCorrette, mapRisposteDate, params);
+        int contRisposteCorrette = checkRisposte(mapRisposteDate, params);
 
         EsitoQuest esitoFinale = new EsitoQuest();
         esitoFinale.setDataEsecuzione(Timestamp.valueOf(LocalDateTime.now()));
@@ -169,9 +168,10 @@ public class HomeStudentiService {
      *                              <idRisposta, true/false>
      * @param params
      */
-    private final void checkRisposte(int contRisposteCorrette, HashMap<Long, Boolean> mapRisposteDate,
+    private final int checkRisposte(HashMap<Long, Boolean> mapRisposteDate,
             HashMap<String, String> params) {
         log.info("Controllo Risposte Date");
+        int contRisposteCorrette = 0;
         boolean isPresent;
         for (HashMap.Entry<String, String> entry : params.entrySet()) {
             isPresent = false;
@@ -186,6 +186,7 @@ public class HomeStudentiService {
 
         log.info("Contatore Risposte Corrette: " + contRisposteCorrette);
         log.info("Esito Mappa Risposta Date=" + mapRisposteDate.toString());
+        return contRisposteCorrette;
     }
 
 }
