@@ -8,7 +8,6 @@
     <title>Corsi</title>
     <!-- bootstrap link -->
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <!--  <link rel="stylesheet" href="/css/gestStudentiAdmin.css"> -->
     <link rel="stylesheet" href="/css/root.css">
 </head>
 
@@ -16,7 +15,8 @@
     <nav class="navbar">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <img src="/img/antlogo.png" width="90%">
+
+                <div class="logo"></div>
                 <hr>
             </li>
 
@@ -88,22 +88,22 @@
                 <div class="card">
                     <div class="table-title">
                         <div class="row">
-                            <div>
-                                <h2 class="card-header">Elenco Corsi</h2>
-                                <br>
+                            <div class="col-8">
+                                <h2>Elenco Corsi</h2>
+
                             </div>
 
                             <!-- Pulsante per attivare il modale aggiungi Corso -->
-                            <div>
+                            <div class="col-4 text-end btn-container">
                                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                     data-bs-target="#new-corso">
-                                    <i class="material-icon">&#xE147;</i>
-                                    <span>Aggiungi nuovo corso</span> </button>
+                                    <i class="material-icon"></i>
+                                    <span>Aggiungi nuovo corso</span></button>
                             </div>
                             <!-- fine Pulsante per attivare il modale aggiungi Corso -->
                         </div>
                     </div>
-                    <br><br>
+
 
                     <div class="card-body">
                         <table id="myTable" class="table" style="width: 100%;" data-bs-toggle="table"
@@ -140,9 +140,11 @@
 
                         <!-- Inizio pagine dinamiche   -->
                         <div class="text-center">
-                            <button onclick="prevPage()" class="btn btn-secondary" id="btn_prev">Precedente</button>
+                            <button onclick="prevPage()" class="btn btn-secondary-page"
+                                id="btn_prev">Precedente</button>
                             <span>Pagina <span id="page"></span> di <span id="totalPages"></span></span>
-                            <button onclick="nextPage()" class="btn btn-secondary" id="btn_next">Successivo</button>
+                            <button onclick="nextPage()" class="btn btn-secondary-page"
+                                id="btn_next">Successivo</button>
                         </div>
                         <!-- fine pagine dinamiche   -->
 

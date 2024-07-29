@@ -37,14 +37,6 @@ body {
     color: var(--text-color);
 }
 
-/* background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0; */
-/* index */
-
-
 
 .radio-color {
     accent-color: var(--accent-color);
@@ -65,19 +57,16 @@ a:hover {
 .navbar,
 nav {
     position: fixed;
-    /* color: var(--background-color); */
     padding: 1rem 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     top: 0;
     left: 0;
-    /*  border-radius: 0 10px 10px 0; */
     height: 100vh;
     width: 200px;
     background: var(--navbar-bg-color);
     align-items: center;
-    /* Allinea orizzontalmente gli elementi */
     padding: 0;
     margin: 0;
 }
@@ -90,7 +79,6 @@ nav {
     padding: 0;
     margin: 0;
     height: 100vh;
-
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -99,12 +87,12 @@ nav {
 
 .navbar__menu li:first-child {
     margin-bottom: auto;
-    /* Spinge i link verso il centro */
+
 }
 
 .navbar__menu li:last-child {
     margin-top: auto;
-    /* Spinge il link "Log Out" verso il basso */
+
 }
 
 .navbar__item {
@@ -116,16 +104,12 @@ nav {
 
 .navbar__menu hr {
     width: 100%;
-    /* Imposta la larghezza dell'hr al 100% del contenitore */
     border: 0;
     border-top: 1px solid;
-    /* Colore e stile del bordo orizzontale */
     margin: 20px 0;
-    /* Spazio superiore e inferiore per l'hr */
 }
 
 .navbar__link {
-    /*  display: flex; */
     align-items: center;
     justify-content: center;
     height: 3.5rem;
@@ -136,8 +120,6 @@ nav {
     background: var(--navbar-bg-color);
     margin-bottom: 0.2rem;
     font-size: 1.2em;
-    /*  border-radius: 10px; */
-
     display: block;
     padding: 10px 0;
 
@@ -155,13 +137,7 @@ nav {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     width: 100%;
-    /*  border-radius: 10px; */
 
-
-    /*  
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
- */
 
 }
 
@@ -185,6 +161,26 @@ nav {
     opacity: 10;
 }
 
+/* .btn-close {
+
+    background-color: transparent;
+    /* Sfondo trasparente */
+border: none;
+/* Nessun bordo */
+color: black;
+/* Colore del testo nero */
+padding: 10px 20px;
+/* Spaziatura interna */
+cursor: pointer;
+/* Indicatore del cursore */
+border-radius: 5px;
+/* Bordo arrotondato */
+transition: background-color 0.3s ease;
+/* Transizione del colore di sfondo */
+
+}
+
+*/
 
 /* Logout button */
 #logout-btn {
@@ -211,7 +207,6 @@ nav {
 /* Main Content */
 .main-content {
     margin-left: 200px;
-    /* padding: 2rem; */
     padding: 20px;
     /* Distanza tra navbar e contenuto della pagina */
 }
@@ -224,33 +219,13 @@ button {
     color: var(--text-color);
     padding: 10px 20px;
     cursor: pointer;
-    border-radius: 25px;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
-}
-
-.prof-link {
-    color: white;
-}
-
-.prof-link:hover {
-    color: white;
-}
-
-.prof-btn {
-    background-color: #123d12;
-}
-
-.prof-btn:hover {
-    background-color: #373737;
 }
 
 button:hover {
     background-color: var(--button-hover-color);
-    /* padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; */
+
 }
 
 .btn-container {
@@ -260,10 +235,9 @@ button:hover {
     /* Aggiunge spazio a destra del contenitore del pulsante */
     /* Oppure usa padding-right per regolare ulteriormente */
     padding-right: 65px;
-    /*  position: absolute; */
+
     /* Posiziona il pulsante rispetto al contenitore */
-    /* top: 20px; */
-    /* Sposta il pulsante verso l'alto; regola il valore come necessario */
+
 
 }
 
@@ -286,21 +260,28 @@ input::placeholder {
 
 .btn-secondary span {
     display: inline-flex;
-    /* Utilizza inline-flex per il testo */
     align-items: center;
-    /* Allinea verticalmente il testo */
     justify-content: center;
-    /* Centra il testo orizzontalmente */
     text-align: left;
-    /* Allinea il testo a sinistra all'interno dell'elemento */
     margin: 0;
-    /* Rimuove margini aggiuntivi */
 }
 
-/* Hr */
+.btn-secondary-page {
+
+    background-color: #8db986;
+    color: black;
+
+}
+
+
+.btn-secondary-page:hover {
+    background-color: #588a50;
+    color: black;
+}
+
+
 .hr {
     height: 2px;
-    /* margin: 60px 0 50px 0; */
     background-color: var(--text-color);
 
     width: 100%;
@@ -313,7 +294,6 @@ input::placeholder {
     margin: 5px 0;
 }
 
-/* Table */
 .table {
     width: 100%;
     border-collapse: collapse;
@@ -324,17 +304,20 @@ input::placeholder {
     color: var(--text-color);
 }
 
-table th,
-table td {
+
+.table th {
+    background-color: #acce91;
+    color: #373737;
+}
+
+
+.table th,
+.table td {
     padding: 15px;
-    border-bottom: 1px solid var(--table-divider-color);
+    border-bottom: 1px solid #e2e2e1;
     text-align: left;
 }
 
-table th {
-    background-color: var(--button-color);
-    color: var(--text-color);
-}
 
 table tbody tr:nth-child(even) {
     background-color: var(--table-divider-color);
@@ -367,7 +350,7 @@ table tbody tr:nth-child(odd) {
 }
 
 .table-title .btn-secondary:hover {
-    background-color: #acce91;
+    background-color: #504c4c;
 }
 
 .foot-lnk {
@@ -396,29 +379,27 @@ table tbody tr:nth-child(odd) {
     margin: 100px auto;
     min-height: 850px;
     /* Aumentato per dare più altezza */
-    border-radius: 25px;
+    border-radius: 4%;
     position: relative;
     box-shadow: 0 12px 15px rgba(0, 0, 0, 0.375), 0 17px 50px rgba(0, 0, 0, 0.452);
 }
 
 .login-wrap-ft {
     width: 100%;
-    margin: 50px auto;
-    max-width: 525px;
-    min-height: 700px;
+    margin: auto;
+    /*  max-width: 525px; */
+    min-height: 1200px;
     border-radius: 25px;
     position: relative;
-    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
-        0 17px 50px 0 rgba(0, 0, 0, 0.19);
-}
+    background: var(--background-color);
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
 
-.login-html-ft {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    padding: 30px 70px 50px 70px;
-    background: #c0daad;
-    border-radius: 25px;
+
+    max-width: 800px;
+    /* Aumenta la larghezza massima per rendere il div più largo */
+
+    margin: auto;
+    /* Centra il div orizzontalmente nel suo contenitore */
 }
 
 .body-log-sign {
@@ -431,10 +412,10 @@ table tbody tr:nth-child(odd) {
 .login-html {
     width: 100%;
     height: 100%;
+    border-radius: 4%;
     position: absolute;
     padding: 50px 70px 50px 70px;
     background: #c0daad;
-    border-radius: 25px;
 
 }
 
@@ -602,13 +583,11 @@ table tbody tr:nth-child(odd) {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    padding: 0 0 15px;
 }
 
 .toggle-password i {
     font-size: 18px;
     color: #333;
-    line-height: 1;
 }
 
 /* Specifico per i campi di input e pulsanti */
