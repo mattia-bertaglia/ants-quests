@@ -57,4 +57,11 @@ public class QuestController {
     public String saveTest(@RequestParam HashMap<String, String> params) {
         return gestSrv.saveTest(params);
     }
+
+    @PostMapping("/attivo")
+    public String attivaDisattivaQuest(@RequestParam("idquest") Long idQuest) {
+        gestSrv.attivaDisattivaQuest(idQuest);
+        return "redirect:/quest/lista";
+    }
+
 }

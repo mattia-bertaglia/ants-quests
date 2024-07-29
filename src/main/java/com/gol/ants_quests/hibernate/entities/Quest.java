@@ -31,6 +31,7 @@ public class Quest extends GenericEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idQst;
     private String titolo;
+    private boolean attivo;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)

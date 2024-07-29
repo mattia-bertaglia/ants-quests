@@ -10,56 +10,40 @@
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
     <link rel="stylesheet" href="/css/root.css">
 </head>
-<body>
-    
-    <nav class="navbar">
-        <ul class="navbar__menu">
-            <li class="navbar__item">
-                <a href="/homeAdmin/" class="navbar__link" id="home-link">Home</a>
-            </li>
-            <li class="navbar__item">
-                <a href="/ges_studenti/" class="navbar__link" id="studenti-link">Studenti</a>
-            </li>
-            <li class="navbar__item">
-                <a href="/ges_corsi/" class="navbar__link" id="corsi-link">Corsi</a>
-            </li>
-            <li class="navbar__item">
-                <a href="/quest/lista" class="navbar__link" id="questionari-link">Questionari</a>
-            </li>
-            <li class="navbar__item">
-                <a href="/quest/esiti" class="navbar__link" id="esiti-link">Esiti</a>
-            </li>
-            <li class="navbar__item">
-                <a id="logout-btn" href="/auth/logout">Log Out</a>
-            </li>
-        </ul>
-    </nav>
 
-    <main class="content">
-        <form action="/quest/gestione" method="post">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-6">
-                    <button type="submit" name="id_quest" value="new" class="btn-custom w-100">Nuovo Questionario</button>
-                </div>
+<body>
+
+    <nav></nav>
+
+    <form action="/quest/gestione" method="post">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6">
+                <button type="submit" name="id_quest" value="new" class="btn btn-lg btn-primary w-100">Nuovo
+                    Questionario</button>
             </div>
-            <br>
-            <div class="row">
-                <div class="col-md-6" th:each="categorie : ${listaCategorie}">
-                    <div class="card">
-                        <div class="card-header" th:text="${categorie.nome}"></div>
-                        <div class="card-body">
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6" th:each="categorie : ${listaCategorie}">
+                <div class="card">
+                    <div class="card-header" th:text="${categorie.nome}"></div>
+                    <div class="card-body">
+                        <div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item" th:each="listaQuestionari :${categorie.questionari}">
-                                    <span th:text="${listaQuestionari.titolo}"></span>
-                                    <button type="submit" name="id_quest" th:value="${listaQuestionari.idQst}" class="btn float-end">...</button>
+                                <li class="list-group-item" th:each="quest :${categorie.questionari}">
+                                    <span th:if="${quest.attivo}" class="badge badge-attivo">Attivo</span>
+                                    <span th:if="!${quest.attivo}" class="badge badge-disattivo">Non Attivo</span>
+                                    <span th:text="${quest.titolo}"></span>
+                                    <button type="submit" name="id_quest" th:value="${quest.idQst}"
+                                        class="btn float-end">...</button>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
-    </main>
+        </div>
+    </form>
 
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
@@ -67,4 +51,5 @@
 
     
 </body>
+
 </html>

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
     <script src="/js/objQuest.js"></script>
     <script>
@@ -31,24 +31,37 @@
                     <div class="card-header">
                         Impostazioni Test
                     </div>
-                    <div class="card-body">
-                        <label for="type">Categoria</label>
-                        <select id="type" name="type" style="padding: 10px; width: 100%;">
-                            <option value="" disabled selected> -Selezione un elemento- </option>
-                            <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}"
-                                th:value="${categorie.idCat}"
-                                th:selected="${quest.categoriequest.idCat==categorie.idCat}">
-                            </option>
-                        </select>
-                    </div>
-                    <div class="card-body">
-                        <label for="titolo">Titolo</label>
-                        <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}"
-                            style="padding: 10px; width: 100%;">
+                    <div class="card-body p-4">
+                        <div class="row d-flex align-items-center text-center">
+                            <div class="col-md-4">
+                                <label for="type">Categoria</label>
+                                <select id="type" name="type" style="padding: 10px;">
+                                    <option value="" disabled selected> -Selezione un elemento- </option>
+                                    <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}"
+                                        th:value="${categorie.idCat}"
+                                        th:selected="${quest.categoriequest.idCat==categorie.idCat}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="titolo">Titolo</label>
+                                <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}"
+                                    style="padding: 10px;">
+                            </div>
+                            <div class="col-md-4">
+                                <h4 id="quest-attivo">
+                                    Stato: <strong th:text="${quest.attivo ? 'Attivo' : 'Non Attivo'}"></strong>
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-footer">
                         <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" id="btn_salva_test"
                             class="btn btn-primary" disabled>Salva</button>
+                        <button th:if="${quest.idQst != null}" type="button" class="btn btn-primary"
+                            id="btn_attiva_test" data-bs-toggle="modal" data-bs-target="#modale-attiva-test" disabled>
+                            Attiva/Disabilita Test
+                        </button>
                     </div>
                 </div>
             </div>
@@ -64,7 +77,8 @@
                             </div>
                             <div class="col-md-2">
                                 <button id="btn_aggiungi_domanda" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#modale-aggiungi-domanda" th:disabled="${quest.idQst == null}">
+                                    data-bs-target="#modale-aggiungi-domanda" th:disabled="${quest.idQst == null}"
+                                    onclick="firstDomanda()">
                                     Aggiungi Domanda</button>
                             </div>
                         </div>
@@ -122,39 +136,9 @@
         </div>
     </div>
 
-    <!-- Toasts Test Aggiunto-->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="salvaOk" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-body bg-success">
-                Salvataggio eseguito correttamente
-            </div>
-        </div>
-    </div>
-    <!-- Fine Toasts Test Aggiunto-->
-
-    <!-- Toasts Errore nel DB-->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="errorDB" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-body bg-danger">
-                Errore interno al Database
-            </div>
-        </div>
-    </div>
-    <!-- Fine Toasts Errore nel DB-->
-
-    <!-- Toast Test Non Aggiunto-->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="salvaErr" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-body bg-danger">
-                Errore nel salvataggio
-            </div>
-        </div>
-    </div>
-    <!-- Fine Toasts Test Non Aggiunto -->
-
     <!-- Modale Elimina Domanda -->
     <div class="modal fade" tabindex="-1" id="modale-elimina-domanda">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-dialog modal-dialog-centered ">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Elimina Domanda</h5>
@@ -170,6 +154,30 @@
         </div>
     </div>
     <!-- FINE Modale Elimina Domanda -->
+
+    <!-- Modale Elimina Quest -->
+    <div class="modal fade" tabindex="-1" id="modale-attiva-test">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Attiva/Disabilita Test: <strong th:text="${quest.titolo}"></strong></h5>
+                </div>
+                <div class="modal-body">
+                    <p>Sei sicuro di voler Attivare o Disattivare questo Test?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <form action="/quest/attivo" method="post">
+                        <input type="hidden" name="idquest" th:value="${quest.idQst}">
+                        <button th:if="${!quest.attivo}" type="submit" class="btn btn-success">Attiva</button>
+                        <button th:if="${quest.attivo}" type="submit" class="btn btn-danger">Disattiva</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FINE Modale Elimina Quest -->
 
     <!--Modale Aggiungi Domanda -->
     <div class="modal fade" id="modale-aggiungi-domanda">
@@ -195,25 +203,6 @@
                         </div>
                     </div>
                     <div class="mb-3 mt-3"></div>
-                    <div id="risposta-obbligatoria">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="input-group input-group-sm mb-1">
-                                    <input type="text" class="form-control col-6 risposta_inserita"
-                                        id="risposta_inserita">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-check">
-                                    <input class="form-check-input risp_corretta" id="corretta" type="checkbox"
-                                        name="corretta">
-                                    <label class="form-check-label" for="corretta">
-                                        Corretta
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div id="nuovo-elenco-risposte">
                     </div>
                 </div>
@@ -266,8 +255,8 @@
                         </button>
                     </div>
                     <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                        <button type="button" class="btn btn-warning" onclick="pulisicDomandeModifica(),
-                     aggiungiRispostaObbligatoria('elenco-risposte'),disabilitaBottone('btn_mod_domanda')">Pulisci</button>
+                        <button type="button" class="btn btn-warning"
+                            onclick="pulisicDomandeModifica()">Pulisci</button>
                     </div>
                 </div>
             </div>
@@ -279,6 +268,7 @@
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/bootbox.all.min.js"></script>
     <script src="/js/gestQuest.js"></script>
 
 </body>
