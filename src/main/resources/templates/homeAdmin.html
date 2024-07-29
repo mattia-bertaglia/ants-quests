@@ -6,15 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/gestStudentiAdmin.css">
-    <!-- <link rel="stylesheet" href="/css/root.css"> -->
+    <!-- <link rel="stylesheet" href="/css/gestStudentiAdmin.css"> -->
+    <link rel="stylesheet" href="/css/root.css">
 </head>
 
 <body>
     <nav class="navbar">
-        <hr>
 
         <ul class="navbar__menu">
+            <li class="navbar__item">
+
+                <div class="logo"></div>
+                <hr>
+            </li>
             <li class="navbar__item">
                 <a href="/homeAdmin/" class="navbar__link">Home</a>
             </li>
@@ -31,7 +35,8 @@
                 <a href="/quest/esiti" class="navbar__link">Esiti</a>
             </li>
             <li class="navbar__item">
-                <a id="logout-btn" href="/auth/logout">Log Out</a>
+                <hr>
+                <a href="/auth/logout" class="navbar__link navbar__link--bold">Log Out</a>
             </li>
         </ul>
     </nav>

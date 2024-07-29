@@ -18,6 +18,7 @@
     --logout-button-color: #123d12;
     --font-size-menu: 18px;
     --accent-color: #198754;
+    --table-header: #8db986;
 
 
     --verde-primario: #8db986;
@@ -223,8 +224,24 @@ button {
     color: var(--text-color);
     padding: 10px 20px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 25px;
     transition: background-color 0.3s ease;
+}
+
+.prof-link {
+    color: white;
+}
+
+.prof-link:hover {
+    color: white;
+}
+
+.prof-btn {
+    background-color: #123d12;
+}
+
+.prof-btn:hover {
+    background-color: #373737;
 }
 
 button:hover {
@@ -343,6 +360,16 @@ table tbody tr:nth-child(odd) {
     justify-content: space-between;
 }
 
+/* aggiungi nuovo studente */
+.table-title .btn-secondary {
+    background-color: #373737;
+    color: #fff;
+}
+
+.table-title .btn-secondary:hover {
+    background-color: #acce91;
+}
+
 .foot-lnk {
     background-color: transparent;
     color: var(--text-color);
@@ -369,27 +396,29 @@ table tbody tr:nth-child(odd) {
     margin: 100px auto;
     min-height: 850px;
     /* Aumentato per dare più altezza */
-    border-radius: 4%;
+    border-radius: 25px;
     position: relative;
     box-shadow: 0 12px 15px rgba(0, 0, 0, 0.375), 0 17px 50px rgba(0, 0, 0, 0.452);
 }
 
 .login-wrap-ft {
     width: 100%;
-    margin: auto;
-    /*  max-width: 525px; */
-    min-height: 1200px;
+    margin: 50px auto;
+    max-width: 525px;
+    min-height: 700px;
     border-radius: 25px;
     position: relative;
-    background: var(--background-color);
-    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
+    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
+        0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
 
-
-    max-width: 800px;
-    /* Aumenta la larghezza massima per rendere il div più largo */
-
-    margin: auto;
-    /* Centra il div orizzontalmente nel suo contenitore */
+.login-html-ft {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    padding: 30px 70px 50px 70px;
+    background: #c0daad;
+    border-radius: 25px;
 }
 
 .body-log-sign {
@@ -402,10 +431,10 @@ table tbody tr:nth-child(odd) {
 .login-html {
     width: 100%;
     height: 100%;
-    border-radius: 4%;
     position: absolute;
     padding: 50px 70px 50px 70px;
     background: #c0daad;
+    border-radius: 25px;
 
 }
 
@@ -573,11 +602,13 @@ table tbody tr:nth-child(odd) {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    padding: 0 0 15px;
 }
 
 .toggle-password i {
     font-size: 18px;
     color: #333;
+    line-height: 1;
 }
 
 /* Specifico per i campi di input e pulsanti */
@@ -741,14 +772,14 @@ nav ul li {
 }
 
 .card-header {
-    background-color: var(--background-color);
+    background-color: var(table-header);
     border-bottom: 1px solid var(--table-divider-color);
     font-size: 1.5em;
     margin: 0;
 }
 
 .card-header h2 {
-    color: var(--text-color);
+    color: var(table-header);
 }
 
 .card-body {
