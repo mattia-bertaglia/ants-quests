@@ -1,148 +1,111 @@
-// Controllo e-mail per messaggi di errore
-
 document.addEventListener('DOMContentLoaded', function () {
-    const emailInput = document.getElementById('email-reg');
-    const errorMail = document.getElementById('error-mail');
-    const correctMail = document.getElementById('correct-mail');
-    const signupForm = document.querySelector('.sign-up-htm'); // Aggiungi questa riga per il controllo del form
+    function controlloEmail() {
+        const emailInput = document.getElementById('email-reg');
+        const errorMail = document.getElementById('error-mail');
+        const correctMail = document.getElementById('correct-mail');
+        const signupForm = document.querySelector('.sign-up-htm');
 
-    emailInput.addEventListener('input', function () {
-        const emailValue = emailInput.value;
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Semplice regex per email
+        if (emailInput && errorMail && correctMail && signupForm) {
+            emailInput.addEventListener('input', function () {
+                const emailValue = emailInput.value;
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (emailValue === '') {
-            // Campo email vuoto
-            errorMail.classList.add('d-none');
-            correctMail.classList.add('d-none');
-        } else if (emailPattern.test(emailValue)) {
-            // Email valida
-            errorMail.classList.add('d-none');
-            correctMail.classList.remove('d-none');
-        } else {
-            // Email non valida
-            errorMail.classList.remove('d-none');
-            correctMail.classList.add('d-none');
+                if (emailValue === '') {
+                    errorMail.classList.add('d-none');
+                    correctMail.classList.add('d-none');
+                } else if (emailPattern.test(emailValue)) {
+                    errorMail.classList.add('d-none');
+                    correctMail.classList.remove('d-none');
+                } else {
+                    errorMail.classList.remove('d-none');
+                    correctMail.classList.add('d-none');
+                }
+            });
+
+            signupForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                var nome = document.getElementById('nome').value;
+                var cognome = document.getElementById('cognome').value;
+                var email = emailInput.value;
+
+                if (!nome || !cognome || !email) {
+                    alert('Devi completare tutti i campi per registrarti.');
+                    return;
+                }
+
+                var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailPattern.test(email)) {
+                    errorMail.classList.remove('d-none');
+                    correctMail.classList.add('d-none');
+                    return;
+                } else {
+                    errorMail.classList.add('d-none');
+                    correctMail.classList.remove('d-none');
+                }
+
+                alert('Registrazione avvenuta con successo!');
+                signupForm.submit();
+            });
         }
-    });
+    }
 
-    signupForm.addEventListener('submit', function (event) {
-        event.preventDefault(); // Impedisce il submit del form
-
-        var nome = document.getElementById('nome').value;
-        var cognome = document.getElementById('cognome').value;
-        var email = emailInput.value;
-
-        // Controllo se tutti i campi sono completati
-        if (!nome || !cognome || !email) {
-            alert('Devi completare tutti i campi per registrarti.');
-            return;
-        }
-
-        // Controllo validità email
-        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailPattern.test(email)) {
-            errorMail.classList.remove('d-none');
-            correctMail.classList.add('d-none');
-            return;
-        } else {
-            errorMail.classList.add('d-none');
-            correctMail.classList.remove('d-none');
-        }
-
-        // Se tutti i controlli sono superati, procedere con la registrazione
-        alert('Registrazione avvenuta con successo!');
-        signupForm.submit(); // Invia il form
-    });
-
-    // Controllo Telefono
-
-    document.getElementById('telefono').addEventListener('input', function () {
-        const telefonoInput = this.value;
+    function controlloTelefono() {
+        const telefonoInput = document.getElementById('telefono');
         const errorPhone = document.getElementById('error-phone');
         const correctPhone = document.getElementById('correct-phone');
 
-        // Verifica se il numero è composto esattamente da 10 caratteri numerici
-        const isValidPhone = /^\d{10}$/.test(telefonoInput);
+        if (telefonoInput && errorPhone && correctPhone) {
+            telefonoInput.addEventListener('input', function () {
+                const isValidPhone = /^\d{10}$/.test(telefonoInput.value);
 
-        if (isValidPhone) {
-            // Mostra il messaggio di successo e nasconde quello di errore
-            correctPhone.classList.remove('d-none');
-            errorPhone.classList.add('d-none');
-        } else {
-            // Mostra il messaggio di errore e nasconde quello di successo
-            errorPhone.classList.remove('d-none');
-            correctPhone.classList.add('d-none');
+                if (isValidPhone) {
+                    correctPhone.classList.remove('d-none');
+                    errorPhone.classList.add('d-none');
+                } else {
+                    errorPhone.classList.remove('d-none');
+                    correctPhone.classList.add('d-none');
+                }
+            });
         }
-    });
+    }
 
-
-
-
-
-    // Controllo della password
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var signupForm = document.getElementById('signupForm');
+    function controlloPassword() {
         var passwordInput = document.getElementById('password');
         var confirmPasswordInput = document.getElementById('conferma-password');
+        var signupForm = document.getElementById('signupForm');
 
-        var passwordError = document.getElementById('error-pass');
-        var lowercaseError = document.getElementById('error-lowercase');
-        var uppercaseError = document.getElementById('error-uppercase');
-        var numberError = document.getElementById('error-number');
-        var lengthError = document.getElementById('error-length');
-        var passwordCorrect = document.getElementById('correct-pass');
-        var confirmPasswordError = document.getElementById('error-checkpass');
-        var confirmPasswordCorrect = document.getElementById('correct-checkpass');
+        if (passwordInput && confirmPasswordInput && signupForm) {
+            var passwordError = document.getElementById('error-pass');
+            var lowercaseError = document.getElementById('error-lowercase');
+            var uppercaseError = document.getElementById('error-uppercase');
+            var numberError = document.getElementById('error-number');
+            var lengthError = document.getElementById('error-length');
+            var passwordCorrect = document.getElementById('correct-pass');
+            var confirmPasswordError = document.getElementById('error-checkpass');
+            var confirmPasswordCorrect = document.getElementById('correct-checkpass');
 
-        function checkPasswordComplexity() {
-            var password = passwordInput.value;
-            var hasLowercase = /[a-z]/.test(password);
-            var hasUppercase = /[A-Z]/.test(password);
-            var hasNumber = /\d/.test(password);
-            var isLengthValid = password.length >= 8;
+            function checkPasswordComplexity() {
+                var password = passwordInput.value;
+                var hasLowercase = /[a-z]/.test(password);
+                var hasUppercase = /[A-Z]/.test(password);
+                var hasNumber = /\d/.test(password);
+                var isLengthValid = password.length >= 8;
 
-            if (password === "") {
-                passwordError.classList.add('d-none');
-                passwordCorrect.classList.add('d-none');
-                lowercaseError.classList.add('d-none');
-                uppercaseError.classList.add('d-none');
-                numberError.classList.add('d-none');
-                lengthError.classList.add('d-none');
-            } else {
                 var showError = false;
+                if (!hasLowercase) lowercaseError.classList.remove('d-none');
+                else lowercaseError.classList.add('d-none');
 
-                // Messaggi di errore per password
+                if (!hasUppercase) uppercaseError.classList.remove('d-none');
+                else uppercaseError.classList.add('d-none');
 
-                if (!hasLowercase) {
-                    lowercaseError.classList.remove('d-none');
-                    showError = true;
-                } else {
-                    lowercaseError.classList.add('d-none');
-                }
+                if (!hasNumber) numberError.classList.remove('d-none');
+                else numberError.classList.add('d-none');
 
-                if (!hasUppercase) {
-                    uppercaseError.classList.remove('d-none');
-                    showError = true;
-                } else {
-                    uppercaseError.classList.add('d-none');
-                }
+                if (!isLengthValid) lengthError.classList.remove('d-none');
+                else lengthError.classList.add('d-none');
 
-                if (!hasNumber) {
-                    numberError.classList.remove('d-none');
-                    showError = true;
-                } else {
-                    numberError.classList.add('d-none');
-                }
-
-                if (!isLengthValid) {
-                    lengthError.classList.remove('d-none');
-                    showError = true;
-                } else {
-                    lengthError.classList.add('d-none');
-                }
-
-                if (showError) {
+                if (!hasLowercase || !hasUppercase || !hasNumber || !isLengthValid) {
                     passwordError.classList.remove('d-none');
                     passwordCorrect.classList.add('d-none');
                 } else {
