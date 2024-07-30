@@ -81,6 +81,9 @@
                                             th:onclick="vediQuest([[${stud}]])">Vedi</button>
                                     </td>
                                 </tr>
+                                <tr th:if="${#lists.isEmpty(studenti)}">
+                                    <td class="text-center" colspan="7">Nessun Elemento Recente</td>
+                                </tr>
                             </tbody>
                         </div>
                     </table>
@@ -129,7 +132,7 @@
                                 </td>
                             </tr>
                             <tr th:if="${#lists.isEmpty(listaEsitiQuestionari)}">
-                                <td class="text-center" colspan="7">Nessun Elemento</td>
+                                <td class="text-center" colspan="7">Nessun Elemento Recente</td>
                             </tr>
                         </tbody>
                     </table>
