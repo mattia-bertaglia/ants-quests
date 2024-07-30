@@ -19,7 +19,7 @@
         let domanda;
         let risposta;
     </script>
-    
+
     <title>Gestione</title>
 </head>
 
@@ -63,7 +63,7 @@
                         </div>
                         <div class="card-body p-4">
                             <div class="row d-flex align-items-center">
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <label for="type">Categoria</label>
                                     <select id="type" name="type" style="padding: 10px;">
                                         <option value="" disabled selected> -Selezione un elemento- </option>
@@ -73,12 +73,12 @@
                                         </option>
                                     </select>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <label for="titolo">Titolo</label>
                                     <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}"
                                         style="padding: 10px;">
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <h4 id="quest-attivo">
                                         Stato: <strong th:text="${quest.attivo ? 'Attivo' : 'Non Attivo'}"></strong>
                                     </h4>
@@ -108,12 +108,12 @@
                                 <div class="col-md-2">
                                     <h5>Elenco domande</h5>
                                 </div>
-                                    <div class=" text-end ">
-                                        <button id="btn_aggiungi_domanda" type="button" class="btn btn-primary custom-btn"
-                                            data-bs-toggle="modal" data-bs-target="#modale-aggiungi-domanda"
-                                            th:disabled="${quest.idQst == null}" onclick="firstDomanda()">
-                                            <span>Aggiungi Domanda</span></button>
-                                    </div>
+                                <div class=" text-end ">
+                                    <button id="btn_aggiungi_domanda" type="button" class="btn btn-primary custom-btn"
+                                        data-bs-toggle="modal" data-bs-target="#modale-aggiungi-domanda"
+                                        th:disabled="${quest.idQst == null}" onclick="firstDomanda()">
+                                        <span>Aggiungi Domanda</span></button>
+                                </div>
                             </div>
                         </div>
                         <div class="card-body">
@@ -188,7 +188,7 @@
             </div>
             <!-- FINE Modale Elimina Domanda -->
 
-            <!-- Modale Elimina Quest -->
+            <!-- Modale abilita Quest -->
             <div class="modal fade" tabindex="-1" id="modale-attiva-test">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -212,7 +212,7 @@
                     </div>
                 </div>
             </div>
-            <!-- FINE Modale Elimina Quest -->
+            <!-- FINE Modale abilita Quest -->
 
             <!--Modale Aggiungi Domanda -->
             <div class="modal fade" id="modale-aggiungi-domanda">
@@ -260,7 +260,7 @@
 
             <!-- Modale Modifica Domanda -->
             <div class="modal fade" id="modale-modifica-domanda">
-                <div class="modal-dialog modal-dialog-centered modal-xl ">  
+                <div class="modal-dialog modal-dialog-centered modal-xl ">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Modifica Domanda</h5>
