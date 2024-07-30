@@ -241,6 +241,22 @@ nav {
 
 }
 
+.card {
+
+    border: 1px solid var(--table-divider-color);
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: var(table-header);
+    border-bottom: 1px solid var(--table-divider-color);
+    font-size: 1.5em;
+    margin: 0;
+}
+
 .btn-custom {
     background-color: var(--button-color);
     border-color: var(--button-color);
@@ -763,21 +779,16 @@ nav ul li {
     background-color: var(--logout-hover-color);
 }
 
-.card {
-
+.card1 {
+    margin-top: 20px;
     border: 1px solid var(--table-divider-color);
-    border-radius: 5px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.card-header {
-    background-color: var(table-header);
+.card-header1 {
+    background-color: var(--background-color);
     border-bottom: 1px solid var(--table-divider-color);
-    font-size: 1.5em;
-    margin: 0;
 }
+
 
 .card-header h2 {
     color: var(table-header);

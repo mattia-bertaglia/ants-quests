@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questionari</title>
+    <title>Home-Questionari</title>
 
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <!-- CONTROLLARE SE ROOT.CSS E' OK, SE SI ELIMINARE HOMESTUD.CSS -->
-    <!--  <link rel="stylesheet" href="/css/homeStud.css"> -->
     <link rel="stylesheet" href="/css/root.css">
 </head>
 
@@ -22,14 +20,15 @@
                 <hr>
             </li>
             <li class="navbar__item">
-                <a href="/homeStud/" class="navbar__link">Home</a>
+                <a href="/homeStud/" class="navbar__link" id="home-studenti-link">Home</a>
             </li>
             <li class="navbar__item">
-                <a class="navbar__link" href="/homeStud/profilo">Profilo</a>
+                <a href="/homeStud/profilo" class="navbar__link" id="profilo-studenti-link">Profilo</a>
             </li>
+
             <li class="navbar__item">
                 <hr>
-                <a id="logout-btn" href="/auth/logout" class="navbar__link navbar__link--bold">Log Out</a>
+                <a href="/auth/logout" class="navbar__link navbar__link--bold">Log Out</a>
             </li>
         </ul>
     </nav>
@@ -138,20 +137,9 @@
     <script src="/jquery/jquery-3.7.1.min.js" defer></script>
     <script src="/bootstrap/popper.min.js" defer></script>
     <script src="/bootstrap/bootstrap.min.js" defer></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('.view-pdf-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    var pdfUrl = this.getAttribute('data-pdf-url');
-                    var iframe = document.getElementById('pdfIframe');
-                    iframe.src = pdfUrl;
 
-                    $('#pdfModal').modal('show');
-                });
-            });
+    <script src="/js/studente.js"></script>
 
-        });
-    </script>
 
 
 </body>
