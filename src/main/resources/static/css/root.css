@@ -867,3 +867,51 @@ nav ul li {
 }
 
 /* fine doQuest.html */
+
+/* gestioneQuestionario */
+
+
+ .btn-container {
+     text-align: right;
+     }
+ .card.full-width {
+      width: 100%;
+     }
+
+ .custom-btn {
+    background-color: #8db986;
+    border-color: #8db986;    
+
+ }
+
+.custom-btn:hover {
+    background-color: #8db986;
+    border-color: #8db986;
+}
+
+.modal-header, .modal-footer {
+   
+    color: white; 
+}
+
+.modal-body {
+    background-color: var(--background-color); 
+    color: var(--text-color); 
+
+.modal-header .btn-close {
+    background-color: var(--navbar-bg-color); 
+}
+
+.modal-header .btn-close:hover {
+    background-color: var(--navbar-hover-bg-color); 
+}
+
+.modal-footer .btn-primary {
+    background-color: var(--button-color); 
+    border-color: var(--button-color);
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: var(--button-hover-color); 
+    border-color: var(--button-hover-color);
+}

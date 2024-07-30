@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/animate.min.css">
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
     <link rel="stylesheet" href="/css/root.css">
+    <!--  <link rel="stylesheet" href="/css/gestioneQuestionario.css"> -->
     <script src="/js/objQuest.js"></script>
     <script>
         const quest = new Quest();
@@ -18,6 +19,7 @@
         let domanda;
         let risposta;
     </script>
+    
     <title>Gestione</title>
 </head>
 
@@ -55,113 +57,112 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="card">
+                    <div class="card full-width">
                         <div class="card-header">
                             <h5>Impostazioni Test</h5>
-                            <div class="card-body p-4">
-                                <div class="row d-flex align-items-center text-center">
-                                    <div class="col-md-5">
-                                        <label for="type">Categoria</label>
-                                        <select id="type" name="type" style="padding: 10px;">
-                                            <option value="" disabled selected> -Selezione un elemento- </option>
-                                            <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}"
-                                                th:value="${categorie.idCat}"
-                                                th:selected="${quest.categoriequest.idCat==categorie.idCat}">
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label for="titolo">Titolo</label>
-                                        <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}"
-                                            style="padding: 10px;">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <h4 id="quest-attivo">
-                                            Stato: <strong th:text="${quest.attivo ? 'Attivo' : 'Non Attivo'}"></strong>
-                                        </h4>
-                                    </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-md-5">
+                                    <label for="type">Categoria</label>
+                                    <select id="type" name="type" style="padding: 10px;">
+                                        <option value="" disabled selected> -Selezione un elemento- </option>
+                                        <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}"
+                                            th:value="${categorie.idCat}"
+                                            th:selected="${quest.categoriequest.idCat==categorie.idCat}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="titolo">Titolo</label>
+                                    <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}"
+                                        style="padding: 10px;">
+                                </div>
+                                <div class="col-md-2">
+                                    <h4 id="quest-attivo">
+                                        Stato: <strong th:text="${quest.attivo ? 'Attivo' : 'Non Attivo'}"></strong>
+                                    </h4>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" id="btn_salva_test"
-                                    class="btn btn-primary" disabled>Salva</button>
-                                <button th:if="${quest.idQst != null}" type="button" class="btn btn-primary"
-                                    id="btn_attiva_test" data-bs-toggle="modal" data-bs-target="#modale-attiva-test"
-                                    disabled>
-                                    Attiva/Disabilita Test
-                                </button>
-                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" id="btn_salva_test"
+                                class="btn btn-primary" disabled>Salva</button>
+                            <button th:if="${quest.idQst != null}" type="button" class="btn btn-primary"
+                                id="btn_attiva_test" data-bs-toggle="modal" data-bs-target="#modale-attiva-test"
+                                disabled>
+                                Attiva/Disabilita Test
+                            </button>
                         </div>
                     </div>
                 </div>
-                <br><br><br>
-                <!-- Aggiungi uno spazio tra i due div -->
-                <div class="spazio-tra-div"></div>
-                <br><br><br>
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <h5>Elenco domande</h5>
-                                    </div>
-                                    <div class="col-4 text-end btn-container">
-                                        <button id="btn_aggiungi_domanda" class="btn btn-primary btn-sm"
+            </div>
+
+            <div class="spazio-tra-div my-4"></div> <!-- Spacing div -->
+
+            <div class="row">
+                <div class="col">
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <h5>Elenco domande</h5>
+                                </div>
+                                    <div class=" text-end ">
+                                        <button id="btn_aggiungi_domanda" type="button" class="btn btn-primary custom-btn"
                                             data-bs-toggle="modal" data-bs-target="#modale-aggiungi-domanda"
                                             th:disabled="${quest.idQst == null}" onclick="firstDomanda()">
                                             <span>Aggiungi Domanda</span></button>
                                     </div>
-                                </div>
                             </div>
-                            <div class="card-body">
-                                <ul class="list-group list-group-flush" id="elenco-domande">
-                                    <li class="list-group-item" th:each="domanda : ${quest.domanda}"
-                                        th:id=" ${domanda.idQstDet}">
-                                        <script>
-                                            domanda = new Domanda();
-                                            domanda.idQstDet = '[[${domanda.idQstDet}]]';
-                                            domanda.domanda = '[[${domanda.domanda}]]';
-                                        </script>
-                                        <details>
-                                            <summary th:id="${domanda.idQstDet}" th:text="${domanda.domanda}"></summary>
-                                            <div>
-                                                <hr>
-                                                <button class="btn btn-outline-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#modale-modifica-domanda"
-                                                    onclick="popolaModale(this)">Modifica
-                                                </button>
-                                                <button class="btn btn-outline-danger" data-bs-toggle="modal"
-                                                    data-bs-target="#modale-elimina-domanda"
-                                                    onclick="trovaDomanda(this)">Elimina</button>
-                                                <div class="mb-3 mt-3"></div>
-                                                <ol class="list-group list-group-numbered">
-                                                    <th:block th:each="risposta : ${domanda.risp}">
-                                                        <script>
-                                                            ris = new Risposta();
-                                                            ris.idAns = '[[${risposta.idAns}]]';
-                                                            ris.risposta = '[[${risposta.risposta}]]';
-                                                            ris.corretta = '[[${risposta.corretta}]]';
-                                                            domanda.risp.push(ris);
-                                                        </script>
-                                                        <li th:class="${risposta.corretta} ? 'list-group-item list-group-item-success' : 
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush" id="elenco-domande">
+                                <li class="list-group-item" th:each="domanda : ${quest.domanda}"
+                                    th:id=" ${domanda.idQstDet}">
+                                    <script>
+                                        domanda = new Domanda();
+                                        domanda.idQstDet = '[[${domanda.idQstDet}]]';
+                                        domanda.domanda = '[[${domanda.domanda}]]';
+                                    </script>
+                                    <details>
+                                        <summary th:id="${domanda.idQstDet}" th:text="${domanda.domanda}"></summary>
+                                        <div>
+                                            <hr>
+                                            <button class="btn btn-outline-primary" data-bs-toggle="modal"
+                                                data-bs-target="#modale-modifica-domanda"
+                                                onclick="popolaModale(this)">Modifica
+                                            </button>
+                                            <button class="btn btn-outline-danger" data-bs-toggle="modal"
+                                                data-bs-target="#modale-elimina-domanda"
+                                                onclick="trovaDomanda(this)">Elimina</button>
+                                            <div class="mb-3 mt-3"></div>
+                                            <ol class="list-group list-group-numbered">
+                                                <th:block th:each="risposta : ${domanda.risp}">
+                                                    <script>
+                                                        ris = new Risposta();
+                                                        ris.idAns = '[[${risposta.idAns}]]';
+                                                        ris.risposta = '[[${risposta.risposta}]]';
+                                                        ris.corretta = '[[${risposta.corretta}]]';
+                                                        domanda.risp.push(ris);
+                                                    </script>
+                                                    <li th:class="${risposta.corretta} ? 'list-group-item list-group-item-success' : 
                                                 'list-group-item list-group-item-danger'"
-                                                            th:text="${risposta.risposta}">
-                                                        </li>
-                                                    </th:block>
-                                                </ol>
-                                            </div>
-                                        </details>
-                                        <script>
-                                            quest.domanda.push(domanda);
-                                        </script>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer">
-                                <button type="button" class="btn btn-primary" id="btn_salva_domanda"
-                                    onclick="gestisciDomande()" disabled>Salva</button>
-                            </div>
+                                                        th:text="${risposta.risposta}">
+                                                    </li>
+                                                </th:block>
+                                            </ol>
+                                        </div>
+                                    </details>
+                                    <script>
+                                        quest.domanda.push(domanda);
+                                    </script>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-footer text-end">
+                            <button type="button" class="btn btn-primary" id="btn_salva_domanda"
+                                onclick="gestisciDomande()" disabled>Salva</button>
                         </div>
                     </div>
                 </div>
@@ -221,10 +222,11 @@
                             <h5 class="modal-title">Aggiungi Domanda</h5>
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">x</button>
                         </div>
-                        <div class="modal-body" style="background-color: aliceblue;">
+                        <div class="modal-body">
                             <div class="input-group input-group-sm mb-1">
                                 <label class="input-group-text col-5" for="domanda_inserita">
-                                    Domanda
+                                    <h5>Domanda</h5>
+
                                 </label>
                                 <textarea name="domanda_inserita" class="form-control w-100"
                                     style="text-transform:none;" id="domanda_inserita"></textarea>
@@ -232,7 +234,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <input type="button" class="btn btn-primary btn-sm"
+                                    <input type="button" class="btn btn-primary custom-btn"
                                         onclick="aggiungiRisposta('nuovo-elenco-risposte')" value="Aggiungi Risposta">
                                 </div>
                             </div>
@@ -258,16 +260,16 @@
 
             <!-- Modale Modifica Domanda -->
             <div class="modal fade" id="modale-modifica-domanda">
-                <div class="modal-dialog modal-dialog-centered modal-xl ">
+                <div class="modal-dialog modal-dialog-centered modal-xl ">  
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Modifica Domanda</h5>
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">x</button>
                         </div>
-                        <div class="modal-body" style="background-color: aliceblue;">
+                        <div class="modal-body">
                             <div class="input-group input-group-sm mb-1">
                                 <label class="input-group-text col-5" for="domanda_inserita">
-                                    Domanda
+                                    <h5>Domanda</h5>
                                 </label>
                                 <textarea name="domanda_inserita" class="form-control w-100"
                                     style="text-transform:none;" id="domanda_inserita_modifica"></textarea>
@@ -306,6 +308,7 @@
         <script src="/bootstrap/bootstrap.min.js"></script>
         <script src="/js/bootbox.all.min.js"></script>
         <script src="/js/gestQuest.js"></script>
+        <script src="/js/admin.js"></script>
 
 </body>
 
