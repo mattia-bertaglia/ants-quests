@@ -43,7 +43,7 @@
                         <div class="row email-center">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="usernameEmail">Username</label>
+                                    <label for="usernameEmail">Email</label>
                                     <input type="email" readonly class="form-control form-control-plaintext"
                                         name="usernameEmail" th:value="${session.user.usernameEmail}" required>
                                 </div>
@@ -72,10 +72,12 @@
                                     <input type="date" readonly class="form-control form-control-plaintext"
                                         id="dataNascita" name="dataNascita"
                                         th:value="${session.user.studente.dataNascita}" required>
-                                    <i id="error-dataNascita" class="hidden error">La data di nascita non può essere
+
+                                    <i id="error-dataNascita" class="d-none text-danger">La data di nascita non può
+                                        essere
                                         oggi o
-                                        in
-                                        futuro</i>
+                                        in data
+                                        futura</i>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -83,7 +85,8 @@
                                     <label for="cap">CAP</label>
                                     <input id="cap" type="text" readonly class="form-control form-control-plaintext"
                                         name="cap" maxlength="5" th:value="${session.user.studente.cap}" required>
-                                    <i id="error-cap" class="hidden error">CAP non valido</i>
+
+                                    <i id="error-cap" class="d-none text-danger">CAP non valido</i>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +104,8 @@
                                     <input id="phone" type="text" readonly class="form-control form-control-plaintext"
                                         name="telefono" maxlength="10" th:value="${session.user.studente.telefono}"
                                         required>
-                                    <i id="error-phone" class="hidden error">Numero di telefono non valido</i>
+
+                                    <i id="error-phone" class="d-none text-danger">Numero di telefono non valido</i>
                                 </div>
                             </div>
                         </div>
@@ -127,35 +131,40 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 hidden" id="new-pass-group">
+
+                            <div class="col-md-6 d-none" id="new-pass-group">
                                 <div class="form-group">
                                     <label for="newpass">Nuova password</label>
                                     <input id="newpass" type="password" readonly
                                         class="form-control form-control-plaintext" name="newpass"
                                         placeholder="Nuova Password">
-                                    <i id="error-newpass" class="hidden error">
+
+                                    <i id="error-newpass" class="d-none text-danger">
                                         La password deve contenere: almeno un carattere minuscolo (abc), almeno un
                                         carattere
                                         maiuscolo (ABC), almeno un carattere numerico (123)
                                     </i>
-                                    <i id="correct-newpass" class="hidden correct">Accettabile</i>
+
+                                    <i id="correct-newpass" class="d-none text-success">Accettabile</i>
                                 </div>
                             </div>
-                            <div class="col-md-6 hidden" id="confirm-pass-group">
+
+                            <div class="col-md-6 d-none" id="confirm-pass-group">
                                 <div class="form-group">
                                     <label for="checkpass">Conferma la tua password</label>
                                     <input id="checkpass" type="password" readonly
                                         class="form-control form-control-plaintext" name="checkpass"
                                         placeholder="Conferma Password">
-                                    <i id="error-checkpass" class="hidden error">Le password non corrispondono</i>
-                                    <i id="correct-checkpass" class="hidden correct">Le password corrispondono</i>
+
+                                    <i id="error-checkpass" class="d-none text-danger">Le password non corrispondono</i>
+                                    <i id="correct-checkpass" class="d-none text-success">Le password corrispondono</i>
                                 </div>
                             </div>
                         </div>
                         <div class="btn-group">
                             <button id="btn-mod-profilo" type="button">Modifica</button>
-                            <button id="btn-close-mod" type="button" class="delete-btn">Annulla</button>
-                            <input id="submit-btn" type="submit" value="Salva Modifiche" disabled>
+                            <button id="btn-close-mod" type="button" class="delete-btn d-none">Annulla</button>
+                            <input id="submit-btn" class="d-none" type="submit" value="Salva Modifiche" disabled>
                         </div>
                     </form>
                 </div>
@@ -169,26 +178,26 @@
         $(document).ready(function () {
             // Mostra i campi modificabili e i pulsanti quando si clicca su "Modifica"
             $("#btn-mod-profilo").on("click", function () {
-                $("#submit-btn").removeClass("hidden").removeAttr("disabled");
-                $("#btn-close-mod").removeClass("hidden");
-                $("#btn-mod-profilo").addClass("hidden");
+                $("#submit-btn").removeClass("d-none").removeAttr("disabled");
+                $("#btn-close-mod").removeClass("d-none");
+                $("#btn-mod-profilo").addClass("d-none");
                 $("textarea, input.form-control-plaintext").each(function () {
                     $(this).prop("readonly", false);
                     $(this).removeClass("form-control-plaintext").addClass("form-control");
                 });
-                $("#new-pass-group, #confirm-pass-group").removeClass("hidden");
+                $("#new-pass-group, #confirm-pass-group").removeClass("d-none");
             });
 
             // Nasconde i campi modificabili e i pulsanti quando si clicca su "Annulla"
             $("#btn-close-mod").on("click", function () {
-                $("#submit-btn").addClass("hidden").attr("disabled", "disabled");
-                $("#btn-close-mod").addClass("hidden");
-                $("#btn-mod-profilo").removeClass("hidden");
+                $("#submit-btn").addClass("d-none").attr("disabled", "disabled");
+                $("#btn-close-mod").addClass("d-none");
+                $("#btn-mod-profilo").removeClass("d-none");
                 $("textarea, input.form-control").each(function () {
                     $(this).prop("readonly", true);
                     $(this).addClass("form-control-plaintext").removeClass("form-control");
                 });
-                $("#new-pass-group, #confirm-pass-group").addClass("hidden");
+                $("#new-pass-group, #confirm-pass-group").addClass("d-none");
             });
 
             // Mostra le istruzioni della password quando il campo è attivo
