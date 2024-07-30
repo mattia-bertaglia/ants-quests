@@ -1,4 +1,4 @@
-/* inizio script per modale dettaglio corso */
+/*  modale dettaglio corso */
 function dettaglioCorso(corso) {
     document.getElementById('idCorso').value = corso.idCorso;
     document.getElementById('courseName').value = corso.nome;
@@ -6,9 +6,9 @@ function dettaglioCorso(corso) {
     document.getElementById('endDate').value = corso.dataFine;
 }
 
-/* inizio script per modale vedi studenti */
+/* modale vedi studenti */
 function vediStudenti(corso) {
-    // aggiungo anche idCorso al bottone per aggiungere un nuovo studente
+
     document.getElementById("add-new-studente").setAttribute("data-corso", corso.idCorso);
     document.getElementById("vedi-studs-label").innerHTML = "Studenti del <strong>" + corso.nome + "</strong>";
 
@@ -54,8 +54,6 @@ $(document).ready(function () {
                         }
                     }
                 });
-
-                // Rimuovi visivamente la riga visivamente qui in caso di successo 
                 row.remove();
 
             } else if (data == "KO") {
@@ -77,7 +75,7 @@ $(document).ready(function () {
     $("#add-new-studente").on("click", function () {
 
         let idCorsoADD = $(this).data("corso");
-        let idStudenteADD; // verra aggiunto dal find-studs e dopo averlo selezionato 
+        let idStudenteADD;
 
         const container = $("#add-studente");
         let idStudente = container.find("input[name=id-studente]").val();
@@ -174,70 +172,101 @@ $(document).ready(function () {
 
 });
 
+/* pagine dinamiche */
+var current_page = 1;
+var records_per_page = 10;
 
+document.addEventListener("DOMContentLoaded", function () {
+    var tableBody = document.querySelector("#myTable tbody");
+    var rows = Array.from(tableBody.querySelectorAll("tr"));
+    var filteredData = rows.map(function (row) {
+        var cells = row.querySelectorAll("td");
+        return {
+            nome: cells[0].innerText,
+            dataInizio: cells[1].innerText,
+            dataFine: cells[2].innerText,
+            dettaglio: cells[3].innerHTML,
+            studenti: cells[4].innerHTML
+        };
+    });
 
-
-
-// BUG NON CERCA CON CAMPI MULTIPLI
-/* inizio script per filtro ricerca nome */
-function myFunction() {
-
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("tab-last-quest");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
+    function prevPage() {
+        if (current_page > 1) {
+            current_page--;
+            updateTable();
         }
     }
-}
-// BUG NON CERCA CON CAMPI MULTIPLI
-/* inizio script per filtro ricerca data inizio */
-function myFunction1() {
 
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("inizio");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("tab-last-quest");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
+    function nextPage() {
+        if (current_page < numPages()) {
+            current_page++;
+            updateTable();
         }
     }
-}
-// BUG NON CERCA CON CAMPI MULTIPLI
-/* inizio script per filtro ricerca data fine */
-function myFunction2() {
 
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("fine");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("tab-last-quest");
-    tr = table.getElementsByTagName("tr");
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
+    function numPages() {
+        return Math.ceil(filteredData.length / records_per_page);
+    }
+
+    function updateTable() {
+        tableBody.innerHTML = '';
+
+        var start = (current_page - 1) * records_per_page;
+        var end = start + records_per_page;
+        var pageData = filteredData.slice(start, end);
+
+        pageData.forEach(function (data) {
+            var row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${data.nome}</td>
+                <td>${data.dataInizio}</td>
+                <td>${data.dataFine}</td>
+                <td class="text-center">${data.dettaglio}</td>
+                <td class="text-center">${data.studenti}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        document.getElementById('page').innerText = current_page;
+        document.getElementById('totalPages').innerText = numPages();
+
+        document.getElementById('btn_prev').disabled = current_page == 1;
+        document.getElementById('btn_next').disabled = current_page == numPages();
+    }
+
+    document.getElementById("btn_prev").addEventListener("click", prevPage);
+    document.getElementById("btn_next").addEventListener("click", nextPage);
+
+    updateTable();
+});
+
+
+
+
+/*  filtri ricerca */
+function filterTable() {
+    var nomeInput = document.getElementById("myInput").value.toUpperCase();
+    var inizioInput = document.getElementById("inizio").value;
+    var fineInput = document.getElementById("fine").value;
+    var table = document.getElementById("myTable");
+    var tr = table.getElementsByTagName("tr");
+
+    for (var i = 1; i < tr.length; i++) {
+        var nomeTd = tr[i].getElementsByTagName("td")[0];
+        var inizioTd = tr[i].getElementsByTagName("td")[1];
+        var fineTd = tr[i].getElementsByTagName("td")[2];
+        var nomeValue = nomeTd ? nomeTd.textContent || nomeTd.innerText : "";
+        var inizioValue = inizioTd ? inizioTd.textContent || inizioTd.innerText : "";
+        var fineValue = fineTd ? fineTd.textContent || fineTd.innerText : "";
+
+        var nomeMatch = nomeValue.toUpperCase().indexOf(nomeInput) > -1;
+        var inizioMatch = !inizioInput || inizioValue >= inizioInput;
+        var fineMatch = !fineInput || fineValue <= fineInput;
+
+        if (nomeMatch && inizioMatch && fineMatch) {
+            tr[i].style.display = "";
+        } else {
+            tr[i].style.display = "none";
         }
     }
 }
