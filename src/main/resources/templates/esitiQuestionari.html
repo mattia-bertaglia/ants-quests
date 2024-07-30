@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esiti</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/bootstrap/bootstrap-table.min.css">
     <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
     <link rel="stylesheet" href="/css/root.css">
     <title>Esiti</title>
@@ -159,6 +158,16 @@
                                 </tbody>
                             </table>
 
+                            <!-- Inizio pagine dinamiche   -->
+                            <div class="text-center">
+                                <button onclick="prevPage()" class="btn btn-secondary-page"
+                                    id="btn_prev">Precedente</button>
+                                <span>Pagina <span id="page"></span> di <span id="totalPages"></span></span>
+                                <button onclick="nextPage()" class="btn btn-secondary-page"
+                                    id="btn_next">Successivo</button>
+                            </div>
+                            <!-- fine pagine dinamiche   -->
+
                             <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog"
                                 aria-labelledby="pdfModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-xl"
@@ -195,21 +204,10 @@
         <script src="/jquery/jquery-3.7.1.min.js"></script>
         <script src="/bootstrap/popper.min.js"></script>
         <script src="/bootstrap/bootstrap.min.js"></script>
-        <script src="/js/pagDinamiche-filtriRicerca.js"></script> <!--Link al file esitiScript.js -->
 
+        <script src="/js/esitiQuestionari.js"></script>
         <script src="/js/admin.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', (event) => {
-                document.querySelectorAll('.view-pdf-btn').forEach(button => {
-                    button.addEventListener('click', function () {
-                        var pdfUrl = this.getAttribute('data-pdf-url');
-                        var iframe = document.getElementById('pdfIframe');
-                        iframe.src = pdfUrl;
-                        $('#pdfModal').modal('show');
-                    });
-                });
-            });
-        </script>
+
 </body>
 
 </html>

@@ -1,4 +1,3 @@
-// esitiScript.js
 
 let filters = {
     title: '',
@@ -7,29 +6,27 @@ let filters = {
     dateStart: '',
     dateEnd: ''
 };
-var current_page = 1; // Pagina corrente
-var records_per_page = 10; // Record per pagina
-var filteredData = []; // Dati filtrati
+var current_page = 1;
+var records_per_page = 10;
+var filteredData = [];
 
-// Funzione per applicare i filtri
 function applyFilters() {
-    current_page = 1; // Ripristina alla prima pagina
+    current_page = 1;
     var table, tr, i;
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
     filteredData = [];
 
-    // Controlla se la data di inizio è maggiore della data di fine
     if (filters.dateStart && filters.dateEnd && new Date(filters.dateStart) > new Date(filters.dateEnd)) {
         document.getElementById("noResultsMessage").style.display = "block";
-        table.style.display = "none"; // Nascondi la tabella
+        table.style.display = "none";
         return;
     }
 
-    document.getElementById("noResultsMessage").style.display = "none"; // Nascondi il messaggio
-    table.style.display = "table"; // Mostra la tabella
+    document.getElementById("noResultsMessage").style.display = "none";
+    table.style.display = "table";
 
-    // Filtra i dati in base ai criteri
+
     for (i = 1; i < tr.length; i++) {
         let display = true;
         let questionari = tr[i].children;
@@ -61,14 +58,14 @@ function applyFilters() {
         }
 
         if (display) {
-            filteredData.push(tr[i]); // Aggiungi la riga ai dati filtrati
+            filteredData.push(tr[i]);
         }
     }
 
-    updateTable(); // Aggiorna la tabella
+    updateTable();
 }
 
-// Aggiungi event listener agli elementi del modulo
+
 document.getElementById("titolo").addEventListener("change", changeVisibility);
 document.getElementById("categorySelect").addEventListener("change", function () {
     filters.category = this.value;
@@ -79,28 +76,27 @@ document.getElementById("data_fine").addEventListener("change", changeVisibility
 document.getElementById("stringa").addEventListener("keyup", myFunction);
 document.getElementById("removeFiltersButton").addEventListener("click", removeFilters);
 
-// Funzione per cambiare la visibilità in base al titolo
 function changeVisibility() {
     filters.category = document.getElementById("titolo").value.split("-")[0];
     filters.title = document.getElementById("titolo").value.split("-")[1];
     applyFilters();
 }
 
-// Funzione per cambiare la visibilità in base alle date
+
 function changeVisibilityDate() {
     var startDate = document.getElementById("data_inizio").value;
     var endDate = document.getElementById("data_fine").value;
 
-    // Controlla se la data di inizio è maggiore della data di fine
+
     if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
         document.getElementById("dateError").innerText = "La data di inizio non può essere successiva alla data di fine.";
-        document.getElementById("myTable").style.display = "none"; // Nascondi la tabella
-        document.getElementById("noResultsMessage").style.display = "block"; // Mostra il messaggio
+        document.getElementById("myTable").style.display = "none";
+        document.getElementById("noResultsMessage").style.display = "block";
         return;
     } else {
-        document.getElementById("dateError").innerText = ""; // Rimuovi messaggio di errore
-        document.getElementById("myTable").style.display = "table"; // Mostra la tabella
-        document.getElementById("noResultsMessage").style.display = "none"; // Nascondi il messaggio
+        document.getElementById("dateError").innerText = "";
+        document.getElementById("myTable").style.display = "table";
+        document.getElementById("noResultsMessage").style.display = "none";
     }
 
     filters.dateStart = startDate;
@@ -108,13 +104,13 @@ function changeVisibilityDate() {
     applyFilters();
 }
 
-// Funzione per cercare per utente
+
 function myFunction() {
     filters.user = document.getElementById("stringa").value;
     applyFilters();
 }
 
-// Funzione per rimuovere tutti i filtri
+// Funzione per rimuovere tutti i filtri (non utilizzata, lascio se si vuole aggiungere pulsante)
 function removeFilters() {
     filters = {
         title: '',
@@ -128,12 +124,12 @@ function removeFilters() {
     document.getElementById("data_inizio").value = '';
     document.getElementById("data_fine").value = '';
     document.getElementById("stringa").value = '';
-    document.getElementById("dateError").innerText = ''; // Rimuovi messaggio errore
-    document.getElementById("noResultsMessage").style.display = "none"; // Nascondi messaggio
+    document.getElementById("dateError").innerText = '';
+    document.getElementById("noResultsMessage").style.display = "none";
     applyFilters();
 }
 
-// Funzioni per la paginazione
+
 function prevPage() {
     if (current_page > 1) {
         current_page--;
@@ -148,33 +144,45 @@ function nextPage() {
     }
 }
 
-// Calcola il numero di pagine
+
 function numPages() {
     return Math.ceil(filteredData.length / records_per_page);
 }
 
-// Aggiorna la visualizzazione della tabella
+
 function updateTable() {
     var table = document.getElementById("myTable");
     var tr = table.getElementsByTagName("tr");
 
     for (var i = 1; i < tr.length; i++) {
-        tr[i].style.display = 'none'; // Nascondi tutte le righe
+        tr[i].style.display = 'none';
     }
 
     for (var i = (current_page - 1) * records_per_page; i < current_page * records_per_page && i < filteredData.length; i++) {
-        filteredData[i].style.display = ''; // Mostra solo le righe filtrate
+        filteredData[i].style.display = '';
     }
 
     document.getElementById("page").innerText = current_page;
     document.getElementById("totalPages").innerText = numPages();
 
-    // Gestisci la visibilità dei bottoni di paginazione
+
     document.getElementById("btn_prev").style.visibility = current_page === 1 ? "hidden" : "visible";
     document.getElementById("btn_next").style.visibility = current_page === numPages() ? "hidden" : "visible";
 }
 
-// Inizializza i filtri al caricamento della finestra
+
 window.onload = function () {
     applyFilters();
 };
+
+/* PDF */
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('.view-pdf-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            var pdfUrl = this.getAttribute('data-pdf-url');
+            var iframe = document.getElementById('pdfIframe');
+            iframe.src = pdfUrl;
+            $('#pdfModal').modal('show');
+        });
+    });
+});

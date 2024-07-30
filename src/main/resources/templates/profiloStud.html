@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generalità Studente</title>
+    <title>Profilo Studente</title>
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/css/root.css">
 </head>
@@ -19,17 +19,19 @@
                 <hr>
             </li>
             <li class="navbar__item">
-                <a href="/homeStud/" class="navbar__link">Home</a>
+                <a href="/homeStud/" class="navbar__link" id="home-studenti-link">Home</a>
             </li>
             <li class="navbar__item">
-                <a class="navbar__link" href="/homeStud/profilo">Profilo</a>
+                <a href="/homeStud/profilo" class="navbar__link" id="profilo-studenti-link">Profilo</a>
             </li>
+
             <li class="navbar__item">
                 <hr>
-                <a id="logout-btn" href="/auth/logout" class="navbar__link navbar__link--bold">Log Out</a>
+                <a href="/auth/logout" class="navbar__link navbar__link--bold">Log Out</a>
             </li>
         </ul>
     </nav>
+
     <div class="main-content">
         <div class="container">
             <div class="card mt-4">
@@ -174,57 +176,8 @@
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // Mostra i campi modificabili e i pulsanti quando si clicca su "Modifica"
-            $("#btn-mod-profilo").on("click", function () {
-                $("#submit-btn").removeClass("d-none").removeAttr("disabled");
-                $("#btn-close-mod").removeClass("d-none");
-                $("#btn-mod-profilo").addClass("d-none");
-                $("textarea, input.form-control-plaintext").each(function () {
-                    $(this).prop("readonly", false);
-                    $(this).removeClass("form-control-plaintext").addClass("form-control");
-                });
-                $("#new-pass-group, #confirm-pass-group").removeClass("d-none");
-            });
 
-            // Nasconde i campi modificabili e i pulsanti quando si clicca su "Annulla"
-            $("#btn-close-mod").on("click", function () {
-                $("#submit-btn").addClass("d-none").attr("disabled", "disabled");
-                $("#btn-close-mod").addClass("d-none");
-                $("#btn-mod-profilo").removeClass("d-none");
-                $("textarea, input.form-control").each(function () {
-                    $(this).prop("readonly", true);
-                    $(this).addClass("form-control-plaintext").removeClass("form-control");
-                });
-                $("#new-pass-group, #confirm-pass-group").addClass("d-none");
-            });
-
-            // Mostra le istruzioni della password quando il campo è attivo
-            $("#newpass").on("focus", function () {
-                if (!$(this).is("[readonly]")) {
-                    $("#error-newpass, #correct-newpass").show();
-                }
-            }).on("blur", function () {
-                $("#error-newpass, #correct-newpass").hide();
-            });
-
-            // Confronta le password e mostra il messaggio corrispondente
-            $("#newpass, #checkpass").on("keyup", function () {
-                var newPass = $("#newpass").val();
-                var checkPass = $("#checkpass").val();
-                if (checkPass && newPass !== checkPass) {
-                    $("#error-checkpass").show();
-                    $("#correct-checkpass").hide();
-                } else if (checkPass && newPass === checkPass) {
-                    $("#error-checkpass").hide();
-                    $("#correct-checkpass").show();
-                } else {
-                    $("#error-checkpass, #correct-checkpass").hide();
-                }
-            });
-        });
-    </script>
+    <script src="/js/studente.js"> </script>
 </body>
 
 </html>
