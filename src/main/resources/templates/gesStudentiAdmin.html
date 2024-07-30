@@ -57,26 +57,29 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <label for="nome">Nome Utente</label>
-                                        <input type="text" class="form-control" name="nome" id="myInput"
-                                            placeholder="Inserisci il nome dello studente">
+                                        <label for="nominativo">Nome Utente</label>
+                                        <input type="text" class="form-control" name="nominativo" id="nominativo"
+                                            oninput="filterTable()"
+                                            placeholder="Inserisci il nominativo dello studente">
                                     </div>
 
 
                                     <div class="col-md-6">
 
                                         <label for="ruolo">Ruolo</label>
-                                        <select name="ruolo" class="custom-select" id="ruolo"
+                                        <select name="ruolo" class="custom-select" id="ruolo" onchange="filterTable()"
                                             aria-label="Seleziona il ruolo">
-                                            <option disabled selected>- Seleziona un elemento -</option>
-                                            <option value="I">Studente</option>
-                                            <option value="C">Guest</option>
+                                            <option value="" disabled selected>- Seleziona un elemento -</option>
+                                            <option value="studente">Studente</option>
+                                            <option value="guest">Guest</option>
                                         </select>
                                     </div>
+
+
                                     <div class="col-md-6">
 
                                         <label for="corso">Corso</label>
-                                        <select name="corso" class="custom-select" id="corso"
+                                        <select name="corso" class="custom-select" id="corso" onchange="filterTable()"
                                             aria-label="Seleziona un corso">
                                             <option value="" disabled selected>- Seleziona un corso -</option>
                                             <option th:each="corso : ${corsi}" th:value="${corso.idCorso}"
@@ -103,7 +106,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <h2>Elenco Studenti</h2>
-                                <!-- <br> -->
+
                             </div>
                             <!-- Pulsante per attivare il modale aggiungi Studente-->
                             <div class="col-4 text-end btn-container">
@@ -364,8 +367,7 @@
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
     <script src="/js/bootbox.all.min.js"></script>
-    <script src="/js/pagDinamiche-filtriRicerca.js"></script>
-    <!-- stesso JS di AQ-2024.07.08-Ges-Questionari (esitiScript.js) -->
+
     <script src="/js/gesStudentiAdmin.js"></script>
     <script src="/js/admin.js"></script>
 </body>

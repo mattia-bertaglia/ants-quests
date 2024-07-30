@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="It">
-<!-- Ross & Nassim -->
+
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corsi</title>
-    <!-- bootstrap link -->
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/css/root.css">
 </head>
@@ -59,17 +58,17 @@
                                     <div class="col-md-12">
                                         <label for="nome">Nome Corso</label>
                                         <input type="text" class="form-control" name="nome" id="myInput"
-                                            onkeyup="myFunction()" placeholder="Inserisci il nome del corso">
+                                            onkeyup="filterTable()" placeholder="Inserisci il nome del corso">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="dataInizio">Data Inizio</label>
                                         <input type="date" class="form-control" name="dataInizio" id="inizio"
-                                            onkeyup="myFunction1()">
+                                            onkeyup="filterTable()">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="dataFine">Data Fine</label>
                                         <input type="date" class="form-control" name="dataFine" id="fine"
-                                            onkeyup="myFunction2()">
+                                            onkeyup="filterTable()">
                                     </div>
                                 </div>
                             </div>
@@ -294,8 +293,7 @@
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
     <script src="/js/bootbox.all.min.js"></script>
-    <script src="/js/pagDinamiche-filtriRicerca.js"></script>
-    <!-- stesso JS di AQ-2024.07.08-Ges-Questionari (esitiScript.js) -->
+
     <script src="/js/gesCorsiAdmin.js"></script>
     <script src="/js/admin.js"></script>
 
