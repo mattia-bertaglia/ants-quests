@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
 
-                var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailPattern.test(email)) {
                     errorMail.classList.remove('d-none');
                     correctMail.classList.add('d-none');
@@ -92,25 +92,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 var hasNumber = /\d/.test(password);
                 var isLengthValid = password.length >= 8;
 
-                var showError = false;
-                if (!hasLowercase) lowercaseError.classList.remove('d-none');
-                else lowercaseError.classList.add('d-none');
+                lowercaseError.classList.toggle('d-none', hasLowercase);
+                uppercaseError.classList.toggle('d-none', hasUppercase);
+                numberError.classList.toggle('d-none', hasNumber);
+                lengthError.classList.toggle('d-none', isLengthValid);
 
-                if (!hasUppercase) uppercaseError.classList.remove('d-none');
-                else uppercaseError.classList.add('d-none');
-
-                if (!hasNumber) numberError.classList.remove('d-none');
-                else numberError.classList.add('d-none');
-
-                if (!isLengthValid) lengthError.classList.remove('d-none');
-                else lengthError.classList.add('d-none');
-
-                if (!hasLowercase || !hasUppercase || !hasNumber || !isLengthValid) {
-                    passwordError.classList.remove('d-none');
-                    passwordCorrect.classList.add('d-none');
-                } else {
+                if (hasLowercase && hasUppercase && hasNumber && isLengthValid) {
                     passwordError.classList.add('d-none');
                     passwordCorrect.classList.remove('d-none');
+                } else {
+                    passwordError.classList.remove('d-none');
+                    passwordCorrect.classList.add('d-none');
                 }
             }
 
@@ -178,8 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var passwordInput = document.getElementById(inputId);
                 var eyeIcon = this.querySelector('i');
                 passwordInput.type = 'text';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
+                eyeIcon.classList.replace('fa-eye-slash', 'fa-eye');
             });
 
             toggle.addEventListener('mouseout', function () {
@@ -187,8 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var passwordInput = document.getElementById(inputId);
                 var eyeIcon = this.querySelector('i');
                 passwordInput.type = 'password';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
+                eyeIcon.classList.replace('fa-eye', 'fa-eye-slash');
             });
         });
     }
