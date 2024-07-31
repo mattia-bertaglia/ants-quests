@@ -44,79 +44,79 @@
 
     <div class="main-content">
         <div class="custom-margin">
-                <div class="card filter-card full-width">
-                    <div class="card-header">
-                        <h5>Filtri Ricerca
-                            <span id="arrow">
-                                <svg width="16" height="16" fill="currentColor" class="bi bi-arrow-down"
-                                    viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
-                                </svg>
-                            </span>
-                        </h5>
-                    </div>
-                    <div class="card-body" style="display: none;">
-                        <form id="filterForm">
-                            <div class="form-group row">
-                                <div class="col-md-6 text-right">
-                                    <label for="categorySelect">Categoria</label>
-                                    <select name="type" class="form-control" id="categorySelect">
-                                        <option disabled="" selected="">-Selezione una categoria-</option>
-                                        <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}"
-                                            th:value="${categorie.nome}"></option>
-                                    </select>
-                                </div>
-
-
-                                <div class="col-md-6 text-left">
-                                    <label for="titolo">Titolo</label>
-                                    <select name="titolo" id="titolo" class="form-control">
-                                        <option value="" disabled selected>-Seleziona un titolo-</option>
-                                        <th:block th:each="categoria : ${listaCategorie}">
-                                            <optgroup th:label="${categoria.nome}">
-                                                <option th:each="questionario : ${categoria.questionari}"
-                                                    th:value="|${categoria.nome}-${questionario.titolo}|"
-                                                    th:text="${questionario.titolo}">
-                                                </option>
-                                            </optgroup>
-                                        </th:block>
-                                    </select>
-                                </div>
-
-                                <div class="form-group row">
-
-                                    <div class="col-md-6">
-                                        <label for="data_inizio">Data Inizio</label>
-                                        <input type="date" id="data_inizio" name="data_inizio" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="data_fine">Data Fine</label>
-                                        <input type="date" id="data_fine" name="data_fine" class="form-control">
-                                        <small id="dateError" class="text-danger"></small>
-                                    </div>
-                                </div>
-
-                                <div class="form-group text-center">
-                                    <label for="stringa">Utente</label>
-                                    <input type="text" id="stringa" class="form-control"
-                                        placeholder="inserisci nome o cognome utente">
-                                </div>
-
-                                <div class="form-group text-center">
-                                    <button type="button" class="btn btn-secondary w-75 mt-2"
-                                        id="removeFiltersButton">Rimuovi
-                                        Filtri</button>
-                                </div>
-
+            <div class="card filter-card full-width">
+                <div class="card-header">
+                    <h5>Filtri Ricerca
+                        <span id="arrow">
+                            <svg width="16" height="16" fill="currentColor" class="bi bi-arrow-down"
+                                viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
+                            </svg>
+                        </span>
+                    </h5>
+                </div>
+                <div class="card-body" style="display: none;">
+                    <form id="filterForm">
+                        <div class="form-group row">
+                            <div class="col-md-6 text-right">
+                                <label for="categorySelect">Categoria</label>
+                                <select name="type" class="form-control" id="categorySelect">
+                                    <option disabled="" selected="">-Selezione una categoria-</option>
+                                    <option th:each="categorie : ${listaCategorie}" th:text="${categorie.nome}"
+                                        th:value="${categorie.nome}"></option>
+                                </select>
                             </div>
 
-                        </form>
-                    </div>
 
+                            <div class="col-md-6 text-left">
+                                <label for="titolo">Titolo</label>
+                                <select name="titolo" id="titolo" class="form-control">
+                                    <option value="" disabled selected>-Seleziona un titolo-</option>
+                                    <th:block th:each="categoria : ${listaCategorie}">
+                                        <optgroup th:label="${categoria.nome}">
+                                            <option th:each="questionario : ${categoria.questionari}"
+                                                th:value="|${categoria.nome}-${questionario.titolo}|"
+                                                th:text="${questionario.titolo}">
+                                            </option>
+                                        </optgroup>
+                                    </th:block>
+                                </select>
+                            </div>
 
+                            <div class="form-group row">
 
+                                <div class="col-md-6">
+                                    <label for="data_inizio">Data Inizio</label>
+                                    <input type="date" id="data_inizio" name="data_inizio" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="data_fine">Data Fine</label>
+                                    <input type="date" id="data_fine" name="data_fine" class="form-control">
+                                    <small id="dateError" class="text-danger"></small>
+                                </div>
+                            </div>
+
+                            <div class="form-group text-center">
+                                <label for="stringa">Utente</label>
+                                <input type="text" id="stringa" class="form-control"
+                                    placeholder="inserisci nome o cognome utente">
+                            </div>
+
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-secondary w-75 mt-2"
+                                    id="removeFiltersButton">Rimuovi
+                                    Filtri</button>
+                            </div>
+
+                        </div>
+
+                    </form>
                 </div>
+
+
+
+            </div>
         </div>
 
     </div>
@@ -176,9 +176,9 @@
 
                     <!-- Inizio pagine dinamiche   -->
                     <div class="text-center">
-                        <button onclick="prevPage()" class="btn btn-secondary-page" id="btn_prev">Precedente</button>
+                        <button onclick="prevPage()" class="btn button" id="btn_prev">Precedente</button>
                         <span>Pagina <span id="page"></span> di <span id="totalPages"></span></span>
-                        <button onclick="nextPage()" class="btn btn-secondary-page" id="btn_next">Successivo</button>
+                        <button onclick="nextPage()" class="btn button" id="btn_next">Successivo</button>
                     </div>
                     <!-- fine pagine dinamiche   -->
 
@@ -202,7 +202,7 @@
                                         frameborder="0"></iframe>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
+                                    <button type="button" class="btn delete-btn"
                                         onclick="$('#pdfModal').modal('hide');">Chiudi</button>
                                 </div>
                             </div>

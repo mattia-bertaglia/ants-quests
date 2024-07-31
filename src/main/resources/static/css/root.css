@@ -179,23 +179,6 @@ nav {
 
 }
 
-
-.prof-link {
-    color: white;
-}
-
-.prof-link:hover {
-    color: white;
-}
-
-.prof-btn {
-    background-color: #123d12;
-}
-
-.prof-btn:hover {
-    background-color: #373737;
-}
-
 .password-container {
     position: relative;
     display: flex;
@@ -221,22 +204,6 @@ nav {
     font-size: 18px;
     color: #333;
     line-height: 1;
-}
-
-
-#logout-btn {
-    background-color: var(--logout-button-color);
-    color: var(--background-color);
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-
-}
-
-#logout-btn:hover {
-    background-color: var(--logout-hover-color);
 }
 
 .navbar__link--bold {
@@ -305,29 +272,20 @@ nav {
     margin: 0;
 }
 
-.btn-custom {
+/* per gli elementi che non sono bottoni ma devono esserlo visivamente */
+.button {
     background-color: var(--button-color);
     border-color: var(--button-color);
-    color: var(--background-color);
-}
-
-.btn-custom:hover {
-    background-color: var(--button-hover-color);
-    border-color: var(--button-hover-color);
-}
-
-.btn.float-end {
-    background-color: var(--button-color);
-    border-color: var(--button-color);
-    color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
-.btn.float-end:hover {
+.button:hover {
     background-color: var(--button-hover-color);
-    border-color: var(--button-hover-color);
 }
-
 
 button {
     background-color: var(--button-color);
@@ -358,8 +316,6 @@ button:hover {
     margin-right: 20px;
     padding-right: 65px;
 
-
-
 }
 
 
@@ -373,7 +329,7 @@ button:hover {
 
 input::placeholder {
     color: #aaa;
-    font-size: 15px;
+    font-size: 16px;
     opacity: 1;
 }
 
@@ -384,20 +340,6 @@ input::placeholder {
     text-align: left;
     margin: 0;
 }
-
-.btn-secondary-page {
-
-    background-color: #8db986;
-    color: black;
-
-}
-
-
-.btn-secondary-page:hover {
-    background-color: #588a50;
-    color: black;
-}
-
 
 .hr {
     height: 2px;
@@ -462,12 +404,12 @@ table tbody tr:nth-child(odd) {
 }
 
 /* aggiungi nuovo studente/corso span */
-.table-title .btn-secondary {
+.table-title .button {
     background-color: #373737;
     color: #fff;
 }
 
-.table-title .btn-secondary:hover {
+.table-title .button:hover {
     background-color: #504c4c;
 }
 
@@ -760,32 +702,16 @@ nav ul li {
     color: var(--background-color);
 }
 
-.rounded-btn {
-    background-color: var(--button-color);
-    color: var(--text-color);
+.rounded-corners {
     border-radius: 25px;
 }
-
-.rounded-btn:hover {
-    background-color: var(--button-hover-color);
-}
-
-.error,
-.correct {
-    color: red;
-    display: none;
-}
-
-.correct {
-    color: green;
-}
-
 
 .row {
     display: flex;
     flex-wrap: wrap;
 }
 
+/* INIZIO ELEMENTI BOOTSTRAP SOVRASCRITTI */
 
 .col-md-6 {
     width: 50%;
@@ -797,14 +723,13 @@ nav ul li {
     padding: 10px;
 }
 
+/* FINE ELEMENTI BOOTSTRAP SOVRASCRITTI */
+
 .email-center {
     display: flex;
     justify-content: center;
 }
 
-/* fine profiloStud.html */
-
-/* doQuest.html inizio  */
 .navbar2 {
     display: flex;
     justify-content: flex-end;
@@ -813,23 +738,6 @@ nav ul li {
 
 .navbar2 a {
     margin-left: 10px;
-}
-
-.navbar2 a.btn-primary {
-    background-color: var(--button-color);
-    border: none;
-}
-
-.navbar2 a.btn-primary:hover {
-    background-color: var(--button-hover-color);
-}
-
-.navbar2 a.btn-warning {
-    border: none;
-}
-
-.navbar2 a.btn-warning:hover {
-    background-color: var(--logout-hover-color);
 }
 
 .card1 {
@@ -867,26 +775,6 @@ nav ul li {
     text-align: center;
 }
 
-.card-footer .btn-primary {
-    background-color: var(--button-color);
-    border: none;
-}
-
-.card-footer .btn-primary:hover {
-    background-color: var(--button-hover-color);
-}
-
-.card-footer .btn-outline-secondary {
-    border-color: var(--button-color);
-    color: var(--button-color);
-}
-
-.card-footer .btn-outline-secondary:hover {
-    background-color: var(--button-hover-color);
-    color: #fff;
-}
-
-
 .form-check .form-radio-input {
     margin-right: 10px;
     accent-color: var(--accent-color);
@@ -904,6 +792,7 @@ nav ul li {
 }
 
 .btn-vuoto-primary {
+    background-color: transparent;
     border-color: var(--button-color);
     color: var(--button-color);
 }

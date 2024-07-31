@@ -117,7 +117,7 @@
                                         <summary th:id="${domanda.idQstDet}" th:text="${domanda.domanda}"></summary>
                                         <div>
                                             <hr>
-                                            <button class="btn btn-outline-primary" data-bs-toggle="modal"
+                                            <button class="btn button btn-vuoto-primary" data-bs-toggle="modal"
                                                 data-bs-target="#modale-modifica-domanda"
                                                 onclick="popolaModale(this)">Modifica
                                             </button>
@@ -275,12 +275,12 @@
                         </div>
                         <div class="modal-footer">
                             <div class="d-grid gap-1 col-10 mt-3 mx-auto">
-                                <button type="button" class="btn btn-primary" id="btn_mod_domanda"
+                                <button type="button" class="btn button" id="btn_mod_domanda"
                                     onclick="modDomanda()">Modifica
                                 </button>
                             </div>
                             <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                                <button type="button" class="btn btn-warning"
+                                <button type="button" class="btn button"
                                     onclick="pulisicDomandeModifica()">Pulisci</button>
                             </div>
                         </div>

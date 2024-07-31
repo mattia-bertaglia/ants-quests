@@ -47,43 +47,43 @@
     <div class="main-content">
         <div class="custom-margin">
             <div>
-                    <div class="card filter-card full-width">
-                        <div class="card-header">
-                            <h5>Filtri Ricerca
-                                <span id="arrow">
-                                    <svg width="16" height="16" fill="currentColor" class="bi bi-arrow-down"
-                                        viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd"
-                                            d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
-                                    </svg>
-                                </span>
-                            </h5>
-                        </div>
-                        <div class="card-body" style="display: none;">
-                            <form action="/ges_corsi/" id="searchForm">
+                <div class="card filter-card full-width">
+                    <div class="card-header">
+                        <h5>Filtri Ricerca
+                            <span id="arrow">
+                                <svg width="16" height="16" fill="currentColor" class="bi bi-arrow-down"
+                                    viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
+                                </svg>
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="card-body" style="display: none;">
+                        <form action="/ges_corsi/" id="searchForm">
 
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label for="nome">Nome Corso</label>
-                                            <input type="text" class="form-control" name="nome" id="myInput"
-                                                onkeyup="filterTable()" placeholder="Inserisci il nome del corso">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="dataInizio">Data Inizio</label>
-                                            <input type="date" class="form-control" name="dataInizio" id="inizio"
-                                                onkeyup="filterTable()">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="dataFine">Data Fine</label>
-                                            <input type="date" class="form-control" name="dataFine" id="fine"
-                                                onkeyup="filterTable()">
-                                        </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="nome">Nome Corso</label>
+                                        <input type="text" class="form-control" name="nome" id="myInput"
+                                            onkeyup="filterTable()" placeholder="Inserisci il nome del corso">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dataInizio">Data Inizio</label>
+                                        <input type="date" class="form-control" name="dataInizio" id="inizio"
+                                            onkeyup="filterTable()">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dataFine">Data Fine</label>
+                                        <input type="date" class="form-control" name="dataFine" id="fine"
+                                            onkeyup="filterTable()">
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
+                </div>
             </div>
         </div>
     </div>
@@ -148,11 +148,9 @@
 
                         <!-- Inizio pagine dinamiche   -->
                         <div class="text-center">
-                            <button onclick="prevPage()" class="btn btn-secondary-page"
-                                id="btn_prev">Precedente</button>
+                            <button onclick="prevPage()" class="btn button" id="btn_prev">Precedente</button>
                             <span>Pagina <span id="page"></span> di <span id="totalPages"></span></span>
-                            <button onclick="nextPage()" class="btn btn-secondary-page"
-                                id="btn_next">Successivo</button>
+                            <button onclick="nextPage()" class="btn button" id="btn_next">Successivo</button>
                         </div>
                         <!-- fine pagine dinamiche   -->
 
