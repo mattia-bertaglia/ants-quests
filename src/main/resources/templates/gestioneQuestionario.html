@@ -5,22 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/animate.min.css">
-    <link rel="icon" type="image/x-icon" href="/img/RAD_Favicon.webp">
     <link rel="stylesheet" href="/css/root.css">
-    <!--  <link rel="stylesheet" href="/css/gestioneQuestionario.css"> -->
-    <script src="/js/objQuest.js"></script>
-    <script>
-        const quest = new Quest();
-        quest.idQst = '[[${ quest.idQst }]]';
-        quest.titolo = '[[${ quest.titolo }]]';
-        quest.categoria = { idCat: '[[${ quest.categoriequest.idCat }]]', nome: '[[${ quest.categoriequest.nome }]]' };
-
-        let domanda;
-        let risposta;
-    </script>
-
-    <title>Gestione</title>
+    <link rel="icon" type="image/x-icon" href="/img/logo-ant.ico">
+    <title>Gestione Questionario</title>
 </head>
 
 <body>
@@ -28,11 +15,11 @@
     <nav class="navbar">
         <ul class="navbar__menu">
             <li class="navbar__item">
-                <img src="/img/antlogo.png" width="90%">
+                <div class="logo"></div>
                 <hr>
             </li>
             <li class="navbar__item">
-                <a href="/homeAdmin" class="navbar__link" id="home-link">Home</a>
+                <a href="/homeAdmin/" class="navbar__link" id="home-link">Home</a>
             </li>
             <li class="navbar__item">
                 <a href="/ges_studenti/" class="navbar__link" id="studenti-link">Studenti</a>
@@ -40,7 +27,7 @@
             <li class="navbar__item">
                 <a href="/ges_corsi/" class="navbar__link" id="corsi-link">Corsi</a>
             </li>
-            <li class="navbar__item">
+            <li class="navbar__item ">
                 <a href="/quest/lista" class="navbar__link" id="questionari-link">Questionari</a>
             </li>
             <li class="navbar__item">
@@ -87,7 +74,7 @@
                         </div>
                         <div class="card-footer text-end">
                             <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" id="btn_salva_test"
-                                class="btn btn-primary" disabled>Salva</button>
+                                class="btn btn-secondary" disabled>Salva</button>
                             <button th:if="${quest.idQst != null}" type="button" class="btn btn-primary"
                                 id="btn_attiva_test" data-bs-toggle="modal" data-bs-target="#modale-attiva-test"
                                 disabled>
@@ -109,9 +96,10 @@
                                     <h5>Elenco domande</h5>
                                 </div>
                                 <div class=" text-end ">
-                                    <button id="btn_aggiungi_domanda" type="button" class="btn btn-primary custom-btn"
+                                    <button id="btn_aggiungi_domanda" type="button" class="btn btn-secondary"
                                         data-bs-toggle="modal" data-bs-target="#modale-aggiungi-domanda"
                                         th:disabled="${quest.idQst == null}" onclick="firstDomanda()">
+                                        <i class="material-icon"></i>
                                         <span>Aggiungi Domanda</span></button>
                                 </div>
                             </div>
@@ -161,7 +149,7 @@
                             </ul>
                         </div>
                         <div class="card-footer text-end">
-                            <button type="button" class="btn btn-primary" id="btn_salva_domanda"
+                            <button type="button" class="btn btn-secondary" id="btn_salva_domanda"
                                 onclick="gestisciDomande()" disabled>Salva</button>
                         </div>
                     </div>
@@ -220,7 +208,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Aggiungi Domanda</h5>
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">x</button>
+                            <button type="button" class="close" data-bs-dismiss="modal">x</button>
                         </div>
                         <div class="modal-body">
                             <div class="input-group input-group-sm mb-1">
@@ -249,7 +237,7 @@
                                 </button>
                             </div>
                             <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                                <button type="button" class="btn btn-warning"
+                                <button type="button" class="btn btn-secondary"
                                     onclick="pulisicModaleAggiungi()">Pulisci</button>
                             </div>
                         </div>
@@ -300,15 +288,28 @@
                 </div>
             </div>
         </div>
-        <!-- FINE MODALE Modifica Domanda -->
+    </div>
+    <!-- FINE MODALE Modifica Domanda -->
 
 
-        <script src="/jquery/jquery-3.7.1.min.js"></script>
-        <script src="/bootstrap/popper.min.js"></script>
-        <script src="/bootstrap/bootstrap.min.js"></script>
-        <script src="/js/bootbox.all.min.js"></script>
-        <script src="/js/gestQuest.js"></script>
-        <script src="/js/admin.js"></script>
+    <script src="/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/bootstrap/popper.min.js"></script>
+    <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/bootbox.all.min.js"></script>
+
+    <script src="/js/admin.js"></script>
+    <script src="/js/gestQuest.js"></script>
+    <script src="/js/objQuest.js"></script>
+
+    <script>
+        const quest = new Quest();
+        quest.idQst = '[[${ quest.idQst }]]';
+        quest.titolo = '[[${ quest.titolo }]]';
+        quest.categoria = { idCat: '[[${ quest.categoriequest.idCat }]]', nome: '[[${ quest.categoriequest.nome }]]' };
+
+        let domanda;
+        let risposta;
+    </script>
 
 </body>
 

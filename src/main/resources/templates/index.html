@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <div class="login-wrap" style="min-height: 650px;">
+  <div id="form-index" class="login-wrap" style="min-height: 650px;">
     <div class="login-html">
       <div img class="logo logo-log-sign"></div>
       <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
@@ -25,9 +25,9 @@
         <form id="loginForm" action="/auth/login" method="post">
           <div class="sign-in-htm">
             <div class="group">
-              <label for="user" class="label_index">Email</label>
-              <input id="user" name="usernameEmail" type="text" class="input" placeholder="Inserisci la tua email"
-                required>
+              <label for="email-login" class="label_index">Email</label>
+              <input id="email-login" name="usernameEmail" type="text" class="input"
+                placeholder="Inserisci la tua email" required>
             </div>
             <div class="group">
               <label for="password" class="label_index">Password</label>
@@ -67,10 +67,10 @@
 
             <div class="group">
               <label for="email-reg" class="label_index">Email</label>
-              <input id="email-reg" name="usernameEmail" type="email" class="input" placeholder="Inserisci la tua email"
-                required>
-              <i id="error-mail" class="d-none text-danger">Inserire una e-mail valida</i>
-              <i id="correct-mail" class="d-none text-success">Accettabile</i>
+              <input id="email-reg" name="usernameEmail" type="email" class="email input"
+                placeholder="Inserisci la tua email" required>
+              <i id="error-mail-reg" class="error-email d-none text-danger">Inserire una e-mail valida</i>
+              <i id="correct-mail-reg" class="correct-email d-none text-success">Accettabile</i>
             </div>
             <div class="group">
               <input id="signup-btn" type="submit" class="button" value="Continua Registrazione">
@@ -85,7 +85,7 @@
   <script src="/jquery/jquery-3.7.1.min.js"></script>
   <script src="/bootstrap/popper.min.js"></script>
   <script src="/bootstrap/bootstrap.min.js"></script>
-  <script src="/js/index.js"></script>
+  <script src="/js/checkInput.js"></script>
 
 </body>
 
