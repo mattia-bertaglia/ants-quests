@@ -14,7 +14,7 @@
 </head>
 
 <body class="body-log-sign">
-    <div class="login-wrap-ft">
+    <div id="form-firstTime" class="login-wrap-ft">
         <div class="login-html-ft">
             <div>
                 <div img class=" logo logo-log-sign"></div>
@@ -36,81 +36,93 @@
 
                         <div class="row-group">
                             <div class="group">
-                                <label for="telefono" class="label_etichetta_ft">Numero di telefono</label>
-                                <input id="telefono" type="text" class="input"
+                                <label for="telefono-ft" class="label_etichetta_ft">Numero di telefono</label>
+                                <input id="telefono-ft" type="text" class="telefono input"
                                     placeholder="Inserisci il tuo numero di telefono" pattern="[0-9]{10}"
                                     name="telefono" required>
-                                <i id="error-phone" class="d-none text-danger">Inserisci un numero di telefono</i>
-                                <i id="correct-phone" class="d-none text-success">Accettabile</i>
+                                <i id="error-phone-ft" class="error-phone d-none text-danger">Inserisci un numero di
+                                    telefono</i>
+                                <i id="correct-phone-ft" class="correct-phone d-none text-success">Accettabile</i>
                             </div>
                             <div class="group">
-                                <label for="data-nascita" class="label_etichetta_ft">Data di nascita</label>
-                                <input id="data-nascita" type="date" class="input" name="dataNascita" required>
-                                <i class="d-none text-danger">Inserisci una data di nascita</i>
-                                <i class="d-none text-success">Accettabile</i>
+                                <label for="data-nascita-ft" class="label_etichetta_ft">Data di nascita</label>
+                                <input id="data-nascita-ft" type="date" class="data-nascita input" name="dataNascita"
+                                    required>
+                                <i id="error-dataNascita-ft" class="error-dataNascita d-none text-danger">Inserisci una
+                                    data di nascita (non la data di oggi o una futura)</i>
                             </div>
                         </div>
 
                         <div class="row-group">
                             <div class="group">
-                                <label for="cap" class="label_etichetta_ft">CAP</label>
-                                <input id="cap" type="text" class="input input-cap" pattern="[0-9]{5}"
+                                <label for="cap-ft" class="label_etichetta_ft">CAP</label>
+                                <input id="cap-ft" type="text" class="cap input input-cap" pattern="[0-9]{5}"
                                     placeholder="Inserisci il CAP" name="cap">
-                                <i class="d-none text-danger">Inserisci un CAP</i>
-                                <i class="d-none text-success">Accettabile</i>
+                                <i id="error-cap-ft" class="error-cap d-none text-danger">Inserisci un CAP</i>
+                                <i id="correct-cap-ft" class="correct-cap d-none text-success">Accettabile</i>
                             </div>
                             <div class="group">
-                                <label for="provincia" class="label_etichetta_ft">Provincia</label>
-                                <input id="provincia" type="text" class="input input-provincia"
+                                <label for="provincia-ft" class="label_etichetta_ft">Provincia</label>
+                                <input id="provincia-ft" type="text" class="provincia input input-provincia"
                                     placeholder="Inserisci la provincia" pattern="[a-zA-Z]{2}" name="provincia"
                                     required>
-                                <i class="d-none text-danger">l'abbreviazione di una provincia</i>
-                                <i class="d-none text-success">Accettabile</i>
+                                <i id="error-provincia-ft" class="error-provincia d-none text-danger">Inserisci la sigla
+                                    di
+                                    una provincia (es. Roma = RO)</i>
+                                <i id="correct-provincia-ft"
+                                    class="correct-provincia d-none text-success">Accettabile</i>
                             </div>
+
                         </div>
 
                         <div class="group">
-                            <label for="email" class="label_etichetta_ft">Email</label>
-                            <input id="email" type="email" class="input" placeholder="Inserisci la tua email"
+                            <label for="email-ft" class="label_etichetta_ft">Email</label>
+                            <input id="email-ft" type="email" class="email input" placeholder="Inserisci la tua email"
                                 name="email" th:value="${usernameEmail}" required>
-                            <i id="error-email" class="d-none text-danger">Inserisci una email valida</i>
-                            <i id="correct-email" class="d-none text-success">Accettabile</i>
+                            <i id="error-email-ft" class="error-email d-none text-danger">Inserisci una email valida</i>
+                            <i id="correct-email-ft" class="correct-email d-none text-success">Accettabile</i>
                         </div>
 
                         <div class="row-group">
                             <div class="group">
-                                <label for="password" class="label_etichetta_ft">Password</label>
+                                <label for="password-ft" class="label_etichetta_ft">Password</label>
                                 <div class="password-container">
-                                    <input id="password" type="password" class="input input-password"
+                                    <input id="password-ft" type="password" class="password input input-password"
                                         placeholder="Inserisci la password" name="passkey" pattern="[0-9a-zA-Z]{8,}"
                                         required>
                                     <span class="toggle-password">
                                         <i id="password-eye" class="fas fa-eye-slash"></i>
                                     </span>
                                 </div>
-                                <i id="error-pass" class="d-none text-danger">
+                                <i id="error-pass-ft" class="error-pass d-none text-danger">
                                     Non accettabile, la password deve contenere:
-                                    <ul id="error-list">
-                                        <li id="error-lowercase" class="d-none">almeno un carattere minuscolo (abc)</li>
-                                        <li id="error-uppercase" class="d-none">almeno un carattere maiuscolo (ABC)</li>
-                                        <li id="error-number" class="d-none">almeno un carattere numerico (123)</li>
-                                        <li id="error-length" class="d-none">almeno 8 caratteri</li>
+                                    <ul id="error-list-ft" class="error-list">
+                                        <li id="error-lowercase-ft" class="error-lowercase d-none">almeno un carattere
+                                            minuscolo (abc)</li>
+                                        <li id="error-uppercase-ft" class="error-uppercase d-none">almeno un carattere
+                                            maiuscolo (ABC)</li>
+                                        <li id="error-number-ft" class="error-number d-none">almeno un carattere
+                                            numerico (123)</li>
+                                        <li id="error-length-ft" class="error-length d-none">almeno 8 caratteri</li>
                                     </ul>
                                 </i>
-                                <i id="correct-pass" class="d-none text-success">Accettabile</i>
+                                <i id="correct-pass-ft" class="correct-pass d-none text-success">Accettabile</i>
                             </div>
                             <div class="group">
-                                <label for="conferma-password" class="label_etichetta_ft">Conferma Password</label>
+                                <label for="conferma-password-ft" class="label_etichetta_ft">Conferma Password</label>
                                 <div class="password-container">
-                                    <input id="conferma-password" type="password" class="input input-password"
+                                    <input id="conferma-password-ft" type="password"
+                                        class="conferma-password input input-password"
                                         placeholder="Conferma la password" name="confirmPasskey"
                                         pattern="[0-9a-zA-Z]{8,}" required>
                                     <span class="toggle-password">
                                         <i id="confirm-eye" class="fas fa-eye-slash"></i>
                                     </span>
                                 </div>
-                                <i id="error-checkpass" class="d-none text-danger">Le password non corrispondono</i>
-                                <i id="correct-checkpass" class="d-none text-success">Le password corrispondono</i>
+                                <i id="error-checkpass-ft" class="error-checkpass d-none text-danger">Le password non
+                                    corrispondono</i>
+                                <i id="correct-checkpass-ft" class="correct-checkpass d-none text-success">Le password
+                                    corrispondono</i>
                             </div>
                         </div>
 
@@ -124,7 +136,8 @@
         </div>
     </div>
     <!-- Link agli script JavaScript -->
-    <script src="/js/index.js"></script>
+    <script src="/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/js/checkInput.js"></script>
 </body>
 
 </html>

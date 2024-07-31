@@ -46,8 +46,11 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="usernameEmail">Email</label>
-                                    <input type="email" readonly class="form-control form-control-plaintext"
+                                    <input type="email" readonly class="email form-control form-control-plaintext"
                                         name="usernameEmail" th:value="${session.user.usernameEmail}" required>
+                                    <i id="error-mail-reg" class="error-email d-none text-danger">Inserire una e-mail
+                                        valida</i>
+                                    <i id="correct-mail-reg" class="correct-email d-none text-success">Accettabile</i>
                                 </div>
                             </div>
                         </div>
@@ -71,11 +74,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="dataNascita">Data di Nascita</label>
-                                    <input type="date" readonly class="form-control form-control-plaintext"
+                                    <input type="date" readonly class="data-nascita form-control form-control-plaintext"
                                         id="dataNascita" name="dataNascita"
                                         th:value="${session.user.studente.dataNascita}" required>
 
-                                    <i id="error-dataNascita" class="d-none text-danger">La data di nascita non può
+                                    <i id="error-dataNascita" class="error-dataNascita d-none text-danger">La data di
+                                        nascita non può
                                         essere
                                         oggi o
                                         in data
@@ -85,10 +89,10 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="cap">CAP</label>
-                                    <input id="cap" type="text" readonly class="form-control form-control-plaintext"
+                                    <input id="cap" type="text" readonly class="cap form-control form-control-plaintext"
                                         name="cap" maxlength="5" th:value="${session.user.studente.cap}" required>
 
-                                    <i id="error-cap" class="d-none text-danger">CAP non valido</i>
+                                    <i id="error-cap" class="error-cap d-none text-danger">CAP non valido</i>
                                 </div>
                             </div>
                         </div>
@@ -96,18 +100,25 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="provincia">Provincia</label>
-                                    <input type="text" readonly class="form-control form-control-plaintext"
+                                    <input type="text" readonly class="provincia form-control form-control-plaintext"
                                         name="provincia" th:value="${session.user.studente.provincia}" required>
+                                    <i id="error-provincia-ft" class="error-provincia d-none text-danger">Inserisci la
+                                        sigla
+                                        di
+                                        una provincia (es. Roma = RO)</i>
+                                    <i id="correct-provincia-ft"
+                                        class="correct-provincia d-none text-success">Accettabile</i>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="telefono">Telefono</label>
-                                    <input id="phone" type="text" readonly class="form-control form-control-plaintext"
-                                        name="telefono" maxlength="10" th:value="${session.user.studente.telefono}"
-                                        required>
+                                    <input id="phone" type="text" readonly
+                                        class="telefono form-control form-control-plaintext" name="telefono"
+                                        maxlength="10" th:value="${session.user.studente.telefono}" required>
 
-                                    <i id="error-phone" class="d-none text-danger">Numero di telefono non valido</i>
+                                    <i id="error-phone" class="error-phone d-none text-danger">Numero di telefono non
+                                        valido</i>
                                 </div>
                             </div>
                         </div>
@@ -138,16 +149,26 @@
                                 <div class="form-group">
                                     <label for="newpass">Nuova password</label>
                                     <input id="newpass" type="password" readonly
-                                        class="form-control form-control-plaintext" name="newpass"
+                                        class="password form-control form-control-plaintext" name="newpass"
                                         placeholder="Nuova Password">
 
-                                    <i id="error-newpass" class="d-none text-danger">
-                                        La password deve contenere: almeno un carattere minuscolo (abc), almeno un
-                                        carattere
-                                        maiuscolo (ABC), almeno un carattere numerico (123)
+                                    <i id="error-pass-profiloStud" class="error-pass d-none text-danger">
+                                        Non accettabile, la password deve contenere:
+                                        <ul id="error-list-profiloStud" class="error-list">
+                                            <li id="error-lowercase-ft" class="error-lowercase d-none">almeno un
+                                                carattere
+                                                minuscolo (abc)</li>
+                                            <li id="error-uppercase-ft" class="error-uppercase d-none">almeno un
+                                                carattere
+                                                maiuscolo (ABC)</li>
+                                            <li id="error-number-ft" class="error-number d-none">almeno un carattere
+                                                numerico (123)</li>
+                                            <li id="error-length-ft" class="error-length d-none">almeno 8 caratteri</li>
+                                        </ul>
                                     </i>
+                                    <i id="correct-pass-profiloStud"
+                                        class="correct-pass d-none text-success">Accettabile</i>
 
-                                    <i id="correct-newpass" class="d-none text-success">Accettabile</i>
                                 </div>
                             </div>
 
@@ -155,11 +176,13 @@
                                 <div class="form-group">
                                     <label for="checkpass">Conferma la tua password</label>
                                     <input id="checkpass" type="password" readonly
-                                        class="form-control form-control-plaintext" name="checkpass"
+                                        class="conferma-password form-control form-control-plaintext" name="checkpass"
                                         placeholder="Conferma Password">
 
-                                    <i id="error-checkpass" class="d-none text-danger">Le password non corrispondono</i>
-                                    <i id="correct-checkpass" class="d-none text-success">Le password corrispondono</i>
+                                    <i id="error-checkpass" class="error-checkpass d-none text-danger">Le password non
+                                        corrispondono</i>
+                                    <i id="correct-checkpass" class="correct-checkpass d-none text-success">Le password
+                                        corrispondono</i>
                                 </div>
                             </div>
                         </div>
@@ -176,7 +199,7 @@
     <script src="/jquery/jquery-3.7.1.min.js"></script>
     <script src="/bootstrap/popper.min.js"></script>
     <script src="/bootstrap/bootstrap.min.js"></script>
-
+    <script src="/js/checkInput.js"></script>
     <script src="/js/studente.js"> </script>
 </body>
 
