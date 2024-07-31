@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '/ges_studenti/': 'studenti-link',
         '/ges_corsi/': 'corsi-link',
         '/quest/lista': 'questionari-link',
+        '/quest/gestione': 'questionari-link',
         '/quest/esiti': 'esiti-link',
     };
 

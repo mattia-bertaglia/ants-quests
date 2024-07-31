@@ -1,5 +1,4 @@
 @import url(animate.min.css);
-/* verificare se animate.min.css modifica qualcosa */
 
 :root {
     --navbar-bg-color: #8db986;
@@ -19,8 +18,18 @@
     --accent-color: #198754;
     --table-header: #8db986;
 
+    --modal-bg-heading: #acce91;
+    --modal-heading-text: black;
 
-    --verde-primario: #8db986;
+
+    --btn-modal-footer: #198754;
+    --btn-hover-modal-footer: #198754;
+
+    --btn-warning-modal-footer: #636161;
+    --btn-warning-hover-modal-footer: #636161;
+
+    --card-border: #8db986;
+    --lines-card-border: #373737;
 
 }
 
@@ -157,6 +166,7 @@ nav {
     opacity: 10;
 }
 
+
 .btn-close {
 
     background-color: transparent;
@@ -243,11 +253,39 @@ nav {
 
 .card {
 
-    border: 1px solid var(--table-divider-color);
+    border: 3px solid var(--table-divider-color);
     border-radius: 5px;
     padding: 20px;
-    background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.card.full-width {
+
+    border: 20px solid var(--card-border) !important;
+    padding: 0px;
+    /* Padding */
+
+    box-shadow: 0 0 0 2px var(--lines-card-border), 0 6px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card.full-width::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    /* Spessore del bordo interno */
+    right: -5px;
+    /* Spessore del bordo interno */
+    bottom: -5px;
+    /* Spessore del bordo interno */
+    left: -5px;
+    /* Spessore del bordo interno */
+
+    pointer-events: none;
+    /* The pseudo-element should not block interactions */
+    box-sizing: border-box;
+    /* Ensure the pseudo-element sizes correctly */
 }
 
 .card-header {
@@ -833,6 +871,7 @@ nav ul li {
     color: #fff;
 }
 
+
 .form-check .form-radio-input {
     margin-right: 10px;
     accent-color: var(--accent-color);
@@ -871,47 +910,60 @@ nav ul li {
 /* gestioneQuestionario */
 
 
- .btn-container {
-     text-align: right;
-     }
- .card.full-width {
-      width: 100%;
-     }
+.btn-container {
+    text-align: right;
+}
 
- .custom-btn {
+.card.full-width {
+    width: 100%;
+}
+
+.custom-btn {
     background-color: #8db986;
-    border-color: #8db986;    
+    border-color: #8db986;
 
- }
+}
 
 .custom-btn:hover {
     background-color: #8db986;
     border-color: #8db986;
 }
 
-.modal-header, .modal-footer {
-   
-    color: white; 
+.modal-header,
+.modal-footer {
+    background-color: var(--modal-bg-heading);
+    color: var(--modal-heading-text);
 }
 
 .modal-body {
-    background-color: var(--background-color); 
-    color: var(--text-color); 
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
 
 .modal-header .btn-close {
-    background-color: var(--navbar-bg-color); 
+    background-color: var(--navbar-bg-color);
 }
 
 .modal-header .btn-close:hover {
-    background-color: var(--navbar-hover-bg-color); 
+    background-color: var(--navbar-hover-bg-color);
 }
 
 .modal-footer .btn-primary {
-    background-color: var(--button-color); 
-    border-color: var(--button-color);
+    background-color: var(--btn-modal-footer);
+    border-color: var(--btn-modal-footer);
 }
 
 .modal-footer .btn-primary:hover {
-    background-color: var(--button-hover-color); 
+    background-color: var(--button-hover-color);
     border-color: var(--button-hover-color);
+}
+
+.modal-footer .btn-warning {
+    background-color: var(--btn-warning-modal-footer);
+    border-color: var(--btn-warning-modal-footer);
+}
+
+.modal-footer .btn-warning:hover {
+    background-color: var(--btn-warning-hover-modal-footer);
+    border-color: var(--btn-warning-hover-modal-footer);
 }
