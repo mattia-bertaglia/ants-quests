@@ -65,7 +65,7 @@ public class HomeStudentiController {
 
         // Controlla se ci sono errori
         if (model.containsAttribute("errorMessage")) {
-            return "modificaProfilo"; // Ritorna alla pagina di modifica se ci sono errori
+            return "profiloStud"; // Ritorna alla pagina di modifica se ci sono errori
         }
 
         // Reindirizza alla pagina del profilo studente se tutto è andato bene
