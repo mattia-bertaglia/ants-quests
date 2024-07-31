@@ -56,7 +56,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 col-sm-12">
-                                        <input class="btn-quest w-100" type="submit" value="Inizia il questionario">
+                                        <input class="rounded-btn w-100" type="submit" value="Inizia il questionario">
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                         <td th:text="${record.tempo}"></td>
                                         <td th:text="${record.dataEsecuzione}"></td>
                                         <td>
-                                            <button class="btn-quest view-pdf-btn" data-toggle="modal"
+                                            <button class="rounded-btn view-pdf-btn" data-toggle="modal"
                                                 data-target="#pdfModal"
                                                 th:data-pdf-url="|/pdf/open?pathFile=${record.pathPdf}|">PDF</button>
                                         </td>

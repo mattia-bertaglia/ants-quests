@@ -755,13 +755,18 @@ nav ul li {
     border: 1px solid #ddd;
 }
 
-.btn-quest {
+.home-btn:hover {
+    background-color: var(--navbar-hover-bg-color);
+    color: var(--background-color);
+}
+
+.rounded-btn {
     background-color: var(--button-color);
     color: var(--text-color);
     border-radius: 25px;
 }
 
-.btn-quest:hover {
+.rounded-btn:hover {
     background-color: var(--button-hover-color);
 }
 
