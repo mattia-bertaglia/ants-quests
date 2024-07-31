@@ -355,12 +355,12 @@ $(document).ready(function () {
             if (esito == "OK") {
                 bootbox.alert({
                     title: 'Successo !!',
-                    message: 'Elenco Domande aggiornato !!<br> Si consiglia di ricaricare la pagina premendo Ritrasmetti al prossimo popup',
+                    message: 'Elenco Domande aggiornato !!<br> Si consiglia di ricaricare la pagina Confermando il prossimo popup',
                     centerVertical: true,
                     className: 'rubberBand animated',
                     callback: function () {
-
-                        $.post("/quest/gestione", { "id_quest": quest.idQst });
+                        location.reload();
+                        /* $.post("/quest/gestione", { "id_quest": quest.idQst }); */
                     }
                 });
             } else {
