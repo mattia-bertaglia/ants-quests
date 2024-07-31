@@ -8,6 +8,12 @@ function vediQuest(stud) {
     const tbodyEsiti = document.getElementById("lista-esiti");
     tbodyEsiti.innerHTML = "";
 
+    if (stud.esquestionari.length == 0) {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td class="text-center" colspan="6">Nessun Elemento Recente</td>`;
+        tbodyEsiti.appendChild(row);
+    }
+
     for (const esiti of stud.esquestionari) {
 
         const row = document.createElement('tr');
