@@ -259,33 +259,43 @@ nav {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Allinea l'elemento del checkbox e dell'input */
+.elenco-risposte-item {
+    display: flex;
+    align-items: center;
+    /* Allinea verticalmente al centro */
+    margin-bottom: 10px;
+    /* Spazio tra le risposte */
+}
 
+/* Stile del checkbox */
+.elenco-risposte-item input[type="checkbox"] {
+    margin-right: 10px;
+    /* Distanza tra il checkbox e l'input */
+    /* Altezza e larghezza specifiche per il checkbox */
+    width: 20px;
+    height: 20px;
+}
+
+/* Stile dell'input per la risposta */
+.elenco-risposte-item input[type="text"] {
+    flex: 1;
+    /* Occupa tutto lo spazio rimanente */
+    /* Altezza dell'input per renderlo allineato con il checkbox */
+    height: 38px;
+}
+
+/* Stile del contenitore della risposta */
+#elenco-risposte {
+    margin-top: 10px;
+    /* Spazio sopra le risposte */
+}
 
 .card.full-width {
 
     border: 20px solid var(--card-border) !important;
     padding: 0px;
-    /* Padding */
-
     box-shadow: 0 0 0 2px var(--lines-card-border), 0 6px 10px rgba(0, 0, 0, 0.1);
-}
-
-.card.full-width::before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    /* Spessore del bordo interno */
-    right: -5px;
-    /* Spessore del bordo interno */
-    bottom: -5px;
-    /* Spessore del bordo interno */
-    left: -5px;
-    /* Spessore del bordo interno */
-
-    pointer-events: none;
-    /* The pseudo-element should not block interactions */
-    box-sizing: border-box;
-    /* Ensure the pseudo-element sizes correctly */
 }
 
 .card-header {
