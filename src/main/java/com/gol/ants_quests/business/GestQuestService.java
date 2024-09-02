@@ -64,9 +64,9 @@ public class GestQuestService {
     }
 
     // change with findAllCategorie
-    public void findAll(Model model) {
-        model.addAttribute("listaCategorie", qstSrv.findAll());
-    }
+    //public void findAll(Model model) {
+     //   model.addAttribute("listaCategorie", qstSrv.findAll());
+    //}
 
     public String saveTest(HashMap<String, String> params) {
 
