@@ -66,12 +66,12 @@
                                                 <ul class="list-unstyled mb-4">
                                                     <li th:each="risposta : ${domanda.risp}">
                                                         <div
-                                                            class="form-check  btn btn-vuoto-primary d-flex align-items-center">
+                                                            class=" form-check  btn btn-vuoto-primary d-flex  align-items-center ">
                                                             <input class="form-radio-input  me-4" type="radio"
                                                                 th:name="|dom-${domanda.idQstDet}|"
                                                                 th:value="|ans-${risposta.idAns}|"
                                                                 th:id="|ans-${risposta.idAns}|">
-                                                            <label class="form-radio-label h4 me-4 w-100"
+                                                            <label class="form-radio-label h4 me-4 w-100 justify-content-center"
                                                                 th:for="|ans-${risposta.idAns}|"
                                                                 th:text="${risposta.risposta}"></label>
                                                         </div>
@@ -107,7 +107,7 @@
 
                             <div class="card-footer">
                                 <button type="submit" class="btn button">Concludi Test</button>
-                                <button type="reset" class="btn button btn-vuoto-primary">Pulisci</button>
+                                <button type="reset" class="btn button">Pulisci</button>
                             </div>
                         </form>
                     </div>

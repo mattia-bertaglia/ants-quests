@@ -776,12 +776,16 @@ nav ul li {
 }
 
 .form-check .form-radio-input {
-    margin-right: 10px;
+    display: inline-flex;
+    margin-inline-end: auto;
+    margin: auto;
+    margin-bottom: auto;
     accent-color: var(--accent-color);
     cursor: pointer;
 }
 
 .form-check .form-radio-label {
+    align-items: center;
     color: var(--text-color);
     cursor: pointer;
 }
