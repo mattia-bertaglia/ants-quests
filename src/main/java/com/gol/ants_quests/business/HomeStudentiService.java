@@ -68,42 +68,55 @@ public class HomeStudentiService {
     /* metodo per la modifica dello studente dal suo profilo */
     public void modificaProfilo(HttpSession session, HashMap<String, String> params, Model model) {
         String email = params.get("usernameEmail");
-        String password = params.get("passkey");
+        String password = params.get("newpass");
 
-        if (email == null || password == null || !authsrv.userExists(email)) {
+        // Verifica se l'email o la password sono null o l'utente non esiste
+        if (email == null || !authsrv.userExists(email)) {
             errorService.addErrorMessageToModel(model, "registrationError");
             return;
         }
 
+        // Recupera l'utente dalla sessione
         User user = (User) session.getAttribute("user");
         if (user == null) {
             errorService.addErrorMessageToModel(model, "userNotLoggedInError");
             return;
         }
 
-        user.setPasskey(bcrypt.encode(password));
-        user.setFirstTime(false);
+        // Aggiorna la password solo se non è vuota
+        if (password != null && !password.isEmpty()) {
+            user.setPasskey(bcrypt.encode(password));
+            user.setFirstTime(false);
+        }
 
+        // Salva l'utente con la nuova password (se cambiata)
         User salvatoUser = authsrv.save(user);
         if (salvatoUser == null || salvatoUser.getId() == null) {
             errorService.addErrorMessageToModel(model, "registrationError");
             return;
         }
 
+        // Recupera l'entità Studente associata
         Studente studenteTemp = salvatoUser.getStudente();
         if (studenteTemp == null) {
             errorService.addErrorMessageToModel(model, "studentNotFoundError");
             return;
         }
 
+        // Aggiorna i dettagli dello studente
         aggiornaDettagliStudente(studenteTemp, params);
 
-        salvatoUser.setStudente(studHibSrv.save(studenteTemp));
+        // Salva i cambiamenti dello studente nel database
+        studenteTemp = studHibSrv.save(studenteTemp);
+
         if (salvatoUser.getStudente() == null) {
             errorService.addErrorMessageToModel(model, "studentUpdateError");
             return;
         }
 
+        session.setAttribute("user", salvatoUser);
+
+        // Aggiungi un messaggio di successo al modello
         errorService.addSuccessMessageToModel(model, "registrationSuccess");
     }
 
