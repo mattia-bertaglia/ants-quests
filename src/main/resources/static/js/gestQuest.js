@@ -1,5 +1,7 @@
 let indiceDomandaGlobal;
 let contDom = 0;
+
+
 function firstDomanda() {
     if (contDom == 0) {
         creaIdDomanda();
@@ -122,6 +124,10 @@ function eliminaDomanda() {
 
 
 function addDomanda() {
+
+    const modaleAggiungi = document.getElementById('modale-aggiungi-domanda');
+    const modale = bootstrap.Modal.getInstance(modaleAggiungi);
+    modale.hide();
     const textareaDomanda = document.getElementById('domanda_inserita').value;
     const lista = document.getElementById('elenco-domande');
 
@@ -291,11 +297,6 @@ $(document).ready(function () {
 
 
     $("#domanda_inserita").on("input", function () {
-        abilitaPulsanteAggiungi();
-    });
-
-
-    function abilitaPulsanteAggiungi() {
         const pulsante = $("#btn_add_domanda");
 
         if ($("#domanda_inserita").val().trim() !== "") {
@@ -303,7 +304,23 @@ $(document).ready(function () {
         } else {
             pulsante.prop("disabled", true);
         }
-    }
+    });
+
+
+    $("#domanda_inserita_modifica").on("input", function () {
+        
+        const pulsante = $("#btn_mod_domanda");
+        if ($("#domanda_inserita_modifica").val().trim() !== "") {
+            pulsante.prop("disabled", false);
+        } else {
+            pulsante.prop("disabled", true);
+        }
+    });
+
+
+
+
+
 
     window.salvaTest = function (id_quest) {
         $.post("/quest/savetest", {
@@ -425,6 +442,10 @@ function pulisicDomandeModifica() {
     document.getElementById('domanda_inserita_modifica').value = '';
     document.getElementById('elenco-risposte').innerHTML = "";
     //l'elenco risposte nell'oggetto javascript deve essere svuotato
+}
+
+function disabilitaBottoneModifica(){
+    $("#btn_mod_domanda").prop("disabled", true);
 }
 
 
