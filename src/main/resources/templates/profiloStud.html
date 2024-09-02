@@ -58,15 +58,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nome">Nome</label>
-                                    <input type="text" readonly class="form-control form-control-plaintext" name="nome"
+                                    <input type="text" class="form-control form-control-plaintext" name="nome"
                                         th:value="${session.user.studente.nome}" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="cognome">Cognome</label>
-                                    <input type="text" readonly class="form-control form-control-plaintext"
-                                        name="cognome" th:value="${session.user.studente.cognome}" required>
+                                    <input type="text" class="form-control form-control-plaintext" name="cognome"
+                                        th:value="${session.user.studente.cognome}" required>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="dataNascita">Data di Nascita</label>
-                                    <input type="date" readonly class="data-nascita form-control form-control-plaintext"
+                                    <input type="date" class="data-nascita form-control form-control-plaintext"
                                         id="dataNascita" name="dataNascita"
                                         th:value="${session.user.studente.dataNascita}" required>
 
@@ -89,7 +89,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="cap">CAP</label>
-                                    <input id="cap" type="text" readonly class="cap form-control form-control-plaintext"
+                                    <input id="cap" type="text" class="cap form-control form-control-plaintext"
                                         name="cap" maxlength="5" th:value="${session.user.studente.cap}" required>
 
                                     <i id="error-cap" class="error-cap d-none text-danger">CAP non valido</i>
@@ -100,7 +100,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="provincia">Provincia</label>
-                                    <input type="text" readonly class="provincia form-control form-control-plaintext"
+                                    <input type="text" class="provincia form-control form-control-plaintext"
                                         name="provincia" th:value="${session.user.studente.provincia}" required>
                                     <i id="error-provincia-ft" class="error-provincia d-none text-danger">Inserisci la
                                         sigla
@@ -189,7 +189,7 @@
                         <div class="btn-group">
                             <button id="btn-mod-profilo" type="button">Modifica</button>
                             <button id="btn-close-mod" type="button" class="delete-btn d-none">Annulla</button>
-                            <input id="submit-btn" class="d-none" type="submit" value="Salva Modifiche" disabled>
+                            <input id="submit-btn" class="d-none" type="submit" value="Salva Modifiche">
                         </div>
                     </form>
                 </div>

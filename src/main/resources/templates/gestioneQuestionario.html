@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/css/root.css">
     <link rel="icon" type="image/x-icon" href="/img/logo-ant.ico">
+    <script src="/js/objQuest.js"></script>
+    <script>
+        const quest = new Quest();
+        quest.idQst = '[[${ quest.idQst }]]';
+        quest.titolo = '[[${ quest.titolo }]]';
+        quest.categoria = { idCat: '[[${ quest.categoriequest.idCat }]]', nome: '[[${ quest.categoriequest.nome }]]' };
+
+        let domanda;
+        let risposta;
+    </script>
     <title>Gestione Questionario</title>
 </head>
 
@@ -75,9 +85,8 @@
                         <div class="card-footer text-end">
                             <button type="button" th:onclick="salvaTest([[${quest.idQst}]])" id="btn_salva_test"
                                 class="btn btn-secondary" disabled>Salva</button>
-                            <button th:if="${quest.idQst != null}" type="button" class="btn btn-primary"
-                                id="btn_attiva_test" data-bs-toggle="modal" data-bs-target="#modale-attiva-test"
-                                disabled>
+                            <button th:if="${quest.idQst != null}" type="button" class="btn button" id="btn_attiva_test"
+                                data-bs-toggle="modal" data-bs-target="#modale-attiva-test" disabled>
                                 Attiva/Disabilita Test
                             </button>
                         </div>
@@ -232,8 +241,8 @@
                         </div>
                         <div class="modal-footer">
                             <div class="d-grid gap-1 col-10 mt-3 mx-auto">
-                                <button type="button" class="btn btn-primary" id="btn_add_domanda"
-                                    onclick="addDomanda()" disabled>Aggiungi
+                                <button type="button" class="btn button" id="btn_add_domanda" onclick="addDomanda()"
+                                    disabled>Aggiungi
                                 </button>
                             </div>
                             <div class="d-grid gap-2 col-10 mt-2 mx-auto">
@@ -300,16 +309,6 @@
     <script src="/js/admin.js"></script>
     <script src="/js/gestQuest.js"></script>
     <script src="/js/objQuest.js"></script>
-
-    <script>
-        const quest = new Quest();
-        quest.idQst = '[[${ quest.idQst }]]';
-        quest.titolo = '[[${ quest.titolo }]]';
-        quest.categoria = { idCat: '[[${ quest.categoriequest.idCat }]]', nome: '[[${ quest.categoriequest.nome }]]' };
-
-        let domanda;
-        let risposta;
-    </script>
 
 </body>
 

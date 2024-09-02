@@ -809,28 +809,12 @@ nav ul li {
     color: #fff;
 }
 
-/* fine doQuest.html */
-
-/* gestioneQuestionario */
-
-
 .btn-container {
     text-align: right;
 }
 
 .card.full-width {
     width: 100%;
-}
-
-.custom-btn {
-    background-color: #8db986;
-    border-color: #8db986;
-
-}
-
-.custom-btn:hover {
-    background-color: #8db986;
-    border-color: #8db986;
 }
 
 .modal-header,
@@ -852,12 +836,12 @@ nav ul li {
     background-color: var(--navbar-hover-bg-color);
 }
 
-.modal-footer .btn-primary {
+.modal-footer .button {
     background-color: var(--btn-modal-footer);
     border-color: var(--btn-modal-footer);
 }
 
-.modal-footer .btn-primary:hover {
+.modal-footer .button:hover {
     background-color: var(--button-hover-color);
     border-color: var(--button-hover-color);
 }
