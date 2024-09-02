@@ -57,8 +57,8 @@ function aggiungiRisposta(elenco, idRisposta) {
     }
 
     let templateRisposta =
-        `<div class="row" ${tmpIdRisp}>
-                        <div class="col-md-6">
+        `<div class="row d-flex align-items-center" ${tmpIdRisp}>
+                        <div class="col-md-6 d-flex align-items-center">
                             <div class="input-group input-group-sm mb-1">
                                 <input type="text" class="form-control col-6 risposta_inserita" name="risposta">
                             </div>
