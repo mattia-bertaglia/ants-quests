@@ -7,6 +7,16 @@
     <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="/css/root.css">
     <link rel="icon" type="image/x-icon" href="/img/logo-ant.ico">
+    <script src="/js/objQuest.js"></script>
+    <script>
+        const quest = new Quest();
+        quest.idQst = '[[${ quest.idQst }]]';
+        quest.titolo = '[[${ quest.titolo }]]';
+        quest.categoria = { idCat: '[[${ quest.categoriequest.idCat }]]', nome: '[[${ quest.categoriequest.nome }]]' };
+
+        let domanda;
+        let risposta;
+    </script>
     <title>Gestione Questionario</title>
 </head>
 
@@ -299,16 +309,6 @@
     <script src="/js/admin.js"></script>
     <script src="/js/gestQuest.js"></script>
     <script src="/js/objQuest.js"></script>
-
-    <script>
-        const quest = new Quest();
-        quest.idQst = '[[${ quest.idQst }]]';
-        quest.titolo = '[[${ quest.titolo }]]';
-        quest.categoria = { idCat: '[[${ quest.categoriequest.idCat }]]', nome: '[[${ quest.categoriequest.nome }]]' };
-
-        let domanda;
-        let risposta;
-    </script>
 
 </body>
 
