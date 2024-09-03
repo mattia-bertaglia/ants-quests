@@ -24,107 +24,114 @@
     </navbar>
 
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card1">
-                    <div class="card-header1">
-                        <div class="row">
-                            <div class="col-6 text-start">
-                                <h2 class="fw-bold" th:text="|Test: ${quest.titolo}|"></h2>
+        <div class="card full-width">
+            <div class="row" style="padding: 10px;">
+                <div class="col">
+                    <div class="card1">
+                        <div class="card-header1">
+                            <div class="row justify-content-center">
+                                <div class="col-md-5">
+                                    <h2 class="fw-bold" th:text="|Test: ${quest.titolo}|"></h2>
+                                </div>
+                                <div class="col-md-5 text-end">
+                                    <span id="chronometer">00:00</span>
+                                </div>
                             </div>
-                            <div class="col-6 text-end">
-                                <span id="chronometer">00:00</span>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${quest != null}" class="legenda-domande">
+                                <th:block th:each="domanda, index : ${quest.domanda}">
+                                    <button class="btn btn-vuoto-primary" th:id="'btn-dom-' + ${domanda.idQstDet}"
+                                        th:text="${index.index + 1}" th:data-target="${index.index}"></button>
+                                </th:block>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div th:if="${quest != null}" class="legenda-domande">
-                            <th:block th:each="domanda, index : ${quest.domanda}">
-                                <button class="btn btn-vuoto-primary" th:id="'btn-dom-' + ${domanda.idQstDet}"
-                                    th:text="${index.index + 1}" th:data-target="${index.index}"></button>
-                            </th:block>
-                        </div>
-                        <div th:if="${quest == null}">
-                            <p>Nessun questionario disponibile</p>
-                        </div>
-                        <hr>
+                            <div th:if="${quest == null}">
+                                <p>Nessun questionario disponibile</p>
+                            </div>
+                            <hr>
 
-                        <form id="testForm" method="post" action="submit-quest"
-                            th:data-count-dom="${quest.domanda.size}">
-                            <input type="hidden" name="id-quest" th:value="${quest.idQst}">
-                            <input type="hidden" name="tempo-quest" id="tempo-quest">
+                            <form id="testForm" method="post" action="submit-quest"
+                                th:data-count-dom="${quest.domanda.size}">
+                                <input type="hidden" name="id-quest" th:value="${quest.idQst}">
+                                <input type="hidden" name="tempo-quest" id="tempo-quest">
 
-                            <div class="container carousel slide d-flex justify-content-center"
-                                id="carouselExampleControls">
-                                <div class="carousel-inner">
-                                    <th:block th:each="domanda, index : ${quest.domanda}">
-                                        <div th:id="|dom-${domanda.idQstDet}|"
-                                            th:class="'carousel-item' + (${index.index == 0} ? ' active' : '')">
-                                            <div class="d-flex flex-column align-items-center">
-                                                <h3 class="fw-bold mb-0" th:text="'Domanda ' + ${index.index + 1}"></h3>
-                                                <h2 class="my-4" th:text="${domanda.domanda}"></h2>
-                                                <ul class="list-unstyled mb-4">
-                                                    <li th:each="risposta : ${domanda.risp}">
-                                                        <div
-                                                            class=" form-check  btn btn-vuoto-primary d-flex  align-items-center ">
-                                                            <input class="form-radio-input  me-4" type="radio"
-                                                                th:name="|dom-${domanda.idQstDet}|"
-                                                                th:value="|ans-${risposta.idAns}|"
-                                                                th:id="|ans-${risposta.idAns}|">
-                                                            <label class="form-radio-label h4 me-4 w-100 justify-content-center"
-                                                                th:for="|ans-${risposta.idAns}|"
-                                                                th:text="${risposta.risposta}"></label>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                <div class="container carousel slide d-flex justify-content-center"
+                                    id="carouselExampleControls">
+                                    <div class="carousel-inner">
+                                        <th:block th:each="domanda, index : ${quest.domanda}">
+                                            <div th:id="|dom-${domanda.idQstDet}|"
+                                                th:class="'carousel-item' + (${index.index == 0} ? ' active' : '')">
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <h3 class="fw-bold mb-0" th:text="'Domanda ' + ${index.index + 1}">
+                                                    </h3>
+                                                    <h2 class="my-4" th:text="${domanda.domanda}"></h2>
+                                                    <ul class="list-unstyled mb-4">
+                                                        <li th:each="risposta : ${domanda.risp}">
+                                                            <div
+                                                                class=" form-check  btn btn-vuoto-primary d-flex  align-items-center justify-content-center">
+                                                                <input class="form-radio-input  me-4" type="radio"
+                                                                    th:name="|dom-${domanda.idQstDet}|"
+                                                                    th:value="|ans-${risposta.idAns}|"
+                                                                    th:id="|ans-${risposta.idAns}|">
+                                                                <label
+                                                                    class="form-radio-label h4 me-4 w-100  justify-content-center"
+                                                                    th:for="|ans-${risposta.idAns}|"
+                                                                    th:text="${risposta.risposta}"></label>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </th:block>
+                                        </th:block>
+                                    </div>
+
+                                    <button class="carousel-control-prev" style="background-color: #e2e2e1 !important;"
+                                        type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                        <span aria-hidden="true">
+                                            <svg width="50" height="50" fill="black"
+                                                class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button"
+                                        style="background-color: #e2e2e1 !important;"
+                                        data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                        <span aria-hidden="true">
+                                            <svg width="50" height="50" fill="black"
+                                                class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                                            </svg>
+                                        </span>
+                                    </button>
                                 </div>
 
-                                <button class="carousel-control-prev" style="background-color: #e2e2e1 !important;"
-                                    type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                                    <span aria-hidden="true">
-                                        <svg width="50" height="50" fill="black" class="bi bi-arrow-left-circle-fill"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
-                                        </svg>
-                                    </span>
-                                </button>
-                                <button class="carousel-control-next" type="button"
-                                    style="background-color: #e2e2e1 !important;"
-                                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                                    <span aria-hidden="true">
-                                        <svg width="50" height="50" fill="black" class="bi bi-arrow-right-circle-fill"
-                                            viewBox="0 0 16 16">
-                                            <path
-                                                d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                                        </svg>
-                                    </span>
-                                </button>
-                            </div>
+                            </form>
 
                             <div class="card-footer">
                                 <button type="submit" class="btn button">Concludi Test</button>
                                 <button type="reset" class="btn button">Pulisci</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <script src="/jquery/jquery-3.7.1.min.js"></script>
-        <script src="/bootstrap/popper.min.js"></script>
-        <script src="/bootstrap/bootstrap.min.js"></script>
-        <script src="/bootstrap/bootstrap-table.min.js"></script>
-        <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
-        <script src="/js/bootbox.all.min.js"></script>
+    <script src="/jquery/jquery-3.7.1.min.js"></script>
+    <script src="/bootstrap/popper.min.js"></script>
+    <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="/bootstrap/bootstrap-table.min.js"></script>
+    <script src="/bootstrap/bootstrap-table-locale-all.min.js"></script>
+    <script src="/js/bootbox.all.min.js"></script>
 
-        <!-- 
+    <!-- 
         <script src="/js/studente.js"></script> -->
-        <script src="/js/do-quest.js"></script>
+    <script src="/js/do-quest.js"></script>
+
 
 </body>
 
