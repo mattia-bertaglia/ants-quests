@@ -97,7 +97,7 @@ nav {
 
 .navbar__menu li:last-child {
     margin-top: auto;
-    
+
 }
 
 .navbar__item {
@@ -105,7 +105,7 @@ nav {
     width: 100%;
     text-align: center;
     margin: 10px 0;
-   
+
 }
 
 .navbar__menu hr {
@@ -354,6 +354,15 @@ input::placeholder {
 
 .custom-margin {
     margin: 5px 0;
+}
+
+/* homeStudente */
+.container-quest {
+    max-width: 650px;
+    /* Imposta una larghezza massima */
+    margin: 0 auto;
+    /* Allinea al centro */
+
 }
 
 .table {
@@ -676,6 +685,18 @@ nav ul li {
 }
 
 
+
+#btn-close-mod,
+#submit-btn {
+    height: 40px;
+
+}
+
+.d-none {
+    display: none !important;
+
+}
+
 .form-group {
     margin-bottom: 20px;
 }
@@ -820,11 +841,12 @@ nav ul li {
 }
 
 .btn-same-size {
-    width: 15%;            
-    padding: 10px 20px;     
-    margin: 5px 0;          
-    box-sizing: border-box; 
+    width: 15%;
+    padding: 10px 20px;
+    margin: 5px 0;
+    box-sizing: border-box;
 }
+
 .card.full-width {
     width: 100%;
 }
