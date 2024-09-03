@@ -817,6 +817,12 @@ nav ul li {
     text-align: right;
 }
 
+.btn-same-size {
+    width: 15%;            
+    padding: 10px 20px;     
+    margin: 5px 0;          
+    box-sizing: border-box; 
+}
 .card.full-width {
     width: 100%;
 }
