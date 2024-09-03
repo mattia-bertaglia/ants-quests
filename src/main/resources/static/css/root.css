@@ -646,7 +646,7 @@ table tbody tr:nth-child(odd) {
 
 form input,
 form select {
-    width: 100%;
+    /* width: 100%; */
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid var(--button-color);
@@ -799,12 +799,14 @@ nav ul li {
 }
 
 .form-check .form-radio-input {
-    display: inline-flex;
+
     margin-inline-end: auto;
     margin: auto;
     margin-bottom: auto;
     accent-color: var(--accent-color);
     cursor: pointer;
+
+    margin-right: 2px;
 }
 
 .form-check .form-radio-label {
