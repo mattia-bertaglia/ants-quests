@@ -697,6 +697,15 @@ nav ul li {
 
 }
 
+/* homeStudente */
+.container-quest {
+    max-width: 650px;
+    /* Imposta una larghezza massima */
+    margin: 0 auto;
+    /* Allinea al centro */
+
+}
+
 .form-group {
     margin-bottom: 20px;
 }
