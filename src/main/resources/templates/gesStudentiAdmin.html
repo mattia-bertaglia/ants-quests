@@ -76,8 +76,8 @@
                                     <div class="col-md-6">
 
                                         <label for="ruolo">Ruolo</label>
-                                        <select name="ruolo" class="custom-select" id="ruolo" onchange="filterTable()"
-                                            aria-label="Seleziona il ruolo">
+                                        <select name="ruolo" class="custom-select w-100" id="ruolo"
+                                            onchange="filterTable()" aria-label="Seleziona il ruolo">
                                             <option value="" disabled selected>- Seleziona un elemento -</option>
                                             <option value="studente">Studente</option>
                                             <option value="guest">Guest</option>
@@ -88,8 +88,8 @@
                                     <div class="col-md-6">
 
                                         <label for="corso">Corso</label>
-                                        <select name="corso" class="custom-select" id="corso" onchange="filterTable()"
-                                            aria-label="Seleziona un corso">
+                                        <select name="corso" class="custom-select w-100" id="corso"
+                                            onchange="filterTable()" aria-label="Seleziona un corso">
                                             <option value="" disabled selected>- Seleziona un corso -</option>
                                             <option th:each="corso : ${corsi}" th:value="${corso.idCorso}"
                                                 th:text="${corso.nome}">
@@ -186,7 +186,7 @@
     <!-- Modale Aggiungi Studente -->
     <div class="modal fade" id="addStudentModal" tabindex="-1" role="dialog" aria-labelledby="addStudentModal"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <form action="/ges_studenti/savestud" method="post">
                     <div class="modal-header">
