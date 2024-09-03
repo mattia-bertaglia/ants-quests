@@ -126,11 +126,11 @@
                                         <summary th:id="${domanda.idQstDet}" th:text="${domanda.domanda}"></summary>
                                         <div>
                                             <hr>
-                                            <button class="btn button btn-vuoto-primary" data-bs-toggle="modal"
+                                            <button class="btn button btn-vuoto-primary btn-same-size" data-bs-toggle="modal"
                                                 data-bs-target="#modale-modifica-domanda"
                                                 onclick="popolaModale(this)">Modifica
                                             </button>
-                                            <button class="btn btn-outline-danger" data-bs-toggle="modal"
+                                            <button class="btn btn-outline-danger btn-same-size" data-bs-toggle="modal"
                                                 data-bs-target="#modale-elimina-domanda"
                                                 onclick="trovaDomanda(this)">Elimina</button>
                                             <div class="mb-3 mt-3"></div>
@@ -211,7 +211,8 @@
             </div>
             <!-- FINE Modale abilita Quest -->
 
-            <!--Modale Aggiungi Domanda -->
+            <!--Modale 
+            giungi Domanda -->
             <div class="modal fade" id="modale-aggiungi-domanda">
                 <div class="modal-dialog modal-dialog-centered modal-xl ">
                     <div class="modal-content">
