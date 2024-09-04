@@ -1,9 +1,4 @@
-const form = document.getElementById('profilo-form');
 
-document.getElementById('btn-close-mod').addEventListener('click', function () {
-    form.reset();
-
-});
 
 /* selezione nav Studente */
 document.addEventListener('DOMContentLoaded', function () {
