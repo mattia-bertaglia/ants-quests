@@ -12,23 +12,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gol.ants_quests.business.AuthService;
+import com.gol.ants_quests.business.ErrorService;
 import com.gol.ants_quests.business.GesCorsiService;
 import com.gol.ants_quests.hibernate.entities.Studente;
+import com.gol.ants_quests.util.Ruolo;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
-// Ross & Nass
 @Controller
 @RequestMapping("/ges_corsi")
 @RequiredArgsConstructor
 public class GesCorsiController {
 
     private final GesCorsiService corsoService;
+    private final AuthService authService;
+    private final ErrorService errorService;
+    private final Ruolo ruolo = Ruolo.admin;
 
     @GetMapping("/")
-    public String findAll(Model model) {
+    public String findAll(HttpSession session, Model model) {
         model.addAttribute("corsi", corsoService.findAll());
-        return "gesCorsiAdmin.html";
+        if (authService.isLogged(session)) {
+            return "gesCorsiAdmin.html";
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/savecorso")

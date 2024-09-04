@@ -37,6 +37,28 @@ $(document).ready(function () {
     cap.on('input', checkCAP);
     show_hidePassword(".toggle-password");
 
+    // Aggiungere l'event listener per l'invio del modulo
+    $("form").on('submit', function (event) {
+        // Verifica se ci sono errori nelle password
+        if (password.val() !== confirm_password.val()) {
+            errorConfirm_Password.removeClass('d-none');
+            event.preventDefault(); // Impedire l'invio del modulo
+            return;
+        } else {
+            errorConfirm_Password.addClass('d-none');
+        }
+
+        // Verifica se la data di nascita è valida
+        const dataOggi = new Date();
+        if (new Date(data_nascita.val()) >= dataOggi) {
+            errorDataNascita.removeClass('d-none');
+            event.preventDefault(); // Impedire l'invio del modulo
+            return;
+        } else {
+            errorDataNascita.addClass('d-none');
+        }
+    });
+
     // Funzioni di controllo degli input
     function checkEmail() {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
