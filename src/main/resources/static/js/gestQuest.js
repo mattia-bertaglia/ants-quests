@@ -8,7 +8,7 @@ let risposteGiuste = 0;
 function firstDomanda() {
     risposteGiuste = 0;
     rispostePerDomanda = 0;
-    pulisicModaleAggiungi();
+    pulisicModale();
     if (contDom == 0) {
         creaIdDomanda();
     }
@@ -158,18 +158,6 @@ function addDomanda() {
     let idDomanda = quest.domanda.findIndex(indiceDom => indiceDom.idQstDet === indiceDomandaGlobal);
     quest.domanda[idDomanda].domanda = textareaDomanda;
 
-    /* listaRispDaEliminare.forEach((elemento) => {
-         let index = quest.domanda[idDomanda].risp.find(indice => indice.idAns === elemento);
- 
-         let indiceNumerico = quest.domanda[idDomanda].risp.findIndex(indice => indice.idAns === index.idAns)
-         if ((quest.domanda[idDomanda].risp[indiceNumerico].idAns).startsWith("t")) {
-             quest.domanda[idDomanda].risp.splice(indiceNumerico, 1);
-         } else {
-             quest.domanda[idDomanda].risp[indiceNumerico].risposta = null;
-             quest.domanda[idDomanda].risp[indiceNumerico].corretta = null;
-         }
-     });*/
-
     for (let i = 0; i < listaRispDaEliminare.length; i++) {
         let elemento = listaRispDaEliminare[i];
         let index = quest.domanda[idDomanda].risp.find(indice => indice.idAns === elemento);
@@ -238,7 +226,7 @@ function addDomanda() {
             }
         },
         callback: function () {
-            pulisicModaleAggiungi();
+            pulisicModale();
             creaIdDomanda();
         }
     });
@@ -329,8 +317,13 @@ function modDomanda() {
         title: 'Fatto !!',
         message: 'Domanda Modificata',
         centerVertical: true,
-        className: 'rubberBand animated'
-        
+        className: 'rubberBand animated',
+        buttons: {
+            ok: {
+                label: 'OK',
+                className: 'btn button'
+            }
+        }    
     });
 
 }
@@ -511,21 +504,26 @@ function gestisciDomande() {
 
 }
 
-function pulisicModaleAggiungi() {
+function pulisicModale() {
 
     risposteGiuste = 0;
     document.getElementById('domanda_inserita').value = '';
     $("#btn_add_domanda").prop("disabled", true);
 
+    document.getElementById('nuovo-elenco-risposte').innerHTML = "";
+
+}
+
+function pulisicModaleAggiungi(){
     let elencoRisp = document.getElementById('nuovo-elenco-risposte');
     let elementi = elencoRisp.querySelectorAll('[data-id-risp]');
 
+    
     for (let i = 0; i < elementi.length; i++) {
         let idRisposta = elementi[i].getAttribute('data-id-risp');
         listaRispDaEliminare.push(idRisposta);
     }
-
-    elencoRisp.innerHTML = "";
+    pulisicModale();
 
 }
 
