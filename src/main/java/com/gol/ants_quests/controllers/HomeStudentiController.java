@@ -13,6 +13,7 @@ import com.gol.ants_quests.business.AuthService;
 import com.gol.ants_quests.business.ErrorService;
 import com.gol.ants_quests.business.HomeStudentiService;
 import com.gol.ants_quests.hibernate.entities.User;
+import com.gol.ants_quests.util.Ruolo;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -24,76 +25,151 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class HomeStudentiController {
 
-    private final AuthService authSrv;
+    private final AuthService authService;
     private final HomeStudentiService homeStudSrv;
+    private final Ruolo ruoloStud = Ruolo.studente;
+    private final Ruolo ruoloGuest = Ruolo.guest;
 
-    private final ErrorService errorSrv;
+    private final ErrorService errorService;
 
     @GetMapping("/")
     public String homepageStudente(HttpSession session, Model model) {
+        // DONE: authSrv.checkAuthentication(session & permission)
+
         // inserire una lista di questionari per lo studente nella session
         log.info("Start Open Home Page Studente ...");
 
-        // TODO: authSrv.checkAuthentication(session)
-        if (authSrv.isLogged(session)) {
+        if (authService.isLogged(session)
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
             User user = (User) session.getAttribute("user");
             homeStudSrv.openHomeStud(model, user.getStudente().getIdStudente());
-
+            log.info("End Open Home Page Studente.");
+            return "homeStud.html";
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            log.warn("Home Studente - Sessione Scaduta");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruoloStud) || !authService.hasPermission(session, ruoloGuest)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            log.warn("Home Studente - Non Autorizzato");
+            return "redirect:/";
         } else {
-            log.warn("Home Studente - Non Autorizzato o Sessione Scaduta");
-            errorSrv.addErrorMessageToSession(session, "notAuthOrOutSession");
+            errorService.addErrorMessageToSession(session, "unknownError");
+            log.warn("Home Studente - Errore sconosciuto");
             return "redirect:/";
         }
-
-        log.info("End Open Home Page Studente.");
-        return "homeStud.html";
     }
 
     @GetMapping("/profilo")
     public String openProfilo(HttpSession session, Model model) {
-        // TODO: authSrv.checkAuthentication(session)
+        // DONE: authSrv.checkAuthentication(session & permission)
         log.info("Open Pagina Profilo Studente.");
-        // TODO: Compilazione Profilo Utente, aggiungere form per modifica dati.
-        return "profiloStud.html";
+        if (authService.isLogged(session)
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
+            return "profiloStud.html";
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            log.warn("Profilo Studente - Sessione Scaduta");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruoloStud) || !authService.hasPermission(session, ruoloGuest)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            log.warn("Profilo Studente - Non Autorizzato");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            log.warn("Profilo Studente - Errore sconosciuto");
+            return "redirect:/";
+        }
     }
 
-    // TODO: modifica Profilo Studente
+    // DONE: modifica Profilo Studente
 
     @PostMapping("/modificaProfilo")
     public String modificaProfilo(HttpSession session, @RequestParam HashMap<String, String> params, Model model) {
-        homeStudSrv.modificaProfilo(session, params, model);
-
-        // Controlla se ci sono errori
-        if (model.containsAttribute("errorMessage")) {
-            return "profiloStud"; // Ritorna alla pagina di modifica se ci sono errori
+        // DONE: authSrv.checkAuthentication(session & permission)
+        if (authService.isLogged(session)
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
+            homeStudSrv.modificaProfilo(session, params, model);
+            // Controlla se ci sono errori
+            if (model.containsAttribute("errorMessage")) {
+                return "profiloStud"; // Ritorna alla pagina di modifica se ci sono errori
+            } else {
+                // Reindirizza alla pagina del profilo studente se tutto è andato bene
+                return "redirect:/homeStud/profilo";
+            }
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            log.warn("Profilo Studente - Sessione Scaduta");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruoloStud) || !authService.hasPermission(session, ruoloGuest)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            log.warn("Profilo Studente - Non Autorizzato");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            log.warn("Profilo Studente - Errore sconosciuto");
+            return "redirect:/";
         }
 
-        // Reindirizza alla pagina del profilo studente se tutto è andato bene
-        return "redirect:/homeStud/profilo";
     }
 
     @GetMapping("/doQuestionario")
     public String doQuestionario(HttpSession session, Model model, @RequestParam("quest-select") Long selectedValue) {
-        // TODO: authSrv.checkAuthentication(session)
-        log.info("Start Questionario=" + selectedValue + " ...");
+        // DONE: authSrv.checkAuthentication(session & permission)
+        if (authService.isLogged(session)
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
+            log.info("Start Questionario=" + selectedValue + " ...");
 
-        homeStudSrv.doQuestionario(model, selectedValue);
+            homeStudSrv.doQuestionario(model, selectedValue);
 
-        log.info("End Questionario=" + selectedValue);
-        return "doQuest.html";
+            log.info("End Questionario=" + selectedValue);
+            return "doQuest.html";
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            log.warn("Profilo Studente - Sessione Scaduta");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruoloStud) || !authService.hasPermission(session, ruoloGuest)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            log.warn("Profilo Studente - Non Autorizzato");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            log.warn("Profilo Studente - Errore sconosciuto");
+            return "redirect:/";
+        }
 
     }
 
     @PostMapping("/submit-quest")
     public String submitQuest(HttpSession session, @RequestParam HashMap<String, String> params) {
-        // TODO: authSrv.checkAuthentication(session)
-        log.info("Start Submit Questionario ...");
+        // DONE: authSrv.checkAuthentication(session & permission)
+        if (authService.isLogged(session)
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
+            log.info("Start Submit Questionario ...");
 
-        User user = (User) session.getAttribute("user");
-        homeStudSrv.elaborazioneQuestionario(user, params);
+            User user = (User) session.getAttribute("user");
+            homeStudSrv.elaborazioneQuestionario(user, params);
 
-        log.info("End Submit Questionario.");
-        return "redirect:/homeStud/";
+            log.info("End Submit Questionario.");
+            return "redirect:/homeStud/";
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            log.warn("Profilo Studente - Sessione Scaduta");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruoloStud) || !authService.hasPermission(session, ruoloGuest)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            log.warn("Profilo Studente - Non Autorizzato");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            log.warn("Profilo Studente - Errore sconosciuto");
+            return "redirect:/";
+        }
     }
 
 }

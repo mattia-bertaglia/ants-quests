@@ -169,5 +169,20 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+function resetFilters() {
+    // Cancella i valori di input
+    document.getElementById("nominativo").value = "";
+    document.getElementById("ruolo").value = "";
+    document.getElementById("corso").value = "";
+
+    // Mostra tutte le righe della tabella
+    var table = document.getElementById("myTable");
+    var tr = table.getElementsByTagName("tr");
+
+    for (var i = 1; i < tr.length; i++) {
+        tr[i].style.display = "";
+    }
+}
+
 
 
