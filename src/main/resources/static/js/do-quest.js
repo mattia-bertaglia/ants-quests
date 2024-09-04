@@ -34,13 +34,6 @@ $(document).ready(function () {
         $('#btn-' + activeIndex).addClass('active');
     });
 
-    $("#concludi-test").on("click", function () {
-
-
-
-
-    });
-
     $('#testForm').on('submit', function (event) {
 
         let countDom = $(this).data('count-dom') + 2;
@@ -69,7 +62,7 @@ $(document).ready(function () {
                 }
 
                 if (!trovato) {
-                    $('#' + idDom).removeClass('btn-outline-primary');
+                    $('#' + idDom).removeClass('btn-vuoto-primary');
                     $('#' + idDom).addClass('btn-danger');
                 }
             });
@@ -96,7 +89,7 @@ $(document).ready(function () {
         $('.legenda-domande').children().each(function () {
             $(this).removeClass('btn-success');
             $(this).removeClass('btn-danger');
-            $(this).addClass('btn-outline-primary');
+            $(this).addClass('btn-vuoto-primary');
         });
         $('.form-check').each(function () {
             $(this).removeClass('active');
@@ -120,7 +113,7 @@ $(document).ready(function () {
 
         $(this).parent().addClass('active');
 
-        $('#btn-' + $(this).prop('name')).removeClass('btn-outline-primary');
+        $('#btn-' + $(this).prop('name')).removeClass('btn-vuoto-primary');
         $('#btn-' + $(this).prop('name')).removeClass('btn-danger');
         $('#btn-' + $(this).prop('name')).addClass('btn-success');
 
