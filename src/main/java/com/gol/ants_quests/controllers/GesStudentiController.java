@@ -35,8 +35,7 @@ public class GesStudentiController {
         model.addAttribute("studenti", studSrv.findAllStudentiDTO());
 
         // Check Autenticazione
-        if (authService.isLogged(session)) {
-
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             return "gesStudentiAdmin.html";
         } else if (!authService.isLogged(session)) {
             // Altrimenti manda alla pagina di login con un messaggio di errore
@@ -62,15 +61,40 @@ public class GesStudentiController {
      */
 
     @PostMapping("/savestud")
-    public String saveStud(@RequestParam HashMap<String, String> params) {
-        studSrv.saveStudenteFixed(params);
-        return "redirect:/ges_studenti/";
+    public String saveStud(@RequestParam HashMap<String, String> params, HttpSession session) {
+
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
+            studSrv.saveStudenteFixed(params);
+            return "redirect:/ges_studenti/";
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/updatestud")
-    public String updateStud(@RequestParam HashMap<String, String> params) {
-        studSrv.updateStudenteFixed(params);
-        return "redirect:/ges_studenti/";
+    public String updateStud(@RequestParam HashMap<String, String> params, HttpSession session) {
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
+            studSrv.updateStudenteFixed(params);
+            return "redirect:/ges_studenti/";
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return "redirect:/";
+        }
     }
 
 }
