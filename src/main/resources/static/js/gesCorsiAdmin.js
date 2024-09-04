@@ -130,7 +130,7 @@ $(document).ready(function () {
                             // Invia la richiesta al backend per aggiungere lo studente
                             $.post("/ges_corsi/aggiungiStudenteAlCorso", { "idCorso": idCorsoADD, "idStudente": idStudenteADD }).done(function (data2) {
                                 if (data2 == "OK") {
-                                    bootbox.alert({
+                                    bootbox.prompt({
                                         title: 'Successo !!',
                                         message: 'Studente aggiunto al Corso !!',
                                         className: 'rubberBand animated',

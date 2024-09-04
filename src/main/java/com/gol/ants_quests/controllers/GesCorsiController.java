@@ -36,7 +36,7 @@ public class GesCorsiController {
         model.addAttribute("corsi", corsoService.findAll());
         if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             return "gesCorsiAdmin.html";
-        } else if (!authService.isLogged(session)) {
+        } else if (!authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             // Altrimenti manda alla pagina di login con un messaggio di errore
             errorService.addErrorMessageToSession(session, "notLogged");
             return "redirect:/";

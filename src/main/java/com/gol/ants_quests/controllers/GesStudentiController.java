@@ -37,7 +37,7 @@ public class GesStudentiController {
         // Check Autenticazione
         if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             return "gesStudentiAdmin.html";
-        } else if (!authService.isLogged(session)) {
+        } else if (!authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             // Altrimenti manda alla pagina di login con un messaggio di errore
             errorService.addErrorMessageToSession(session, "notLogged");
             return "redirect:/";

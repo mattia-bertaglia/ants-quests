@@ -88,11 +88,11 @@ function aggiungiRisposta(elenco, idRisposta) {
     document.getElementById(elenco).insertAdjacentHTML("beforeend", templateRisposta);
 
     var eventoCheckbox = document.querySelector(`#${elenco} [data-id-risp="${idRisposta || `t${contrisp - 1}`}"] .risp_corretta`);
-    eventoCheckbox.addEventListener("change", function() {
+    eventoCheckbox.addEventListener("change", function () {
         if (eventoCheckbox.checked) {
             risposteGiuste++;
             aggiornaPulsanti();
-        }else{
+        } else {
             risposteGiuste--;
             aggiornaPulsanti();
         }
@@ -112,7 +112,7 @@ function eliminaRisposta(button) {
     let isChecked = checkbox.checked;
     listaRispDaEliminare.push(idRisposta);
 
-    if(isChecked){
+    if (isChecked) {
         risposteGiuste--;
         aggiornaPulsanti();
     }
@@ -158,22 +158,22 @@ function addDomanda() {
     let idDomanda = quest.domanda.findIndex(indiceDom => indiceDom.idQstDet === indiceDomandaGlobal);
     quest.domanda[idDomanda].domanda = textareaDomanda;
 
-   /* listaRispDaEliminare.forEach((elemento) => {
-        let index = quest.domanda[idDomanda].risp.find(indice => indice.idAns === elemento);
-
-        let indiceNumerico = quest.domanda[idDomanda].risp.findIndex(indice => indice.idAns === index.idAns)
-        if ((quest.domanda[idDomanda].risp[indiceNumerico].idAns).startsWith("t")) {
-            quest.domanda[idDomanda].risp.splice(indiceNumerico, 1);
-        } else {
-            quest.domanda[idDomanda].risp[indiceNumerico].risposta = null;
-            quest.domanda[idDomanda].risp[indiceNumerico].corretta = null;
-        }
-    });*/
+    /* listaRispDaEliminare.forEach((elemento) => {
+         let index = quest.domanda[idDomanda].risp.find(indice => indice.idAns === elemento);
+ 
+         let indiceNumerico = quest.domanda[idDomanda].risp.findIndex(indice => indice.idAns === index.idAns)
+         if ((quest.domanda[idDomanda].risp[indiceNumerico].idAns).startsWith("t")) {
+             quest.domanda[idDomanda].risp.splice(indiceNumerico, 1);
+         } else {
+             quest.domanda[idDomanda].risp[indiceNumerico].risposta = null;
+             quest.domanda[idDomanda].risp[indiceNumerico].corretta = null;
+         }
+     });*/
 
     for (let i = 0; i < listaRispDaEliminare.length; i++) {
         let elemento = listaRispDaEliminare[i];
         let index = quest.domanda[idDomanda].risp.find(indice => indice.idAns === elemento);
-    
+
         let indiceNumerico = quest.domanda[idDomanda].risp.findIndex(indice => indice.idAns === index.idAns);
         if ((quest.domanda[idDomanda].risp[indiceNumerico].idAns).startsWith("t")) {
             quest.domanda[idDomanda].risp.splice(indiceNumerico, 1);
@@ -182,13 +182,13 @@ function addDomanda() {
             quest.domanda[idDomanda].risp[indiceNumerico].corretta = null;
         }
     }
-  
+
 
     var modaleElement = document.getElementById('modale-aggiungi-domanda');
     var listaRisposte = modaleElement.querySelectorAll(".risposta_inserita");
     var listaRispCorretta = modaleElement.querySelectorAll(".risp_corretta");
 
-    
+
     for (let i = 0; i < listaRisposte.length; i++) {
 
         //ris = new Risposta();
@@ -211,10 +211,10 @@ function addDomanda() {
             <summary>` + textareaDomanda + `</summary>
             <div>
                 <hr>
-                <button class="btn btn-outline-primary" data-bs-toggle="modal"
+                <button class="btn button btn-vuoto-primary btn-same-size" data-bs-toggle="modal"
                     data-bs-target="#modale-modifica-domanda" onclick="popolaModale(this)">Modifica
                 </button>
-                <button class="btn btn-outline-danger" data-bs-toggle="modal"
+                <button class="btn btn-outline-danger btn-same-size" data-bs-toggle="modal"
                     data-bs-target="#modale-elimina-domanda" onclick="trovaDomanda(this)">Elimina
                 </button>
                 <div class="mb-3 mt-3"></div>
@@ -231,14 +231,20 @@ function addDomanda() {
         message: 'Domanda Aggiunta',
         centerVertical: true,
         className: 'rubberBand animated',
-        
+        buttons: {
+            ok: {
+                label: 'OK',
+                className: 'btn button'
+            }
+        },
         callback: function () {
             pulisicModaleAggiungi();
             creaIdDomanda();
         }
     });
+    
 
-    if(quest.domanda.length  > 0){
+    if (quest.domanda.length > 0) {
         document.getElementById("btn_salva_domanda").disabled = false;
     }
 
@@ -277,30 +283,30 @@ function modDomanda() {
 
     let indiceRisposteElemento = 0;
 
-    if(pulisicAttivo){
+    if (pulisicAttivo) {
         quest.domanda[indiceArray].risp.length = 0;
         pulisicAttivo = false;
     }
 
     for (let i = 0; i < quest.domanda[indiceArray].risp.length; i++) {
 
-            if (quest.domanda[indiceArray].risp[i].risposta != null) {
-                if (risposte[indiceRisposteElemento].value != null) {
-                    quest.domanda[indiceArray].risp[i].risposta = risposte[indiceRisposteElemento].value;
+        if (quest.domanda[indiceArray].risp[i].risposta != null) {
+            if (risposte[indiceRisposteElemento].value != null) {
+                quest.domanda[indiceArray].risp[i].risposta = risposte[indiceRisposteElemento].value;
 
-                    if (checkbox[indiceRisposteElemento].checked) {
-                        quest.domanda[indiceArray].risp[i].corretta = 'true';
-
-                    } else {
-                        quest.domanda[indiceArray].risp[i].corretta = 'false';
-                    }
-                    indiceRisposteElemento++;
+                if (checkbox[indiceRisposteElemento].checked) {
+                    quest.domanda[indiceArray].risp[i].corretta = 'true';
 
                 } else {
-                    indiceRisposteElemento = indiceRisposteElemento + i;
+                    quest.domanda[indiceArray].risp[i].corretta = 'false';
                 }
+                indiceRisposteElemento++;
 
+            } else {
+                indiceRisposteElemento = indiceRisposteElemento + i;
             }
+
+        }
     }
 
     olElement.innerHTML = "";
@@ -324,6 +330,7 @@ function modDomanda() {
         message: 'Domanda Modificata',
         centerVertical: true,
         className: 'rubberBand animated'
+        
     });
 
 }
@@ -367,12 +374,18 @@ $(document).ready(function () {
                     message: 'Questionario salvato con successo !!',
                     centerVertical: true,
                     className: 'rubberBand animated',
+                    buttons: {
+                        ok: {
+                            label: 'OK',
+                            className: 'btn button'
+                        }
+                    }
                 });
                 quest.idQst = id_nuovo_quest;
                 quest.attivo = true;
                 $("#quest-attivo").html('Stato: <strong>Attivo</strong>');
                 $("#btn_aggiungi_domanda").prop("disabled", false);
-               // $("#btn_salva_domanda").prop("disabled", false);
+                // $("#btn_salva_domanda").prop("disabled", false);
             } else {
                 bootbox.alert({
                     title: 'OPS !!',
@@ -407,13 +420,18 @@ $(document).ready(function () {
                     message: 'Elenco Domande aggiornato !!<br> Si consiglia di ricaricare la pagina Confermando il prossimo popup',
                     centerVertical: true,
                     className: 'rubberBand animated',
+                    buttons: {
+                        ok: {
+                            label: 'OK',
+                            className: 'btn button'
+                        }
+                    },
                     callback: function () {
-                        if(quest.titolo == ""){
+                        if (quest.titolo == "") {
                             window.location.href = '/quest/lista';
-                        }else{
+                        } else {
                             location.reload();
                         }
-                        /* $.post("/quest/gestione", { "id_quest": quest.idQst }); */
                     }
                 });
             } else {
@@ -435,10 +453,10 @@ $(document).ready(function () {
             }
         });
     }
-    
+
 });
 
-function aggiornaPulsanti(){
+function aggiornaPulsanti() {
     aggiornaPulsante("#domanda_inserita", "#btn_add_domanda");
     aggiornaPulsante("#domanda_inserita_modifica", "#btn_mod_domanda");
 }
@@ -453,7 +471,7 @@ function controlloInput(inputDomanda, bottone) {
     });
 }
 
-function aggiornaPulsante(inputDomanda, bottone){
+function aggiornaPulsante(inputDomanda, bottone) {
     const pulsante = $(bottone);
     if ($(inputDomanda).val().trim() !== "" && rispostePerDomanda >= 2 && risposteGiuste > 0) {
         pulsante.prop("disabled", false);
@@ -462,7 +480,7 @@ function aggiornaPulsante(inputDomanda, bottone){
     }
 }
 
-function incrementaRisposte(incremento){
+function incrementaRisposte(incremento) {
     rispostePerDomanda += incremento;
     aggiornaPulsante("#domanda_inserita", "#btn_add_domanda");
     aggiornaPulsante("#domanda_inserita_modifica", "#btn_mod_domanda");
@@ -499,15 +517,15 @@ function pulisicModaleAggiungi() {
     document.getElementById('domanda_inserita').value = '';
     $("#btn_add_domanda").prop("disabled", true);
 
-    let elencoRisp = document.getElementById('nuovo-elenco-risposte');    
+    let elencoRisp = document.getElementById('nuovo-elenco-risposte');
     let elementi = elencoRisp.querySelectorAll('[data-id-risp]');
 
-    for(let i=0;i<elementi.length;i++){
+    for (let i = 0; i < elementi.length; i++) {
         let idRisposta = elementi[i].getAttribute('data-id-risp');
         listaRispDaEliminare.push(idRisposta);
     }
 
-    elencoRisp.innerHTML = "";    
+    elencoRisp.innerHTML = "";
 
 }
 
@@ -523,7 +541,7 @@ function pulisicDomandeModifica() {
     document.getElementById('elenco-risposte').innerHTML = "";
 }
 
-function disabilitaBottoneModifica(){
+function disabilitaBottoneModifica() {
     pulisicAttivo = true;
     $("#btn_mod_domanda").prop("disabled", true);
 }
@@ -535,7 +553,7 @@ window.onload = function verificaCampiInit() {
         document.getElementById("btn_salva_test").disabled = false;
         document.getElementById("btn_attiva_test").disabled = false;
 
-        if(quest.domanda.length > 0){
+        if (quest.domanda.length > 0) {
             document.getElementById("btn_salva_domanda").disabled = false;
         }
     }

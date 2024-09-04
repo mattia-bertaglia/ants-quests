@@ -44,6 +44,15 @@ body {
     color: var(--text-color);
 }
 
+.btn-success {
+    background-color: var(btn-modal-footer);
+    background-color: var(btn-modal-footer);
+
+}
+
+button.btn.btn-primary.bootbox-accept {
+    background-color: var(btn-modal-footer)
+}
 
 .radio-color {
     accent-color: var(--accent-color);
