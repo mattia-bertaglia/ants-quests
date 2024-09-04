@@ -40,7 +40,7 @@ public class HomeStudentiController {
         log.info("Start Open Home Page Studente ...");
 
         if (authService.isLogged(session)
-                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloStud))) {
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
             User user = (User) session.getAttribute("user");
             homeStudSrv.openHomeStud(model, user.getStudente().getIdStudente());
             log.info("End Open Home Page Studente.");
@@ -66,7 +66,7 @@ public class HomeStudentiController {
         // DONE: authSrv.checkAuthentication(session & permission)
         log.info("Open Pagina Profilo Studente.");
         if (authService.isLogged(session)
-                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloStud))) {
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
             return "profiloStud.html";
         } else if (!authService.isLogged(session)) {
             // Altrimenti manda alla pagina di login con un messaggio di errore
@@ -90,7 +90,7 @@ public class HomeStudentiController {
     public String modificaProfilo(HttpSession session, @RequestParam HashMap<String, String> params, Model model) {
         // DONE: authSrv.checkAuthentication(session & permission)
         if (authService.isLogged(session)
-                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloStud))) {
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
             homeStudSrv.modificaProfilo(session, params, model);
             // Controlla se ci sono errori
             if (model.containsAttribute("errorMessage")) {
@@ -120,7 +120,7 @@ public class HomeStudentiController {
     public String doQuestionario(HttpSession session, Model model, @RequestParam("quest-select") Long selectedValue) {
         // DONE: authSrv.checkAuthentication(session & permission)
         if (authService.isLogged(session)
-                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloStud))) {
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
             log.info("Start Questionario=" + selectedValue + " ...");
 
             homeStudSrv.doQuestionario(model, selectedValue);
@@ -148,7 +148,7 @@ public class HomeStudentiController {
     public String submitQuest(HttpSession session, @RequestParam HashMap<String, String> params) {
         // DONE: authSrv.checkAuthentication(session & permission)
         if (authService.isLogged(session)
-                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloStud))) {
+                && (authService.hasPermission(session, ruoloStud) || authService.hasPermission(session, ruoloGuest))) {
             log.info("Start Submit Questionario ...");
 
             User user = (User) session.getAttribute("user");
