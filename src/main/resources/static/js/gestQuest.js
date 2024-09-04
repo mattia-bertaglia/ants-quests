@@ -211,10 +211,10 @@ function addDomanda() {
             <summary>` + textareaDomanda + `</summary>
             <div>
                 <hr>
-                <button class="btn btn-outline-primary" data-bs-toggle="modal"
+                <button class="btn button btn-vuoto-primary btn-same-size" data-bs-toggle="modal"
                     data-bs-target="#modale-modifica-domanda" onclick="popolaModale(this)">Modifica
                 </button>
-                <button class="btn btn-outline-danger" data-bs-toggle="modal"
+                <button class="btn btn-outline-danger btn-same-size" data-bs-toggle="modal"
                     data-bs-target="#modale-elimina-domanda" onclick="trovaDomanda(this)">Elimina
                 </button>
                 <div class="mb-3 mt-3"></div>
