@@ -34,7 +34,7 @@ public class GesCorsiController {
     @GetMapping("/")
     public String findAll(HttpSession session, Model model) {
         model.addAttribute("corsi", corsoService.findAll());
-        if (authService.isLogged(session)) {
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             return "gesCorsiAdmin.html";
         } else if (!authService.isLogged(session)) {
             // Altrimenti manda alla pagina di login con un messaggio di errore
@@ -50,27 +50,77 @@ public class GesCorsiController {
     }
 
     @PostMapping("/savecorso")
-    public String saveCorso(@RequestParam HashMap<String, String> params) {
-        corsoService.saveCorso(params);
-        return "redirect:/ges_corsi/";
+    public String saveCorso(@RequestParam HashMap<String, String> params, HttpSession session) {
+
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
+            corsoService.saveCorso(params);
+            return "redirect:/ges_corsi/";
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/eliminaStudenteDalCorso")
     @ResponseBody
-    public String eliminaStudenteDalCorso(@RequestParam HashMap<String, String> params) {
-        return corsoService.eliminaStudenteDalCorso(params);
+    public String eliminaStudenteDalCorso(@RequestParam HashMap<String, String> params, HttpSession session) {
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
+            return corsoService.eliminaStudenteDalCorso(params);
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return "redirect:/";
+        }
     }
 
     @PostMapping("/find-studs")
     @ResponseBody
-    public List<Studente> cercaStudenti(@RequestParam HashMap<String, String> params) {
-        return corsoService.cercaStudenti(params);
+    public List<Studente> cercaStudenti(@RequestParam HashMap<String, String> params, HttpSession session) {
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
+            return corsoService.cercaStudenti(params);
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return null;
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return null;
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return null;
+        }
+
     }
 
     @PostMapping("/aggiungiStudenteAlCorso")
     @ResponseBody
-    public String aggiungiStudenteAlCorso(@RequestParam HashMap<String, String> params) {
-        return corsoService.aggiungiStudenteAlCorso(params);
+    public String aggiungiStudenteAlCorso(@RequestParam HashMap<String, String> params, HttpSession session) {
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
+            return corsoService.aggiungiStudenteAlCorso(params);
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return "redirect:/";
+        }
     }
 
 }
