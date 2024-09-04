@@ -96,6 +96,10 @@
                                             </option>
                                         </select>
                                     </div>
+                                    <div class="col-md-12 d-flex justify-content-center mt-3">
+                                        <button type="button" class="btn btn-secondary" onclick="resetFilters()">Rimuovi
+                                            filtri</button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -282,15 +286,28 @@
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label>CAP</label>
-                                <input type="text" class="form-control" name="cap" id="mod-cap">
+                                <input type="text" class="form-control" name="cap" id="mod-cap"
+                                    placeholder="Inserisci il CAP" pattern="[0-9]{5}">
+                                <i id="error-cap-ft" class="error-cap d-none text-danger">Inserire un CAP valido di 5
+                                    cifre</i>
+                                <i id="correct-cap-ft" class="correct-cap d-none text-success">Accettabile</i>
                             </div>
                             <div class="col-md-4">
                                 <label>Provincia</label>
                                 <input type="text" class="form-control" name="provincia" id="mod-provincia">
+                                <i id="error-provincia-ft" class="error-provincia d-none text-danger">Inserisci la sigla
+                                    di
+                                    una provincia (es. Roma = RO)</i>
+                                <i id="correct-provincia-ft"
+                                    class="correct-provincia d-none text-success">Accettabile</i>
                             </div>
                             <div class="col-md-4">
                                 <label>Telefono</label>
-                                <input type="text" class="form-control" name="telefono" id="mod-telefono">
+                                <input type="text" class="form-control" name="telefono" id="mod-telefono"
+                                    placeholder="Inserisci il numero di telefono" pattern="[0-9]{10}">
+                                <i id="error-phone-ft" class="error-phone d-none text-danger">Inserisci un numero di
+                                    telefono valido</i>
+                                <i id="correct-phone-ft" class="correct-phone d-none text-success">Accettabile</i>
                             </div>
                         </div>
                         <div class="form-group">
@@ -377,6 +394,8 @@
 
     <script src="/js/gesStudentiAdmin.js"></script>
     <script src="/js/admin.js"></script>
+    <script src="/js/checkInput.js"></script>
+
 </body>
 
 </html>
