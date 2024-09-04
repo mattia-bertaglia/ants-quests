@@ -25,8 +25,8 @@ public class AdminController {
 
     @GetMapping("/")
     public String homeAdmin(HttpSession session, Model model) {
-        // Check Autenticazione
-        if (authService.isLogged(session)) {
+        // DONE - Check Autenticazione
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             adminSrv.openHomeAdmin(session, model);
             return "homeAdmin.html";
         } else if (!authService.isLogged(session)) {
