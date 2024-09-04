@@ -55,7 +55,7 @@ public class PdfService {
             PdfPTable intestazione = new PdfPTable(2);
             PdfPCell cell;
 
-            Image image = Image.getInstance(new ClassPathResource("antlogo.png").getURL());
+            Image image = Image.getInstance(new ClassPathResource("/static/img/antlogo.png").getURL());
             image.scaleToFit(150, 100);
             cell = new PdfPCell(image);
             cell.setBorder(PdfPCell.NO_BORDER);
