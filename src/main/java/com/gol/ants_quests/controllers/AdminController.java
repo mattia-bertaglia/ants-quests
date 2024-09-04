@@ -27,7 +27,7 @@ public class AdminController {
     public String homeAdmin(HttpSession session, Model model) {
         // Check Autenticazione
         if (authService.isLogged(session)) {
-            adminSrv.openHomeAdmin(model);
+            adminSrv.openHomeAdmin(session, model);
             return "homeAdmin.html";
         } else if (!authService.isLogged(session)) {
             // Altrimenti manda alla pagina di login con un messaggio di errore

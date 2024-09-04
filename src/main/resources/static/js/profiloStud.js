@@ -1,3 +1,9 @@
+const form = document.getElementById('profilo-form');
+
+document.getElementById('btn-close-mod').addEventListener('click', function () {
+    form.reset();
+
+});
 
 $(document).ready(function () {
 
