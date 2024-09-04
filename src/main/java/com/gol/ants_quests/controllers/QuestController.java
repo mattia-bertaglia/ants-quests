@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gol.ants_quests.business.AuthService;
+import com.gol.ants_quests.business.ErrorService;
 import com.gol.ants_quests.business.GestQuestService;
 import com.gol.ants_quests.hibernate.entities.Quest;
+import com.gol.ants_quests.util.Ruolo;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -25,16 +27,25 @@ public class QuestController {
 
     private final GestQuestService gestSrv;
     private final AuthService authService;
+    private final ErrorService errorService;
+    private final Ruolo ruolo = Ruolo.admin;
 
     // done
     @GetMapping("/esiti")
-    public String esiti(HttpSession session,@RequestParam HashMap<String, String> params, Model model) {
-        
-        //if(authService.isLogged(session)){
-        if(true){
+    public String esiti(HttpSession session, @RequestParam HashMap<String, String> params, Model model) {
+
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             gestSrv.openEsiti(model);
             return "esitiQuestionari.html";
-        }else{
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
             return "redirect:/";
         }
 
@@ -42,40 +53,66 @@ public class QuestController {
 
     // done
     @GetMapping("/lista")
-    public String lista(HttpSession session,Model model) {
-
-        //if(authService.isLogged(session)){
-        if(true){
+    public String lista(HttpSession session, Model model) {
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             gestSrv.openLista(model);
             return "listaQuestionari.html";
-        }else{
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
             return "redirect:/";
         }
+
     }
 
     @PostMapping("/gestione")
-    public String gestioneQuest(HttpSession session,@RequestParam("id_quest") String idQuest, Model model) {
+    public String gestioneQuest(HttpSession session, @RequestParam("id_quest") String idQuest, Model model) {
 
-        //if(authService.isLogged(session)){
-        if(true){
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
             gestSrv.openGestione(idQuest, model);
             return "gestioneQuestionario.html";
-        }else{
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
             return "redirect:/";
         }
     }
 
     @GetMapping("/gestione")
-    public String gestioneQuest(){
+    public String gestioneQuest() {
         return "redirect:/";
     }
 
     @PostMapping("/gestionedomande")
     @ResponseBody
-    public String gestioneDomande(@RequestBody Quest jsonQuest) {
-        return gestSrv.gestioneDomande(jsonQuest);
-    }
+    public String gestioneDomande(@RequestBody Quest jsonQuest, HttpSession session) {
 
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
+            return gestSrv.gestioneDomande(jsonQuest);
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return "redirect:/";
+        }
+    }
 
     @GetMapping("/gestionedomande")
     public String gestioneDomande() {
@@ -84,19 +121,45 @@ public class QuestController {
 
     @PostMapping("/savetest")
     @ResponseBody
-    public String saveTest(@RequestParam HashMap<String, String> params) {
-        return gestSrv.saveTest(params);
+    public String saveTest(@RequestParam HashMap<String, String> params, HttpSession session) {
+
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
+            return gestSrv.saveTest(params);
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/savetest")
-    public String saveTest(){
+    public String saveTest() {
         return "redirect:/";
     }
 
     @PostMapping("/attivo")
-    public String attivaDisattivaQuest(@RequestParam("idquest") Long idQuest) {
-        gestSrv.attivaDisattivaQuest(idQuest);
-        return "redirect:/quest/lista";
+    public String attivaDisattivaQuest(@RequestParam("idquest") Long idQuest, HttpSession session) {
+
+        if (authService.isLogged(session) && authService.hasPermission(session, ruolo)) {
+            gestSrv.attivaDisattivaQuest(idQuest);
+            return "redirect:/quest/lista";
+        } else if (!authService.isLogged(session)) {
+            // Altrimenti manda alla pagina di login con un messaggio di errore
+            errorService.addErrorMessageToSession(session, "notLogged");
+            return "redirect:/";
+        } else if (!authService.hasPermission(session, ruolo)) {
+            errorService.addErrorMessageToSession(session, "noPermission");
+            return "redirect:/";
+        } else {
+            errorService.addErrorMessageToSession(session, "unknownError");
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/attivo")
