@@ -93,8 +93,8 @@
                                 <td th:text="${record.tempo}"></td>
                                 <td th:text="${record.dataEsecuzione}"></td>
                                 <td>
-                                    <button class="rounded-corners view-pdf-btn" data-toggle="modal"
-                                        data-target="#pdfModal"
+                                    <button class="rounded-corners view-pdf-btn" data-bs-toggle="modal"
+                                        data-bs-target="#pdfModal"
                                         th:data-pdf-url="|/pdf/open?pathFile=${record.pathPdf}|">PDF</button>
                                 </td>
                             </tr>
