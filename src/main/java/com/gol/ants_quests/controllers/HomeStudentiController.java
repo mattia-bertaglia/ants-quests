@@ -130,15 +130,15 @@ public class HomeStudentiController {
         } else if (!authService.isLogged(session)) {
             // Altrimenti manda alla pagina di login con un messaggio di errore
             errorService.addErrorMessageToSession(session, "notLogged");
-            log.warn("Profilo Studente - Sessione Scaduta");
+            log.warn("Questionario - Sessione Scaduta");
             return "redirect:/";
         } else if (!authService.hasPermission(session, ruoloStud) || !authService.hasPermission(session, ruoloGuest)) {
             errorService.addErrorMessageToSession(session, "noPermission");
-            log.warn("Profilo Studente - Non Autorizzato");
+            log.warn("Questionario - Non Autorizzato");
             return "redirect:/";
         } else {
             errorService.addErrorMessageToSession(session, "unknownError");
-            log.warn("Profilo Studente - Errore sconosciuto");
+            log.warn("Questionario - Errore sconosciuto");
             return "redirect:/";
         }
 
@@ -159,15 +159,15 @@ public class HomeStudentiController {
         } else if (!authService.isLogged(session)) {
             // Altrimenti manda alla pagina di login con un messaggio di errore
             errorService.addErrorMessageToSession(session, "notLogged");
-            log.warn("Profilo Studente - Sessione Scaduta");
+            log.warn("Profilo Questionario - Sessione Scaduta");
             return "redirect:/";
         } else if (!authService.hasPermission(session, ruoloStud) || !authService.hasPermission(session, ruoloGuest)) {
             errorService.addErrorMessageToSession(session, "noPermission");
-            log.warn("Profilo Studente - Non Autorizzato");
+            log.warn("Profilo Questionario - Non Autorizzato");
             return "redirect:/";
         } else {
             errorService.addErrorMessageToSession(session, "unknownError");
-            log.warn("Profilo Studente - Errore sconosciuto");
+            log.warn("Profilo Questionario - Errore sconosciuto");
             return "redirect:/";
         }
     }

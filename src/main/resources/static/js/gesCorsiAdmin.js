@@ -104,6 +104,7 @@ $(document).ready(function () {
                     size: 'large',
                     title: 'Seleziona o Conferma lo Studente:',
                     inputType: 'radio',
+
                     inputOptions: promptText,
                     buttons: {
                         confirm: {
@@ -111,6 +112,7 @@ $(document).ready(function () {
                             className: 'btn-success'
                         }
                     },
+
                     callback: function (result) {
 
                         if (result != null) {
@@ -274,6 +276,21 @@ function filterTable() {
         } else {
             tr[i].style.display = "none";
         }
+    }
+}
+
+function resetFilters() {
+    // Cancella i valori di input
+    document.getElementById("myInput").value = "";
+    document.getElementById("inizio").value = "";
+    document.getElementById("fine").value = "";
+
+    // Mostra tutte le righe della tabella
+    var table = document.getElementById("myTable");
+    var tr = table.getElementsByTagName("tr");
+
+    for (var i = 1; i < tr.length; i++) {
+        tr[i].style.display = "";
     }
 }
 
