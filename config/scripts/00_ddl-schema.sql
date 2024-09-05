@@ -32,7 +32,7 @@ insert into antsquests.quests_categories values ('C', 'Corso');
 create table antsquests.quests (
     id_qst bigint primary key auto_increment,
     categoria_id varchar(1) not null,
-    titolo varchar(50) not null,
+    titolo varchar(5000) not null,
     attivo tinyint not null default true,
     foreign key (categoria_id) references antsquests.quests_categories (id_cat)
 );
@@ -40,14 +40,14 @@ create table antsquests.quests (
 create table antsquests.quests_details (
     id_qst_det bigint primary key auto_increment,
     quest_id bigint not null,
-    domanda varchar(100) not null,
+    domanda varchar(5000) not null,
     foreign key (quest_id) references antsquests.quests (id_qst) on delete cascade
 );
 
 create table antsquests.answers_qsts (
     id_ans bigint primary key auto_increment,
     quest_detail_id bigint not null,
-    risposta varchar(100) not null,
+    risposta varchar(5000) not null,
     corretta tinyint not null default false,
     foreign key (quest_detail_id) references antsquests.quests_details (id_qst_det) on delete cascade
 );
