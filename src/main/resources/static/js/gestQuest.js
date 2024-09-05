@@ -401,7 +401,13 @@ $(document).ready(function () {
                     title: 'OPS !!',
                     message: 'Qualcosa è andato storto !!',
                     centerVertical: true,
-                    className: 'shake animated'
+                    className: 'shake animated',
+                    buttons: {
+                        ok: {
+                            label: 'OK',
+                            className: 'btn button'
+                        }
+                    }
                 });
             }
         });
