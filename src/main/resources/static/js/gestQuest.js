@@ -392,6 +392,7 @@ $(document).ready(function () {
                             label: 'OK',
                             className: 'btn button'
                         }
+                    }
                 });
             }
         }).fail(function (errore) {
