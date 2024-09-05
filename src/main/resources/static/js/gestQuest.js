@@ -240,7 +240,6 @@ function addDomanda() {
 
 }
 
-
 let domandaDaModificare = null;
 
 function trovaDomandaDaModificare(elemento) {
@@ -329,7 +328,6 @@ function modDomanda() {
     });
 
 }
-
 
 $(document).ready(function () {
 
@@ -446,7 +444,13 @@ $(document).ready(function () {
                     title: 'OPS !!',
                     message: 'Qualcosa è andato storto, salvataggio non avvenuto',
                     centerVertical: true,
-                    className: 'shake animated'
+                    className: 'shake animated',
+                    buttons: {
+                        ok: {
+                            label: 'OK',
+                            className: 'btn button'
+                        }
+                    }
                 });
             }
         }).fail(function (errore) {
@@ -455,25 +459,19 @@ $(document).ready(function () {
                     title: 'OPS !!',
                     message: 'Qualcosa è andato storto',
                     centerVertical: true,
-                    className: 'shake animated'
+                    className: 'shake animated',
+                    buttons: {
+                        ok: {
+                            label: 'OK',
+                            className: 'btn button'
+                        }
+                    }
                 });
             }
         });
     }
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 function aggiornaPulsanti() {
     aggiornaPulsante("#domanda_inserita", "#btn_add_domanda");
