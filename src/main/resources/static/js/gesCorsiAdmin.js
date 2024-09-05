@@ -253,25 +253,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /*  filtri ricerca */
 function filterTable() {
+    // Ottieni i valori dei filtri
     var nomeInput = document.getElementById("myInput").value.toUpperCase();
     var inizioInput = document.getElementById("inizio").value;
     var fineInput = document.getElementById("fine").value;
     var table = document.getElementById("myTable");
     var tr = table.getElementsByTagName("tr");
 
+    // Converti le date di inizio e fine in oggetti Date per confronti facili
+    var startDate = inizioInput ? new Date(inizioInput) : null;
+    var endDate = fineInput ? new Date(fineInput) : null;
+
     for (var i = 1; i < tr.length; i++) {
         var nomeTd = tr[i].getElementsByTagName("td")[0];
-        var inizioTd = tr[i].getElementsByTagName("td")[1];
-        var fineTd = tr[i].getElementsByTagName("td")[2];
+        var inizioTd = tr[i].getElementsByTagName("td")[1]; // Data di inizio nella seconda colonna
+        var fineTd = tr[i].getElementsByTagName("td")[2];   // Data di fine nella terza colonna
+
         var nomeValue = nomeTd ? nomeTd.textContent || nomeTd.innerText : "";
         var inizioValue = inizioTd ? inizioTd.textContent || inizioTd.innerText : "";
         var fineValue = fineTd ? fineTd.textContent || fineTd.innerText : "";
 
-        var nomeMatch = nomeValue.toUpperCase().indexOf(nomeInput) > -1;
-        var inizioMatch = !inizioInput || inizioValue >= inizioInput;
-        var fineMatch = !fineInput || fineValue <= fineInput;
+        // Converti le date della tabella in oggetti Date per confronti facili
+        var rowInizioDate = new Date(inizioValue);
+        var rowFineDate = new Date(fineValue);
 
-        if (nomeMatch && inizioMatch && fineMatch) {
+        // Verifica se il nome corrisponde al filtro
+        var nomeMatch = nomeValue.toUpperCase().indexOf(nomeInput) > -1;
+
+        // Verifica se le date sono nel range specificato
+        var dateMatch = true;
+        if (startDate && endDate) {
+            dateMatch = rowInizioDate >= startDate && rowFineDate <= endDate;
+        } else if (startDate) {
+            dateMatch = rowInizioDate >= startDate;
+        } else if (endDate) {
+            dateMatch = rowFineDate <= endDate;
+        }
+
+        // Mostra o nascondi la riga in base ai risultati dei filtri
+        if (nomeMatch && dateMatch) {
             tr[i].style.display = "";
         } else {
             tr[i].style.display = "none";
