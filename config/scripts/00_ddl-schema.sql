@@ -32,7 +32,7 @@ insert into antsquests.quests_categories values ('C', 'Corso');
 create table antsquests.quests (
     id_qst bigint primary key auto_increment,
     categoria_id varchar(1) not null,
-    titolo varchar(5000) not null,
+    titolo varchar(50) not null,
     attivo tinyint not null default true,
     foreign key (categoria_id) references antsquests.quests_categories (id_cat)
 );
