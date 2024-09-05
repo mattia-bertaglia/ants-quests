@@ -31,11 +31,18 @@ function popolaModale(elemento) {
     trovaDomandaDaModificare(interoElemento);
     let idDomanda = interoElemento.getAttribute('id');
     let indiceArray = quest.domanda.findIndex(domanda => domanda.idQstDet === idDomanda);
+
     document.getElementById('domanda_inserita_modifica').value = quest.domanda[indiceArray].domanda;
     let risposte;
     let checkbox;
     let corretta;
     indiceDomandaGlobal = quest.domanda[indiceArray].idQstDet;
+
+    for (let i = 0; i < quest.domanda[indiceArray].risp.length; i++) {
+        if(quest.domanda[indiceArray].risp[i].risposta == ""){
+            quest.domanda[indiceArray].risp.splice(i, 1);
+        }
+    }
 
     for (let i = 0; i < quest.domanda[indiceArray].risp.length; i++) {
         if (quest.domanda[indiceArray].risp[i].risposta != null) {
@@ -51,11 +58,13 @@ function popolaModale(elemento) {
             }
         }
     }
+    aggiornaPulsanti();
 }
 
 let contrisp = 0;
 function aggiungiRisposta(elenco, idRisposta) {
     incrementaRisposte(1);
+
     let tmpIdRisp;
 
     if (idRisposta) {
@@ -64,6 +73,7 @@ function aggiungiRisposta(elenco, idRisposta) {
         let ris = new Risposta();
         ris.idAns = "t" + contrisp;
         let indiceArray = quest.domanda.findIndex(domanda => domanda.idQstDet === indiceDomandaGlobal);
+
         quest.domanda[indiceArray].risp.push(ris);
         tmpIdRisp = `data-id-risp="t${contrisp++}"`;
     }
@@ -100,6 +110,7 @@ function aggiungiRisposta(elenco, idRisposta) {
         }
 
     });
+    aggiornaPulsanti();
 
 
 }
@@ -116,9 +127,9 @@ function eliminaRisposta(button) {
 
     if (isChecked) {
         risposteGiuste--;
-        aggiornaPulsanti();
     }
     row.parentNode.removeChild(row);
+    aggiornaPulsanti();
 
 }
 
@@ -294,7 +305,6 @@ function modDomanda() {
             } else {
                 indiceRisposteElemento = indiceRisposteElemento + i;
             }
-
         }
     }
 
