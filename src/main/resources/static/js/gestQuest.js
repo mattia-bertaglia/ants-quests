@@ -11,6 +11,8 @@ function firstDomanda() {
     pulisicModale();
     if (contDom == 0) {
         creaIdDomanda();
+    } else {
+        indiceDomandaGlobal = quest.domanda[quest.domanda.length - 1].idQstDet;
     }
 }
 function creaIdDomanda() {
@@ -147,9 +149,9 @@ function eliminaDomanda() {
 
 function addDomanda() {
 
-    const modaleAggiungi = document.getElementById('modale-aggiungi-domanda');
+    /* const modaleAggiungi = document.getElementById('modale-aggiungi-domanda');
     const modale = bootstrap.Modal.getInstance(modaleAggiungi);
-    modale.hide();
+    modale.hide(); */
     const textareaDomanda = document.getElementById('domanda_inserita').value;
     const lista = document.getElementById('elenco-domande');
 
@@ -230,7 +232,7 @@ function addDomanda() {
             creaIdDomanda();
         }
     });
-    
+
 
     if (quest.domanda.length > 0) {
         document.getElementById("btn_salva_domanda").disabled = false;
@@ -323,7 +325,7 @@ function modDomanda() {
                 label: 'OK',
                 className: 'btn button'
             }
-        }    
+        }
     });
 
 }
@@ -514,11 +516,11 @@ function pulisicModale() {
 
 }
 
-function pulisicModaleAggiungi(){
+function pulisicModaleAggiungi() {
     let elencoRisp = document.getElementById('nuovo-elenco-risposte');
     let elementi = elencoRisp.querySelectorAll('[data-id-risp]');
 
-    
+
     for (let i = 0; i < elementi.length; i++) {
         let idRisposta = elementi[i].getAttribute('data-id-risp');
         listaRispDaEliminare.push(idRisposta);

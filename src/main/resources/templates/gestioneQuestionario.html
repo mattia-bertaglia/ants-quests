@@ -126,8 +126,8 @@
                                         <summary th:id="${domanda.idQstDet}" th:text="${domanda.domanda}"></summary>
                                         <div>
                                             <hr>
-                                            <button class="btn button btn-vuoto-primary btn-same-size" data-bs-toggle="modal"
-                                                data-bs-target="#modale-modifica-domanda"
+                                            <button class="btn button btn-vuoto-primary btn-same-size"
+                                                data-bs-toggle="modal" data-bs-target="#modale-modifica-domanda"
                                                 onclick="popolaModale(this)">Modifica
                                             </button>
                                             <button class="btn btn-outline-danger btn-same-size" data-bs-toggle="modal"
@@ -222,7 +222,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="input-group input-group-sm mb-1 ">
-                                <label class="input-group-text col-5  w-100 d-flex align-items-center" for="domanda_inserita">
+                                <label class="input-group-text col-5  w-100 d-flex align-items-center"
+                                    for="domanda_inserita">
                                     <h5>Domanda</h5>
 
                                 </label>
@@ -288,10 +289,6 @@
                                 <button type="button" class="btn button" id="btn_mod_domanda"
                                     onclick="modDomanda()">Modifica
                                 </button>
-                            </div>
-                            <div class="d-grid gap-2 col-10 mt-2 mx-auto">
-                                <button type="button"  class="btn btn-secondary"
-                                    onclick="pulisicDomandeModifica(),disabilitaBottoneModifica()">Pulisci</button>
                             </div>
                         </div>
                     </div>
