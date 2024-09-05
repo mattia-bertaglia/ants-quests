@@ -75,7 +75,19 @@
                                     <input id="titolo" name="titolo" type="text" th:value="${quest.titolo}"
                                         style="padding: 10px;">
                                 </div>
+                                <br>
+                                <div class="col-md-4">
+                                    <label for="dom_generate">Domande da generare</label>
+                                    <select name="dom_generate" style="padding: 10px;">
+                                        <option default>10</option>
+                                        <option>20</option>
+                                        <option>30</option>
+                                        <option>40</option>
+                                        <option>50</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-3">
+                                    <br>
                                     <h4 id="quest-attivo">
                                         Stato: <strong th:text="${quest.attivo ? 'Attivo' : 'Non Attivo'}"></strong>
                                     </h4>
