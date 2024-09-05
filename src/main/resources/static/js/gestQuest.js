@@ -72,7 +72,7 @@ function aggiungiRisposta(elenco, idRisposta) {
         `<div class="row d-flex align-items-center" ${tmpIdRisp}>
                         <div class="col-md-6 d-flex align-items-center">
                             <div class="input-group input-group-sm mb-1">
-                                <input type="text" class="form-control col-6 risposta_inserita" name="risposta">
+                                <input type="text" class="form-control col-6 risposta_inserita" name="risposta" oninput="aggiornaPulsanti()">
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -386,7 +386,12 @@ $(document).ready(function () {
                     title: 'OPS !!',
                     message: 'Qualcosa è andato storto, Questionario non salvato !!',
                     centerVertical: true,
-                    className: 'shake animated'
+                    className: 'shake animated',
+                    buttons: {
+                        ok: {
+                            label: 'OK',
+                            className: 'btn button'
+                        }
                 });
             }
         }).fail(function (errore) {
@@ -451,6 +456,18 @@ $(document).ready(function () {
 
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
 function aggiornaPulsanti() {
     aggiornaPulsante("#domanda_inserita", "#btn_add_domanda");
     aggiornaPulsante("#domanda_inserita_modifica", "#btn_mod_domanda");
@@ -468,7 +485,17 @@ function controlloInput(inputDomanda, bottone) {
 
 function aggiornaPulsante(inputDomanda, bottone) {
     const pulsante = $(bottone);
-    if ($(inputDomanda).val().trim() !== "" && rispostePerDomanda >= 2 && risposteGiuste > 0) {
+    const risposte = $('.risposta_inserita');
+    let risposteVuote = true;
+
+    risposte.each(function() {
+        if ($(this).val().trim() === "") {
+            risposteVuote = false;
+        }
+    });
+
+
+    if ($(inputDomanda).val().trim() !== "" && rispostePerDomanda >= 2 && risposteGiuste > 0 && risposteVuote) {
         pulsante.prop("disabled", false);
     } else {
         pulsante.prop("disabled", true);
