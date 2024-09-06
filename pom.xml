@@ -97,6 +97,14 @@
 			<artifactId>itextpdf</artifactId>
 			<version>5.5.13.4</version>
 		</dependency>
+<!-- per cv -->
+		<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.4</version>  <!-- Aggiungi una versione corretta -->
+</dependency>
+
+
 
 
 

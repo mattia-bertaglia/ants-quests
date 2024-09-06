@@ -49,6 +49,9 @@ public class Studente extends GenericEntity {
 
     private Date dataInserimento;
 
+    @Column(name = "cv_path", nullable = false)
+    private String cvPath;
+
     @ManyToOne
     @JoinColumn(name = "corso_id")
     private OnlyCorso corso;
