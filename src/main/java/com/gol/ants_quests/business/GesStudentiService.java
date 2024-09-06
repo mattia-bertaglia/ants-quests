@@ -83,16 +83,10 @@ public class GesStudentiService {
         user.setFirstTime(true);
         User salvatoUser = usersSrv.save(user);
 
-        Studente studenteTemp = new Studente(null,
-                salvatoUser,
-                params.get("nome"),
-                params.get("cognome"),
-                null,
-                null,
-                null,
-                null,
-                null,
-                Date.valueOf(LocalDate.now()),
+        Studente studenteTemp = new Studente(null, salvatoUser,
+                null, null, null,
+                null, null, null, null,
+                null, null,
                 null, null);
 
         salvatoUser.setStudente(studHibSrv.save(studenteTemp));
@@ -142,6 +136,9 @@ public class GesStudentiService {
                 }
                 if (params.containsKey("note")) {
                     stud.setNote(params.get("note"));
+                }
+                if (params.containsKey("cvPath")) {
+                    stud.setCvPath(params.get("cvPath"));
                 }
                 if (params.containsKey("corsofrequentato") && !params.get("corsofrequentato").isEmpty()) {
                     stud.setCorso(
