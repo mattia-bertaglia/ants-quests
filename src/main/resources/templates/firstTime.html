@@ -21,7 +21,7 @@
                 <div img class=" logo logo-log-sign"></div>
                 <h2 class="registration-title">Completa Registrazione</h2>
                 <div class="login-form">
-                    <form action="/auth/registrazione" method="post">
+                    <form action="/auth/registrazione" method="post" enctype="multipart/form-data">
                         <div class="row-group">
                             <div class="group">
                                 <label for="nome" class="label_etichetta_ft">Nome</label>
@@ -127,6 +127,13 @@
                                     corrispondono</i>
                             </div>
                         </div>
+
+                        <!-- aggiunto per cv -->
+                        <div class="group">
+                            <label for="cv" class="label_etichetta_ft">Carica il tuo CV</label>
+                            <input id="cv" type="file" class="input" name="cv" accept=".pdf,.doc,.docx" required>
+                        </div>
+
 
                         <div class="group">
                             <input type="submit" class="button " value="Registrati">

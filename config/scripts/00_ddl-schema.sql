@@ -6,6 +6,7 @@ create table antsquests.users (
     passkey varchar(255) not null,
     ruolo enum('guest', 'studente', 'admin') default 'guest',
     first_time boolean default true
+    cv_path VARCHAR(255) DEFAULT 'nessun_cv';
 );
 -- passkey: admin123
 insert into
