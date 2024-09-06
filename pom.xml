@@ -104,7 +104,12 @@
     <version>1.4</version>  <!-- Aggiungi una versione corretta -->
 </dependency>
 
-
+<!-- per verifica a due fattori e recupera password -->
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>jakarta.mail</artifactId>
+    <version>2.0.1</version>
+</dependency>
 
 
 
